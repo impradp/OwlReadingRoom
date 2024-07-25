@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OwlReadingRoom.Views.NewEntryView">
+    <ContentView.Resources>
+        <Style x:Key="EntryInfoStyle"
+               TargetType="Entry">
+            <Setter Property="TextColor"
+                    Value="#07003B" />
+        </Style>
+    </ContentView.Resources>
+    <ScrollView>
+        <VerticalStackLayout Padding="24"
+                             Spacing="20">
+            <VerticalStackLayout Spacing="10">
+                <Label Text="New Entry"
+                       FontSize="20"
+                       TextColor="#0D1B2A"
+                       FontFamily="Inter" />
+                <Label Text="Enter correct data from verified document."
+                       FontSize="16"
+                       TextColor="#415A77"
+                       FontFamily="Inter" />
+            </VerticalStackLayout>
+
+            <BoxView HeightRequest="1"
+                     Color="#D9D9D9" />
+
+            <VerticalStackLayout Spacing="20">
+                <!-- Personal Information Section -->
+                <Label Text="Personal Information"
+                       FontSize="20"
+                       TextColor="#3B82F6"
+                       FontFamily="Inter" />
+                <Grid ColumnDefinitions="*, *, *"
+                      ColumnSpacing="15">
+                    <VerticalStackLayout Spacing="4"
+                                         Grid.Column="0">
+                        <Label Text="Full Name"
+                               TextColor="#1E293B"
+                               FontSize="16"
+                               FontFamily="Inter"
+                               HeightRequest="24" />
+
+                        <Frame BackgroundColor="White"
+                               Padding="12,0"
+                               HeightRequest="48"
+                               CornerRadius="4"
+                               BorderColor="#CBD5E1"
+                               HasShadow="False">
+                            <Entry Placeholder="Full name"
+                                   PlaceholderColor="#647087"
+                                   Style="{StaticResource EntryInfoStyle}"
+                                   FontSize="16"
+                                   FontFamily="Inter"
+                                   VerticalOptions="Center" />
+                        </Frame>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Grid.Column="1"
+                                         Spacing="4">
+                        <Label Text="Date of Birth"
+                               TextColor="#1E293B"
+                               FontSize="16"
+                               FontFamily="Inter"
+                               HeightRequest="24" />
+                        <Frame BackgroundColor="White"
+                               Padding="12,0"
+                               HeightRequest="48"
+                               CornerRadius="4"
+                               BorderColor="#CBD5E1"
+                               HasShadow="False">
+                            <DatePicker Format="MM/dd/yyyy"
+                                        TextColor="Black" />
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Column="2"
+                                         Spacing="4">
+                        <VerticalStackLayout Grid.Column="2"
+                                             Spacing="4">
+                            <Label Text="Gender"
+                                   TextColor="#1E293B"
+                                   FontSize="16"
+                                   FontFamily="Inter"
+                                   HeightRequest="24" />
+                            <Frame BackgroundColor="White"
+                                   Padding="0"
+                                   HeightRequest="48"
+                                   CornerRadius="4"
+                                   BorderColor="#CBD5E1"
+                                   HasShadow="False">
+                                <Picker TitleColor="#647087"
+                                        TextColor="#07003B"
+                                        FontSize="16"
+                                        FontFamily="Inter"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="FillAndExpand">
+                                    <Picker.Items>
+                                        <x:String>Male</x:String>
+                                        <x:String>Female</x:String>
+                                        <x:String>Other</x:String>
+                                    </Picker.Items>
+                                </Picker>
+                            </Frame>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Grid>
+                <Grid ColumnDefinitions="*, *, *"
+                      ColumnSpacing="15">
+                    <VerticalStackLayout Grid.Column="0"
+                                         Spacing="4">
+                        <Label Text="Mobile Number"
+                               TextColor="#1E293B"
+                               FontSize="16"
+                               FontFamily="Inter"
+                               HeightRequest="24" />
+                        <Frame BackgroundColor="White"
+                               Padding="12,0"
+                               HeightRequest="48"
+                               CornerRadius="4"
+                               BorderColor="#CBD5E1"
+                               HasShadow="False">
+                            <Entry Placeholder="+977-"
+                                   Style="{StaticResource EntryInfoStyle}"
+                                   PlaceholderColor="#647087" />
+                        </Frame>
+                    </VerticalStackLayout>
+                </Grid>
+
+                <!-- Permanent Address Information Section -->
+                <Label Text="Permanent Address Information"
+                       FontSize="20"
+                       TextColor="#3B82F6"
+                       FontFamily="Inter" />
+
+                <Grid ColumnDefinitions="*, *, *"
+                      ColumnSpacing="15"
+                      RowDefinitions="Auto, Auto"
+                      RowSpacing="15">
+                    <VerticalStackLayout Grid.Row="0"
+                                         Grid.Column="0"
+                                         Spacing="4">
+                        <Label Text="Province"
+                               TextColor="#1E293B"
+                               FontSize="16"
+                               FontFamily="Inter"
+                               HeightRequest="24" />
+                        <Frame BackgroundColor="White"
+                               Padding="12,0"
+                               HeightRequest="48"
+                               CornerRadius="4"
+                               BorderColor="#CBD5E1"
+                               HasShadow="False">
+                            <Picker Style="{StaticResource EntryInfoStyle}">
+                                <Picker.Items>
+                                    <x:String>Arun Pradesh</x:String>
+                                    <x:String>Janakpur Pradesh</x:String>
+                                    <x:String>Kathmandu Pradesh</x:String>
+                                    <x:String>Gandaki Pradesh</x:String>
+                                    <x:String>Kapilvastu Pradesh</x:String>
+                                    <x:String>Karnali Pradesh</x:String>
+                                    <x:String>Mahakali Pradesh</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Row="0"
+                                         Grid.Column="1"
+                                         Spacing="4">
+                        <Label Text="Zone"
+                               TextColor="#1E293B"
+                               FontSize="16"
+                               FontFamily="Inter"
+                               HeightRequest="24" />
+                        <Frame BackgroundColor="White"
+                               Padding="12,0"
+                               HeightRequest="48"
+                               CornerRadius="4"
+                               BorderColor="#CBD5E1"
+                               HasShadow="False">
+                            <Entry Placeholder="Enter zone"
+                                   Style="{StaticResource EntryInfoStyle}"
+                                   PlaceholderColor="#647087" />
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Row="0"
+                                         Grid.Column="2"
+                                         Spacing="4">
+                        <Label Text="Metropolitan City"
+                               TextColor="#1E293B"
+                               FontSize="16"
+                               FontFamily="Inter"
+                               HeightRequest="24" />
+                        <Frame BackgroundColor="White"
+                               Padding="12,0"
+                               HeightRequest="48"
+                               CornerRadius="4"
+                               BorderColor="#CBD5E1"
+                               HasShadow="False">
+                            <Entry Placeholder="Enter metropolitan city"
+                                   Style="{StaticResource EntryInfoStyle}"
+                                   PlaceholderColor="#647087" />
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Row="1"
+                                         Grid.Column="0"
+                                         Spacing="4">
+                        <Label Text="City"
+                               TextColor="#1E293B"
+                               FontSize="16"
+                               FontFamily="Inter"
+                               HeightRequest="24" />
+                        <Frame BackgroundColor="White"
+                               Padding="12,0"
+                               HeightRequest="48"
+                               CornerRadius="4"
+                               BorderColor="#CBD5E1"
+                               HasShadow="False">
+                            <Entry Placeholder="Enter city"
+                                   Style="{StaticResource EntryInfoStyle}"
+                                   PlaceholderColor="#647087" />
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Row="1"
+                                         Grid.Column="1"
+                                         Spacing="4">
+                        <Label Text="Ward No."
+                               TextColor="#1E293B"
+                               FontSize="16"
+                               FontFamily="Inter"
+                               HeightRequest="24" />
+                        <Frame BackgroundColor="White"
+                               Padding="12,0"
+                               HeightRequest="48"
+                               CornerRadius="4"
+                               BorderColor="#CBD5E1"
+                               HasShadow="False">
+                            <Entry Placeholder="Enter ward no."
+                                   Style="{StaticResource EntryInfoStyle}"
+                                   PlaceholderColor="#647087" />
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Row="1"
+                                         Grid.Column="2"
+                                         Spacing="4">
+                        <Label Text="Tole"
+                               TextColor="#1E293B"
+                               FontSize="16"
+                               FontFamily="Inter"
+                               HeightRequest="24" />
+                        <Frame BackgroundColor="White"
+                               Padding="12,0"
+                               HeightRequest="48"
+                               CornerRadius="4"
+                               BorderColor="#CBD5E1"
+                               HasShadow="False">
+                            <Entry Placeholder="Enter tole"
+                                   Style="{StaticResource EntryInfoStyle}"
+                                   PlaceholderColor="#647087" />
+                        </Frame>
+                    </VerticalStackLayout>
+                </Grid>
+
+                <!-- Temporary Address Information Section -->
+                <Label Text="Temporary Address Information"
+                       FontSize="20"
+                       TextColor="#3B82F6"
+                       FontFamily="Inter" />
+
+                <StackLayout Orientation="Horizontal">
+                    <CheckBox />
+                    <Label Text="Same as permanent address"
+                           VerticalOptions="Center"
+                           TextColor="#647087" />
+                </StackLayout>
+
+                <Grid ColumnDefinitions="*, *, *"
+                      ColumnSpacing="15"
+                      RowDefinitions="Auto, Auto"
+                      RowSpacing="15">
+                    <VerticalStackLayout Grid.Row="0"
+                                         Grid.Column="0"
+                                         Spacing="4">
+                        <Label Text="Province"
+                               TextColor="#1E293B"
+                               FontSize="16"
+                               FontFamily="Inter"
+                               HeightRequest="24" />
+                        <Frame BackgroundColor="White"
+                               Padding="12,0"
+                               HeightRequest="48"
+                               CornerRadius="4"
+                               BorderColor="#CBD5E1"
+                               HasShadow="False">
+                            <Picker Style="{StaticResource EntryInfoStyle}">
+                                <Picker.Items>
+                                    <x:String>Arun Pradesh</x:String>
+                                    <x:String>Janakpur Pradesh</x:String>
+                                    <x:String>Kathmandu Pradesh</x:String>
+                                    <x:String>Gandaki Pradesh</x:String>
+                                    <x:String>Kapilvastu Pradesh</x:String>
+                                    <x:String>Karnali Pradesh</x:String>
+                                    <x:String>Mahakali Pradesh</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Row="0"
+                                         Grid.Column="1"
+                                         Spacing="4">
+                        <Label Text="Zone"
+                               TextColor="#1E293B"
+                               FontSize="16"
+                               FontFamily="Inter"
+                               HeightRequest="24" />
+                        <Frame BackgroundColor="White"
+                               Padding="12,0"
+                               HeightRequest="48"
+                               CornerRadius="4"
+                               BorderColor="#CBD5E1"
+                               HasShadow="False">
+                            <Entry Placeholder="Enter zone"
+                                   Style="{StaticResource EntryInfoStyle}"
+                                   PlaceholderColor="#647087" />
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Row="0"
+                                         Grid.Column="2"
+                                         Spacing="4">
+                        <Label Text="Metropolitan City"
+                               TextColor="#1E293B"
+                               FontSize="16"
+                               FontFamily="Inter"
+                               HeightRequest="24" />
+                        <Frame BackgroundColor="White"
+                               Padding="12,0"
+                               HeightRequest="48"
+                               CornerRadius="4"
+                               BorderColor="#CBD5E1"
+                               HasShadow="False">
+                            <Entry Placeholder="Enter metropolitan city"
+                                   Style="{StaticResource EntryInfoStyle}"
+                                   PlaceholderColor="#647087" />
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Row="1"
+                                         Grid.Column="0"
+                                         Spacing="4">
+                        <Label Text="City"
+                               TextColor="#1E293B"
+                               FontSize="16"
+                               FontFamily="Inter"
+                               HeightRequest="24" />
+                        <Frame BackgroundColor="White"
+                               Padding="12,0"
+                               HeightRequest="48"
+                               CornerRadius="4"
+                               BorderColor="#CBD5E1"
+                               HasShadow="False">
+                            <Entry Placeholder="Enter city"
+                                   Style="{StaticResource EntryInfoStyle}"
+                                   PlaceholderColor="#647087" />
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Row="1"
+                                         Grid.Column="1"
+                                         Spacing="4">
+                        <Label Text="Ward No."
+                               TextColor="#1E293B"
+                               FontSize="16"
+                               FontFamily="Inter"
+                               HeightRequest="24" />
+                        <Frame BackgroundColor="White"
+                               Padding="12,0"
+                               HeightRequest="48"
+                               CornerRadius="4"
+                               BorderColor="#CBD5E1"
+                               HasShadow="False">
+                            <Entry Placeholder="Enter ward no."
+                                   Style="{StaticResource EntryInfoStyle}"
+                                   PlaceholderColor="#647087" />
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Row="1"
+                                         Grid.Column="2"
+                                         Spacing="4">
+                        <Label Text="Tole"
+                               TextColor="#1E293B"
+                               FontSize="16"
+                               FontFamily="Inter"
+                               HeightRequest="24" />
+                        <Frame BackgroundColor="White"
+                               Padding="12,0"
+                               HeightRequest="48"
+                               CornerRadius="4"
+                               BorderColor="#CBD5E1"
+                               HasShadow="False">
+                            <Entry Placeholder="Enter tole"
+                                   Style="{StaticResource EntryInfoStyle}"
+                                   PlaceholderColor="#647087" />
+                        </Frame>
+                    </VerticalStackLayout>
+                </Grid>
+
+                <!-- Repeat the same structure as Permanent Address for Temporary Address -->
+
+                <!-- Buttons -->
+                <Grid ColumnDefinitions="*, *"
+                      ColumnSpacing="10">
+                    <Button Grid.Column="0"
+                            Text="Clear"
+                            TextColor="#415A77"
+                            BackgroundColor="Transparent"
+                            BorderColor="#E2E8F0"
+                            BorderWidth="1" />
+                    <Button Grid.Column="1"
+                            Text="Save"
+                            TextColor="White"
+                            BackgroundColor="#778DA9" />
+                </Grid>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentView>
+    
