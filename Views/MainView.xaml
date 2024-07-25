@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:local="clr-namespace:OwlReadingRoom"
-             x:Class="OwlReadingRoom.MainPage"
+             x:Class="OwlReadingRoom.MainView"
              BackgroundColor="#EFF6FF">
     <ContentPage.Resources>
         <Style x:Key="MenuLabelStyle"
@@ -177,7 +177,7 @@
                              HorizontalOptions="FillAndExpand">
                     <!-- Greeting and Subtitle -->
                     <StackLayout VerticalOptions="Center">
-                        <Label Text="Good Morning, Franklin !"
+                        <Label Text="{Binding GetLoggedInUser.GreetingInfo}"
                                FontFamily="Inter"
                                FontSize="24"
                                TextColor="#0D1B2A" />
@@ -209,16 +209,16 @@
                                    CornerRadius="20"
                                    Padding="0"
                                    IsClippedToBounds="True">
-                                <Image Source="profile_picture_icon.png"
+                                <Image Source="{Binding GetLoggedInUser.Picture}"
                                        Aspect="AspectFill" />
                             </Frame>
                             <StackLayout Spacing="4"
                                          VerticalOptions="Center">
-                                <Label Text="Franklin Jr."
+                                <Label Text="{Binding GetLoggedInUser.Name}"
                                        FontFamily="Inter"
                                        FontSize="14"
                                        TextColor="#415A77" />
-                                <Label Text="Super Admin"
+                                <Label Text="{Binding GetLoggedInUser.Role}"
                                        FontFamily="Inter"
                                        FontSize="12"
                                        TextColor="#778BA9" />

@@ -16,6 +16,10 @@ namespace OwlReadingRoom.WinUI
         /// </summary>
         public App()
         {
+            Boolean redirectionActivationEnabled = Auth0.OidcClient.Platforms.Windows.Activator.Default.CheckRedirectionActivation();
+            if (redirectionActivationEnabled)
+                return;
+
             this.InitializeComponent();
         }
 
