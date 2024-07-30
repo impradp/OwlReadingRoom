@@ -53,7 +53,7 @@ namespace OwlReadingRoom
 
         public static MauiAppBuilder RegisterServices(this MauiAppBuilder builder)
         {
-            var databaseConnectionService = new DatabaseConnectionService();
+            DatabaseConnectionService databaseConnectionService = new DatabaseConnectionService();
 
             builder.Services.AddSingleton<IDatabaseConnectionService>(databaseConnectionService);
             builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
