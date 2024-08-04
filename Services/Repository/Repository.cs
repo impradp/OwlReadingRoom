@@ -49,16 +49,24 @@ namespace OwlReadingRoom.Services.Repository
         public async Task<T> GetItemAsync(int id)
         {
             await connectionService.Init<T>();
-            return await connectionService.Connection.Table<T>().Where(model => model.ID == id).FirstOrDefaultAsync();
+            return await connectionService.Connection.Table<T>().Where(model => model.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task<int> SaveItemAsync(T item)
         {
+            DateTime now = DateTime.UtcNow;
             await connectionService.Init<T>();
-            if (item.ID != 0)
+            if (item.Id != 0)
+            {
+                item.UpdatedAt = now;
                 return await connectionService.Connection.UpdateAsync(item);
+            }
             else
+            {
+                item.CreatedAt = now;
+                item.UpdatedAt = now;
                 return await connectionService.Connection.InsertAsync(item);
+            }             
         }
 
         public async Task<int> DeleteItemAsync(T item)
