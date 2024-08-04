@@ -1,6 +1,10 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using OwlReadingRoom.Model;
+using OwlReadingRoom.Services.Database;
+using OwlReadingRoom.Services.Repository;
 using System.Reflection;
 
 namespace OwlReadingRoom
@@ -13,6 +17,7 @@ namespace OwlReadingRoom
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+                .RegisterServices()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -44,6 +49,18 @@ namespace OwlReadingRoom
 #endif
 
             return builder.Build();
+        }
+
+        public static MauiAppBuilder RegisterServices(this MauiAppBuilder builder)
+        {
+            DatabaseConnectionService databaseConnectionService = new DatabaseConnectionService();
+
+            builder.Services.AddSingleton<IDatabaseConnectionService>(databaseConnectionService);
+            builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+
+            // More services registered here.
+
+            return builder;
         }
     }
 }
