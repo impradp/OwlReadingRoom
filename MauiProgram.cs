@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using OwlReadingRoom.Model;
 using OwlReadingRoom.Services.Database;
 using OwlReadingRoom.Services.Repository;
 using System.Reflection;

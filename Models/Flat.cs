@@ -5,12 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OwlReadingRoom.Model
+namespace OwlReadingRoom.Models
 {
-    public class BaseModel
+    public class Flat : BaseModel
     {
-
-        [PrimaryKey, AutoIncrement]
-        public int ID { get; set; }
+        [Column("name")]
+        public string Name { get; set; }
     }
 }

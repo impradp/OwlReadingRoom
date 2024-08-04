@@ -1,4 +1,4 @@
-﻿using OwlReadingRoom.Model;
+﻿using OwlReadingRoom.Models;
 using OwlReadingRoom.Services.Constants;
 using SQLite;
 using System;
