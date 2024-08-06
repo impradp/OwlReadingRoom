@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OwlReadingRoom.Model
+namespace OwlReadingRoom.Models
 {
     public class BookingInfo : BaseModel
     {

@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OwlReadingRoom.Model
+namespace OwlReadingRoom.Models
 {
     public class PaymentStatus : BaseModel
     {
         [Column("status")]
         public string Status { get; set; }
-    }    
+    }
 }

@@ -6,19 +6,19 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OwlReadingRoom.Model
+namespace OwlReadingRoom.Models
 {
     public class Document : BaseModel
     {
         [Column("document_number")]
-        public string DocumentNumber {  get; set; }
+        public string DocumentNumber { get; set; }
 
         [Column("issued_date")]
         public DateTime IssueDate { get; set; }
 
         [Column("document_type")]
         public DocumentType DocumentType { get; set; }
-        
+
         [Column("location")]
         public string Location { get; set; }
 
