@@ -1,4 +1,5 @@
 ﻿using Auth0.OidcClient;
+using CommunityToolkit.Maui.Views;
 using IdentityModel.OidcClient;
 using IdentityModel.OidcClient.Browser;
 using Microsoft.Extensions.Configuration;
@@ -71,7 +72,8 @@ namespace OwlReadingRoom
 
         private void OnNewEntryButtonClicked(object sender, EventArgs e)
         {
-            DynamicContentArea.Content = new NewEntryView();
+            //DynamicContentArea.Content = new NewEntryView();
+            this.ShowPopup(new NewCustomer());
         }
 
         private void OnCustomerMenuClicked(object sender, EventArgs e)

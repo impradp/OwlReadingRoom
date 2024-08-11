@@ -21,6 +21,13 @@ namespace OwlReadingRoom.WinUI
                 return;
 
             this.InitializeComponent();
+
+            Microsoft.Maui.Handlers.WindowHandler.Mapper.AppendToMapping(nameof(IWindow), (handler, view) =>
+            {
+                var nativeWindow = handler.PlatformView;
+                nativeWindow.ExtendsContentIntoTitleBar = true;
+                nativeWindow.SetTitleBar(null);
+            });
         }
 
         protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
