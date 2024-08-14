@@ -20,8 +20,10 @@ namespace OwlReadingRoom
                 .RegisterServices()
                 .ConfigureFonts(fonts =>
                 {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("Inter-Regular.ttf", "Inter");
+                    fonts.AddFont("Inter-Bold.ttf", "Inter-Bold");
+                    fonts.AddFont("Inter-Medium.ttf", "Inter-Medium");
+                    fonts.AddFont("Inter-SemiBold.ttf", "Inter-SemiBold");
                 });
 
             Assembly assembly = Assembly.GetExecutingAssembly();
@@ -56,8 +58,6 @@ namespace OwlReadingRoom
 
             builder.Services.AddSingleton<IDatabaseConnectionService>(databaseConnectionService);
             builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
-
-            // More services registered here.
 
             return builder;
         }

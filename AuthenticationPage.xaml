@@ -26,7 +26,7 @@
                     <StackLayout Spacing="10">
                         <Label Text="Join Us!"
                                FontSize="30"
-                               FontAttributes="Bold"
+                               FontFamily="Inter-Bold"
                                HorizontalOptions="Center" TextColor="#000000"/>
                         <Label Text="To begin this journey, tell us what type of account you'd be using."
                                FontSize="18"
@@ -51,7 +51,7 @@
                                          Spacing="5">
                                 <Label Text="Admin"
                                        FontSize="16"
-                                       FontAttributes="Bold"
+                                       FontFamily="Inter-Bold"
                                        TextColor="#000000" />
                                 <Label Text="Personal account to manage all you activities."
                                        FontSize="14"

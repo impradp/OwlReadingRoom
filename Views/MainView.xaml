@@ -30,17 +30,24 @@
                      Padding="16,24,16,24"
                      BackgroundColor="White">
             <!-- Logo and Title -->
-            <StackLayout Orientation="Horizontal"
-                         Spacing="10">
-                <Image Source="owl_logo.png"
-                       WidthRequest="52"
-                       HeightRequest="50" />
-                <Label Text="OWL READING ROOM"
-                       FontFamily="Inika"
-                       FontSize="14"
-                       VerticalOptions="Center"
-                       TextColor="#0D1B2A" />
-            </StackLayout>
+            <Frame Padding="0" BorderColor="Transparent"
+                   BackgroundColor="Transparent">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnHomeSelected" />
+                </Frame.GestureRecognizers>
+
+                <StackLayout Orientation="Horizontal"
+                             Spacing="10">
+                    <Image Source="owl_logo.png"
+                           WidthRequest="52"
+                           HeightRequest="50" />
+                    <Label Text="OWL READING ROOM"
+                           FontFamily="Inika"
+                           FontSize="14"
+                           VerticalOptions="Center"
+                           TextColor="#0D1B2A" />
+                </StackLayout>
+            </Frame>
 
             <!-- New Entry Button -->
             <Button Text="New Entry"
