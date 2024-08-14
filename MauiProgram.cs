@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OwlReadingRoom.Services.Database;
 using OwlReadingRoom.Services.Repository;
+using OwlReadingRoom.Utils;
 using System.Reflection;
 
 namespace OwlReadingRoom
@@ -36,8 +37,7 @@ namespace OwlReadingRoom
                 }
                 else
                 {
-                    // TODO: Handle the case where the stream is null
-                    Console.WriteLine("Warning: appsettings.json not found or could not be loaded.");
+                    CustomAlert.ShowAlert("Warning", "Appsettings.json not found or could not be loaded.", "OK");
                 }
             }
 
