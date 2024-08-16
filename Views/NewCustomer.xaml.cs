@@ -4,16 +4,22 @@ using Microsoft.Maui.Storage;
 using System.Windows.Input;
 using System.Net;
 using OwlReadingRoom.Utils;
+using OwlReadingRoom.Models;
+using OwlReadingRoom.Services.Database;
+using OwlReadingRoom.Services.Repository;
 
 namespace OwlReadingRoom.Views;
 
 public partial class NewCustomer : Popup
 {
-    public ICommand UploadCommand { get; private set; }
 
-    public NewCustomer()
+    public ICommand UploadCommand { get; private set; }
+    private IRepository<PersonalDetail> _personalDetailService;
+
+    public NewCustomer(IRepository<PersonalDetail> personalDetailService)
     {
         InitializeComponent();
+        _personalDetailService = personalDetailService;
         UploadCommand = new Command(async () => await ExecuteUploadCommand());
         BindingContext = this;
     }
@@ -95,7 +101,9 @@ public partial class NewCustomer : Popup
                 File.Copy(sourceFilePath, destinationFilePath, true);
 
                 //TODO: Create customer object
-                //TODO: Save customer details
+                PersonalDetail personalDetail = new PersonalDetail();
+                personalDetail.FullName = FullNameEntry.Text;
+                int personalDetailId = await _personalDetailService.SaveItemAsync(personalDetail);
 
                 await CloseAsync();
 

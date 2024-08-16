@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using OwlReadingRoom.Services.Database;
 using OwlReadingRoom.Services.Repository;
 using OwlReadingRoom.Utils;
+using OwlReadingRoom.Views;
 using System.Reflection;
 
 namespace OwlReadingRoom
@@ -52,12 +53,19 @@ namespace OwlReadingRoom
 
         public static MauiAppBuilder RegisterServices(this MauiAppBuilder builder)
         {
-            DatabaseConnectionService databaseConnectionService = new DatabaseConnectionService();
-
-            builder.Services.AddSingleton<IDatabaseConnectionService>(databaseConnectionService);
+            builder.Services.AddSingleton<IDatabaseConnectionService,DatabaseConnectionService>();
             builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
 
             // More services registered here.
+            builder.Services.AddTransient<NewCustomer>();
+            builder.Services.AddTransient<MainView>();
+            builder.Services.AddTransient<AuthenticationPage>();
+
+            builder.Services.AddSingleton(sp =>
+            {
+                var config = sp.GetRequiredService<IConfiguration>();
+                return Auth0Handler.GetAuth0Client(config);
+            });
 
             return builder;
         }

@@ -12,21 +12,21 @@ namespace OwlReadingRoom
 {
     public partial class MainView : ContentPage, INotifyPropertyChanged
     {
-        private string _selectedMenu="";
+        private string _selectedMenu = "";
 
-        private readonly LoginResult _loginResult;
+        private LoginResult _loginResult;
 
         private readonly Auth0Client _auth0Client;
 
-        private readonly IConfiguration _configuration;
+        private readonly IServiceProvider _serviceProvider;
 
-        public MainView(LoginResult loginResult, Auth0Client auth0Client, IConfiguration configuration)
+        public MainView(LoginResult loginResult, Auth0Client auth0Client, IServiceProvider serviceProvider)
         {
             InitializeComponent();
             _loginResult = loginResult;
-            BindingContext = this;
             _auth0Client = auth0Client;
-            _configuration = configuration;
+            _serviceProvider = serviceProvider;
+            BindingContext = this;
         }
 
 
@@ -43,7 +43,7 @@ namespace OwlReadingRoom
                 user.Role = authUser.FindFirst(c => c.Type == "roles")?.Value
                     ?? authUser.FindFirst(c => c.Type == "role")?.Value
                     ?? "Guest";
-                string GivenName = authUser.FindFirst(c => c.Type == "given_name")?.Value; 
+                string GivenName = authUser.FindFirst(c => c.Type == "given_name")?.Value;
                 user.GreetingInfo = $"Good {timeOfDay}, {GivenName}!";
                 return user;
             }
@@ -73,7 +73,8 @@ namespace OwlReadingRoom
         private void OnNewEntryButtonClicked(object sender, EventArgs e)
         {
             //DynamicContentArea.Content = new NewEntryView();
-            this.ShowPopup(new NewCustomer());
+            var newCustomer = _serviceProvider.GetRequiredService<NewCustomer>();
+            this.ShowPopup(newCustomer);
         }
 
         private void OnCustomerMenuClicked(object sender, EventArgs e)
@@ -104,7 +105,7 @@ namespace OwlReadingRoom
             {
                 // throw new Exception();
             }
-            var resultPage = new AuthenticationPage(_configuration);
+            var resultPage = new AuthenticationPage(_auth0Client, _serviceProvider);
 
             // Navigate to the result page
             await Navigation.PushAsync(resultPage);
