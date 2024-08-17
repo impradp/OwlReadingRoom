@@ -1,20 +1,16 @@
 ﻿using OwlReadingRoom.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OwlReadingRoom.Services.Repository
 {
     public interface IRepository<T> where T : BaseModel, new()
     {
-        Task<int> DeleteItemAsync(T item);
-        Task<List<T>> Get<TValue>(Expression<Func<T, bool>> predicate = null, Expression<Func<T, TValue>> orderBy = null);
-        Task<T> GetItemAsync(int id);
-        Task<List<T>> GetItemsAsync();
-        Task<T> GetItemsAsync(Expression<Func<T, bool>> predicate);
-        Task<int> SaveItemAsync(T item);
+        int DeleteItem(T item);
+        List<T> Get<TValue>(Expression<Func<T, bool>> predicate = null, Expression<Func<T, TValue>> orderBy = null);
+        T GetItem(int id);
+        List<T> GetItems();
+        T GetItems(Expression<Func<T, bool>> predicate);
+        int SaveItem(T item);
+        int InsertAll(IEnumerable<T> objects);
     }
 }

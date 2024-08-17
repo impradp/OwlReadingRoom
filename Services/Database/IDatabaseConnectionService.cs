@@ -1,16 +1,13 @@
 ﻿using OwlReadingRoom.Models;
 using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OwlReadingRoom.Services.Database
 {
     public interface IDatabaseConnectionService
     {
-        SQLiteAsyncConnection Connection { get; }
-        Task Init<T>() where T : BaseModel, new();
+        SQLiteConnection Connection { get; }
+        void Init<T>() where T : BaseModel, new();
+
+        void CloseConnection();
     }
 }

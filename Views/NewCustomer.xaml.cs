@@ -4,18 +4,30 @@ using Microsoft.Maui.Storage;
 using System.Windows.Input;
 using System.Net;
 using OwlReadingRoom.Utils;
+using OwlReadingRoom.Services;
+using OwlReadingRoom.Models;
 
 namespace OwlReadingRoom.Views;
 
 public partial class NewCustomer : Popup
 {
-    public ICommand UploadCommand { get; private set; }
+    public ICommand UploadCommand { get;  set; }
+    private readonly IPackageService packageService;
+    public List<PackageType> PackageTypes { get; set; }
+    public PackageType SelectedPackage { get; set; }
 
-    public NewCustomer()
+    public NewCustomer(IPackageService packageService)
     {
         InitializeComponent();
+        this.packageService = packageService;
+        LoadPackageTypes();
         UploadCommand = new Command(async () => await ExecuteUploadCommand());
         BindingContext = this;
+    }
+
+    private void LoadPackageTypes()
+    {
+        PackageTypes = packageService.GetPackages();
     }
 
     private async Task ExecuteUploadCommand()

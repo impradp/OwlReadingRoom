@@ -2,7 +2,6 @@
 using CommunityToolkit.Maui.Views;
 using IdentityModel.OidcClient;
 using IdentityModel.OidcClient.Browser;
-using Microsoft.Extensions.Configuration;
 using OwlReadingRoom.Models;
 using OwlReadingRoom.Views;
 using System.ComponentModel;
@@ -14,22 +13,21 @@ namespace OwlReadingRoom
     {
         private string _selectedMenu = "";
 
-        private readonly LoginResult _loginResult;
+        private LoginResult _loginResult;
 
         private readonly Auth0Client _auth0Client;
 
-        private readonly IConfiguration _configuration;
+        private readonly IServiceProvider _serviceProvider;
 
-        public MainView(LoginResult loginResult, Auth0Client auth0Client, IConfiguration configuration)
+        public MainView(LoginResult loginResult, Auth0Client auth0Client, IServiceProvider serviceProvider)
         {
             InitializeComponent();
             _loginResult = loginResult;
-            BindingContext = this;
             _auth0Client = auth0Client;
-            _configuration = configuration;
             DynamicContentArea.Content = new CustomerListView();
+            _serviceProvider = serviceProvider;
+            BindingContext = this;
         }
-
 
         public User GetLoggedInUser
         {
@@ -73,7 +71,8 @@ namespace OwlReadingRoom
 
         private void OnNewEntryButtonClicked(object sender, EventArgs e)
         {
-            this.ShowPopup(new NewCustomer());
+            var newCustomerPage = _serviceProvider.GetService<NewCustomer>();
+            this.ShowPopup(newCustomerPage);
         }
 
         private void OnCustomerMenuClicked(object sender, EventArgs e)
@@ -104,7 +103,7 @@ namespace OwlReadingRoom
             {
                 // throw new Exception();
             }
-            var resultPage = new AuthenticationPage(_configuration);
+            var resultPage = _serviceProvider.GetService<AuthenticationPage>();
 
             // Navigate to the result page
             await Navigation.PushAsync(resultPage);
