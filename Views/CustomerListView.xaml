@@ -1,0 +1,59 @@
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OwlReadingRoom.Views.CustomerListView">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="64" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Frame Grid.Row="0"
+               BackgroundColor="White"
+               Padding="0"
+               BorderColor="Transparent"
+               HasShadow="False">
+            <HorizontalStackLayout>
+                <StackLayout x:Name="ActiveTab"
+                             BackgroundColor="White">
+                    <Label x:Name="ActiveTabLabel"
+                           Text="Active Customers"
+                           TextColor="#3B82F6"
+                           FontFamily="Inter-SemiBold"
+                           VerticalOptions="Center" />
+                    <BoxView x:Name="ActiveTabIndicator"
+                             Color="#3B82F6"
+                             Margin="0,10,0,0"
+                             WidthRequest="130"
+                             HeightRequest="2"
+                             VerticalOptions="End" />
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnActiveTabTapped" />
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+
+                <StackLayout x:Name="InactiveTab"
+                             Padding="0,0"
+                             BackgroundColor="White">
+                    <Label x:Name="InactiveTabLabel"
+                           Text="Inactive Customers"
+                           TextColor="#64748B"
+                           FontFamily="Inter-SemiBold"
+                           VerticalOptions="Center" />
+                    <BoxView x:Name="InactiveTabIndicator"
+                             Color="#E2E8F0"
+                             WidthRequest="140"
+                             Margin="0,10,0,0"
+                             HeightRequest="2"
+                             VerticalOptions="End" />
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnInactiveTabTapped" />
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+            </HorizontalStackLayout>
+        </Frame>
+
+        <!-- Content area for the selected tab -->
+        <ContentView Grid.Row="1"
+                     x:Name="TabContent" />
+    </Grid>
+</ContentView>

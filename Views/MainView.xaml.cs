@@ -12,7 +12,7 @@ namespace OwlReadingRoom
 {
     public partial class MainView : ContentPage, INotifyPropertyChanged
     {
-        private string _selectedMenu="";
+        private string _selectedMenu = "";
 
         private readonly LoginResult _loginResult;
 
@@ -27,6 +27,7 @@ namespace OwlReadingRoom
             BindingContext = this;
             _auth0Client = auth0Client;
             _configuration = configuration;
+            DynamicContentArea.Content = new CustomerListView();
         }
 
 
@@ -43,7 +44,7 @@ namespace OwlReadingRoom
                 user.Role = authUser.FindFirst(c => c.Type == "roles")?.Value
                     ?? authUser.FindFirst(c => c.Type == "role")?.Value
                     ?? "Guest";
-                string GivenName = authUser.FindFirst(c => c.Type == "given_name")?.Value; 
+                string GivenName = authUser.FindFirst(c => c.Type == "given_name")?.Value;
                 user.GreetingInfo = $"Good {timeOfDay}, {GivenName}!";
                 return user;
             }
@@ -72,14 +73,13 @@ namespace OwlReadingRoom
 
         private void OnNewEntryButtonClicked(object sender, EventArgs e)
         {
-            //DynamicContentArea.Content = new NewEntryView();
             this.ShowPopup(new NewCustomer());
         }
 
         private void OnCustomerMenuClicked(object sender, EventArgs e)
         {
             SelectedMenu = "Customer";
-            DynamicContentArea.Content = new CustomerView();
+            DynamicContentArea.Content = new CustomerListView();
         }
 
         private void OnResourceMenuClicked(object sender, EventArgs e)
@@ -117,6 +117,12 @@ namespace OwlReadingRoom
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void OnHomeSelected(object sender, EventArgs e)
+        {
+            // Navigate to the desired page
+            DynamicContentArea.Content = new CustomerListView();
         }
     }
 

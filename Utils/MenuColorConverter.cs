@@ -13,7 +13,7 @@ namespace OwlReadingRoom
         {
             string selectedMenu = value as string;
             string menuItem = parameter as string;
-            return selectedMenu == menuItem ? Color.FromHex("#2374E1") : Colors.Gray;
+            return selectedMenu == menuItem ? Color.FromHex("#2374E1") : Color.FromHex("#07003B");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
