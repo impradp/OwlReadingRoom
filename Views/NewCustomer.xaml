@@ -114,12 +114,10 @@
                                            Margin="5,0,0,0" />
                                     <Picker x:Name="PackageTypePicker"
                                             Style="{StaticResource EntryInfoStyle}"
+                                            ItemsSource="{Binding PackageTypes}"
+                                            ItemDisplayBinding="{Binding Name}"
+                                            SelectedItem="{Binding SelectedPackage}"
                                             SelectedIndexChanged="OnPackageTypeSelectedIndexChanged">
-                                        <Picker.Items>
-                                            <x:String>AC Room/Yearly</x:String>
-                                            <x:String>AC Room/Bi Yearly</x:String>
-                                            <x:String>Non-AC/Quarterly</x:String>
-                                        </Picker.Items>
                                     </Picker>
                                 </Grid>
                             </Frame>

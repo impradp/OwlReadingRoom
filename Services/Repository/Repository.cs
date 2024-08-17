@@ -14,26 +14,30 @@ namespace OwlReadingRoom.Services.Repository
     public class Repository<T> : IRepository<T> where T : BaseModel, new()
     {
         private readonly IDatabaseConnectionService connectionService;
-        public Repository(IDatabaseConnectionService connectionService) {
+        public Repository(IDatabaseConnectionService connectionService)
+        {
             this.connectionService = connectionService;
         }
 
-        public async Task<List<T>> GetItemsAsync()
+        public List<T> GetItems()
         {
-            await connectionService.Init<T>();
-            return await connectionService.Connection.Table<T>().ToListAsync();
+            connectionService.Init<T>();
+            List<T> items = connectionService.Connection.Table<T>().ToList();
+            connectionService.CloseConnection();
+            return items;
         }
 
-        public async Task<T> GetItemsAsync(Expression<Func<T, bool>> predicate)
+        public T GetItems(Expression<Func<T, bool>> predicate)
         {
-            await connectionService.Init<T>();
-
-            return await connectionService.Connection.Table<T>().Where(predicate).FirstOrDefaultAsync();
+            connectionService.Init<T>();
+            T item = connectionService.Connection.Table<T>().Where(predicate).FirstOrDefault();
+            connectionService.CloseConnection();
+            return item;
         }
 
-        public async Task<List<T>> Get<TValue>(Expression<Func<T, bool>> predicate = null, Expression<Func<T, TValue>> orderBy = null)
+        public List<T> Get<TValue>(Expression<Func<T, bool>> predicate = null, Expression<Func<T, TValue>> orderBy = null)
         {
-            await connectionService.Init<T>();
+            connectionService.Init<T>();
             var query = connectionService.Connection.Table<T>();
 
             if (predicate != null)
@@ -42,36 +46,53 @@ namespace OwlReadingRoom.Services.Repository
             if (orderBy != null)
                 query = query.OrderBy<TValue>(orderBy);
 
-            return await query.ToListAsync();
+            List<T> items = query.ToList();
+            connectionService.CloseConnection();
+            return items;
         }
 
-        public async Task<T> GetItemAsync(int id)
+        public T GetItem(int id)
         {
-            await connectionService.Init<T>();
-            return await connectionService.Connection.Table<T>().Where(model => model.Id == id).FirstOrDefaultAsync();
+            connectionService.Init<T>();
+            T item = connectionService.Connection.Table<T>().Where(model => model.Id == id).FirstOrDefault();
+            connectionService.CloseConnection();
+            return item;
         }
 
-        public async Task<int> SaveItemAsync(T item)
+        public int SaveItem(T item)
         {
             DateTime now = DateTime.UtcNow;
-            await connectionService.Init<T>();
+            int id;
+            connectionService.Init<T>();
             if (item.Id != 0)
             {
                 item.UpdatedAt = now;
-                return await connectionService.Connection.UpdateAsync(item);
+                id = connectionService.Connection.Update(item);
             }
             else
             {
                 item.CreatedAt = now;
                 item.UpdatedAt = now;
-                return await connectionService.Connection.InsertAsync(item);
-            }             
+                id = connectionService.Connection.Insert(item);
+            }
+            connectionService.CloseConnection();
+            return id;
         }
 
-        public async Task<int> DeleteItemAsync(T item)
+        public int DeleteItem(T item)
         {
-            await connectionService.Init<T>();
-            return await connectionService.Connection.DeleteAsync(item);
+            connectionService.Init<T>();
+            int id = connectionService.Connection.Delete(item);
+            connectionService.CloseConnection();    
+            return id;
+        }
+
+        public int InsertAll(IEnumerable<T> objects)
+        {
+            connectionService.Init<T>();
+            int noOfRows = connectionService.Connection.InsertAll(objects);
+            connectionService.CloseConnection();
+            return noOfRows;
         }
     }
 }
