@@ -1,21 +1,21 @@
 using CommunityToolkit.Maui.Views;
-using System.IO;
-using Microsoft.Maui.Storage;
-using System.Windows.Input;
-using System.Net;
-using OwlReadingRoom.Utils;
-using OwlReadingRoom.Services;
+using OwlReadingRoom.Events;
 using OwlReadingRoom.Models;
+using OwlReadingRoom.Services;
+using OwlReadingRoom.Utils;
+using OwlReadingRoom.ViewModels;
+using System.Windows.Input;
 
 namespace OwlReadingRoom.Views;
 
 public partial class NewCustomer : Popup
 {
-    public ICommand UploadCommand { get;  set; }
+    public ICommand UploadCommand { get; set; }
     private readonly IPackageService packageService;
     public List<PackageType> PackageTypes { get; set; }
     public PackageType SelectedPackage { get; set; }
 
+    public event EventHandler<CustomerSavedEventArgs> CustomerPackageSaved;
     public NewCustomer(IPackageService packageService)
     {
         InitializeComponent();
@@ -48,7 +48,7 @@ public partial class NewCustomer : Popup
         }
         catch (Exception ex)
         {
-            await CustomAlert.ShowAlert("Error", $"An error occurred: {ex.Message}", "OK");
+            ExceptionHandler.HandleException("Uploading document", ex);
         }
     }
 
@@ -108,16 +108,18 @@ public partial class NewCustomer : Popup
 
                 //TODO: Create customer object
                 //TODO: Save customer details
+                CustomerPackageViewModel savedCustomerPackage = new CustomerPackageViewModel();
 
                 await CloseAsync();
 
                 //TODO: Redirect to package detail update and payment selection page
+                CustomerPackageSaved?.Invoke(this, new CustomerSavedEventArgs(savedCustomerPackage));
             }
 
         }
         catch (Exception ex)
         {
-            await CustomAlert.ShowAlert("Error", $"An error occurred while saving customer details: {ex.Message}", "OK");
+            ExceptionHandler.HandleException("Saving customer details", ex);
         }
     }
 

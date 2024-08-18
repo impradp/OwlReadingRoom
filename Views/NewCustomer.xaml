@@ -12,6 +12,10 @@
                TargetType="Entry">
             <Setter Property="TextColor"
                     Value="#07003B" />
+            <Setter Property="FontFamily"
+                    Value="Inter" />
+            <Setter Property="FontSize"
+                    Value="14" />
         </Style>
     </toolkit:Popup.Resources>
     <toolkit:Popup.Content>
@@ -52,7 +56,8 @@
                 <ScrollView VerticalOptions="FillAndExpand"
                             HorizontalOptions="FillAndExpand">
                     <StackLayout Padding="20"
-                                 Spacing="16" BackgroundColor="White">
+                                 Spacing="16"
+                                 BackgroundColor="White">
                         <VerticalStackLayout>
                             <Label Text="Full Name"
                                    FontFamily="Inter"
@@ -68,8 +73,6 @@
                                        Placeholder="Full name"
                                        PlaceholderColor="#647087"
                                        Style="{StaticResource EntryInfoStyle}"
-                                       FontSize="16"
-                                       FontFamily="Inter"
                                        VerticalOptions="Center" />
                             </Frame>
                         </VerticalStackLayout>

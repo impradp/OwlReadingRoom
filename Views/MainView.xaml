@@ -38,7 +38,7 @@
 
                 <StackLayout Orientation="Horizontal"
                              Spacing="10">
-                    <Image Source="owl_logo.png"
+                    <Image Source="owl_logo_icon.png"
                            WidthRequest="52"
                            HeightRequest="50" />
                     <Label Text="OWL READING ROOM"

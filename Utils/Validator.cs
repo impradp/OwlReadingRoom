@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace OwlReadingRoom.Utils
+﻿namespace OwlReadingRoom.Utils
 {
     public class Validator
     {
@@ -8,7 +6,7 @@ namespace OwlReadingRoom.Utils
         public static Boolean IsValidDocument(FileResult? file)
         {
             Boolean isValid = true;
-            if(file is null || (!file.FileName.EndsWith("jpg", StringComparison.OrdinalIgnoreCase) &&
+            if (file is null || (!file.FileName.EndsWith("jpg", StringComparison.OrdinalIgnoreCase) &&
                     !file.FileName.EndsWith("png", StringComparison.OrdinalIgnoreCase) &&
                     !file.FileName.EndsWith("pdf", StringComparison.OrdinalIgnoreCase)))
             {
@@ -25,7 +23,7 @@ namespace OwlReadingRoom.Utils
             if (string.IsNullOrWhiteSpace(fullName))
             {
                 CustomAlert.ShowAlert("Error", "Please enter a full name.", "OK");
-                isValid=false;
+                isValid = false;
                 return isValid;
 
             }
@@ -44,7 +42,7 @@ namespace OwlReadingRoom.Utils
                 return isValid;
             }
 
-            if (paymentTypeIndex== -1)
+            if (paymentTypeIndex == -1)
             {
                 CustomAlert.ShowAlert("Error", "Please select a payment type.", "OK");
                 isValid = false;
@@ -57,7 +55,7 @@ namespace OwlReadingRoom.Utils
                 isValid = false;
                 return isValid;
             }
-            
+
             return isValid;
         }
     }

@@ -2,7 +2,9 @@
 using CommunityToolkit.Maui.Views;
 using IdentityModel.OidcClient;
 using IdentityModel.OidcClient.Browser;
+using OwlReadingRoom.Events;
 using OwlReadingRoom.Models;
+using OwlReadingRoom.Services;
 using OwlReadingRoom.Views;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -18,6 +20,8 @@ namespace OwlReadingRoom
         private readonly Auth0Client _auth0Client;
 
         private readonly IServiceProvider _serviceProvider;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public MainView(LoginResult loginResult, Auth0Client auth0Client, IServiceProvider serviceProvider)
         {
@@ -71,8 +75,39 @@ namespace OwlReadingRoom
 
         private void OnNewEntryButtonClicked(object sender, EventArgs e)
         {
-            var newCustomerPage = _serviceProvider.GetService<NewCustomer>();
-            this.ShowPopup(newCustomerPage);
+            var newCustomerPopup = _serviceProvider.GetService<NewCustomer>();
+            newCustomerPopup.CustomerPackageSaved += OnCustomerSaved;
+            this.ShowPopup(newCustomerPopup);
+        }
+
+        private void OnCustomerSaved(object sender, CustomerSavedEventArgs e)
+        {
+            // Map the saved value received to the binding values needed for New Entry.
+            var savedPersonalDetails = new PersonalDetailView();
+            savedPersonalDetails.PersonalDetailSaved += OnPersonalDetailSaved;
+            DynamicContentArea.Content = savedPersonalDetails;
+        }
+
+        private void OnPersonalDetailSaved(object sender, PersonalDetailSavedEventArgs e)
+        {
+            // Map the saved value received to the binding values needed for New Entry.
+            var savedDocumentDetails = new DocumentDetailView();
+            savedDocumentDetails.DocumentDetailSaved += OnDocumentDetailSaved;
+            DynamicContentArea.Content = savedDocumentDetails;
+        }
+
+        private void OnDocumentDetailSaved(object sender, DocumentDetailSavedEventArgs e)
+        {
+            // Map the saved value received to the binding values needed for New Entry.
+            var savedPackagePaymentDetails = new PackagePaymentDetailView();
+            savedPackagePaymentDetails.PackagePaymentDetailSaved += OnPackagePaymentDetailSaved;
+            DynamicContentArea.Content = savedPackagePaymentDetails;
+        }
+
+        private void OnPackagePaymentDetailSaved(object sender, PackagePaymentSavedEventArgs e)
+        {
+            // Map the saved value received to the binding values needed for New Entry.
+            DynamicContentArea.Content = new CustomerListView();
         }
 
         private void OnCustomerMenuClicked(object sender, EventArgs e)
@@ -110,8 +145,6 @@ namespace OwlReadingRoom
             // Clear the navigation stack
             Navigation.RemovePage(Navigation.NavigationStack[Navigation.NavigationStack.Count - 2]);
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
