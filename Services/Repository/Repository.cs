@@ -1,38 +1,31 @@
 ﻿using OwlReadingRoom.Models;
-using OwlReadingRoom.Services.Constants;
 using OwlReadingRoom.Services.Database;
-using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace OwlReadingRoom.Services.Repository
 {
     public class Repository<T> : IRepository<T> where T : BaseModel, new()
     {
         private readonly IDatabaseConnectionService connectionService;
-        public Repository(IDatabaseConnectionService connectionService)
+        private readonly IUserService _userService;
+        public Repository(IDatabaseConnectionService connectionService, IUserService userService)
         {
             this.connectionService = connectionService;
+            _userService = userService;
         }
 
         public List<T> GetItems()
         {
             connectionService.Init<T>();
-            List<T> items = connectionService.Connection.Table<T>().ToList();
-            connectionService.CloseConnection();
-            return items;
+            return connectionService.Connection.Table<T>().ToList();
+
         }
 
         public T GetItems(Expression<Func<T, bool>> predicate)
         {
             connectionService.Init<T>();
-            T item = connectionService.Connection.Table<T>().Where(predicate).FirstOrDefault();
-            connectionService.CloseConnection();
-            return item;
+            return connectionService.Connection.Table<T>().Where(predicate).FirstOrDefault();
         }
 
         public List<T> Get<TValue>(Expression<Func<T, bool>> predicate = null, Expression<Func<T, TValue>> orderBy = null)
@@ -47,52 +40,46 @@ namespace OwlReadingRoom.Services.Repository
                 query = query.OrderBy<TValue>(orderBy);
 
             List<T> items = query.ToList();
-            connectionService.CloseConnection();
             return items;
         }
 
         public T GetItem(int id)
         {
             connectionService.Init<T>();
-            T item = connectionService.Connection.Table<T>().Where(model => model.Id == id).FirstOrDefault();
-            connectionService.CloseConnection();
-            return item;
+            return connectionService.Connection.Table<T>().Where(model => model.Id == id).FirstOrDefault();
         }
 
         public int SaveItem(T item)
         {
             DateTime now = DateTime.UtcNow;
-            int id;
             connectionService.Init<T>();
             if (item.Id != 0)
             {
                 item.UpdatedAt = now;
-                id = connectionService.Connection.Update(item);
+                item.UpdatedBy = _userService.CurrentUser.Name;
+                return connectionService.Connection.Update(item);
             }
             else
             {
                 item.CreatedAt = now;
                 item.UpdatedAt = now;
-                id = connectionService.Connection.Insert(item);
+                item.CreatedBy = _userService.CurrentUser.Name;
+                item.UpdatedBy = _userService.CurrentUser.Name;
+                return connectionService.Connection.Insert(item);
             }
-            connectionService.CloseConnection();
-            return id;
         }
 
         public int DeleteItem(T item)
         {
             connectionService.Init<T>();
-            int id = connectionService.Connection.Delete(item);
-            connectionService.CloseConnection();    
-            return id;
+            return connectionService.Connection.Delete(item);
         }
 
         public int InsertAll(IEnumerable<T> objects)
         {
+            //TODO: insert the dates and audits
             connectionService.Init<T>();
-            int noOfRows = connectionService.Connection.InsertAll(objects);
-            connectionService.CloseConnection();
-            return noOfRows;
+            return connectionService.Connection.InsertAll(objects);
         }
     }
 }

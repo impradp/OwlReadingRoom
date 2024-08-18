@@ -18,6 +18,9 @@ namespace OwlReadingRoom.Models
         [Column("temporary_address_id")]
         public int TemporaryAddressId { get; set; }
 
+        [Column("document_id")]
+        public int DocumentId { get; set; }
+
         [Column("mobile_number")]
         public string MobileNumber { get; set; }
     }

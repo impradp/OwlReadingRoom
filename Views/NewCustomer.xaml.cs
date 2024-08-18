@@ -5,29 +5,31 @@ using OwlReadingRoom.Services;
 using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
 using System.Windows.Input;
+using OwlReadingRoom.DTOs;
 
 namespace OwlReadingRoom.Views;
 
 public partial class NewCustomer : Popup
 {
-    public ICommand UploadCommand { get; set; }
-    private readonly IPackageService packageService;
+    public ICommand UploadCommand { get;  set; }
+    private readonly IPackageService _packageService;
+    private readonly IBookingService _bookingService;
     public List<PackageType> PackageTypes { get; set; }
     public PackageType SelectedPackage { get; set; }
-
     public event EventHandler<CustomerSavedEventArgs> CustomerPackageSaved;
-    public NewCustomer(IPackageService packageService)
+    public NewCustomer(IPackageService packageService, IBookingService bookingService)
     {
         InitializeComponent();
-        this.packageService = packageService;
+        _packageService = packageService;
         LoadPackageTypes();
         UploadCommand = new Command(async () => await ExecuteUploadCommand());
         BindingContext = this;
+        _bookingService = bookingService;
     }
 
     private void LoadPackageTypes()
     {
-        PackageTypes = packageService.GetPackages();
+        PackageTypes = _packageService.GetPackages();
     }
 
     private async Task ExecuteUploadCommand()
@@ -89,25 +91,23 @@ public partial class NewCustomer : Popup
         {
             if (Validator.IsValidNewCustomer(FullNameEntry.Text, ContactNumberEntry.Text, PackageTypePicker.SelectedIndex, PaymentTypePicker.SelectedIndex, FilePathEntryFullPath.Text))
             {
-                //TODO: Validate unique mobile number
-                string sourceFilePath = FilePathEntryFullPath.Text;
-                string customerFolderName = ContactNumberEntry.Text.Replace(" ", "").Replace("+", "").Replace("-", "");
+                string customerFolderName = SanitizeCustomerFolderName(ContactNumberEntry.Text);
                 string destinationFolderPath = Path.Combine(FileSystem.AppDataDirectory, "Assets", "Documents", customerFolderName);
 
-                // Create the customer's folder if it doesn't exist
-                if (!Directory.Exists(destinationFolderPath))
-                {
-                    Directory.CreateDirectory(destinationFolderPath);
-                }
+                EnsureDirectoryExists(destinationFolderPath);
 
-                string fileName = Path.GetFileName(sourceFilePath);
-                string destinationFilePath = Path.Combine(destinationFolderPath, fileName);
-
-                // Copy the file
-                File.Copy(sourceFilePath, destinationFilePath, true);
+                string documentFilePath = CopyFileToCustomerFolder(FilePathEntryFullPath.Text, destinationFolderPath);
 
                 //TODO: Create customer object
-                //TODO: Save customer details
+                _bookingService.RegisterWithMinimumDetails(new MinimumCustomerDetail
+                {
+                    FullName = FullNameEntry.Text,
+                    DocumentPath = documentFilePath,
+                    ContactNumber = ContactNumberEntry.Text,
+                    PackageType = SelectedPackage.Id,
+                    PaymentType = PaymentTypePicker.SelectedIndex
+                });
+
                 CustomerPackageViewModel savedCustomerPackage = new CustomerPackageViewModel();
 
                 await CloseAsync();
@@ -140,6 +140,30 @@ public partial class NewCustomer : Popup
                 ContactNumberEntry.Text = filteredText;
             }
         }
+    }
+
+
+    private string SanitizeCustomerFolderName(string contactNumber)
+    {
+        return contactNumber.Replace(" ", "").Replace("+", "").Replace("-", "");
+    }
+
+    private void EnsureDirectoryExists(string directoryPath)
+    {
+        if (!Directory.Exists(directoryPath))
+        {
+            Directory.CreateDirectory(directoryPath);
+        }
+    }
+
+    private string CopyFileToCustomerFolder(string sourceFilePath, string destinationFolderPath)
+    {
+        string fileName = Path.GetFileName(sourceFilePath);
+        string destinationFilePath = Path.Combine(destinationFolderPath, fileName);
+
+        File.Copy(sourceFilePath, destinationFilePath, true);
+
+        return destinationFilePath;
     }
 
 }
