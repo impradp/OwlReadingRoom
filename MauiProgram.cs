@@ -63,6 +63,9 @@ namespace OwlReadingRoom
 
             //services
             builder.Services.AddSingleton<IPackageService, PackageService>();
+            builder.Services.AddSingleton<IBookingService, BookingService>();
+            builder.Services.AddSingleton<ICustomerService, CustomerService>();
+            builder.Services.AddSingleton<IUserService, UserService>();
             builder.Services.AddSingleton(sp =>
             {
                 var config = sp.GetRequiredService<IConfiguration>();

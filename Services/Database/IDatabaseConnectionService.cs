@@ -3,11 +3,14 @@ using SQLite;
 
 namespace OwlReadingRoom.Services.Database
 {
-    public interface IDatabaseConnectionService
+    public interface IDatabaseConnectionService : IDisposable
     {
         SQLiteConnection Connection { get; }
         void Init<T>() where T : BaseModel, new();
-
-        void CloseConnection();
+        void OpenConnection();
+        void BeginTransaction();
+        void CommitTransaction();
+        void RollBack();
+        SQLiteConnection OpenNewConnection();
     }
 }

@@ -132,6 +132,7 @@ namespace OwlReadingRoom
         {
             SelectedMenu = "Logout";
             BrowserResultType browserResult = await _auth0Client.LogoutAsync();
+            _serviceProvider.GetService<IUserService>()?.ClearUserInfo();
 
             // TODO: Popup error on logout issue
             if (!browserResult.Equals(BrowserResultType.Success))

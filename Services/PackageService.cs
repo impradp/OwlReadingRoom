@@ -1,4 +1,5 @@
 ﻿using OwlReadingRoom.Models;
+using OwlReadingRoom.Services.Database;
 using OwlReadingRoom.Services.Repository;
 
 namespace OwlReadingRoom.Services
@@ -6,14 +7,20 @@ namespace OwlReadingRoom.Services
     public class PackageService : IPackageService
     {
         private readonly IRepository<PackageType> _packageRepository;
-        public PackageService(IRepository<PackageType> packageRepository)
+
+        private readonly IDatabaseConnectionService _databaseConnectionService;
+        public PackageService(IRepository<PackageType> packageRepository, IDatabaseConnectionService databaseConnectionService)
         {
             this._packageRepository = packageRepository;
+            _databaseConnectionService = databaseConnectionService;
         }
 
         public List<PackageType> GetPackages()
         {
-            return _packageRepository.GetItems();
+            using (_databaseConnectionService)
+            {
+                return _packageRepository.GetItems();
+            }
         }
     }
 }
