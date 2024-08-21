@@ -1,5 +1,6 @@
 using Auth0.OidcClient;
 using OwlReadingRoom.Services;
+using OwlReadingRoom.Utils;
 
 namespace OwlReadingRoom;
 
@@ -18,19 +19,35 @@ public partial class AuthenticationPage : ContentPage
 
     private async void OnLoginClicked(object sender, EventArgs e)
     {
+        // Show the activity indicator
+        Loader.IsLoading = true;
 
-        var extraParameters = new Dictionary<string, string>();
-        var audience = ""; // FILL WITH AUDIENCE AS NEEDED
+        try
+        {
 
-        if (!string.IsNullOrEmpty(audience))
-            extraParameters.Add("audience", audience);
+            var extraParameters = new Dictionary<string, string>();
+            var audience = ""; // FILL WITH AUDIENCE AS NEEDED
 
-        var result = await _auth0Client.LoginAsync(extraParameters);
-        _userService.SetUserInfo(result);
-        var resultView = new MainView(result, _auth0Client, _serviceProvider);
+            if (!string.IsNullOrEmpty(audience))
+                extraParameters.Add("audience", audience);
 
-        // Navigate to the main view
-        await Navigation.PushAsync(resultView);
+            var result = await _auth0Client.LoginAsync(extraParameters);
+            _userService.SetUserInfo(result);
+            var resultView = new MainView(result, _auth0Client, _serviceProvider);
+
+            // Navigate to the main view
+            await Navigation.PushAsync(resultView);
+        }
+        catch (Exception ex)
+        {
+            // Handle any exceptions
+            ExceptionHandler.HandleException("Logging into system.", ex);
+        }
+        finally
+        {
+            // Hide the activity indicator
+            Loader.IsLoading = false;
+        }
 
     }
 }
