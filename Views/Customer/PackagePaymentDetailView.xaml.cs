@@ -1,7 +1,7 @@
 using OwlReadingRoom.Events;
 using OwlReadingRoom.ViewModels;
 
-namespace OwlReadingRoom.Views;
+namespace OwlReadingRoom.Views.Customer;
 
 public partial class PackagePaymentDetailView : ContentView
 {

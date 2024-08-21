@@ -1,7 +1,7 @@
 using OwlReadingRoom.ViewModels;
 using System.Collections.ObjectModel;
 
-namespace OwlReadingRoom.Views;
+namespace OwlReadingRoom.Views.Customer;
 
 public partial class CustomerView : ContentView
 {

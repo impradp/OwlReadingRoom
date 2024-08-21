@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace OwlReadingRoom
+namespace OwlReadingRoom.Utils
 {
     public class MenuColorConverter : IValueConverter
     {

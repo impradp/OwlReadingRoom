@@ -6,6 +6,7 @@ using OwlReadingRoom.Services.Database;
 using OwlReadingRoom.Services.Repository;
 using OwlReadingRoom.Utils;
 using OwlReadingRoom.Views;
+using OwlReadingRoom.Views.Customer;
 using System.Reflection;
 
 namespace OwlReadingRoom
@@ -25,6 +26,8 @@ namespace OwlReadingRoom
                     fonts.AddFont("Inter-Bold.ttf", "Inter-Bold");
                     fonts.AddFont("Inter-Medium.ttf", "Inter-Medium");
                     fonts.AddFont("Inter-SemiBold.ttf", "Inter-SemiBold");
+                    fonts.AddFont("Inika-Bold.ttf", "Inika-Bold");
+                    fonts.AddFont("Inika-Regular.ttf", "Inika");
                 });
 
             Assembly assembly = Assembly.GetExecutingAssembly();

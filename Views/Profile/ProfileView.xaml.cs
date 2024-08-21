@@ -1,4 +1,4 @@
-namespace OwlReadingRoom.Views;
+namespace OwlReadingRoom.Views.Profile;
 
 public partial class ProfileView : ContentView
 {
