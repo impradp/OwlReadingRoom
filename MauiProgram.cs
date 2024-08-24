@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using OwlReadingRoom.Services;
 using OwlReadingRoom.Services.Database;
+using OwlReadingRoom.Services.Email;
 using OwlReadingRoom.Services.Repository;
 using OwlReadingRoom.Utils;
 using OwlReadingRoom.Views;
@@ -66,10 +67,16 @@ namespace OwlReadingRoom
             builder.Services.AddSingleton<IBookingService, BookingService>();
             builder.Services.AddSingleton<ICustomerService, CustomerService>();
             builder.Services.AddSingleton<IUserService, UserService>();
+            builder.Services.AddSingleton<IEmailService, EmailService>();
             builder.Services.AddSingleton(sp =>
             {
                 var config = sp.GetRequiredService<IConfiguration>();
                 return Auth0Handler.GetAuth0Client(config);
+            });
+            builder.Services.AddSingleton(sp =>
+            {
+                var config = sp.GetRequiredService<IConfiguration>();
+                return SmtpHandler.GetSmtpSettings(config);
             });
             return builder;
         }
