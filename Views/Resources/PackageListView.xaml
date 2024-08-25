@@ -2,6 +2,8 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="OwlReadingRoom.Views.Resources.PackageListView"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:component="clr-namespace:OwlReadingRoom.Components"
              BackgroundColor="White">
 
     <Grid RowSpacing="20">
@@ -33,6 +35,7 @@
                     BorderColor="#3B82F6"
                     BorderWidth="1"
                     CornerRadius="4"
+                    Clicked="OnNewPackageButtonClicked"
                     Padding="12">
                 <Button.ImageSource>
                     <FontImageSource Glyph="+"
@@ -48,30 +51,78 @@
               BackgroundColor="#E2E8F0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="110" />
-                <ColumnDefinition Width="170" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="100" />
             </Grid.ColumnDefinitions>
 
             <Label Text="Package ID"
                    Grid.Column="0"
                    Style="{StaticResource HeaderLabelStyle}" />
-            <Label Text="Room Type"
+            <Label Text="Name"
                    Grid.Column="1"
                    Style="{StaticResource HeaderLabelStyle}" />
-            <Label Text="Package Name"
+            <Label Text="Room Type"
                    Grid.Column="2"
+                   Style="{StaticResource HeaderLabelStyle}" />
+            <Label Text="Amount"
+                   Grid.Column="3"
                    Style="{StaticResource HeaderLabelStyle}" />
             <Label Text="Actions"
                    Grid.Column="4"
                    Style="{StaticResource HeaderLabelStyle}" />
         </Grid>
 
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding Packages}"
+                        IsVisible="{Binding HasPackages}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="56" />
+                            <RowDefinition Height="1" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="110" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding Id}"
+                                   Style="{StaticResource CellLabelStyle}"
+                                   Grid.Column="0" />
+                            <Label Text="{Binding Name}"
+                                   Style="{StaticResource CellLabelStyle}"
+                                   Grid.Column="1" />
+                            <Label Text="{Binding RoomType}"
+                                   Style="{StaticResource CellLabelStyle}"
+                                   Grid.Column="2" />
+                            <Label Text="{Binding Price}"
+                                   Style="{StaticResource CellLabelStyle}"
+                                   Grid.Column="3" />
+                            <component:ActionButtonsView Grid.Column="4"
+                                                         EditClicked="OnPackageEditClicked"
+                                                         EyeClicked="OnPackageEyeClicked" />
+                        </Grid>
+                        <BoxView Grid.Row="1"
+                                 HeightRequest="1"
+                                 Color="#E2E8F0"
+                                 HorizontalOptions="FillAndExpand" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
         <!-- Empty State -->
         <VerticalStackLayout Grid.Row="2"
                              VerticalOptions="Center"
                              HorizontalOptions="Center"
-                             Spacing="16">
+                             Spacing="16"
+                             IsVisible="{Binding IsEmptyState}">
             <Image Source="empty_state.png"
                    WidthRequest="188"
                    HeightRequest="140" />
@@ -110,6 +161,21 @@
                 <Setter Property="Margin"
                         Value="0,12" />
             </Style>
+
+            <Style x:Key="CellLabelStyle"
+                   TargetType="Label">
+                <Setter Property="FontFamily"
+                        Value="Inter" />
+                <Setter Property="FontSize"
+                        Value="16" />
+                <Setter Property="VerticalOptions"
+                        Value="Center" />
+                <Setter Property="HorizontalOptions"
+                        Value="Center" />
+                <Setter Property="TextColor"
+                        Value="#475569" />
+            </Style>
         </ResourceDictionary>
     </ContentView.Resources>
 </ContentView>
+

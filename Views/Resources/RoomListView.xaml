@@ -27,7 +27,7 @@
                    VerticalOptions="Center" />
 
             <Button Grid.Column="1"
-                    Text="Create New Room"
+                    Text="Create Room"
                     FontFamily="Inter"
                     FontSize="16"
                     TextColor="#3B82F6"
