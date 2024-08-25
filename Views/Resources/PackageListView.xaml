@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OwlReadingRoom.Views.Resources.PackageListView"
+             BackgroundColor="White">
+
+    <Grid RowSpacing="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Package list"
+                   FontFamily="Inter-Medium"
+                   FontSize="20"
+                   TextColor="#1B263B"
+                   VerticalOptions="Center" />
+
+            <Button Grid.Column="1"
+                    Text="Create Package"
+                    FontFamily="Inter"
+                    FontSize="16"
+                    TextColor="#3B82F6"
+                    BackgroundColor="Transparent"
+                    BorderColor="#3B82F6"
+                    BorderWidth="1"
+                    CornerRadius="4"
+                    Padding="12">
+                <Button.ImageSource>
+                    <FontImageSource Glyph="+"
+                                     Color="#3B82F6"
+                                     Size="32" />
+                </Button.ImageSource>
+            </Button>
+        </Grid>
+
+        <!-- Table Headers -->
+        <Grid Grid.Row="1"
+              ColumnSpacing="0"
+              BackgroundColor="#E2E8F0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="110" />
+                <ColumnDefinition Width="170" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Package ID"
+                   Grid.Column="0"
+                   Style="{StaticResource HeaderLabelStyle}" />
+            <Label Text="Room Type"
+                   Grid.Column="1"
+                   Style="{StaticResource HeaderLabelStyle}" />
+            <Label Text="Package Name"
+                   Grid.Column="2"
+                   Style="{StaticResource HeaderLabelStyle}" />
+            <Label Text="Actions"
+                   Grid.Column="4"
+                   Style="{StaticResource HeaderLabelStyle}" />
+        </Grid>
+
+        <!-- Empty State -->
+        <VerticalStackLayout Grid.Row="2"
+                             VerticalOptions="Center"
+                             HorizontalOptions="Center"
+                             Spacing="16">
+            <Image Source="empty_state.png"
+                   WidthRequest="188"
+                   HeightRequest="140" />
+            <Label Text="Start by adding a package"
+                   FontFamily="Inter"
+                   FontSize="16"
+                   TextColor="#1E293B"
+                   FontAttributes="Italic"
+                   HorizontalOptions="Center" />
+            <Label Text="Click on the button at the top to create a new package"
+                   FontFamily="Inter-Medium"
+                   FontSize="14"
+                   TextColor="#64748B"
+                   HorizontalOptions="Center"
+                   WidthRequest="386"
+                   HorizontalTextAlignment="Center" />
+        </VerticalStackLayout>
+    </Grid>
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style x:Key="HeaderLabelStyle"
+                   TargetType="Label">
+                <Setter Property="FontFamily"
+                        Value="Inter-Medium" />
+                <Setter Property="FontSize"
+                        Value="14" />
+                <Setter Property="TextColor"
+                        Value="#1E293B" />
+                <Setter Property="VerticalTextAlignment"
+                        Value="Center" />
+                <Setter Property="HorizontalTextAlignment"
+                        Value="Center" />
+                <Setter Property="Padding"
+                        Value="8,16" />
+                <Setter Property="Margin"
+                        Value="0,12" />
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+</ContentView>

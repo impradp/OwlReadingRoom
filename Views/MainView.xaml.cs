@@ -5,7 +5,11 @@ using IdentityModel.OidcClient.Browser;
 using OwlReadingRoom.Events;
 using OwlReadingRoom.Models;
 using OwlReadingRoom.Services;
+using OwlReadingRoom.Utils;
 using OwlReadingRoom.Views;
+using OwlReadingRoom.Views.Customer;
+using OwlReadingRoom.Views.Profile;
+using OwlReadingRoom.Views.Resources;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -17,11 +21,15 @@ namespace OwlReadingRoom
 
         private LoginResult _loginResult;
 
+        private bool _isResourceMenuExpanded;
+
         private readonly Auth0Client _auth0Client;
 
         private readonly IServiceProvider _serviceProvider;
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private SelectedSubMenu _currentSubmenu = SelectedSubMenu.None;
 
         public MainView(LoginResult loginResult, Auth0Client auth0Client, IServiceProvider serviceProvider)
         {
@@ -33,12 +41,27 @@ namespace OwlReadingRoom
             BindingContext = this;
         }
 
+        #region Prop Events
+
+        public SelectedSubMenu CurrentSubmenu
+        {
+            get => _currentSubmenu;
+            set
+            {
+                if (_currentSubmenu != value)
+                {
+                    _currentSubmenu = value;
+                    OnPropertyChanged(nameof(CurrentSubmenu));
+                }
+            }
+        }
+
         public User GetLoggedInUser
         {
             get
             {
                 User user = new User();
-                string timeOfDay = GetTimeOfDay();
+                string timeOfDay = Utility.GetTimeOfDay();
                 var authUser = _loginResult.User;
                 user.Name = authUser.FindFirst(c => c.Type == "name")?.Value;
                 user.Email = authUser.FindFirst(c => c.Type == "email")?.Value;
@@ -52,12 +75,17 @@ namespace OwlReadingRoom
             }
         }
 
-        private string GetTimeOfDay()
+        public bool IsResourceMenuExpanded
         {
-            var hour = DateTime.Now.Hour;
-            if (hour < 12) return "Morning";
-            if (hour < 18) return "Afternoon";
-            return "Evening";
+            get => _isResourceMenuExpanded;
+            set
+            {
+                if (_isResourceMenuExpanded != value)
+                {
+                    _isResourceMenuExpanded = value;
+                    OnPropertyChanged(nameof(IsResourceMenuExpanded));
+                }
+            }
         }
 
         public string SelectedMenu
@@ -71,6 +99,20 @@ namespace OwlReadingRoom
                     OnPropertyChanged();
                 }
             }
+        }
+
+        #endregion
+
+        private void OnRoomSubmenuClicked(object sender, EventArgs e)
+        {
+            CurrentSubmenu = SelectedSubMenu.Room;
+            DynamicContentArea.Content = new RoomListView();
+        }
+
+        private void OnPackageSubmenuClicked(object sender, EventArgs e)
+        {
+            CurrentSubmenu = SelectedSubMenu.Package;
+            DynamicContentArea.Content = new PackageListView();
         }
 
         private void OnNewEntryButtonClicked(object sender, EventArgs e)
@@ -118,8 +160,9 @@ namespace OwlReadingRoom
 
         private void OnResourceMenuClicked(object sender, EventArgs e)
         {
+            IsResourceMenuExpanded = !IsResourceMenuExpanded;
+            // You may also want to set SelectedMenu here if you're using it for highlighting
             SelectedMenu = "Resources";
-            DynamicContentArea.Content = new ResourcesView();
         }
 
         private void OnProfileMenuClicked(object sender, EventArgs e)

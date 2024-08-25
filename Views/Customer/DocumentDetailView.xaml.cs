@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace OwlReadingRoom.Views;
+namespace OwlReadingRoom.Views.Customer;
 
 public partial class DocumentDetailView : ContentView, INotifyPropertyChanged
 {

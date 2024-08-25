@@ -7,7 +7,7 @@ using OwlReadingRoom.ViewModels;
 using System.Windows.Input;
 using OwlReadingRoom.DTOs;
 
-namespace OwlReadingRoom.Views;
+namespace OwlReadingRoom.Views.Customer;
 
 public partial class NewCustomer : Popup
 {

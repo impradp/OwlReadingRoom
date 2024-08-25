@@ -1,7 +1,7 @@
 ﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:local="clr-namespace:OwlReadingRoom"
+             xmlns:local="clr-namespace:OwlReadingRoom.Utils"
              x:Class="OwlReadingRoom.MainView"
              BackgroundColor="#EFF6FF">
     <ContentPage.Resources>
@@ -17,6 +17,12 @@
                     Value="#07003B" />
         </Style>
         <local:MenuColorConverter x:Key="MenuColorConverter" />
+        <local:SubmenuBackgroundConverter x:Key="SubmenuBackgroundConverter" />
+        <local:SubmenuTextColorConverter x:Key="SubmenuTextColorConverter" />
+        <ResourceDictionary>
+
+            <!-- Other resources -->
+        </ResourceDictionary>
     </ContentPage.Resources>
 
     <Grid>
@@ -30,7 +36,8 @@
                      Padding="16,24,16,24"
                      BackgroundColor="White">
             <!-- Logo and Title -->
-            <Frame Padding="0" BorderColor="Transparent"
+            <Frame Padding="0"
+                   BorderColor="Transparent"
                    BackgroundColor="Transparent">
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnHomeSelected" />
@@ -42,7 +49,7 @@
                            WidthRequest="52"
                            HeightRequest="50" />
                     <Label Text="OWL READING ROOM"
-                           FontFamily="Inika"
+                           FontFamily="Inika-Bold"
                            FontSize="14"
                            VerticalOptions="Center"
                            TextColor="#0D1B2A" />
@@ -56,8 +63,12 @@
                     CornerRadius="10"
                     Margin="0,24,0,0"
                     HeightRequest="44"
-                    ImageSource="new_entry_icon.png"
-                    Clicked="OnNewEntryButtonClicked" />
+                    Clicked="OnNewEntryButtonClicked">
+                <Button.ImageSource>
+                    <FontImageSource Glyph="+"
+                                     Size="20" />
+                </Button.ImageSource>
+            </Button>
 
             <!-- Main Menu -->
             <Label Text="MAIN"
@@ -91,24 +102,66 @@
                 </StackLayout>
 
                 <!-- Resource Menu-->
-                <StackLayout Orientation="Horizontal"
-                             Spacing="20"
-                             Margin="20,0,0,0"
-                             Padding="0,20,0,0">
-                    <Image Source="resources_icon.png"
-                           WidthRequest="20"
-                           HeightRequest="20">
-                        <Image.Behaviors>
-                            <toolkit:IconTintColorBehavior TintColor="{Binding SelectedMenu, Converter={StaticResource MenuColorConverter}, ConverterParameter='Resources'}" />
-                        </Image.Behaviors>
-                    </Image>
-                    <Label Text="Resources"
-                           Style="{StaticResource MenuLabelStyle}"
-                           TextColor="{Binding SelectedMenu, Converter={StaticResource MenuColorConverter}, ConverterParameter='Resources'}">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnResourceMenuClicked" />
-                        </Label.GestureRecognizers>
-                    </Label>
+                <StackLayout Spacing="0"
+                             Margin="0,0,0,0">
+                    <!-- Main Resources Menu -->
+                    <StackLayout Orientation="Horizontal"
+                                 Spacing="20"
+                                 Margin="20,0,0,0"
+                                 Padding="0,20,0,0">
+                        <Image Source="resources_icon.png"
+                               WidthRequest="20"
+                               HeightRequest="20">
+                            <Image.Behaviors>
+                                <toolkit:IconTintColorBehavior TintColor="{Binding SelectedMenu, Converter={StaticResource MenuColorConverter}, ConverterParameter='Resources'}" />
+                            </Image.Behaviors>
+                        </Image>
+                        <Label Text="Resources"
+                               Style="{StaticResource MenuLabelStyle}"
+                               TextColor="{Binding SelectedMenu, Converter={StaticResource MenuColorConverter}, ConverterParameter='Resources'}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnResourceMenuClicked" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+
+                    <!-- Submenus -->
+                    <StackLayout IsVisible="{Binding IsResourceMenuExpanded}"
+                                 Margin="32,10,0,0">
+                        <!-- Room Submenu -->
+                        <StackLayout IsVisible="{Binding IsResourceMenuExpanded}"
+                                     Margin="32,0,0,0">
+                            <!-- Room Submenu -->
+                            <Frame BackgroundColor="{Binding CurrentSubmenu, Converter={StaticResource SubmenuBackgroundConverter}, ConverterParameter='Room'}"
+                                   Padding="30,12"
+                                   HasShadow="False"
+                                   CornerRadius="8"
+                                   BorderColor="Transparent">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnRoomSubmenuClicked" />
+                                </Frame.GestureRecognizers>
+                                <Label Text="Room"
+                                       TextColor="{Binding CurrentSubmenu, Converter={StaticResource SubmenuTextColorConverter}, ConverterParameter='Room'}"
+                                       FontFamily="Inter"
+                                       FontSize="14" />
+                            </Frame>
+
+                            <!-- Package Submenu -->
+                            <Frame BackgroundColor="{Binding CurrentSubmenu, Converter={StaticResource SubmenuBackgroundConverter}, ConverterParameter='Package'}"
+                                   Padding="30,12"
+                                   HasShadow="False"
+                                   CornerRadius="8"
+                                   BorderColor="Transparent">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnPackageSubmenuClicked" />
+                                </Frame.GestureRecognizers>
+                                <Label Text="Package"
+                                       TextColor="{Binding CurrentSubmenu, Converter={StaticResource SubmenuTextColorConverter}, ConverterParameter='Package'}"
+                                       FontFamily="Inter"
+                                       FontSize="14" />
+                            </Frame>
+                        </StackLayout>
+                    </StackLayout>
                 </StackLayout>
             </StackLayout>
 
