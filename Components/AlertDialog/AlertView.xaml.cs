@@ -34,10 +34,10 @@ public partial class AlertView : ContentView
                 iconSource = "success_icon.png";
                 backgroundColor = Color.FromArgb("#F6FDF9");
                 break;
-            case AlertType.Warning:
-                color = Color.FromArgb("#F59E0B");
-                iconSource = "warning_icon.png";
-                backgroundColor = Color.FromArgb("#fdf0da");
+            case AlertType.Info:
+                color = Color.FromArgb("#0EA5E9");
+                iconSource = "info_icon.png";
+                backgroundColor = Color.FromArgb("#F5FBFE");
                 break;
             case AlertType.Error:
                 color = Color.FromArgb("#EF4444");

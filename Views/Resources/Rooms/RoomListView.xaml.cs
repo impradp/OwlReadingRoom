@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace OwlReadingRoom.Views.Resources;
+namespace OwlReadingRoom.Views.Resources.Rooms;
 
 public partial class RoomListView : ContentView, INotifyPropertyChanged
 {
@@ -53,17 +53,24 @@ public partial class RoomListView : ContentView, INotifyPropertyChanged
     {
         //TODO: Fetch created room list
         //TODO: Set to Observable Collection of Rooms
-
     }
 
     private void OnRoomEditClicked(object sender, EventArgs e)
     {
         var button = sender as ActionButtonsView;
-        var room = button?.BindingContext as Room;
+        var room = button?.BindingContext as RoomListViewModel;
         if (room != null)
         {
             //TODO: Open popup dialog for update
+            var editRoomPopup = new UpdateRoom(room);
+            editRoomPopup.RoomUpdated += OnRoomUpdated;
+            Application.Current.MainPage.ShowPopup(editRoomPopup);
         }
+    }
+
+    private void OnRoomUpdated(object sender, EventArgs e)
+    {
+        LoadRoomData();
     }
 
     private void OnRoomEyeClicked(object sender, EventArgs e)

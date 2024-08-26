@@ -10,6 +10,8 @@ using OwlReadingRoom.Views;
 using OwlReadingRoom.Views.Customer;
 using OwlReadingRoom.Views.Profile;
 using OwlReadingRoom.Views.Resources;
+using OwlReadingRoom.Views.Resources.Package;
+using OwlReadingRoom.Views.Resources.Rooms;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 

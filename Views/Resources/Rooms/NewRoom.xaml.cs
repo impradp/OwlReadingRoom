@@ -2,12 +2,12 @@ using CommunityToolkit.Maui.Views;
 using OwlReadingRoom.Components.AlertDialog;
 using OwlReadingRoom.Utils;
 
-namespace OwlReadingRoom.Views.Resources;
+namespace OwlReadingRoom.Views.Resources.Rooms;
 
-public partial class NewPackage : Popup
+public partial class NewRoom : Popup
 {
-    public event EventHandler<EventArgs> PackageCreated;
-    public NewPackage()
+    public event EventHandler<EventArgs> RoomCreated;
+    public NewRoom()
     {
         InitializeComponent();
         BindingContext = this;
@@ -27,10 +27,6 @@ public partial class NewPackage : Popup
     {
 
         RoomTypeLabel.Text = "Select";
-        RoomTypePicker.SelectedIndex = -1;
-        PackageName.Text = "";
-        AmountEntry.Text = "";
-        DaysEntry.Text = "";
     }
 
     private async void OnCreateClicked(object sender, EventArgs e)
@@ -39,9 +35,9 @@ public partial class NewPackage : Popup
         {
             //TODO: Validate the incoming room data
             //TODO: Save the Room details
-            PackageCreated?.Invoke(this, EventArgs.Empty);
+            RoomCreated?.Invoke(this, EventArgs.Empty);
             await CloseAsync();
-            AlertService.Instance.ShowAlert("Success", "New package created successfully.", AlertType.Success);
+            AlertService.Instance.ShowAlert("Success", "New room created successfully.", AlertType.Success);
 
         }
         catch (Exception ex)

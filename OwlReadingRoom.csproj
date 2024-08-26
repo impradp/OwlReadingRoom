@@ -75,6 +75,7 @@
 	  <None Remove="Resources\Images\empty_state.svg" />
 	  <None Remove="Resources\Images\error_icon.svg" />
 	  <None Remove="Resources\Images\eye_icon.svg" />
+	  <None Remove="Resources\Images\info_icon.svg" />
 	  <None Remove="Resources\Images\logout_icon.svg" />
 	  <None Remove="Resources\Images\new_entry_icon.svg" />
 	  <None Remove="Resources\Images\owl_logo_icon.svg" />
@@ -109,7 +110,7 @@
 	  <Compile Update="Views\MainView.xaml.cs">
 	    <DependentUpon>MainView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\Resources\RoomListView.xaml.cs">
+	  <Compile Update="Views\Resources\Rooms\RoomListView.xaml.cs">
 	    <DependentUpon>RoomListView.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\Customer\PersonalDetailView.xaml.cs">
@@ -142,16 +143,16 @@
 	  <MauiXaml Update="Views\Customer\NewCustomer.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Resources\NewPackage.xaml">
+	  <MauiXaml Update="Views\Resources\Package\NewPackage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Resources\NewRoom.xaml">
+	  <MauiXaml Update="Views\Resources\Rooms\NewRoom.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Resources\PackageListView.xaml">
+	  <MauiXaml Update="Views\Resources\Package\PackageListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Resources\RoomListView.xaml">
+	  <MauiXaml Update="Views\Resources\Rooms\RoomListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Customer\PackagePaymentDetailView.xaml">
@@ -164,6 +165,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Customer\CustomerListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Resources\Rooms\UpdateRoom.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
