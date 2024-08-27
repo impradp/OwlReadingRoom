@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:local="clr-namespace:OwlReadingRoom.Utils"
+             xmlns:component="clr-namespace:OwlReadingRoom.Components.AlertDialog"
              x:Class="OwlReadingRoom.MainView"
              BackgroundColor="#EFF6FF">
     <ContentPage.Resources>
@@ -24,12 +25,17 @@
             <!-- Other resources -->
         </ResourceDictionary>
     </ContentPage.Resources>
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+
+        <component:AlertView Grid.ColumnSpan="2"
+                             HorizontalOptions="Fill"
+                             VerticalOptions="Fill"
+                             InputTransparent="True"
+                             ZIndex="1000" />
 
         <!-- Left Sidebar -->
         <StackLayout Grid.Column="0"

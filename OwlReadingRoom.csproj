@@ -73,6 +73,7 @@
 	  <None Remove="Resources\Images\close_icon.svg" />
 	  <None Remove="Resources\Images\customer_icon.svg" />
 	  <None Remove="Resources\Images\empty_state.svg" />
+	  <None Remove="Resources\Images\error_icon.svg" />
 	  <None Remove="Resources\Images\eye_icon.svg" />
 	  <None Remove="Resources\Images\logout_icon.svg" />
 	  <None Remove="Resources\Images\new_entry_icon.svg" />
@@ -81,6 +82,7 @@
 	  <None Remove="Resources\Images\reception_icon.svg" />
 	  <None Remove="Resources\Images\resources_icon.svg" />
 	  <None Remove="Resources\Images\settings_icon.svg" />
+	  <None Remove="Resources\Images\success_icon.svg" />
 	  <None Remove="Resources\Images\update_icon.svg" />
 	</ItemGroup>
 
@@ -119,6 +121,9 @@
 	  <MauiXaml Update="Components\ActionButtonsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Components\AlertDialog\AlertView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Components\AvailableDeskView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -135,6 +140,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Customer\NewCustomer.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Resources\NewPackage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Resources\NewRoom.xaml">
