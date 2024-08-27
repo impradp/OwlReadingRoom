@@ -3,7 +3,7 @@
     public enum AlertType
     {
         Success,
-        Warning,
+        Info,
         Error
     }
 }

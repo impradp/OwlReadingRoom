@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace OwlReadingRoom.Views.Resources;
+namespace OwlReadingRoom.Views.Resources.Package;
 
 public partial class PackageListView : ContentView, INotifyPropertyChanged
 {

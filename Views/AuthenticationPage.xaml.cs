@@ -41,7 +41,7 @@ public partial class AuthenticationPage : ContentPage
         catch (Exception ex)
         {
             // Handle any exceptions
-            ExceptionHandler.HandleException("Logging into system.", ex);
+            ExceptionHandler.HandleException("Logging into system", ex);
         }
         finally
         {

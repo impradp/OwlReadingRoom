@@ -2,7 +2,7 @@
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-               x:Class="OwlReadingRoom.Views.Resources.NewRoom"
+               x:Class="OwlReadingRoom.Views.Resources.Package.NewPackage"
                Size="402,470"
                Color="Transparent"
                VerticalOptions="Center"
@@ -34,7 +34,7 @@
                                  BackgroundColor="White"
                                  Padding="20"
                                  HorizontalOptions="FillAndExpand">
-                        <Label Text="Create New Room"
+                        <Label Text="Create New Package"
                                FontFamily="Inter"
                                FontSize="20"
                                TextColor="#1E293B"
@@ -59,7 +59,7 @@
                                  Spacing="16"
                                  BackgroundColor="White">
                         <VerticalStackLayout>
-                            <Label Text="Number of Rooms"
+                            <Label Text="Package Name"
                                    FontFamily="Inter"
                                    FontSize="14"
                                    Padding="0,0,0,10"
@@ -70,13 +70,11 @@
                                    CornerRadius="4"
                                    BorderColor="#CBD5E1"
                                    HasShadow="False">
-                                <Entry x:Name="NoOfRoomsEntry"
-                                       Placeholder="Enter Number"
+                                <Entry x:Name="PackageName"
+                                       Placeholder="Enter Name"
                                        PlaceholderColor="#647087"
                                        Style="{StaticResource EntryInfoStyle}"
-                                       VerticalOptions="Center"
-                                       MaxLength="2"
-                                       Keyboard="Telephone" />
+                                       VerticalOptions="Center" />
                             </Frame>
                         </VerticalStackLayout>
 
@@ -111,7 +109,7 @@
                         </VerticalStackLayout>
 
                         <VerticalStackLayout>
-                            <Label Text="Required No. of Desks"
+                            <Label Text="Amount"
                                    FontFamily="Inter"
                                    FontSize="14"
                                    Padding="0,0,0,10"
@@ -122,11 +120,32 @@
                                    CornerRadius="4"
                                    BorderColor="#CBD5E1"
                                    HasShadow="False">
-                                <Entry x:Name="NoOfDeskEntry"
-                                       Placeholder="Enter Number"
+                                <Entry x:Name="AmountEntry"
+                                       Placeholder="0.00"
                                        Style="{StaticResource EntryInfoStyle}"
                                        PlaceholderColor="#647087"
-                                       MaxLength="2"
+                                       MaxLength="5"
+                                       Keyboard="Telephone" />
+                            </Frame>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout>
+                            <Label Text="Days"
+                                   FontFamily="Inter"
+                                   FontSize="14"
+                                   Padding="0,0,0,10"
+                                   TextColor="#35405C" />
+                            <Frame BackgroundColor="White"
+                                   Padding="12,0"
+                                   HeightRequest="48"
+                                   CornerRadius="4"
+                                   BorderColor="#CBD5E1"
+                                   HasShadow="False">
+                                <Entry x:Name="DaysEntry"
+                                       Placeholder="0.00"
+                                       Style="{StaticResource EntryInfoStyle}"
+                                       PlaceholderColor="#647087"
+                                       MaxLength="5"
                                        Keyboard="Telephone" />
                             </Frame>
                         </VerticalStackLayout>
