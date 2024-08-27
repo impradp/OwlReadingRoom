@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="OwlReadingRoom.Views.Resources.Rooms.DeskLayout"
+               CanBeDismissedByTappingOutsideOfPopup="False"
+               Size="807,432">
+    <Border BackgroundColor="White"
+            StrokeShape="RoundRectangle 8"
+            Stroke="Transparent"
+            Shadow="{OnPlatform WinUI=Hard, Default=None}">
+        <Grid RowDefinitions="Auto,Auto,*">
+            <!-- Header -->
+            <Grid ColumnDefinitions="*,Auto"
+                  Padding="24,24,24,16">
+                <Label Text="Room Details"
+                       FontSize="20"
+                       FontFamily="Inter-Bold"
+                       TextColor="#1E293B"
+                       VerticalOptions="Center" />
+                <Button WidthRequest="24"
+                        HeightRequest="24"
+                        BackgroundColor="Transparent"
+                        Clicked="OnCloseButtonClicked"
+                        HorizontalOptions="End">
+                    <Button.ImageSource>
+                        <FileImageSource File="close_icon.png" />
+                    </Button.ImageSource>
+                </Button>
+            </Grid>
+
+            <!-- Separator -->
+            <BoxView Grid.Row="1"
+                     HeightRequest="1"
+                     Color="#E5E7EB" />
+
+            <!-- Content -->
+            <ScrollView Grid.Row="2"
+                        Padding="24,16">
+                <VerticalStackLayout Spacing="24">
+                    <!-- Room Info -->
+                    <Grid ColumnDefinitions="*,*,*,*"
+                          ColumnSpacing="65">
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="Room ID"
+                                   FontSize="14"
+                                   TextColor="#37404C" />
+                            <Label Text="{Binding Room.Id}"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="#37404C" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Text="Room Type"
+                                   FontSize="14"
+                                   TextColor="#37404C" />
+                            <Label Text="{Binding Room.RoomType}"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="#37404C" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="2">
+                            <Label Text="Room Name"
+                                   FontSize="14"
+                                   TextColor="#37404C" />
+                            <Label Text="{Binding Room.RoomType}"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="#37404C" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="3">
+                            <Label Text="Available Desk"
+                                   FontSize="14"
+                                   TextColor="#37404C" />
+                            <Label Text="{Binding Room.AvailableDesks}"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="#37404C" />
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <!-- Desk List -->
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="{Binding Room.TotalDesks, StringFormat='No. of Desk ({0})'}"
+                               FontSize="14"
+                               TextColor="#37404C" />
+                        <CollectionView ItemsSource="{Binding Desks}">
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout Orientation="Vertical"
+                                                 Span="3"
+                                                 VerticalItemSpacing="8"
+                                                 HorizontalItemSpacing="8" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BackgroundColor="#F7F8F9"
+                                            Padding="24,16"
+                                            Stroke="Transparent"
+                                            StrokeShape="RoundRectangle 4">
+                                        <Grid ColumnDefinitions="Auto,*,Auto">
+                                            <Image Source="desk_icon.png"
+                                                   WidthRequest="24"
+                                                   HeightRequest="24" />
+                                            <Label Grid.Column="1"
+                                                   Text="{Binding Name}"
+                                                   FontSize="14"
+                                                   Padding="8,0,0,0"
+                                                   TextColor="#64748B"
+                                                   VerticalOptions="Center" />
+                                            <Border Grid.Column="2"
+                                                    BackgroundColor="{Binding Color}"
+                                                    Padding="8,4"
+                                                    Stroke="Transparent"
+                                                    ToolTipProperties.Text="{Binding Message}"
+                                                    StrokeShape="RoundRectangle 6">
+                                                <Label Text="{Binding Status}"
+                                                       FontSize="12"
+                                                       TextColor="{Binding TextColor}" />
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
+    </Border>
+</toolkit:Popup>
