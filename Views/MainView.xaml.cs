@@ -108,7 +108,7 @@ namespace OwlReadingRoom
         private void OnRoomSubmenuClicked(object sender, EventArgs e)
         {
             CurrentSubmenu = SelectedSubMenu.Room;
-            DynamicContentArea.Content = new RoomListView();
+            DynamicContentArea.Content = _serviceProvider.GetService<RoomListView>();
         }
 
         private void OnPackageSubmenuClicked(object sender, EventArgs e)

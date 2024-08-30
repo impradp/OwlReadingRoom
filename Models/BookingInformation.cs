@@ -20,5 +20,13 @@ namespace OwlReadingRoom.Models
 
         [Column("transaction_id")]
         public int TransactionId { get; set; }
+
+        [Column("reservation_start_date")]
+        public DateTime ReservationStartDate { get; set; }
+
+        [Column("reservation_end_date")]
+        public DateTime ReservationEndDate { get; set; }
+
+
     }
 }

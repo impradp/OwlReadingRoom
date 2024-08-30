@@ -5,9 +5,11 @@ using OwlReadingRoom.Services;
 using OwlReadingRoom.Services.Database;
 using OwlReadingRoom.Services.Email;
 using OwlReadingRoom.Services.Repository;
+using OwlReadingRoom.Services.Resources;
 using OwlReadingRoom.Utils;
 using OwlReadingRoom.Views;
 using OwlReadingRoom.Views.Customer;
+using OwlReadingRoom.Views.Resources.Rooms;
 using System.Reflection;
 
 namespace OwlReadingRoom
@@ -64,6 +66,8 @@ namespace OwlReadingRoom
             // View Models
             builder.Services.AddTransient<MainView>();
             builder.Services.AddTransient<NewCustomer>();
+            builder.Services.AddTransient<RoomListView>();
+            builder.Services.AddTransient<NewRoom>();
 
             //services
             builder.Services.AddSingleton<IPackageService, PackageService>();
@@ -71,6 +75,9 @@ namespace OwlReadingRoom
             builder.Services.AddSingleton<ICustomerService, CustomerService>();
             builder.Services.AddSingleton<IUserService, UserService>();
             builder.Services.AddSingleton<IEmailService, EmailService>();
+            builder.Services.AddSingleton<IRoomService, RoomService>();
+            builder.Services.AddSingleton<IDeskService, DeskService>();
+            builder.Services.AddSingleton<IPhysicalResourceService, ResourceService>();
             builder.Services.AddSingleton(sp =>
             {
                 var config = sp.GetRequiredService<IConfiguration>();

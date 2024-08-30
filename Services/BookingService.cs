@@ -2,6 +2,7 @@
 using OwlReadingRoom.Models;
 using OwlReadingRoom.Services.Database;
 using OwlReadingRoom.Services.Repository;
+using OwlReadingRoom.Services.Resources;
 using System.Diagnostics;
 
 namespace OwlReadingRoom.Services;
@@ -11,11 +12,13 @@ public class BookingService : IBookingService
     private readonly ICustomerService _customerService;
     private readonly IDatabaseConnectionService _databaseConnectionService;
     private readonly IRepository<BookingInfo> _bookingRepository;
-    public BookingService(ICustomerService customerService, IDatabaseConnectionService databaseConnectionService, IRepository<BookingInfo> bookingRepository)
+    private readonly IDeskService _deskService;
+    public BookingService(ICustomerService customerService, IDatabaseConnectionService databaseConnectionService, IRepository<BookingInfo> bookingRepository, IDeskService deskService)
     {
         _customerService = customerService;
         _databaseConnectionService = databaseConnectionService;
         _bookingRepository = bookingRepository;
+        _deskService = deskService;
     }
     public void RegisterWithMinimumDetails(MinimumCustomerDetail minimumCutomerDetail)
     {
@@ -44,6 +47,21 @@ public class BookingService : IBookingService
             }     
         }
         
+
+    }
+
+    public Dictionary<int, int> FetchUnavailableDesksCount()
+    {
+        var currentTime = DateTime.Now;
+        return  (from desk in _deskService.TableQuery
+                    join booking in _bookingRepository.Table on desk.Id equals booking.DeskId
+                    where booking.ReservationStartDate <= currentTime && booking.ReservationEndDate >= currentTime
+                    group desk by desk.RoomId into deskGroup
+                    select new
+                    {
+                        RoomId = deskGroup.Key,
+                        UnavailableDesksCount = deskGroup.Count()
+                    }).ToDictionary(k => k.RoomId, v => v.UnavailableDesksCount);
 
     }
 }

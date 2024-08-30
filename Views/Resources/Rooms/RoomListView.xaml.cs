@@ -1,6 +1,7 @@
 using CommunityToolkit.Maui.Views;
 using OwlReadingRoom.Components;
 using OwlReadingRoom.Models;
+using OwlReadingRoom.Services.Resources;
 using OwlReadingRoom.ViewModels;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -11,12 +12,18 @@ namespace OwlReadingRoom.Views.Resources.Rooms;
 public partial class RoomListView : ContentView, INotifyPropertyChanged
 {
     private ObservableCollection<RoomListViewModel> _rooms;
-
-    public RoomListView()
+    private readonly IServiceProvider _serviceProvider;
+    private readonly IRoomService _roomService;
+    private readonly IPhysicalResourceService _resourceService;
+    public RoomListView(IServiceProvider serviceProvider, IRoomService roomService, IPhysicalResourceService resourceService)
     {
+        _serviceProvider = serviceProvider;
+        _roomService = roomService;
+        _resourceService = resourceService;
         InitializeComponent();
         BindingContext = this;
         LoadRoomData();
+        
     }
 
     public ObservableCollection<RoomListViewModel> Rooms
@@ -39,7 +46,7 @@ public partial class RoomListView : ContentView, INotifyPropertyChanged
 
     private void OnNewRoomButtonClicked(object sender, EventArgs e)
     {
-        var newRoom = new NewRoom();
+        var newRoom = _serviceProvider.GetService<NewRoom>();
         newRoom.RoomCreated += OnRoomCreated;
         Application.Current.MainPage.ShowPopup(newRoom);
     }
@@ -51,6 +58,8 @@ public partial class RoomListView : ContentView, INotifyPropertyChanged
 
     private void LoadRoomData()
     {
+
+        Rooms = new ObservableCollection<RoomListViewModel>(_resourceService.fetchRooms());
         //TODO: Fetch created room list
         //TODO: Set to Observable Collection of Rooms
     }
