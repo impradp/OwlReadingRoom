@@ -13,5 +13,7 @@ namespace OwlReadingRoom.ViewModels
         public string RoomType { get; set; }
         public int TotalDesks { get; set; }
         public int AvailableDesks { get; set; }
+        public List<DeskInfoViewModel> Desks { get; set; }
+        public int DeskCount { get; set; }
     }
 }

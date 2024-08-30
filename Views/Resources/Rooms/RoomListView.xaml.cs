@@ -62,6 +62,11 @@ public partial class RoomListView : ContentView, INotifyPropertyChanged
         Rooms = new ObservableCollection<RoomListViewModel>(_resourceService.fetchRooms());
         //TODO: Fetch created room list
         //TODO: Set to Observable Collection of Rooms
+        Rooms = new ObservableCollection<RoomListViewModel>
+        {
+            new RoomListViewModel(){Id=1,Name="RM-101",RoomType="AC Room", AvailableDesks=6,TotalDesks=10},
+            new RoomListViewModel(){Id=2,Name="RM-102",RoomType="Non AC Room", AvailableDesks=30,TotalDesks=50}
+        };
     }
 
     private void OnRoomEditClicked(object sender, EventArgs e)
@@ -85,10 +90,11 @@ public partial class RoomListView : ContentView, INotifyPropertyChanged
     private void OnRoomEyeClicked(object sender, EventArgs e)
     {
         var button = sender as ActionButtonsView;
-        var room = button?.BindingContext as Room;
+        var room = button?.BindingContext as RoomListViewModel;
         if (room != null)
         {
-            //TODO: Open popup dialog for deletion
+            var deskLayoutPopup = new DeskLayout(room);
+            Application.Current.MainPage.ShowPopup(deskLayoutPopup);
         }
     }
 
