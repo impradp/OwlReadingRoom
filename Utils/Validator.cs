@@ -58,5 +58,28 @@
 
             return isValid;
         }
+
+        public static Boolean IsValidRoom(String numberOfRooms, int roomTypeIndex)
+        {
+            if (roomTypeIndex == -1)
+            {
+                CustomAlert.ShowAlert("Error", "Please select a room type.", "OK");
+                return false;
+            }
+            if (string.IsNullOrEmpty(numberOfRooms))
+            {
+                CustomAlert.ShowAlert("Error", "Please enter the number of rooms.", "OK");
+                return false;
+            }
+
+            if (!int.TryParse(numberOfRooms, out int number))
+            {
+                CustomAlert.ShowAlert("Error", "Please enter a valid whole number.", "OK");
+                return false;
+            }
+
+            return true;
+        }
+
     }
 }

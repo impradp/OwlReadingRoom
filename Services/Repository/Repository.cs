@@ -1,5 +1,6 @@
 ﻿using OwlReadingRoom.Models;
 using OwlReadingRoom.Services.Database;
+using SQLite;
 using System.Linq.Expressions;
 
 
@@ -9,6 +10,15 @@ namespace OwlReadingRoom.Services.Repository
     {
         private readonly IDatabaseConnectionService connectionService;
         private readonly IUserService _userService;
+
+        public TableQuery<T> Table
+        {
+            get {
+                this.connectionService.Init<T>();
+                return connectionService.Connection.Table<T>(); 
+            }
+        }
+
         public Repository(IDatabaseConnectionService connectionService, IUserService userService)
         {
             this.connectionService = connectionService;
@@ -51,7 +61,7 @@ namespace OwlReadingRoom.Services.Repository
 
         public int SaveItem(T item)
         {
-            DateTime now = DateTime.UtcNow;
+            DateTime now = DateTime.Now;
             connectionService.Init<T>();
             if (item.Id != 0)
             {
@@ -79,6 +89,17 @@ namespace OwlReadingRoom.Services.Repository
         {
             //TODO: insert the dates and audits
             connectionService.Init<T>();
+
+            DateTime now = DateTime.Now;
+
+            objects = objects.Select(obj => {
+                obj.CreatedAt = now;
+                obj.UpdatedAt = now;
+                obj.CreatedBy = _userService.CurrentUser.Name;
+                obj.UpdatedBy = _userService.CurrentUser.Name;
+                return obj;
+            }).ToList();
+           
             return connectionService.Connection.InsertAll(objects);
         }
     }
