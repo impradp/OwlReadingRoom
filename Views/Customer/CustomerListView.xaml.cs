@@ -8,7 +8,11 @@ public partial class CustomerListView : ContentView
 {
     private CustomerView _activeView;
     private CustomerView _inactiveView;
-    public ObservableCollection<CustomerPackageViewModel> Customers { get; set; }
+
+    public event EventHandler<CustomerPackageViewModel> CustomerSelected;
+
+    public ObservableCollection<CustomerPackageViewModel> ActiveCustomers { get; set; }
+    public ObservableCollection<CustomerPackageViewModel> InactiveCustomers { get; set; }
 
     public CustomerListView()
     {
@@ -16,7 +20,7 @@ public partial class CustomerListView : ContentView
         {
             InitializeComponent();
             SetActiveCustomers();
-            SetInActiveCustomers();
+            SetInactiveCustomers();
             TabContent.Content = _activeView;
         }
         catch (Exception ex)
@@ -25,50 +29,56 @@ public partial class CustomerListView : ContentView
         }
     }
 
-    private void SetInActiveCustomers()
+    private void SetInactiveCustomers()
     {
         //TODO: Implement service method usage for data extraction.
-        Customers = new ObservableCollection<CustomerPackageViewModel>
+        InactiveCustomers = new ObservableCollection<CustomerPackageViewModel>
+        {
+            new CustomerPackageViewModel
             {
-                new CustomerPackageViewModel
-                {
-                    FullName = "Jonathan Radford",
-                    ContactNumber = "+977-9801010101",
-                    Faculty = "CA",
-                    StartDate = "06/12/2024",
-                    EndDate = "06/12/2024",
-                    Package = "3 months",
-                    AllocatedSpace = "First Floor (AC)",
-                    PaymentStatus = "Paid",
-                    Dues = "00.00"
-                }
-            };
+                FullName = "Jonathan Radford",
+                ContactNumber = "+977-9801010101",
+                Faculty = "CA",
+                StartDate = "06/12/2024",
+                EndDate = "06/12/2024",
+                Package = "3 months",
+                AllocatedSpace = "First Floor (AC)",
+                PaymentStatus = "Paid",
+                Dues = "00.00"
+            }
+        };
 
-        _inactiveView = new CustomerView(Customers);
+        _inactiveView = new CustomerView(InactiveCustomers);
+        _inactiveView.CustomerSelected += OnCustomerSelected;
     }
 
     private void SetActiveCustomers()
     {
         //TODO: Implement service method usage for data extraction.
-        Customers = new ObservableCollection<CustomerPackageViewModel>
+        ActiveCustomers = new ObservableCollection<CustomerPackageViewModel>
+        {
+            new CustomerPackageViewModel
             {
-                new CustomerPackageViewModel
-                {
-                    FullName = "Samantha Radford",
-                    ContactNumber = "+977-9801010101",
-                    Faculty = "Doctor",
-                    StartDate = "06/12/2024",
-                    EndDate = "06/12/2024",
-                    Package = "1 month",
-                    AllocatedSpace = "First Floor (AC)",
-                    PaymentStatus = "Paid",
-                    Dues = "00.00"
-                }
-            };
+                FullName = "Samantha Radford",
+                ContactNumber = "+977-9801010101",
+                Faculty = "Doctor",
+                StartDate = "06/12/2024",
+                EndDate = "06/12/2024",
+                Package = "1 month",
+                AllocatedSpace = "First Floor (AC)",
+                PaymentStatus = "Paid",
+                Dues = "00.00"
+            }
+        };
 
-        _activeView = new CustomerView(Customers);
+        _activeView = new CustomerView(ActiveCustomers);
+        _activeView.CustomerSelected += OnCustomerSelected;
     }
 
+    private void OnCustomerSelected(object sender, CustomerPackageViewModel selectedCustomer)
+    {
+        CustomerSelected?.Invoke(this, selectedCustomer);
+    }
 
     private void OnActiveTabTapped(object sender, EventArgs e)
     {
@@ -124,4 +134,20 @@ public partial class CustomerListView : ContentView
         }
     }
 
+    // New method to update customers
+    public void UpdateCustomers(ObservableCollection<CustomerPackageViewModel> activeCustomers, ObservableCollection<CustomerPackageViewModel> inactiveCustomers)
+    {
+        try
+        {
+            ActiveCustomers = activeCustomers;
+            InactiveCustomers = inactiveCustomers;
+
+            _activeView.Customers = ActiveCustomers;
+            _inactiveView.Customers = InactiveCustomers;
+        }
+        catch (Exception ex)
+        {
+            ExceptionHandler.HandleException("Updating customers", ex);
+        }
+    }
 }
