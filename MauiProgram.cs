@@ -7,6 +7,7 @@ using OwlReadingRoom.Services.Email;
 using OwlReadingRoom.Services.Repository;
 using OwlReadingRoom.Services.Resources;
 using OwlReadingRoom.Utils;
+using OwlReadingRoom.ViewModels;
 using OwlReadingRoom.Views;
 using OwlReadingRoom.Views.Customer;
 using OwlReadingRoom.Views.Resources.Rooms;
@@ -68,6 +69,11 @@ namespace OwlReadingRoom
             builder.Services.AddTransient<NewCustomer>();
             builder.Services.AddTransient<RoomListView>();
             builder.Services.AddTransient<NewRoom>();
+            builder.Services.AddTransient<Func<RoomListViewModel, UpdateRoom>>(sp =>
+            {
+                var resourceService = sp.GetRequiredService<IPhysicalResourceService>();
+                return room => new UpdateRoom(room, resourceService);
+            });
 
             //services
             builder.Services.AddSingleton<IPackageService, PackageService>();

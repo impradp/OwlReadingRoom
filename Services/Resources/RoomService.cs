@@ -53,4 +53,14 @@ public class RoomService : IRoomService
 
         return 1;
     }
+
+    public Room GetRoomById(int id)
+    {
+        return _roomRepository.GetItem(id);
+    }
+
+    public int Save(Room room)
+    {
+        return _roomRepository.SaveItem(room);
+    }
 }

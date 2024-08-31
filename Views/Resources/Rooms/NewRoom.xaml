@@ -3,6 +3,7 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                xmlns:local="clr-namespace:OwlReadingRoom.Utils"
+               xmlns:component="clr-namespace:OwlReadingRoom.Components"
                x:Class="OwlReadingRoom.Views.Resources.Rooms.NewRoom"
                Size="402,470"
                Color="Transparent"
@@ -74,14 +75,13 @@
                                    CornerRadius="4"
                                    BorderColor="#CBD5E1"
                                    HasShadow="False">
-                                <Entry 
+                                <component:NumericEntry 
                                        x:Name="NoOfRoomsEntry"
                                        Placeholder="Enter Number"
                                        PlaceholderColor="#647087"
                                        Style="{StaticResource EntryInfoStyle}"
-                                       VerticalOptions="Center"
                                        MaxLength="2"
-                                       Keyboard="Numeric" />
+                                       Keyboard="Telephone" />
                             </Frame>
                         </VerticalStackLayout>
 
@@ -127,7 +127,7 @@
                                    CornerRadius="4"
                                    BorderColor="#CBD5E1"
                                    HasShadow="False">
-                                <Entry x:Name="NoOfDeskEntry"
+                                <component:NumericEntry x:Name="NoOfDeskEntry"
                                        Placeholder="Enter Number"
                                        Style="{StaticResource EntryInfoStyle}"
                                        PlaceholderColor="#647087"

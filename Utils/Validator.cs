@@ -62,6 +62,7 @@
         public static Boolean IsValidRoom(String numberOfRooms, int roomTypeIndex)
         {
             if (roomTypeIndex == -1)
+
             {
                 CustomAlert.ShowAlert("Error", "Please select a room type.", "OK");
                 return false;
@@ -78,6 +79,16 @@
                 return false;
             }
 
+            return true;
+        }
+
+        public static Boolean isValidRoomName(String roomName)
+        {
+            if (string.IsNullOrEmpty(roomName))
+            {
+                CustomAlert.ShowAlert("Error", "Please enter a valid room name.", "OK");
+                return false;
+            }
             return true;
         }
 
