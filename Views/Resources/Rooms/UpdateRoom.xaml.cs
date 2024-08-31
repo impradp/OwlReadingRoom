@@ -1,5 +1,6 @@
 using CommunityToolkit.Maui.Views;
 using OwlReadingRoom.Components.AlertDialog;
+using OwlReadingRoom.Services.Resources;
 using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
 
@@ -7,14 +8,16 @@ namespace OwlReadingRoom.Views.Resources.Rooms;
 
 public partial class UpdateRoom : Popup
 {
+    private readonly IPhysicalResourceService _resourceService;
     public event EventHandler RoomUpdated;
     public RoomListViewModel Room;
-    public UpdateRoom(RoomListViewModel room)
+    public UpdateRoom(RoomListViewModel room, IPhysicalResourceService resourceService)
     {
         InitializeComponent();
         Room = room;
         BindingContext = this;
         PopulateFields();
+        _resourceService = resourceService;
     }
 
     private void PopulateFields()
@@ -41,12 +44,13 @@ public partial class UpdateRoom : Popup
     {
         try
         {
-            //TODO: Validate the incoming room data
-            //TODO: Update the Room details and create desks if necessary
-            RoomUpdated?.Invoke(this, EventArgs.Empty);
-            await CloseAsync();
-            AlertService.Instance.ShowAlert("Info", "Room updated successfully.", AlertType.Info);
-
+            if (Validator.isValidRoomName(NameEntry.Text))
+            {
+                _resourceService.UpdateRoom(Room, NameEntry.Text, Int32.Parse(NoOfDeskEntry.Text), string.IsNullOrEmpty(DeskInitialsEntry.Text) ? "DSK" : DeskInitialsEntry.Text);
+                RoomUpdated?.Invoke(this, EventArgs.Empty);
+                await CloseAsync();
+                AlertService.Instance.ShowAlert("Info", "Room updated successfully.", AlertType.Info);
+            }
         }
         catch (Exception ex)
         {

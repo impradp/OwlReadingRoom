@@ -1,5 +1,8 @@
 ﻿using OwlReadingRoom.Models;
+using OwlReadingRoom.Services.Database;
+using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
+using System.Diagnostics;
 
 namespace OwlReadingRoom.Services.Resources;
 
@@ -8,12 +11,14 @@ public class ResourceService : IPhysicalResourceService
     private readonly IRoomService _roomService;
     private readonly IDeskService _deskService;
     private readonly IBookingService _bookingService;
+    private readonly IDatabaseConnectionService _databaseConnectionService;
 
-    public ResourceService(IRoomService roomService, IDeskService deskService, IBookingService bookingService)
+    public ResourceService(IRoomService roomService, IDeskService deskService, IBookingService bookingService, IDatabaseConnectionService databaseConnectionService)
     {
         _roomService = roomService;
         _deskService = deskService;
         _bookingService = bookingService;
+        _databaseConnectionService = databaseConnectionService;
     }
 
     public List<RoomListViewModel> fetchRooms()
@@ -45,6 +50,37 @@ public class ResourceService : IPhysicalResourceService
         }
         
         return result;
-    } 
+    }
+
+    public void UpdateRoom(RoomListViewModel roomViewModel, string roomName, int numberOfDesks, string deskInitial)
+    {
+        using (_databaseConnectionService)
+        {
+            try
+            {
+                _databaseConnectionService.BeginTransaction();
+                if (numberOfDesks > 0)
+                {
+                    _deskService.AddDesks(roomViewModel.Id, numberOfDesks, deskInitial);
+                }
+              
+                Room room = _roomService.GetRoomById(roomViewModel.Id);
+
+                if (!room.Name.Equals(roomName))
+                {
+                    room.Name = roomName;
+                    _roomService.Save(room);
+                }
+                _databaseConnectionService.CommitTransaction();
+
+            }
+            catch (Exception ex)
+            {
+                _databaseConnectionService.RollBack();
+                ExceptionHandler.HandleException("Updating room information", ex);
+            }
+
+        }
+    }
 
 }

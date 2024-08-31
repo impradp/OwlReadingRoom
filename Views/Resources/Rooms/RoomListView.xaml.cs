@@ -15,7 +15,8 @@ public partial class RoomListView : ContentView, INotifyPropertyChanged
     private readonly IServiceProvider _serviceProvider;
     private readonly IRoomService _roomService;
     private readonly IPhysicalResourceService _resourceService;
-    public RoomListView(IServiceProvider serviceProvider, IRoomService roomService, IPhysicalResourceService resourceService)
+    private readonly Func<RoomListViewModel, UpdateRoom> _updateRoomFactory;
+    public RoomListView(IServiceProvider serviceProvider, IRoomService roomService, IPhysicalResourceService resourceService, Func<RoomListViewModel, UpdateRoom> updateRoomFactory)
     {
         _serviceProvider = serviceProvider;
         _roomService = roomService;
@@ -23,7 +24,7 @@ public partial class RoomListView : ContentView, INotifyPropertyChanged
         InitializeComponent();
         BindingContext = this;
         LoadRoomData();
-        
+        _updateRoomFactory = updateRoomFactory;
     }
 
     public ObservableCollection<RoomListViewModel> Rooms
@@ -62,11 +63,6 @@ public partial class RoomListView : ContentView, INotifyPropertyChanged
         Rooms = new ObservableCollection<RoomListViewModel>(_resourceService.fetchRooms());
         //TODO: Fetch created room list
         //TODO: Set to Observable Collection of Rooms
-        Rooms = new ObservableCollection<RoomListViewModel>
-        {
-            new RoomListViewModel(){Id=1,Name="RM-101",RoomType="AC Room", AvailableDesks=6,TotalDesks=10},
-            new RoomListViewModel(){Id=2,Name="RM-102",RoomType="Non AC Room", AvailableDesks=30,TotalDesks=50}
-        };
     }
 
     private void OnRoomEditClicked(object sender, EventArgs e)
@@ -76,7 +72,7 @@ public partial class RoomListView : ContentView, INotifyPropertyChanged
         if (room != null)
         {
             //TODO: Open popup dialog for update
-            var editRoomPopup = new UpdateRoom(room);
+            var editRoomPopup = _updateRoomFactory(room);
             editRoomPopup.RoomUpdated += OnRoomUpdated;
             Application.Current.MainPage.ShowPopup(editRoomPopup);
         }

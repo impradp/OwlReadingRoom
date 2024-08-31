@@ -18,4 +18,19 @@ public interface IPhysicalResourceService
     /// 4. Constructs and returns a list of RoomListViewModel objects with the compiled information.
     /// </remarks>
     List<RoomListViewModel> fetchRooms();
+
+    /// <summary>
+    /// Updates a room's information and adds new desks if specified.
+    /// </summary>
+    /// <param name="roomViewModel">The view model containing the room's current information.</param>
+    /// <param name="roomName">The new name for the room.</param>
+    /// <param name="numberOfDesks">The number of new desks to add to the room.</param>
+    /// <param name="deskInitial">The initial string to use for naming new desks.</param>
+    /// <remarks>
+    /// This method performs the following operations within a transaction:
+    /// 1. Adds new desks to the room if numberOfDesks is greater than 0.
+    /// 2. Updates the room's name if it has changed.
+    /// If an exception occurs during the process, the transaction is rolled back.
+    /// </remarks>
+    void UpdateRoom(RoomListViewModel roomViewModel, string roomName, int numberOfDesks, string deskInitial);
 }
