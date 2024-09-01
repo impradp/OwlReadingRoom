@@ -20,6 +20,22 @@ public interface IPhysicalResourceService
     List<RoomListViewModel> fetchRooms();
 
     /// <summary>
+    /// Retrieves a list of desk information view models for a specific room.
+    /// </summary>
+    /// <param name="roomId">The ID of the room for which to retrieve desk information.</param>
+    /// <returns>
+    /// A list of <see cref="DeskInfoViewModel"/> objects containing information about each desk 
+    /// in the specified room, including its status, color coding, and reservation details (if any).
+    /// </returns>
+    /// <remarks>
+    /// The method first retrieves the list of desks for the specified room and then fetches the 
+    /// corresponding booking information. It iterates through each desk and creates a view model 
+    /// that includes the desk's status and reservation message, using the first reservation if 
+    /// multiple reservations exist. If no reservation exists, default values are used.
+    /// </remarks>
+    List<DeskInfoViewModel> GetDeskInfoPerRoom(int roomId);
+
+    /// <summary>
     /// Updates a room's information and adds new desks if specified.
     /// </summary>
     /// <param name="roomViewModel">The view model containing the room's current information.</param>

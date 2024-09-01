@@ -20,5 +20,18 @@ public interface IDeskService
     /// If numberOfDesks is negative, it displays an error message and doesn't add any desks.
     /// </remarks>
     void AddDesks(int roomId, int? numberOfDesks, string deskInitials = "DSK");
+
+    /// <summary>
+    /// Retrieves a list of desks located in a specific room.
+    /// </summary>
+    /// <param name="roomId">The ID of the room for which to retrieve the desks.</param>
+    /// <returns>
+    /// A list of <see cref="Desk"/> objects that belong to the specified room.
+    /// </returns>
+    /// <remarks>
+    /// The method queries the desk repository to find all desks associated with the given room ID 
+    /// and returns them as a list.
+    /// </remarks>
+    List<Desk> GetDesksOfRoom(int roomId);
     TableQuery<Desk> TableQuery { get; }
 }
