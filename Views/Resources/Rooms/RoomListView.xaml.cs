@@ -16,7 +16,8 @@ public partial class RoomListView : ContentView, INotifyPropertyChanged
     private readonly IRoomService _roomService;
     private readonly IPhysicalResourceService _resourceService;
     private readonly Func<RoomListViewModel, UpdateRoom> _updateRoomFactory;
-    public RoomListView(IServiceProvider serviceProvider, IRoomService roomService, IPhysicalResourceService resourceService, Func<RoomListViewModel, UpdateRoom> updateRoomFactory)
+    private readonly Func<RoomListViewModel, DeskLayout> _deskLayoutFactory;
+    public RoomListView(IServiceProvider serviceProvider, IRoomService roomService, IPhysicalResourceService resourceService, Func<RoomListViewModel, UpdateRoom> updateRoomFactory, Func<RoomListViewModel, DeskLayout> deskLayoutFactory)
     {
         _serviceProvider = serviceProvider;
         _roomService = roomService;
@@ -25,6 +26,7 @@ public partial class RoomListView : ContentView, INotifyPropertyChanged
         BindingContext = this;
         LoadRoomData();
         _updateRoomFactory = updateRoomFactory;
+        _deskLayoutFactory = deskLayoutFactory;
     }
 
     public ObservableCollection<RoomListViewModel> Rooms
@@ -59,7 +61,6 @@ public partial class RoomListView : ContentView, INotifyPropertyChanged
 
     private void LoadRoomData()
     {
-
         Rooms = new ObservableCollection<RoomListViewModel>(_resourceService.fetchRooms());
         //TODO: Fetch created room list
         //TODO: Set to Observable Collection of Rooms
@@ -89,7 +90,7 @@ public partial class RoomListView : ContentView, INotifyPropertyChanged
         var room = button?.BindingContext as RoomListViewModel;
         if (room != null)
         {
-            var deskLayoutPopup = new DeskLayout(room);
+            var deskLayoutPopup = _deskLayoutFactory(room);
             Application.Current.MainPage.ShowPopup(deskLayoutPopup);
         }
     }

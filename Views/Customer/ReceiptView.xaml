@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OwlReadingRoom.Views.Customer.ReceiptView"
+             BackgroundColor="White">
+    <ScrollView>
+
+        <VerticalStackLayout Padding="24"
+                             Spacing="24">
+            <Label Text="Payment Receipt"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="#0D1B2A" />
+            <Grid HeightRequest="8"
+                  WidthRequest="1600">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <!-- Gray (off-white) parallelogram -->
+                <Polygon Fill="#D4D4D4"
+                         Points="20,0 0,8 1580,8 1600,0"
+                         Grid.Column="0"
+                         HorizontalOptions="Fill" />
+                <!-- Blue parallelogram -->
+                <Polygon Fill="#007AFF"
+                         Points="20,0 0,8 790,8 810,0"
+                         Grid.Column="0"
+                         HorizontalOptions="Start" />
+            </Grid>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Column="0"
+                       Source="owl_logo_icon.png"
+                       HeightRequest="76"
+                       WidthRequest="80"
+                       HorizontalOptions="Start" />
+
+                <Grid Grid.Column="1"
+                      HorizontalOptions="End">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <VerticalStackLayout Grid.Column="0"
+                                         Spacing="8"
+                                         Margin="0,0,16,0">
+                        <Grid ColumnDefinitions="Auto,*"
+                              ColumnSpacing="8">
+                            <Label Text="Start Date"
+                                   FontSize="10"
+                                   TextColor="#5A5A5A"
+                                   Style="{StaticResource LabelBold}" />
+                            <Label Text="MM/DD/YYYY"
+                                   Grid.Column="1"
+                                   FontSize="10"
+                                   TextColor="#181818"
+                                   Style="{StaticResource LabelBold}" />
+                        </Grid>
+                        <Grid ColumnDefinitions="Auto,*"
+                              ColumnSpacing="8">
+                            <Label Text="End Date:"
+                                   FontSize="10"
+                                   TextColor="#5A5A5A"
+                                   Style="{StaticResource LabelBold}" />
+                            <Label Text="MM/DD/YYYY"
+                                   Grid.Column="1"
+                                   FontSize="10"
+                                   TextColor="#181818"
+                                   Style="{StaticResource LabelBold}" />
+                        </Grid>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Column="1"
+                                         Spacing="8">
+                        <Grid ColumnDefinitions="Auto,*"
+                              ColumnSpacing="8">
+                            <Label Text="Invoice Number:"
+                                   FontSize="10"
+                                   TextColor="#5A5A5A"
+                                   Style="{StaticResource LabelBold}" />
+                            <Label Text="xxxxxx"
+                                   Grid.Column="1"
+                                   FontSize="10"
+                                   TextColor="#181818"
+                                   Style="{StaticResource LabelBold}" />
+                        </Grid>
+                        <Grid ColumnDefinitions="Auto,*"
+                              ColumnSpacing="8">
+                            <Label Text="Balance Due:"
+                                   FontSize="10"
+                                   TextColor="#5A5A5A"
+                                   Style="{StaticResource LabelBold}" />
+                            <Label Text="NPR 500.00"
+                                   Grid.Column="1"
+                                   FontSize="10"
+                                   TextColor="#181818"
+                                   Style="{StaticResource LabelBold}" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Grid>
+            </Grid>
+
+            <Grid ColumnDefinitions="Auto,*,Auto"
+                  RowDefinitions="Auto,Auto">
+                <VerticalStackLayout Grid.Column="0"
+                                     Spacing="4">
+                    <Label Text="Billed from:"
+                           FontSize="12"
+                           TextColor="#1B263B" />
+                    <Label Text="Owl Reading Room"
+                           FontSize="12"
+                           TextColor="#415A77"
+                           Style="{StaticResource LabelMedium}" />
+                    <Label Text="826 Kantipath Road"
+                           FontSize="12"
+                           TextColor="#415A77"
+                           Style="{StaticResource LabelBold}" />
+                    <Label Text="Lazimpat, Kathmandu"
+                           FontSize="12"
+                           TextColor="#415A77"
+                           Style="{StaticResource LabelBold}" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Column="2"
+                                     Spacing="4">
+                    <Label Text="Billed to:"
+                           FontSize="12"
+                           TextColor="#1B263B" />
+                    <Label Text="Shree Krishna"
+                           FontSize="12"
+                           TextColor="#415A77"
+                           Style="{StaticResource LabelMedium}" />
+                    <Label Text="9800000000"
+                           FontSize="12"
+                           TextColor="#415A77"
+                           Style="{StaticResource LabelBold}" />
+                    <Label Text="Brindaban, Earth, Universe"
+                           FontSize="12"
+                           TextColor="#415A77"
+                           Style="{StaticResource LabelBold}" />
+                </VerticalStackLayout>
+            </Grid>
+
+            <Label Text="Partial Payment of NPR 1000 has been received for the booking of following resource:"
+                   FontSize="12"
+                   TextColor="#0D1B2A" />
+
+            <Frame BorderColor="#E3EBF6"
+                   Padding="0"
+                   HasShadow="False"
+                   BackgroundColor="White">
+                <VerticalStackLayout>
+                    <Grid BackgroundColor="#F2F2F2"
+                          Padding="24,8"
+                          ColumnDefinitions="2*,*,*,*">
+                        <Label Text="Resource Type"
+                               FontSize="10"
+                               Style="{StaticResource LabelMedium}"
+                               TextColor="#181818" />
+                        <Label Text="Qty"
+                               Grid.Column="1"
+                               FontSize="10"
+                               Style="{StaticResource LabelMedium}"
+                               TextColor="#181818" />
+                        <Label Text="Rate"
+                               Grid.Column="2"
+                               FontSize="10"
+                               Style="{StaticResource LabelMedium}"
+                               TextColor="#181818" />
+                        <Label Text="Amount"
+                               Grid.Column="3"
+                               FontSize="10"
+                               Style="{StaticResource LabelMedium}"
+                               TextColor="#181818" />
+                    </Grid>
+
+                    <Grid Padding="24,9"
+                          ColumnDefinitions="2*,*,*,*">
+                        <Label Text="AC Room, Desk 02"
+                               FontSize="12"
+                               TextColor="#415A77" />
+                        <Label Text="1"
+                               Grid.Column="1"
+                               FontSize="12"
+                               TextColor="#415A77" />
+                        <Label Text="NPR 4000.00"
+                               Grid.Column="2"
+                               FontSize="12"
+                               TextColor="#181818" />
+                        <Label Text="NPR 4000.00"
+                               Grid.Column="3"
+                               FontSize="12"
+                               TextColor="#181818" />
+                    </Grid>
+
+                    <BoxView Color="#E3EBF6"
+                             HeightRequest="1" />
+
+                    <Grid Padding="24,9"
+                          ColumnDefinitions="2*,*,*,*">
+                        <Label Text="Locker Room"
+                               FontSize="12"
+                               TextColor="#415A77" />
+                        <Label Text="2"
+                               Grid.Column="1"
+                               FontSize="12"
+                               TextColor="#415A77" />
+                        <Label Text="NPR 1000.00"
+                               Grid.Column="2"
+                               FontSize="12"
+                               TextColor="#181818" />
+                        <Label Text="NPR 1000.00"
+                               Grid.Column="3"
+                               FontSize="12"
+                               TextColor="#181818" />
+                    </Grid>
+
+                    <BoxView Color="#E3EBF6"
+                             HeightRequest="1" />
+
+                    <Grid Padding="24,9"
+                          ColumnDefinitions="2*,*,*,*">
+                        <Label Text="Parking"
+                               FontSize="12"
+                               TextColor="#415A77" />
+                        <Label Text="1"
+                               Grid.Column="1"
+                               FontSize="12"
+                               TextColor="#415A77" />
+                        <Label Text="NPR 100.00"
+                               Grid.Column="2"
+                               FontSize="12"
+                               TextColor="#181818" />
+                        <Label Text="NPR 100.00"
+                               Grid.Column="3"
+                               FontSize="12"
+                               TextColor="#181818" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <VerticalStackLayout Spacing="12">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="Subtotal:"
+                           FontSize="12"
+                           TextColor="#5A5A5A"
+                           Style="{StaticResource LabelBold}" />
+                    <Label Text="NPR 5100.00"
+                           Grid.Column="1"
+                           FontSize="12"
+                           TextColor="#181818"
+                           Style="{StaticResource LabelBold}" />
+                </Grid>
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="Tax(%)"
+                           FontSize="12"
+                           TextColor="#5A5A5A"
+                           Style="{StaticResource LabelBold}" />
+                    <Label Text="NPR 143.00"
+                           Grid.Column="1"
+                           FontSize="12"
+                           TextColor="#181818"
+                           Style="{StaticResource LabelBold}" />
+                </Grid>
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="Total payable"
+                           FontSize="12"
+                           TextColor="#5A5A5A"
+                           Style="{StaticResource LabelBold}" />
+                    <Label Text="NPR 5243.00"
+                           Grid.Column="1"
+                           FontSize="12"
+                           TextColor="#181818"
+                           Style="{StaticResource LabelBold}" />
+                </Grid>
+
+                <BoxView Color="#EDEDED"
+                         HeightRequest="1" />
+
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="Paid Amount"
+                           FontSize="12"
+                           TextColor="#5A5A5A"
+                           Style="{StaticResource LabelBold}" />
+                    <Label Text="NPR 1000.00"
+                           Grid.Column="1"
+                           FontSize="12"
+                           TextColor="#181818"
+                           Style="{StaticResource LabelBold}" />
+                </Grid>
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="Balance Due"
+                           FontSize="12"
+                           TextColor="#5A5A5A"
+                           Style="{StaticResource LabelBold}" />
+                    <Label Text="NPR 4243.00"
+                           Grid.Column="1"
+                           FontSize="14"
+                           TextColor="#181818"
+                           Style="{StaticResource LabelBold}" />
+                </Grid>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Notes:"
+                       FontSize="12"
+                       TextColor="#5A5A5A"
+                       Style="{StaticResource LabelBold}" />
+                <Label Text="* Additional revisions will be charged NPR 100.00 each month"
+                       FontSize="10"
+                       TextColor="#181818"
+                       Style="{StaticResource LabelBold}" />
+            </VerticalStackLayout>
+            <VerticalStackLayout Spacing="4"
+                                 HorizontalOptions="End">
+                <HorizontalStackLayout Spacing="4">
+                    <Image Source="email_icon.png"
+                           WidthRequest="12"
+                           HeightRequest="12" />
+                    <Label Text="owlreadingroom@gmail.com"
+                           FontSize="10"
+                           TextColor="#5A5A5A"
+                           Style="{StaticResource LabelBold}" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="4">
+                    <Image Source="call_icon.png"
+                           WidthRequest="12"
+                           HeightRequest="12" />
+                    <Label Text="+1012234"
+                           FontSize="10"
+                           TextColor="#5A5A5A"
+                           Style="{StaticResource LabelBold}" />
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+            <Grid HeightRequest="8"
+                  WidthRequest="1600">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <!-- Gray (off-white) parallelogram -->
+                <Polygon Fill="#D4D4D4"
+                         Points="20,0 0,8 1580,8 1600,0"
+                         Grid.Column="0"
+                         HorizontalOptions="Fill" />
+                <!-- Blue parallelogram -->
+                <Polygon Fill="#007AFF"
+                         Points="20,0 0,8 790,8 810,0"
+                         Grid.Column="0"
+                         HorizontalOptions="Start" />
+            </Grid>
+
+
+            <HorizontalStackLayout Spacing="10">
+                <Button Text="Download"
+                        ImageSource="download_icon.png"
+                        FontSize="14"
+                        TextColor="#0D1B2A"
+                        BackgroundColor="Transparent"
+                        BorderColor="#E2E8F0"
+                        BorderWidth="1"
+                        CornerRadius="8"
+                        Padding="24,12" />
+                <Button Text="Print"
+                        ImageSource="print_icon.png"
+                        FontSize="14"
+                        TextColor="#1E293B"
+                        BackgroundColor="Transparent"
+                        BorderColor="#E2E8F0"
+                        BorderWidth="1"
+                        Command="{Binding PrintCommand}"
+                        CornerRadius="8"
+                        Padding="24,12" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentView>
+

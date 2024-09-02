@@ -1,8 +1,9 @@
 ﻿using OwlReadingRoom.Models;
+using OwlReadingRoom.Models.Enums;
 using OwlReadingRoom.Services.Database;
 using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
-using System.Diagnostics;
+using static OwlReadingRoom.Services.BookingService;
 
 namespace OwlReadingRoom.Services.Resources;
 
@@ -81,6 +82,44 @@ public class ResourceService : IPhysicalResourceService
             }
 
         }
+    }
+
+    public List<DeskInfoViewModel> GetDeskInfoPerRoom(int roomId)
+    {
+        List<Desk> desks = _deskService.GetDesksOfRoom(roomId);
+        Dictionary<int, List<ReservationInfo>> reservation = _bookingService.GetDeskBookingInformation(roomId);
+        List<DeskInfoViewModel> deskInfoViewModels = new List<DeskInfoViewModel>();
+
+        foreach (var desk in desks)
+        {
+            if (reservation.TryGetValue(desk.Id, out var reservations) && reservations.Any())
+            {
+                // Use the first reservation for this desk
+                var firstReservation = reservations.First();
+
+                deskInfoViewModels.Add(new DeskInfoViewModel
+                {
+                    Name = $"{desk.Name} ",
+                    Status = firstReservation.Status,
+                    Color = Utility.GetBackGroundColorByDeskStatus(firstReservation.Status),
+                    TextColor = Utility.GetTextColorByDeskStatus(firstReservation.Status),
+                    Message = $"Reserved by {firstReservation.CustomerFullName} from {firstReservation.StartDate} to {firstReservation.EndDate}"
+                });
+            }
+            else
+            {
+                // No reservation, use default values
+                deskInfoViewModels.Add(new DeskInfoViewModel
+                {
+                    Name = $"{desk.Name} ",
+                    Status = DeskStatus.Available, // Assuming 'Available' is a default status
+                    Color = Utility.GetBackGroundColorByDeskStatus(DeskStatus.Available),
+                    TextColor = Utility.GetTextColorByDeskStatus(DeskStatus.Available),
+                    Message = "Available"
+                });
+            }
+        }
+        return deskInfoViewModels;
     }
 
 }

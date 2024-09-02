@@ -13,6 +13,10 @@ using OwlReadingRoom.Views.Customer;
 using OwlReadingRoom.Views.Resources.Rooms;
 using System.Reflection;
 
+#if WINDOWS
+using OwlReadingRoom.Platforms.Windows.Services;
+#endif
+
 namespace OwlReadingRoom
 {
     public static class MauiProgram
@@ -56,6 +60,11 @@ namespace OwlReadingRoom
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
+#if WINDOWS
+            builder.Services.AddTransient<IPrintService, WindowsPrintService>();
+#else
+        builder.Services.AddTransient<IPrintService, DefaultPrintService>();
+#endif
 
             return builder.Build();
         }
@@ -73,6 +82,11 @@ namespace OwlReadingRoom
             {
                 var resourceService = sp.GetRequiredService<IPhysicalResourceService>();
                 return room => new UpdateRoom(room, resourceService);
+            });
+            builder.Services.AddTransient<Func<RoomListViewModel, DeskLayout>>(sp =>
+            {
+                var resourceService = sp.GetRequiredService<IPhysicalResourceService>();
+                return room => new DeskLayout(room, resourceService);
             });
 
             //services
