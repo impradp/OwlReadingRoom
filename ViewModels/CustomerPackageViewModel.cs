@@ -17,5 +17,6 @@ namespace OwlReadingRoom.ViewModels
         public String AllocatedSpace { get; set; }
         public String PaymentStatus { get; set; }
         public String Dues { get; set; }
+        public List<DocumentViewModel> Documents { get; set; }
     }
 }

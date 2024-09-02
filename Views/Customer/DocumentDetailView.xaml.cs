@@ -1,3 +1,4 @@
+using OwlReadingRoom.Components.AlertDialog;
 using OwlReadingRoom.Events;
 using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
@@ -9,8 +10,8 @@ namespace OwlReadingRoom.Views.Customer;
 
 public partial class DocumentDetailView : ContentView, INotifyPropertyChanged
 {
-    public event EventHandler<DocumentDetailSavedEventArgs> DocumentDetailSaved;
     private ObservableCollection<FileItem> _selectedFiles = new ObservableCollection<FileItem>();
+    private CustomerPackageViewModel _customer;
     public ObservableCollection<FileItem> SelectedFiles
     {
         get => _selectedFiles;
@@ -26,18 +27,18 @@ public partial class DocumentDetailView : ContentView, INotifyPropertyChanged
     }
 
     public bool HasSelectedFiles => SelectedFiles.Any();
-    public DocumentDetailView()
+    public DocumentDetailView(CustomerPackageViewModel customer)
     {
         InitializeComponent();
         BindingContext = this;
+        _customer = customer;
     }
 
     private async void OnCreateClicked(object sender, EventArgs e)
     {
         //TODO: Update any necessary info from form 
         //TODO: Update CustomerPackageViewModel accordingly.
-        CustomerPackageViewModel updatedModel = new CustomerPackageViewModel();
-        DocumentDetailSaved?.Invoke(this, new DocumentDetailSavedEventArgs(updatedModel));
+        AlertService.Instance.ShowAlert("Success", "Documents saved successfully.");
     }
 
     private async void OnBrowseClicked(object sender, EventArgs e)

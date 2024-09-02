@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OwlReadingRoom.Views.Customer.CustomerUpdateView">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Frame Grid.Row="0"
+               BackgroundColor="White"
+               Padding="0,0,0,1"
+               BorderColor="Transparent"
+               HasShadow="False">
+            <Frame.Content>
+                <StackLayout>
+                    <HorizontalStackLayout>
+                        <StackLayout x:Name="PersonalDetailTab"
+                                     BackgroundColor="White">
+                            <Label x:Name="PersonalDetailTabLabel"
+                                   Text="Personal Details"
+                                   TextColor="#3B82F6"
+                                   Style="{StaticResource MediumLabel}"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center" />
+                            <BoxView x:Name="PersonalDetailIndicator"
+                                     Color="#3B82F6"
+                                     Margin="0,10,0,0"
+                                     WidthRequest="150"
+                                     HeightRequest="2"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="Center" />
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnPersonalDetailTabTapped" />
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+
+                        <StackLayout x:Name="DocumentDetailTab"
+                                     Padding="0,0"
+                                     BackgroundColor="White">
+                            <Label x:Name="DocumentDetailTabLabel"
+                                   Text="Document Details"
+                                   Style="{StaticResource MediumLabel}"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center" />
+                            <BoxView x:Name="DocumentDetailTabIndicator"
+                                     Color="#E2E8F0"
+                                     WidthRequest="160"
+                                     Margin="0,10,0,0"
+                                     HeightRequest="2"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="Center" />
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDocumentDetailTabTapped" />
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+
+                        <StackLayout x:Name="PackagePaymentTab"
+                                     Padding="0,0"
+                                     BackgroundColor="White">
+                            <Label x:Name="PackagePaymentTabLabel"
+                                   Text="Package &amp; Payment"
+                                   Style="{StaticResource MediumLabel}"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center" />
+                            <BoxView x:Name="PackagePaymentTabIndicator"
+                                     Color="#E2E8F0"
+                                     WidthRequest="170"
+                                     Margin="0,10,0,0"
+                                     HeightRequest="2"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="Center" />
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnPackagePaymentTabTapped" />
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </HorizontalStackLayout>
+                    <BoxView HeightRequest="1"
+                             Color="#E2E8F0"
+                             HorizontalOptions="Fill" />
+                </StackLayout>
+            </Frame.Content>
+        </Frame>
+
+        <!-- Content area for the selected tab -->
+        <ContentView Grid.Row="1"
+                     x:Name="TabContent" />
+    </Grid>
+</ContentView>

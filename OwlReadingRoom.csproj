@@ -70,6 +70,7 @@
 	  <None Remove="Resources\Fonts\Inter-SemiBold.ttf" />
 	  <None Remove="Resources\Images\admin_logo_icon.svg" />
 	  <None Remove="Resources\Images\bell_icon.png" />
+	  <None Remove="Resources\Images\circle_check_filled_icon.svg" />
 	  <None Remove="Resources\Images\close_icon.svg" />
 	  <None Remove="Resources\Images\customer_icon.svg" />
 	  <None Remove="Resources\Images\empty_state.svg" />
@@ -132,6 +133,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Components\Loader.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Customer\CustomerDetailsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Customer\CustomerUpdateView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Customer\CustomerView.xaml">

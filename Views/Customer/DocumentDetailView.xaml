@@ -2,255 +2,176 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="OwlReadingRoom.Views.Customer.DocumentDetailView">
-    <ContentView.Resources>
-        <Style x:Key="EntryInfoStyle"
-               TargetType="Entry">
-            <Setter Property="TextColor"
-                    Value="#475569" />
-            <Setter Property="FontFamily"
-                    Value="Inter" />
-            <Setter Property="FontSize"
-                    Value="16" />
-        </Style>
-
-        <Style x:Key="SubTitleStyle"
-               TargetType="Entry">
-            <Setter Property="FontFamily"
-                    Value="Inter-SemiBold" />
-            <Setter Property="FontSize"
-                    Value="20" />
-            <Setter Property="TextColor"
-                    Value="#3B82F6" />
-        </Style>
-
-        <Style x:Key="EntryLabelStyle"
-               TargetType="Entry">
-            <Setter Property="FontFamily"
-                    Value="Inter-Medium" />
-            <Setter Property="FontSize"
-                    Value="16" />
-            <Setter Property="TextColor"
-                    Value="#1E293B" />
-        </Style>
-    </ContentView.Resources>
     <ScrollView>
-        <VerticalStackLayout Padding="24"
+        <VerticalStackLayout Padding="0,24,24,0"
                              Spacing="20">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-
+            <!-- Personal Information Section -->
+            <Label Text="Document"
+                   Style="{StaticResource SubTitleStyle}" />
+            <Grid ColumnDefinitions="*, *, *"
+                  ColumnSpacing="15">
                 <VerticalStackLayout Grid.Column="0"
-                                     Grid.RowSpan="2"
-                                     Spacing="10">
-                    <Label Text="2. Document Details"
-                           FontSize="20"
-                           TextColor="#0D1B2A"
-                           FontFamily="Inter-SemiBold" />
-                    <Label Text="*Please fill the details below as per your official documents"
-                           FontSize="16"
-                           TextColor="#415A77"
-                           FontFamily="Inter-Medium" />
-                </VerticalStackLayout>
-
-                <StackLayout Grid.Column="1"
-                             Grid.Row="0"
-                             Orientation="Horizontal"
-                             HorizontalOptions="End"
-                             VerticalOptions="Center">
-                    <Label Text="Step 2 "
-                           FontFamily="Lato"
-                           FontSize="16"
-                           TextColor="#3B82F6" />
-                    <Label Text=" of 3"
-                           FontFamily="Lato"
-                           FontSize="16"
-                           TextColor="#28323C" />
-                </StackLayout>
-
-                <BoxView Grid.ColumnSpan="2"
-                         Grid.Row="2"
-                         HeightRequest="1"
-                         Color="#D9D9D9"
-                         Margin="0,10,0,0" />
-            </Grid>
-
-            <VerticalStackLayout Spacing="20">
-                <!-- Personal Information Section -->
-                <Label Text="Document"
-                       Style="{StaticResource SubTitleStyle}" />
-                <Grid ColumnDefinitions="*, *, *"
-                      ColumnSpacing="15">
-                    <VerticalStackLayout Grid.Column="0"
-                                         Spacing="4">
-                        <VerticalStackLayout Grid.Column="2"
-                                             Spacing="4">
-                            <Label Text="Document"
-                                   Style="{StaticResource EntryLabelStyle}"
-                                   HeightRequest="24" />
-                            <Frame BackgroundColor="White"
-                                   Padding="0"
-                                   HeightRequest="48"
-                                   CornerRadius="4"
-                                   BorderColor="#CBD5E1"
-                                   HasShadow="False">
-                                <Picker TitleColor="#647087"
-                                        TextColor="#07003B"
-                                        FontSize="16"
-                                        FontFamily="Inter"
-                                        VerticalOptions="Center"
-                                        HorizontalOptions="FillAndExpand">
-                                    <Picker.Items>
-                                        <x:String>National ID</x:String>
-                                        <x:String>Citizenship Id</x:String>
-                                        <x:String>Driving License</x:String>
-                                        <x:String>Passport</x:String>
-                                    </Picker.Items>
-                                </Picker>
-                            </Frame>
-                        </VerticalStackLayout>
-                    </VerticalStackLayout>
-                    <VerticalStackLayout Grid.Column="1"
-                                         Spacing="4">
-                        <Label Text="Document Number"
-                               Style="{StaticResource EntryLabelStyle}"
-                               HeightRequest="24" />
-                        <Frame BackgroundColor="White"
-                               Padding="12,0"
-                               HeightRequest="48"
-                               CornerRadius="4"
-                               BorderColor="#CBD5E1"
-                               HasShadow="False">
-                            <Entry Placeholder="Eg: 123-456-89"
-                                   Style="{StaticResource EntryInfoStyle}"
-                                   PlaceholderColor="#647087" />
-                        </Frame>
-                    </VerticalStackLayout>
+                                     Spacing="4">
                     <VerticalStackLayout Grid.Column="2"
                                          Spacing="4">
-                        <Label Text="Issue Date"
+                        <Label Text="Document"
                                Style="{StaticResource EntryLabelStyle}"
                                HeightRequest="24" />
                         <Frame BackgroundColor="White"
-                               Padding="12,0"
+                               Padding="0"
                                HeightRequest="48"
                                CornerRadius="4"
                                BorderColor="#CBD5E1"
                                HasShadow="False">
-                            <DatePicker Format="MM/dd/yyyy"
-                                        TextColor="Black" />
+                            <Picker TitleColor="#647087"
+                                    TextColor="#07003B"
+                                    FontSize="16"
+                                    FontFamily="Inter"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="FillAndExpand">
+                                <Picker.Items>
+                                    <x:String>National ID</x:String>
+                                    <x:String>Citizenship Id</x:String>
+                                    <x:String>Driving License</x:String>
+                                    <x:String>Passport</x:String>
+                                </Picker.Items>
+                            </Picker>
                         </Frame>
                     </VerticalStackLayout>
-                </Grid>
-                <ScrollView>
-                    <VerticalStackLayout Spacing="15"
-                                         Padding="20"
-                                         WidthRequest="735">
-                        <StackLayout Orientation="Horizontal"
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1"
                                      Spacing="4">
-                            <Label Text="File Upload"
-                                   TextColor="#37404C"
-                                   FontSize="14"
-                                   FontFamily="Source Sans Pro" />
-                            <Label Text="*"
-                                   TextColor="#29BB00"
-                                   FontSize="14"
-                                   FontFamily="Source Sans Pro" />
-                        </StackLayout>
+                    <Label Text="Document Number"
+                           Style="{StaticResource EntryLabelStyle}"
+                           HeightRequest="24" />
+                    <Frame BackgroundColor="White"
+                           Padding="12,0"
+                           HeightRequest="48"
+                           CornerRadius="4"
+                           BorderColor="#CBD5E1"
+                           HasShadow="False">
+                        <Entry Placeholder="Eg: 123-456-89"
+                               Style="{StaticResource EntryInfoStyle}"
+                               PlaceholderColor="#647087" />
+                    </Frame>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="2"
+                                     Spacing="4">
+                    <Label Text="Issue Date"
+                           Style="{StaticResource EntryLabelStyle}"
+                           HeightRequest="24" />
+                    <Frame BackgroundColor="White"
+                           Padding="12,0"
+                           HeightRequest="48"
+                           CornerRadius="4"
+                           BorderColor="#CBD5E1"
+                           HasShadow="False">
+                        <DatePicker Format="MM/dd/yyyy"
+                                    TextColor="Black" />
+                    </Frame>
+                </VerticalStackLayout>
+            </Grid>
+            <ScrollView>
+                <VerticalStackLayout Spacing="15"
+                                     Padding="20"
+                                     WidthRequest="735">
+                    <StackLayout Orientation="Horizontal"
+                                 Spacing="4">
+                        <Label Text="File Upload"
+                               TextColor="#37404C"
+                               FontSize="14"
+                               FontFamily="Inter" />
+                        <Label Text="*"
+                               TextColor="#29BB00"
+                               FontSize="14"
+                               FontFamily="Inter" />
+                    </StackLayout>
 
-                        <Border x:Name="DropArea"
-                                StrokeThickness="1"
-                                Stroke="#64748B"
-                                BackgroundColor="#F7F8F9"
-                                StrokeDashArray="3,3"
-                                HeightRequest="112">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="6" />
-                            </Border.StrokeShape>
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnBrowseClicked" />
-                            </Border.GestureRecognizers>
-                            <Grid Padding="24,16">
-                                <VerticalStackLayout Spacing="4"
-                                                     VerticalOptions="Center"
-                                                     HorizontalOptions="Center">
-                                    <Image Source="upload_icon.png"
-                                           WidthRequest="24"
-                                           HeightRequest="24"
-                                           HorizontalOptions="Center" />
-                                    <Label Text="Browse"
-                                           TextColor="#37404C"
-                                           FontSize="16"
-                                           FontFamily="Source Sans Pro"
-                                           FontAttributes="Bold"
-                                           HorizontalOptions="Center"
-                                           BackgroundColor="Transparent" />
-                                    <Label Text="or Drag and Drop your files here"
-                                           TextColor="Black"
-                                           FontSize="16"
-                                           FontFamily="Source Sans Pro"
-                                           HorizontalOptions="Center" />
-                                </VerticalStackLayout>
-                            </Grid>
-                        </Border>
+                    <Border x:Name="DropArea"
+                            StrokeThickness="1"
+                            Stroke="#64748B"
+                            BackgroundColor="#F7F8F9"
+                            StrokeDashArray="3,3"
+                            HeightRequest="112">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="6" />
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnBrowseClicked" />
+                        </Border.GestureRecognizers>
+                        <Grid Padding="24,16">
+                            <VerticalStackLayout Spacing="4"
+                                                 VerticalOptions="Center"
+                                                 HorizontalOptions="Center">
+                                <Image Source="upload_icon.png"
+                                       WidthRequest="24"
+                                       HeightRequest="24"
+                                       HorizontalOptions="Center" />
+                                <Label Text="Browse"
+                                       TextColor="#37404C"
+                                       FontSize="16"
+                                       FontFamily="Source Sans Pro"
+                                       FontAttributes="Bold"
+                                       HorizontalOptions="Center"
+                                       BackgroundColor="Transparent" />
+                                <Label Text="or Drag and Drop your files here"
+                                       TextColor="Black"
+                                       FontSize="16"
+                                       FontFamily="Source Sans Pro"
+                                       HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
 
-                        <CollectionView x:Name="FileList"
-                                        IsVisible="{Binding HasSelectedFiles}"
-                                        ItemsSource="{Binding SelectedFiles}">
-                            <CollectionView.ItemsLayout>
-                                <GridItemsLayout Orientation="Vertical"
-                                                 Span="3"
-                                                 HorizontalItemSpacing="10"
-                                                 VerticalItemSpacing="10" />
-                            </CollectionView.ItemsLayout>
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid WidthRequest="200"
-                                          HeightRequest="200">
-                                        <Image Source="{Binding FilePath}"
-                                               Aspect="AspectFill" />
-                                        <Button Text="X"
-                                                FontAttributes="Bold"
-                                                BackgroundColor="#80000000"
-                                                TextColor="White"
-                                                CornerRadius="15"
-                                                WidthRequest="30"
-                                                HeightRequest="30"
-                                                HorizontalOptions="End"
-                                                VerticalOptions="Start"
-                                                Margin="5"
-                                                Clicked="OnRemoveClicked"
-                                                CommandParameter="{Binding .}" />
-                                    </Grid>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-                    </VerticalStackLayout>
-                </ScrollView>
+                    <CollectionView x:Name="FileList"
+                                    IsVisible="{Binding HasSelectedFiles}"
+                                    ItemsSource="{Binding SelectedFiles}">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical"
+                                             Span="3"
+                                             HorizontalItemSpacing="10"
+                                             VerticalItemSpacing="10" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid WidthRequest="200"
+                                      HeightRequest="200">
+                                    <Image Source="{Binding FilePath}"
+                                           Aspect="AspectFill" />
+                                    <Button Text="X"
+                                            FontAttributes="Bold"
+                                            BackgroundColor="#80000000"
+                                            TextColor="White"
+                                            CornerRadius="15"
+                                            WidthRequest="30"
+                                            HeightRequest="30"
+                                            HorizontalOptions="End"
+                                            VerticalOptions="Start"
+                                            Margin="5"
+                                            Clicked="OnRemoveClicked"
+                                            CommandParameter="{Binding .}" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </ScrollView>
 
-                <!-- Buttons -->
-                <Grid ColumnDefinitions="*, *"
-                      ColumnSpacing="10">
-                    <Button Grid.Column="0"
-                            Text="Clear"
-                            TextColor="#415A77"
-                            BackgroundColor="Transparent"
-                            BorderColor="#E2E8F0"
-                            BorderWidth="1" />
-                    <Button Grid.Column="1"
-                            Text="Next"
-                            TextColor="White"
-                            Clicked="OnCreateClicked"
-                            BackgroundColor="#778DA9" />
-                </Grid>
-            </VerticalStackLayout>
+            <!-- Buttons -->
+            <Grid ColumnDefinitions="*, *"
+                  ColumnSpacing="10">
+                <Button Grid.Column="0"
+                        Text="Clear"
+                        TextColor="#415A77"
+                        BackgroundColor="Transparent"
+                        BorderColor="#E2E8F0"
+                        BorderWidth="1" />
+                <Button Grid.Column="1"
+                        Text="Save"
+                        TextColor="White"
+                        Clicked="OnCreateClicked"
+                        BackgroundColor="#778DA9" />
+            </Grid>
         </VerticalStackLayout>
     </ScrollView>
 </ContentView>

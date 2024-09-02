@@ -111,6 +111,10 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=CustomerTappedCommand}"
+                                                              CommandParameter="{Binding .}" />
+                                    </Grid.GestureRecognizers>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="56" />
                                         <RowDefinition Height="1" />
