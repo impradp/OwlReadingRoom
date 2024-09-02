@@ -39,6 +39,11 @@ public class DeskService : IDeskService
         _deskRepository.InsertAll(deskList);
     }
 
+    public List<Desk> GetDesksOfRoom(int roomId)
+    {
+        return _deskRepository.Table.Where(d => d.RoomId == roomId).ToList();
+    }
+
     private int GetLastDeskNumber(int? roomId, string deskInitials)
     {
         var lastDesk = _deskRepository.Table.Where(desk => desk.RoomId == roomId && desk.Name.StartsWith(deskInitials))
