@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using OwlReadingRoom.Proxy;
 using OwlReadingRoom.Services;
 using OwlReadingRoom.Services.Database;
 using OwlReadingRoom.Services.Email;
@@ -67,6 +68,7 @@ namespace OwlReadingRoom
         {
             builder.Services.AddSingleton<IDatabaseConnectionService, DatabaseConnectionService>();
             builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+
             // View Models
             builder.Services.AddTransient<MainView>();
             builder.Services.AddTransient<NewCustomer>();
@@ -82,6 +84,13 @@ namespace OwlReadingRoom
                 var resourceService = sp.GetRequiredService<IPhysicalResourceService>();
                 return room => new DeskLayout(room, resourceService);
             });
+            builder.Services.AddSingleton(sp =>
+            {
+                var databaseConnectionService = sp.GetService<IDatabaseConnectionService>();
+                var resourceService = ActivatorUtilities.CreateInstance<ResourceService>(sp);
+                return TransactionalProxy<IPhysicalResourceService>.CreateProxy(resourceService, databaseConnectionService);
+            });
+            //services
 
 #if WINDOWS
             builder.Services.AddSingleton<IPdfService,PdfService>();
@@ -93,12 +102,13 @@ namespace OwlReadingRoom
             builder.Services.AddSingleton<IEmailService, EmailService>();
             builder.Services.AddSingleton<IRoomService, RoomService>();
             builder.Services.AddSingleton<IDeskService, DeskService>();
-            builder.Services.AddSingleton<IPhysicalResourceService, ResourceService>();
+
             builder.Services.AddSingleton(sp =>
             {
                 var config = sp.GetRequiredService<IConfiguration>();
                 return Auth0Handler.GetAuth0Client(config);
             });
+
             builder.Services.AddSingleton(sp =>
             {
                 var config = sp.GetRequiredService<IConfiguration>();

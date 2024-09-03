@@ -1,4 +1,5 @@
-﻿using OwlReadingRoom.ViewModels;
+﻿using OwlReadingRoom.Proxy;
+using OwlReadingRoom.ViewModels;
 
 namespace OwlReadingRoom.Services.Resources;
 
