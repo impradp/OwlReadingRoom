@@ -1,5 +1,6 @@
 ﻿using OwlReadingRoom.Models;
 using OwlReadingRoom.Models.Enums;
+using OwlReadingRoom.Proxy;
 using OwlReadingRoom.Services.Database;
 using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
@@ -22,6 +23,7 @@ public class ResourceService : IPhysicalResourceService
         _databaseConnectionService = databaseConnectionService;
     }
 
+    [Transactional]
     public List<RoomListViewModel> fetchRooms()
     {
 
