@@ -306,11 +306,15 @@
                     <Grid ColumnDefinitions="*,Auto">
                         <Label Text="Package and Payment"
                                Style="{StaticResource EntryLabelReadonly}"
-                               TextColor="#007AFF" />
+                               TextColor="#007AFF"
+                               VerticalTextAlignment="Center" />
                         <Button Grid.Column="1"
                                 Text="Receipt"
                                 TextColor="#415A77"
                                 BorderColor="#415A77"
+                                BorderWidth="1"
+                                Clicked="OnReceiptClicked"
+                                ImageSource="receipt_icon.png"
                                 BackgroundColor="Transparent" />
                     </Grid>
                     <VerticalStackLayout Spacing="16">

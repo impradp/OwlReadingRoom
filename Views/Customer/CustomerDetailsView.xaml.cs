@@ -7,6 +7,7 @@ namespace OwlReadingRoom.Views.Customer;
 public partial class CustomerDetailsView : ContentView, INotifyPropertyChanged
 {
     public event EventHandler<CustomerSavedEventArgs> CustomerUpdateSelected;
+    public event EventHandler<CustomerSavedEventArgs> CustomerReceiptSelected;
     private CustomerPackageViewModel _customer;
     public CustomerDetailsView(CustomerPackageViewModel customer)
     {
@@ -35,6 +36,11 @@ public partial class CustomerDetailsView : ContentView, INotifyPropertyChanged
     private void OnEditClicked(object sender, EventArgs e)
     {
         CustomerUpdateSelected?.Invoke(this, new CustomerSavedEventArgs(Customer));
+    }
+
+    private void OnReceiptClicked(object sender, EventArgs e)
+    {
+        CustomerReceiptSelected?.Invoke(this, new CustomerSavedEventArgs(Customer));
     }
 
 }

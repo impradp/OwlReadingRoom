@@ -12,6 +12,9 @@ using OwlReadingRoom.Views;
 using OwlReadingRoom.Views.Customer;
 using OwlReadingRoom.Views.Resources.Rooms;
 using System.Reflection;
+#if WINDOWS
+using OwlReadingRoom.Platforms.Windows.Services;
+#endif
 
 namespace OwlReadingRoom
 {
@@ -80,7 +83,9 @@ namespace OwlReadingRoom
                 return room => new DeskLayout(room, resourceService);
             });
 
-            //services
+#if WINDOWS
+            builder.Services.AddSingleton<IPdfService,PdfService>();
+#endif
             builder.Services.AddSingleton<IPackageService, PackageService>();
             builder.Services.AddSingleton<IBookingService, BookingService>();
             builder.Services.AddSingleton<ICustomerService, CustomerService>();

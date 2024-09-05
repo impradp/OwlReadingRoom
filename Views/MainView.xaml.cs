@@ -61,6 +61,7 @@ namespace OwlReadingRoom
 
             _currentCustomerDetailsView = new CustomerDetailsView(selectedCustomer);
             _currentCustomerDetailsView.CustomerUpdateSelected += OnCustomerUpdateSelected;
+            _currentCustomerDetailsView.CustomerReceiptSelected += OnCustomerReceiptSelected;
             DynamicContentArea.Content = _currentCustomerDetailsView;
         }
 
@@ -69,8 +70,16 @@ namespace OwlReadingRoom
             if (_currentCustomerDetailsView != null)
             {
                 _currentCustomerDetailsView.CustomerUpdateSelected -= OnCustomerUpdateSelected;
+                _currentCustomerDetailsView.CustomerReceiptSelected -= OnCustomerReceiptSelected;
                 _currentCustomerDetailsView = null;
             }
+        }
+
+        private void OnCustomerReceiptSelected(object sender, CustomerSavedEventArgs e)
+        {
+            IPdfService pdfService = _serviceProvider.GetService<IPdfService>();
+            var customerReceiptView = new ReceiptView(e.SavedCustomerPackage, pdfService);
+            DynamicContentArea.Content = customerReceiptView;
         }
 
         #region Properties
