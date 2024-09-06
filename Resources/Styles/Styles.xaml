@@ -3,6 +3,12 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
+    <Shadow x:Key="ButtonShadow"
+            Brush="#80000000"
+            Offset="3,3"
+            Radius="5"
+            Opacity="0.5" />
+
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color"
                 Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
@@ -51,7 +57,12 @@
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="Scale"
+                                    Value="1" />
+                        </VisualState.Setters>
+                    </VisualState>
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
                             <Setter Property="TextColor"
@@ -60,7 +71,18 @@
                                     Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}" />
                         </VisualState.Setters>
                     </VisualState>
-                    <VisualState x:Name="PointerOver" />
+                    <VisualState x:Name="Pressed">
+                        <VisualState.Setters>
+                            <Setter Property="Scale"
+                                    Value="0.9" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="PointerOver">
+                        <VisualState.Setters>
+                            <Setter Property="Shadow"
+                                    Value="{StaticResource ButtonShadow}" />
+                        </VisualState.Setters>
+                    </VisualState>
                 </VisualStateGroup>
             </VisualStateGroupList>
         </Setter>
@@ -183,6 +205,35 @@
                 Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
         <Setter Property="CornerRadius"
                 Value="8" />
+    </Style>
+
+    <Style x:Key="Button"
+           TargetType="Frame">
+        <Setter Property="HasShadow"
+                Value="False" />
+        <Setter Property="BorderColor"
+                Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
+        <Setter Property="CornerRadius"
+                Value="8" />
+        <Setter Property="BackgroundColor"
+                Value="#F5F9FF" />
+        <Setter Property="Padding"
+                Value="15" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Pressed">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor"
+                                    Value="#F0F0F0" />
+                            <Setter Property="Scale"
+                                    Value="0.98" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
     </Style>
 
     <Style TargetType="ImageButton">
@@ -577,53 +628,7 @@
                 Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
     </Style>
 
-    <!-- Global Custom Styles-->
-    <Style TargetType="Label"
-           x:Key="EntryLabelReadonly">
-        <Setter Property="TextColor"
-                Value="{AppThemeBinding Light={StaticResource DefaultText}, Dark={StaticResource White}}" />
-        <Setter Property="BackgroundColor"
-                Value="Transparent" />
-        <Setter Property="FontFamily"
-                Value="Inter-SemiBold" />
-        <Setter Property="FontSize"
-                Value="16" />
-    </Style>
-
-    <Style TargetType="Label"
-           x:Key="RegularLabel">
-        <Setter Property="TextColor"
-                Value="{AppThemeBinding Light={StaticResource TertiaryColor}, Dark={StaticResource White}}" />
-        <Setter Property="BackgroundColor"
-                Value="Transparent" />
-        <Setter Property="FontFamily"
-                Value="Inter" />
-        <Setter Property="FontSize"
-                Value="14" />
-    </Style>
-
-    <Style TargetType="Label"
-           x:Key="MediumLabel">
-        <Setter Property="TextColor"
-                Value="{AppThemeBinding Light={StaticResource SecondaryText}, Dark={StaticResource White}}" />
-        <Setter Property="BackgroundColor"
-                Value="Transparent" />
-        <Setter Property="FontFamily"
-                Value="Inter-Medium" />
-        <Setter Property="FontSize"
-                Value="16" />
-    </Style>
-
-    <Style x:Key="EntryInfoStyle"
-           TargetType="Entry">
-        <Setter Property="TextColor"
-                Value="#475569" />
-        <Setter Property="FontFamily"
-                Value="Inter" />
-        <Setter Property="FontSize"
-                Value="16" />
-    </Style>
-
+    <!--Custom Styles-->
     <Style x:Key="SubTitleStyle"
            TargetType="Entry">
         <Setter Property="FontFamily"
@@ -633,21 +638,51 @@
         <Setter Property="TextColor"
                 Value="#3B82F6" />
     </Style>
-
-    <Style x:Key="EntryLabelStyle"
-           TargetType="Entry">
+    
+    <Style x:Key="HeaderLabelStyle"
+           TargetType="Label">
         <Setter Property="FontFamily"
                 Value="Inter-Medium" />
         <Setter Property="FontSize"
-                Value="16" />
+                Value="14" />
         <Setter Property="TextColor"
                 Value="#1E293B" />
+        <Setter Property="VerticalTextAlignment"
+                Value="Center" />
+        <Setter Property="HorizontalTextAlignment"
+                Value="Center" />
+        <Setter Property="Padding"
+                Value="8,16" />
+        <Setter Property="Margin"
+                Value="0,12" />
+    </Style>
+
+    <Style x:Key="CellLabelStyle"
+           TargetType="Label">
+        <Setter Property="FontFamily"
+                Value="Inter" />
+        <Setter Property="FontSize"
+                Value="16" />
+        <Setter Property="VerticalOptions"
+                Value="Center" />
+        <Setter Property="HorizontalOptions"
+                Value="Center" />
+        <Setter Property="HorizontalTextAlignment"
+                Value="Center" />
+        <Setter Property="TextColor"
+                Value="#475569" />
     </Style>
 
     <Style x:Key="LabelRegular"
            TargetType="Label">
         <Setter Property="FontFamily"
                 Value="Inter" />
+    </Style>
+
+    <Style x:Key="LabelSemiBold"
+           TargetType="Label">
+        <Setter Property="FontFamily"
+                Value="Inter-SemiBold" />
     </Style>
 
     <Style x:Key="LabelMedium"

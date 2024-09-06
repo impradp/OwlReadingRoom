@@ -1,6 +1,5 @@
 using OwlReadingRoom.Services;
 using OwlReadingRoom.ViewModels;
-using System.Windows.Input;
 
 namespace OwlReadingRoom.Views.Customer
 {
@@ -9,14 +8,12 @@ namespace OwlReadingRoom.Views.Customer
         private CustomerDetailViewModel _customer;
 
         private IPdfService _pdfService;
-        public ICommand DownloadCommand { get; private set; }
 
         public ReceiptView(CustomerDetailViewModel customer, IPdfService pdfService)
         {
             InitializeComponent();
             _customer = customer;
             _pdfService = pdfService;
-            DownloadCommand = new Command(async () => await DownloadReceiptPdfAsync());
             BindingContext = this;
         }
 
@@ -37,7 +34,7 @@ namespace OwlReadingRoom.Views.Customer
         /// Downloads the payment receipt as a pdf.
         /// </summary>
         /// <returns>The downloaded pdf</returns>
-        private async Task DownloadReceiptPdfAsync()
+        private async void OnDownloadReceiptClicked(object sender, EventArgs e)
         {
             await _pdfService.DownloadAsync(ReceiptContent);
         }

@@ -178,7 +178,7 @@
 
                     <!-- Payment information -->
                     <Label Grid.Row="2"
-                           Text="Partial Payment of NPR 1000 has been received for the booking of following resource:"
+                           Text="Payment of NPR 1000 has been received for the booking of following resource:"
                            FontSize="12"
                            TextColor="#0D1B2A"
                            Margin="0,0,0,24" />
@@ -300,7 +300,7 @@
                                    FontSize="12"
                                    TextColor="#5A5A5A"
                                    Style="{StaticResource LabelBold}" />
-                            <Label Text="NPR 143.00"
+                            <Label Text="NPR 0.00"
                                    Grid.Column="1"
                                    FontSize="12"
                                    TextColor="#181818"
@@ -416,7 +416,7 @@
                         BorderColor="#E2E8F0"
                         BorderWidth="1"
                         CornerRadius="8"
-                        Command="{Binding DownloadCommand}"
+                        Released="OnDownloadReceiptClicked"
                         Padding="24,12" />
             </HorizontalStackLayout>
         </VerticalStackLayout>

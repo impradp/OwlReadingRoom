@@ -3,7 +3,7 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                x:Class="OwlReadingRoom.Views.Resources.Rooms.DeskSelectView"
-               CanBeDismissedByTappingOutsideOfPopup="False"
+               CanBeDismissedByTappingOutsideOfPopup="True"
                Size="800,600">
 
     <Border BackgroundColor="White"
@@ -16,13 +16,13 @@
                   Padding="24,24,24,16">
                 <Label x:Name="DeskSelectLabel"
                        FontSize="20"
-                       FontFamily="Inter-Bold"
+                       Style="{StaticResource LabelBold}"
                        TextColor="#1E293B"
                        VerticalOptions="Center" />
                 <Button WidthRequest="24"
                         HeightRequest="24"
                         BackgroundColor="Transparent"
-                        Clicked="OnCloseButtonClicked"
+                        Released="OnCloseButtonClicked"
                         HorizontalOptions="End">
                     <Button.ImageSource>
                         <FileImageSource File="close_icon.png" />
@@ -54,7 +54,7 @@
                                     <Label Text="Selected"
                                            TextColor="#1E293B"
                                            FontSize="16"
-                                           FontFamily="Inter"
+                                           Style="{StaticResource LabelRegular}"
                                            VerticalOptions="Center" />
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout Spacing="5">
@@ -67,7 +67,7 @@
                                     <Label Text="Available"
                                            TextColor="#1E293B"
                                            FontSize="16"
-                                           FontFamily="Inter"
+                                           Style="{StaticResource LabelRegular}"
                                            VerticalOptions="Center" />
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout Spacing="5">
@@ -79,7 +79,7 @@
                                     <Label Text="Reserved"
                                            TextColor="#1E293B"
                                            FontSize="16"
-                                           FontFamily="Inter"
+                                           Style="{StaticResource LabelRegular}"
                                            VerticalOptions="Center" />
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout Spacing="5">
@@ -91,7 +91,7 @@
                                     <Label Text="Not available"
                                            TextColor="#1E293B"
                                            FontSize="16"
-                                           FontFamily="Inter"
+                                           Style="{StaticResource LabelRegular}"
                                            VerticalOptions="Center" />
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout Spacing="5">
@@ -103,7 +103,7 @@
                                     <Label Text="Under maintenance"
                                            TextColor="#1E293B"
                                            FontSize="16"
-                                           FontFamily="Inter"
+                                           Style="{StaticResource LabelRegular}"
                                            VerticalOptions="Center" />
                                 </HorizontalStackLayout>
                             </HorizontalStackLayout>

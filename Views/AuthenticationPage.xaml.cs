@@ -17,16 +17,23 @@ public partial class AuthenticationPage : ContentPage
         _userService = userService;
     }
 
+    /// <summary>
+    /// Handles the click event for the admin login
+    /// </summary>
+    /// <param name="sender">The object from which the click event was triggered</param>
+    /// <param name="e">The argument passed on the function for the selected object.</param>
     private async void OnLoginClicked(object sender, EventArgs e)
     {
         // Show the activity indicator
+        #region Visual State Trigger
+        new FrameTappedBehavior().OnFrameTapped(AdminFrame);
         Loader.IsLoading = true;
+        #endregion
 
         try
         {
-
             var extraParameters = new Dictionary<string, string>();
-            var audience = ""; // FILL WITH AUDIENCE AS NEEDED
+            var audience = "";
 
             if (!string.IsNullOrEmpty(audience))
                 extraParameters.Add("audience", audience);

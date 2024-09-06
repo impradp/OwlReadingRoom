@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"             
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:local="clr-namespace:OwlReadingRoom.Utils"
+             xmlns:converter="clr-namespace:OwlReadingRoom.Utils.Converter"
              x:Class="OwlReadingRoom.Views.Customer.CustomerDetailsView">
     <ContentView.Resources>
         <ResourceDictionary>
-            <toolkit:TextCaseConverter x:Key="TextCaseConverter" Type="FirstUpperRestLower" />
-            <local:RoomTypeConverter x:Key="RoomTypeConverter"/>
-            <local:DateFormatConverter x:Key="DateFormatConverter"/>
-            <local:DocumentTypeConverter x:Key="DocumentTypeConverter"/>
+            <toolkit:TextCaseConverter x:Key="TextCaseConverter"
+                                       Type="FirstUpperRestLower" />
+            <local:RoomTypeConverter x:Key="RoomTypeConverter" />
+            <local:DateFormatConverter x:Key="DateFormatConverter" />
+            <local:DocumentTypeConverter x:Key="DocumentTypeConverter" />
+            <converter:StatusToBackgroundColorConverter x:Key="StatusToBackgroundColorConverter" />
+            <converter:StatusToTextColorConverter x:Key="StatusToTextColorConverter" />
         </ResourceDictionary>
     </ContentView.Resources>
     <ScrollView>
@@ -38,21 +42,19 @@
 
                     <!-- Name -->
                     <Label Text="{Binding FullName}"
-                           Style="{StaticResource EntryLabelReadonly}"
+                           Style="{StaticResource LabelSemiBold}"
+                           FontSize="16"
                            VerticalOptions="Center" />
 
                     <!-- Status -->
-                    <Frame Padding="8,4"
-                           BackgroundColor="#F5F9FF"
-                           CornerRadius="6"
-                           HasShadow="False"
-                           BorderColor="Transparent">
+                    <Frame BackgroundColor="{Binding Status, Converter={StaticResource StatusToBackgroundColorConverter}}"
+                           HorizontalOptions="Center"
+                           Padding="8,4"
+                           BorderColor="Transparent"
+                           CornerRadius="6">
                         <Label Text="{Binding Status, Converter={StaticResource TextCaseConverter}}"
-                               TextColor="#3B82F6"
-                               FontSize="12"
-                               FontFamily="Source Sans Pro"
-                               VerticalOptions="Center"
-                               />
+                               TextColor="{Binding Status, Converter={StaticResource StatusToTextColorConverter}}"
+                               FontSize="12" />
                     </Frame>
                 </HorizontalStackLayout>
                 <Button Grid.Column="1"
@@ -62,23 +64,23 @@
                         BorderColor="#3B82F6"
                         ImageSource="update_icon.png"
                         BorderWidth="1"
-                        Clicked="OnEditClicked"
+                        Released="OnEditClicked"
                         BackgroundColor="Transparent"
                         Margin="0,0,10,0" />
                 <Button Grid.Column="2"
                         Grid.Row="0"
+                        BackgroundColor="#3B82F6"
                         Text="Renew Customer"
-                        TextColor="#3B82F6"
+                        TextColor="#FFFFFF"
                         BorderColor="#3B82F6"
                         ImageSource="circle_check_filled_icon.png"
-                        BorderWidth="1"
-                        BackgroundColor="Transparent" />
+                        BorderWidth="1" />
                 <Label Grid.Column="0"
                        Grid.ColumnSpan="3"
                        Grid.Row="1"
                        Text="{Binding TransactionDetails.LastPaymentDate, StringFormat='Latest Payment Date : {0:dd MMM\, yyyy | hh:mm ss tt}', TargetNullValue='Latest Payment Date : N/A', FallbackValue='Latest Payment Date : N/A'}"
                        TextColor="#64748B"
-                       Style="{StaticResource RegularLabel}"
+                       Style="{StaticResource LabelRegular}"
                        FontSize="14" />
             </Grid>
 
@@ -91,10 +93,13 @@
                        CornerRadius="6"
                        Padding="16"
                        BackgroundColor="Transparent">
-                    <VerticalStackLayout Spacing="16">
+                    <VerticalStackLayout Spacing="10">
                         <Label Text="Personal Detail"
-                               Style="{StaticResource EntryLabelReadonly}"
+                               Style="{StaticResource LabelSemiBold}"
                                TextColor="#007AFF" />
+                        <BoxView HeightRequest="1"
+                                 Color="#E2E8F0"
+                                 VerticalOptions="End" />
                         <Grid ColumnDefinitions="*,*,*,*"
                               RowDefinitions="Auto,Auto,Auto"
                               ColumnSpacing="16"
@@ -102,37 +107,42 @@
                             <VerticalStackLayout Grid.Column="0"
                                                  Grid.Row="0">
                                 <Label Text="Full name"
-                                       Style="{StaticResource RegularLabel}" />
+                                       Style="{StaticResource LabelRegular}"
+                                       TextColor="#415A77" />
                                 <Label Text="{Binding FullName}"
-                                       Style="{StaticResource EntryLabelReadonly}" />
+                                       Style="{StaticResource LabelSemiBold}" />
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Column="1"
                                                  Grid.Row="0">
                                 <Label Text="Gender"
-                                       Style="{StaticResource RegularLabel}" />
+                                       Style="{StaticResource LabelRegular}"
+                                       TextColor="#415A77" />
                                 <Label Text="{Binding Gender, TargetNullValue='N/A'}"
-                                       Style="{StaticResource EntryLabelReadonly}" />
+                                       Style="{StaticResource LabelSemiBold}" />
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Column="2"
                                                  Grid.Row="0">
                                 <Label Text="Faculty"
-                                       Style="{StaticResource RegularLabel}" />
+                                       Style="{StaticResource LabelRegular}"
+                                       TextColor="#415A77" />
                                 <Label Text="{Binding Faculty, TargetNullValue='N/A'}"
-                                       Style="{StaticResource EntryLabelReadonly}" />
+                                       Style="{StaticResource LabelSemiBold}" />
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Column="3"
                                                  Grid.Row="0">
                                 <Label Text="Date of Birth"
-                                       Style="{StaticResource RegularLabel}" />
+                                       Style="{StaticResource LabelRegular}"
+                                       TextColor="#415A77" />
                                 <Label Text="{Binding DateOfBirth,Converter={StaticResource DateFormatConverter}, TargetNullValue='N/A', StringFormat= '{0} AD'}"
-                                       Style="{StaticResource EntryLabelReadonly}" />
+                                       Style="{StaticResource LabelSemiBold}" />
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Column="0"
                                                  Grid.Row="1">
                                 <Label Text="Mobile number"
-                                       Style="{StaticResource RegularLabel}" />
+                                       Style="{StaticResource LabelRegular}"
+                                       TextColor="#415A77" />
                                 <Label Text="{Binding MobileNumber}"
-                                       Style="{StaticResource EntryLabelReadonly}" />
+                                       Style="{StaticResource LabelSemiBold}" />
                             </VerticalStackLayout>
                         </Grid>
                     </VerticalStackLayout>
@@ -143,21 +153,26 @@
                        CornerRadius="6"
                        Padding="16"
                        BackgroundColor="Transparent">
-                    <VerticalStackLayout Spacing="16">
+                    <VerticalStackLayout Spacing="10">
                         <Label Text="Address Detail"
-                               Style="{StaticResource EntryLabelReadonly}"
+                               Style="{StaticResource LabelSemiBold}"
                                TextColor="#007AFF" />
+                        <BoxView HeightRequest="1"
+                                 Color="#E2E8F0"
+                                 VerticalOptions="End" />
                         <VerticalStackLayout Spacing="8">
                             <Label Text="Current Address"
-                                   Style="{StaticResource RegularLabel}" />
+                                   Style="{StaticResource LabelRegular}"
+                                   TextColor="#415A77" />
                             <Label Text="{Binding CurrentAddress, TargetNullValue='N/A'}"
-                                   Style="{StaticResource EntryLabelReadonly}" />
+                                   Style="{StaticResource LabelSemiBold}" />
                         </VerticalStackLayout>
                         <VerticalStackLayout Spacing="8">
                             <Label Text="Permanent Address"
-                                   Style="{StaticResource RegularLabel}" />
+                                   Style="{StaticResource LabelRegular}"
+                                   TextColor="#415A77" />
                             <Label Text="{Binding PermanantAddress, TargetNullValue='N/A'}"
-                                   Style="{StaticResource EntryLabelReadonly}" />
+                                   Style="{StaticResource LabelSemiBold}" />
                         </VerticalStackLayout>
                     </VerticalStackLayout>
                 </Frame>
@@ -167,21 +182,28 @@
                        CornerRadius="6"
                        Padding="16"
                        BackgroundColor="Transparent">
-                    <VerticalStackLayout Spacing="16">
+                    <VerticalStackLayout Spacing="10">
                         <Grid ColumnDefinitions="*,Auto">
                             <Label Text="Document detail"
-                                   Style="{StaticResource EntryLabelReadonly}"
+                                   Style="{StaticResource LabelSemiBold}"
                                    TextColor="#007AFF" />
+
                             <Frame Grid.Column="1"
                                    BackgroundColor="#F1F5F9"
                                    Padding="8,4"
                                    BorderColor="Transparent"
+                                   VerticalOptions="Center"
                                    CornerRadius="6">
                                 <Label Text="Not added"
                                        IsVisible="{Binding IsEmptyState}"
+                                       VerticalOptions="Center"
                                        TextColor="#64748B"
                                        FontSize="12" />
                             </Frame>
+                            <BoxView Grid.ColumnSpan="2"
+                                     HeightRequest="1"
+                                     Color="#E2E8F0"
+                                     VerticalOptions="End" />
                         </Grid>
                         <Grid ColumnDefinitions="*,*,*,*"
                               RowDefinitions="Auto,Auto"
@@ -190,32 +212,35 @@
                             <VerticalStackLayout Grid.Column="0"
                                                  Grid.Row="0">
                                 <Label Text="{Binding Documents.DocumentType, Converter={StaticResource DocumentTypeConverter}, FallbackValue='Document Number', TargetNullValue='Document Number', StringFormat= '{0} Number'}"
-                                       Style="{StaticResource RegularLabel}" />
+                                       Style="{StaticResource LabelRegular}"
+                                       TextColor="#415A77" />
                                 <Label Text="{Binding Documents.DocumentNumber, FallbackValue='N/A', TargetNullValue='N/A'}"
-                                       Style="{StaticResource EntryLabelReadonly}" />
+                                       Style="{StaticResource LabelSemiBold}" />
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Column="1"
                                                  Grid.Row="0">
                                 <Label Text="Issued On"
-                                       Style="{StaticResource RegularLabel}" />
+                                       Style="{StaticResource LabelRegular}"
+                                       TextColor="#415A77" />
                                 <Label Text="{Binding Documents.IssueDate, Converter={StaticResource DateFormatConverter}, FallbackValue='N/A', TargetNullValue='N/A'}"
-                                       Style="{StaticResource EntryLabelReadonly}" />
+                                       Style="{StaticResource LabelSemiBold}" />
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Column="2"
                                                  Grid.Row="0">
                                 <Label Text="Expires On"
-                                       Style="{StaticResource RegularLabel}" />
+                                       Style="{StaticResource LabelRegular}"
+                                       TextColor="#415A77" />
                                 <Label Text="NA"
-                                       Style="{StaticResource EntryLabelReadonly}" />
+                                       Style="{StaticResource LabelSemiBold}" />
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Column="3"
                                                  Grid.Row="0">
-                                
+
                                 <Label Text="Place of Issue"
                                        TextColor="#415A77"
                                        FontSize="14" />
                                 <Label Text="{Binding Documents.PlaceOfIssue, FallbackValue='N/A', TargetNullValue='N/A'}"
-                                       Style="{StaticResource EntryLabelReadonly}" />
+                                       Style="{StaticResource LabelSemiBold}" />
                             </VerticalStackLayout>
                         </Grid>
                         <VerticalStackLayout Grid.Row="2"
@@ -240,8 +265,7 @@
                                    WidthRequest="386"
                                    HorizontalTextAlignment="Center" />
                         </VerticalStackLayout>
-                        <CollectionView ItemsSource="{Binding Documents.Locations}"
-                                        >
+                        <CollectionView ItemsSource="{Binding Documents.Locations}">
                             <CollectionView.ItemsLayout>
                                 <GridItemsLayout Orientation="Vertical"
                                                  Span="2"
@@ -280,10 +304,10 @@
                    Padding="16"
                    VerticalOptions="Start"
                    BackgroundColor="Transparent">
-                <VerticalStackLayout Spacing="16">
+                <VerticalStackLayout Spacing="10">
                     <Grid ColumnDefinitions="*,Auto">
                         <Label Text="Package and Payment"
-                               Style="{StaticResource EntryLabelReadonly}"
+                               Style="{StaticResource LabelSemiBold}"
                                TextColor="#007AFF"
                                VerticalTextAlignment="Center" />
                         <Button Grid.Column="1"
@@ -291,83 +315,100 @@
                                 TextColor="#415A77"
                                 BorderColor="#415A77"
                                 BorderWidth="1"
-                                Clicked="OnReceiptClicked"
+                                HeightRequest="20"
+                                Margin="0,0,0,10"
+                                Released="OnReceiptClicked"
                                 ImageSource="receipt_icon.png"
                                 BackgroundColor="Transparent" />
+                        <BoxView Grid.ColumnSpan="2"
+                                 HeightRequest="1"
+                                 Color="#E2E8F0"
+                                 VerticalOptions="End" />
                     </Grid>
-                    <VerticalStackLayout Spacing="16">
+                    <VerticalStackLayout Spacing="10">
                         <VerticalStackLayout>
                             <Label Text="Room Type"
-                                   Style="{StaticResource RegularLabel}" />
+                                   Style="{StaticResource LabelRegular}"
+                                   TextColor="#415A77" />
                             <Label Text="{Binding BookingDetails.RoomType, Converter={StaticResource RoomTypeConverter}, FallbackValue='N/A', TargetNullValue='N/A'}"
-                                   Style="{StaticResource EntryLabelReadonly}" />
+                                   Style="{StaticResource LabelSemiBold}" />
                         </VerticalStackLayout>
                         <Grid ColumnDefinitions="*,Auto">
                             <VerticalStackLayout>
                                 <Label Text="Package Type"
-                                       Style="{StaticResource RegularLabel}" />
+                                       Style="{StaticResource LabelRegular}"
+                                       TextColor="#415A77" />
                                 <Label Text="{Binding BookingDetails.PackageName, FallbackValue='N/A', TargetNullValue='N/A'}"
-                                       Style="{StaticResource EntryLabelReadonly}" />
+                                       Style="{StaticResource LabelSemiBold}" />
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Column="1">
                                 <Label Text="Status"
-                                       Style="{StaticResource RegularLabel}" />
-                                <Frame BackgroundColor="#F6FDF9"
+                                       HorizontalOptions="Center"
+                                       Style="{StaticResource LabelRegular}"
+                                       TextColor="#415A77" />
+                                <Frame BackgroundColor="{Binding Status, Converter={StaticResource StatusToBackgroundColorConverter}}"
+                                       HorizontalOptions="Center"
                                        Padding="8,4"
                                        BorderColor="Transparent"
                                        CornerRadius="6">
                                     <Label Text="{Binding Status, Converter={StaticResource TextCaseConverter}}"
-                                           TextColor="#22C55E"
+                                           TextColor="{Binding Status, Converter={StaticResource StatusToTextColorConverter}}"
                                            FontSize="12" />
                                 </Frame>
                             </VerticalStackLayout>
                         </Grid>
                         <VerticalStackLayout>
                             <Label Text="Desk No."
-                                   Style="{StaticResource RegularLabel}" />
+                                   Style="{StaticResource LabelRegular}"
+                                   TextColor="#415A77" />
                             <Label Text="{Binding BookingDetails.DeskName, FallbackValue='N/A', TargetNullValue='N/A'}"
-                                   Style="{StaticResource EntryLabelReadonly}" />
+                                   Style="{StaticResource LabelSemiBold}" />
                         </VerticalStackLayout>
-                        <Grid ColumnDefinitions="*,*">
+                        <Grid ColumnDefinitions="*,Auto">
                             <VerticalStackLayout>
                                 <Label Text="Start Date"
-                                       Style="{StaticResource RegularLabel}" />
+                                       Style="{StaticResource LabelRegular}"
+                                       TextColor="#415A77" />
                                 <Label Text="{Binding BookingDetails.StartDate,Converter={StaticResource DateFormatConverter}, FallbackValue='N/A', TargetNullValue='N/A'}"
-                                       Style="{StaticResource EntryLabelReadonly}" />
+                                       Style="{StaticResource LabelSemiBold}" />
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Column="1">
                                 <Label Text="End Date"
-                                       Style="{StaticResource RegularLabel}" />
+                                       Style="{StaticResource LabelRegular}"
+                                       TextColor="#415A77" />
                                 <Label Text="{Binding BookingDetails.EndDate,Converter={StaticResource DateFormatConverter}, FallbackValue='N/A', TargetNullValue='N/A'}"
-                                       Style="{StaticResource EntryLabelReadonly}" />
+                                       Style="{StaticResource LabelSemiBold}" />
                             </VerticalStackLayout>
                         </Grid>
                         <BoxView Color="#E5E7EB"
                                  HeightRequest="1" />
                         <Label Text="Billing Info"
-                               Style="{StaticResource EntryLabelReadonly}" />
+                               Style="{StaticResource LabelSemiBold}" />
                         <Grid ColumnDefinitions="*,Auto"
                               RowDefinitions="Auto,Auto,Auto"
                               RowSpacing="8">
                             <Label Text="Package Amount"
-                                   Style="{StaticResource RegularLabel}" />
+                                   Style="{StaticResource LabelRegular}"
+                                   TextColor="#415A77" />
                             <Label Grid.Column="1"
                                    Text="{Binding TransactionDetails.PackageAmount, FallbackValue='0'}"
-                                   Style="{StaticResource EntryLabelReadonly}" />
+                                   Style="{StaticResource LabelSemiBold}" />
                             <Label Grid.Row="1"
                                    Text="Locker Service"
-                                   Style="{StaticResource RegularLabel}" />
+                                   Style="{StaticResource LabelRegular}"
+                                   TextColor="#415A77" />
                             <Label Grid.Row="1"
                                    Grid.Column="1"
                                    Text="{Binding TransactionDetails.LockerAmount, FallbackValue='0'}"
-                                   Style="{StaticResource EntryLabelReadonly}" />
+                                   Style="{StaticResource LabelSemiBold}" />
                             <Label Grid.Row="2"
                                    Text="Parking Charge"
-                                   Style="{StaticResource RegularLabel}" />
+                                   Style="{StaticResource LabelRegular}"
+                                   TextColor="#415A77" />
                             <Label Grid.Row="2"
                                    Grid.Column="1"
                                    Text="{Binding TransactionDetails.ParkingAmount, FallbackValue='0'}"
-                                   Style="{StaticResource EntryLabelReadonly}" />
+                                   Style="{StaticResource LabelSemiBold}" />
                         </Grid>
                         <BoxView Color="#E5E7EB"
                                  HeightRequest="1" />
@@ -378,23 +419,25 @@
                                    TextColor="#415A77" />
                             <Label Grid.Column="1"
                                    Text="{Binding TransactionDetails.TotalAmount, FallbackValue='0'}"
-                                   Style="{StaticResource EntryLabelReadonly}" />
+                                   Style="{StaticResource LabelSemiBold}" />
                             <Label Grid.Row="1"
                                    Text="Paid Amount"
-                                   Style="{StaticResource RegularLabel}" />
+                                   Style="{StaticResource LabelRegular}"
+                                   TextColor="#415A77" />
                             <Label Grid.Row="1"
                                    Grid.Column="1"
                                    Text="{Binding TransactionDetails.PaidAmount, FallbackValue='0'}"
                                    TextColor="#22C55E"
-                                   Style="{StaticResource EntryLabelReadonly}" />
+                                   Style="{StaticResource LabelSemiBold}" />
                             <Label Grid.Row="2"
                                    Text="Due Amount"
-                                   Style="{StaticResource RegularLabel}" />
+                                   Style="{StaticResource LabelRegular}"
+                                   TextColor="#415A77" />
                             <Label Grid.Row="2"
                                    Grid.Column="1"
                                    Text="{Binding TransactionDetails.DueAmount, FallbackValue='0'}"
                                    TextColor="#EF4444"
-                                   Style="{StaticResource EntryLabelReadonly}" />
+                                   Style="{StaticResource LabelSemiBold}" />
                         </Grid>
                     </VerticalStackLayout>
                 </VerticalStackLayout>

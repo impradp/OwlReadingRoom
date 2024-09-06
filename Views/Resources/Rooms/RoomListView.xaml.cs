@@ -132,15 +132,24 @@ public partial class RoomListView : ContentView, INotifyPropertyChanged
         LoadRoomData();
     }
 
-    private void OnRoomEyeClicked(object sender, EventArgs e)
+    private async void OnRoomEyeClicked(object sender, EventArgs e)
     {
-        var button = sender as ActionButtonsView;
-        var room = button?.BindingContext as RoomListViewModel;
-        if (room != null)
+
+        try
         {
-            var deskLayoutPopup = _deskLayoutFactory(room);
-            Application.Current.MainPage.ShowPopup(deskLayoutPopup);
+            var button = sender as ActionButtonsView;
+            var room = button?.BindingContext as RoomListViewModel;
+            if (room != null)
+            {
+                var deskLayoutPopup = _deskLayoutFactory(room);
+                await Application.Current.MainPage.ShowPopupAsync(deskLayoutPopup);
+            }
         }
+        catch (Exception ex)
+        {
+            ExceptionHandler.HandleException("Displaying layout.", ex);
+        }
+
     }
 
 
