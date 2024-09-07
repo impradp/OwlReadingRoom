@@ -1,5 +1,6 @@
 ﻿using OwlReadingRoom.Models;
 using OwlReadingRoom.Models.Enums;
+using OwlReadingRoom.Proxy;
 using OwlReadingRoom.Services.Database;
 using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
@@ -22,6 +23,7 @@ public class ResourceService : IPhysicalResourceService
         _databaseConnectionService = databaseConnectionService;
     }
 
+    [Transactional(readOnly: true)]
     public List<RoomListViewModel> fetchRooms()
     {
 
@@ -38,7 +40,7 @@ public class ResourceService : IPhysicalResourceService
         Dictionary<int, int> unavailableDesks = _bookingService.FetchUnavailableDesksCount();
         List<RoomListViewModel> result = new List<RoomListViewModel>();
 
-        foreach(var room in roomDeskCounts)
+        foreach (var room in roomDeskCounts)
         {
             result.Add(new RoomListViewModel
             {
@@ -49,38 +51,25 @@ public class ResourceService : IPhysicalResourceService
                 AvailableDesks = room.Desks - unavailableDesks.GetValueOrDefault(room.RoomId, 0)
             });
         }
-        
+
         return result;
     }
 
+    [Transactional]
     public void UpdateRoom(RoomListViewModel roomViewModel, string roomName, int numberOfDesks, string deskInitial)
     {
-        using (_databaseConnectionService)
+
+        if (numberOfDesks > 0)
         {
-            try
-            {
-                _databaseConnectionService.BeginTransaction();
-                if (numberOfDesks > 0)
-                {
-                    _deskService.AddDesks(roomViewModel.Id, numberOfDesks, deskInitial);
-                }
-              
-                Room room = _roomService.GetRoomById(roomViewModel.Id);
+            _deskService.AddDesks(roomViewModel.Id, numberOfDesks, deskInitial);
+        }
 
-                if (!room.Name.Equals(roomName))
-                {
-                    room.Name = roomName;
-                    _roomService.Save(room);
-                }
-                _databaseConnectionService.CommitTransaction();
+        Room room = _roomService.GetRoomById(roomViewModel.Id);
 
-            }
-            catch (Exception ex)
-            {
-                _databaseConnectionService.RollBack();
-                ExceptionHandler.HandleException("Updating room information", ex);
-            }
-
+        if (!room.Name.Equals(roomName))
+        {
+            room.Name = roomName;
+            _roomService.Save(room);
         }
     }
 
