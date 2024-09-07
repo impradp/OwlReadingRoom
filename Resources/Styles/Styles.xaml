@@ -644,4 +644,22 @@
                 Value="#1E293B" />
     </Style>
 
+    <Style x:Key="LabelRegular"
+           TargetType="Label">
+        <Setter Property="FontFamily"
+                Value="Inter" />
+    </Style>
+
+    <Style x:Key="LabelMedium"
+           TargetType="Label">
+        <Setter Property="FontFamily"
+                Value="Inter-Medium" />
+    </Style>
+
+    <Style x:Key="LabelBold"
+           TargetType="Label">
+        <Setter Property="FontFamily"
+                Value="Inter-Bold" />
+    </Style>
+
 </ResourceDictionary>
