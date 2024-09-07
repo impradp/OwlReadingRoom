@@ -1,16 +1,25 @@
 using CommunityToolkit.Maui.Views;
 using OwlReadingRoom.Components.AlertDialog;
+using OwlReadingRoom.Models;
+using OwlReadingRoom.Services;
 using OwlReadingRoom.Utils;
+using System.Collections.ObjectModel;
 
 namespace OwlReadingRoom.Views.Resources.Package;
 
 public partial class NewPackage : Popup
 {
     public event EventHandler<EventArgs> PackageCreated;
-    public NewPackage()
+
+    private readonly IPackageService _packageService;
+
+    public ObservableCollection<RoomType> RoomTypes { get; set; }
+    public NewPackage(IPackageService packageService)
     {
         InitializeComponent();
+        RoomTypes = new ObservableCollection<RoomType>(Enum.GetValues(typeof(RoomType)).Cast<RoomType>());
         BindingContext = this;
+        _packageService = packageService;
     }
 
     private void OnRoomTypeSelectedIndexChanged(object sender, EventArgs e)
@@ -37,12 +46,19 @@ public partial class NewPackage : Popup
     {
         try
         {
-            //TODO: Validate the incoming room data
-            //TODO: Save the Room details
-            PackageCreated?.Invoke(this, EventArgs.Empty);
-            await CloseAsync();
-            AlertService.Instance.ShowAlert("Success", "New package created successfully.", AlertType.Success);
-
+            if (Validator.isValidPackage(PackageName.Text, DaysEntry.Text, AmountEntry.Text, RoomTypePicker.SelectedIndex))
+            {
+                _packageService.SavePackage(new PackageType
+                {
+                    Days = Int32.Parse(DaysEntry.Text),
+                    Name = PackageName.Text,
+                    Price = Double.Parse(AmountEntry.Text),
+                    RoomType = (RoomType)RoomTypePicker.SelectedItem
+                });
+                PackageCreated?.Invoke(this, EventArgs.Empty);
+                await CloseAsync();
+                AlertService.Instance.ShowAlert("Success", "New package created successfully.", AlertType.Success);
+            }
         }
         catch (Exception ex)
         {
