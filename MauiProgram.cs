@@ -11,6 +11,7 @@ using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
 using OwlReadingRoom.Views;
 using OwlReadingRoom.Views.Customer;
+using OwlReadingRoom.Views.Resources.Package;
 using OwlReadingRoom.Views.Resources.Rooms;
 using System.Reflection;
 #if WINDOWS
@@ -74,6 +75,8 @@ namespace OwlReadingRoom
             builder.Services.AddTransient<NewCustomer>();
             builder.Services.AddTransient<RoomListView>();
             builder.Services.AddTransient<NewRoom>();
+            builder.Services.AddTransient<PackageListView>();
+            builder.Services.AddTransient<NewPackage>();
             builder.Services.AddTransient<Func<RoomListViewModel, UpdateRoom>>(sp =>
             {
                 var resourceService = sp.GetRequiredService<IPhysicalResourceService>();
@@ -90,12 +93,18 @@ namespace OwlReadingRoom
                 var resourceService = ActivatorUtilities.CreateInstance<ResourceService>(sp);
                 return TransactionalProxy<IPhysicalResourceService>.CreateProxy(resourceService, databaseConnectionService);
             });
+
+            builder.Services.AddSingleton(sp =>
+            {
+                var databaseConnectionService = sp.GetService<IDatabaseConnectionService>();
+                var packageService = ActivatorUtilities.CreateInstance<PackageService>(sp);
+                return TransactionalProxy<IPackageService>.CreateProxy(packageService, databaseConnectionService);
+            });
             //services
 
 #if WINDOWS
             builder.Services.AddSingleton<IPdfService,PdfService>();
 #endif
-            builder.Services.AddSingleton<IPackageService, PackageService>();
             builder.Services.AddSingleton<IBookingService, BookingService>();
             builder.Services.AddSingleton<ICustomerService, CustomerService>();
             builder.Services.AddSingleton<IUserService, UserService>();

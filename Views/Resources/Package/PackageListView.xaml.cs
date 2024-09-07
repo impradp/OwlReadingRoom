@@ -1,6 +1,7 @@
 using CommunityToolkit.Maui.Views;
 using OwlReadingRoom.Components;
 using OwlReadingRoom.Models;
+using OwlReadingRoom.Services;
 using OwlReadingRoom.ViewModels;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -11,10 +12,13 @@ namespace OwlReadingRoom.Views.Resources.Package;
 public partial class PackageListView : ContentView, INotifyPropertyChanged
 {
     private ObservableCollection<PackageListViewModel> _packages;
-
-    public PackageListView()
+    private readonly IServiceProvider _serviceProvider;
+    private readonly IPackageService _packageService;
+    public PackageListView(IServiceProvider serviceProvider, IPackageService packageService)
     {
         InitializeComponent();
+        _serviceProvider = serviceProvider;
+        _packageService = packageService;   
         BindingContext = this;
         LoadPackageData();
     }
@@ -39,7 +43,7 @@ public partial class PackageListView : ContentView, INotifyPropertyChanged
 
     private void OnNewPackageButtonClicked(object sender, EventArgs e)
     {
-        var newPackage = new NewPackage();
+        var newPackage = _serviceProvider.GetService<NewPackage>();
         newPackage.PackageCreated += OnPackageCreated;
         Application.Current.MainPage.ShowPopup(newPackage);
     }
@@ -51,8 +55,7 @@ public partial class PackageListView : ContentView, INotifyPropertyChanged
 
     private void LoadPackageData()
     {
-        //TODO: Fetch created packages list
-        //TODO: Set to Observable Collection of Packages
+        Packages = new ObservableCollection<PackageListViewModel>(_packageService.GetPackageList());
     }
 
     private void OnPackageEditClicked(object sender, EventArgs e)

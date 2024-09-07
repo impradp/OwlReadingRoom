@@ -20,5 +20,8 @@ namespace OwlReadingRoom.Models
 
         [Column("enabled")]
         public bool Enabled { get; set; } = true;
+
+        [Column("days")]
+        public int Days { get; set; }
     }
 }

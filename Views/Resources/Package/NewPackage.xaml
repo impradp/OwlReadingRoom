@@ -3,6 +3,8 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                x:Class="OwlReadingRoom.Views.Resources.Package.NewPackage"
+               xmlns:component="clr-namespace:OwlReadingRoom.Components"
+               xmlns:local="clr-namespace:OwlReadingRoom.Utils"
                Size="402,470"
                Color="Transparent"
                VerticalOptions="Center"
@@ -17,6 +19,9 @@
             <Setter Property="FontSize"
                     Value="14" />
         </Style>
+        <ResourceDictionary>
+            <local:RoomTypeConverter x:Key="RoomTypeConverter" />
+        </ResourceDictionary>
     </toolkit:Popup.Resources>
     <toolkit:Popup.Content>
         <Border StrokeShape="RoundRectangle 8"
@@ -97,12 +102,12 @@
                                            TextColor="Gray"
                                            Margin="5,0,0,0" />
                                     <Picker x:Name="RoomTypePicker"
-                                            Style="{StaticResource EntryInfoStyle}"
-                                            SelectedIndexChanged="OnRoomTypeSelectedIndexChanged">
-                                        <Picker.Items>
-                                            <x:String>AC Room</x:String>
-                                            <x:String>Non-AC Room</x:String>
-                                        </Picker.Items>
+                                        Style="{StaticResource EntryInfoStyle}"
+                                        ItemsSource="{Binding RoomTypes}"
+                                        SelectedIndexChanged="OnRoomTypeSelectedIndexChanged">
+                                        <Picker.ItemDisplayBinding>
+                                            <Binding Converter="{StaticResource RoomTypeConverter}" />
+                                        </Picker.ItemDisplayBinding>
                                     </Picker>
                                 </Grid>
                             </Frame>
@@ -120,11 +125,11 @@
                                    CornerRadius="4"
                                    BorderColor="#CBD5E1"
                                    HasShadow="False">
-                                <Entry x:Name="AmountEntry"
+                                <component:DoubleEntry x:Name="AmountEntry"
                                        Placeholder="0.00"
                                        Style="{StaticResource EntryInfoStyle}"
                                        PlaceholderColor="#647087"
-                                       MaxLength="5"
+                                       MaxLength="8"
                                        Keyboard="Telephone" />
                             </Frame>
                         </VerticalStackLayout>
@@ -141,8 +146,8 @@
                                    CornerRadius="4"
                                    BorderColor="#CBD5E1"
                                    HasShadow="False">
-                                <Entry x:Name="DaysEntry"
-                                       Placeholder="0.00"
+                                <component:NumericEntry x:Name="DaysEntry"
+                                       Placeholder="0"
                                        Style="{StaticResource EntryInfoStyle}"
                                        PlaceholderColor="#647087"
                                        MaxLength="5"
