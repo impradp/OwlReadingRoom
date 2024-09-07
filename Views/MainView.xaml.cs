@@ -155,7 +155,7 @@ namespace OwlReadingRoom
         private void OnPackageSubmenuClicked(object sender, EventArgs e)
         {
             CurrentSubmenu = SelectedSubMenu.Package;
-            DynamicContentArea.Content = new PackageListView();
+            DynamicContentArea.Content = _serviceProvider.GetService<PackageListView>();
         }
 
         private void OnNewEntryButtonClicked(object sender, EventArgs e)
