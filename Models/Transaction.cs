@@ -19,6 +19,11 @@ namespace OwlReadingRoom.Models
         public double Dues { get; set; }
 
         [Column("payment_status")]
-        public int PaymentStatusId { get; set; } // Foreign key to PaymentStatus
+        public PaymentStatusEnum PaymentStatus { get; set; } // Foreign key to PaymentStatus
+    }
+
+    public enum PaymentStatusEnum
+    {
+        PAID, UNPAID, PARTIALLY_PAID, ADVANCED
     }
 }

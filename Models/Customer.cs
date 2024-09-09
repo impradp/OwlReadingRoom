@@ -9,19 +9,18 @@ namespace OwlReadingRoom.Models
 {
     public class Customer : BaseModel
     {
-        [Column("personal_detail_id")]
-        public int PersonalDetailId { get; set; }
-
-        [Column("permanent_address_id")]
-        public int PermanentAddressId { get; set; }
-
-        [Column("temporary_address_id")]
-        public int TemporaryAddressId { get; set; }
-
-        [Column("document_id")]
-        public int DocumentId { get; set; }
 
         [Column("mobile_number")]
+        [Indexed(Unique = true)]
         public string MobileNumber { get; set; }
+
+        [Ignore]
+        public PersonalDetail PersonalDetail{ get; set; }
+
+        [Ignore]
+        public Address Address { get; set; }
+
+        [Ignore]
+        public List<DocumentInformation> Documents { get; set; }
     }
 }

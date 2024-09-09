@@ -1,3 +1,4 @@
+using OwlReadingRoom.Services;
 using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
 using System.Collections.ObjectModel;
@@ -6,6 +7,7 @@ namespace OwlReadingRoom.Views.Customer;
 
 public partial class CustomerListView : ContentView
 {
+    private readonly IBookingService _bookingService;
     private CustomerView _activeView;
     private CustomerView _inactiveView;
 
@@ -14,8 +16,9 @@ public partial class CustomerListView : ContentView
     public ObservableCollection<CustomerPackageViewModel> ActiveCustomers { get; set; }
     public ObservableCollection<CustomerPackageViewModel> InactiveCustomers { get; set; }
 
-    public CustomerListView()
+    public CustomerListView(IBookingService bookingService)
     {
+        _bookingService = bookingService;
         try
         {
             InitializeComponent();
@@ -27,26 +30,15 @@ public partial class CustomerListView : ContentView
         {
             ExceptionHandler.HandleException("Initializing CustomerListView", ex);
         }
+
+        
     }
 
     private void SetInactiveCustomers()
     {
         //TODO: Implement service method usage for data extraction.
-        InactiveCustomers = new ObservableCollection<CustomerPackageViewModel>
-        {
-            new CustomerPackageViewModel
-            {
-                FullName = "Jonathan Radford",
-                ContactNumber = "+977-9801010101",
-                Faculty = "CA",
-                StartDate = "06/12/2024",
-                EndDate = "06/12/2024",
-                Package = "3 months",
-                AllocatedSpace = "First Floor (AC)",
-                PaymentStatus = "Paid",
-                Dues = "00.00"
-            }
-        };
+        List<CustomerPackageViewModel> customerPackageViewModels = _bookingService.GetInactiveCustomerList();
+        InactiveCustomers = new ObservableCollection<CustomerPackageViewModel>(customerPackageViewModels);
 
         _inactiveView = new CustomerView(InactiveCustomers);
         _inactiveView.CustomerSelected += OnCustomerSelected;
@@ -55,21 +47,8 @@ public partial class CustomerListView : ContentView
     private void SetActiveCustomers()
     {
         //TODO: Implement service method usage for data extraction.
-        ActiveCustomers = new ObservableCollection<CustomerPackageViewModel>
-        {
-            new CustomerPackageViewModel
-            {
-                FullName = "Samantha Radford",
-                ContactNumber = "+977-9801010101",
-                Faculty = "Doctor",
-                StartDate = "06/12/2024",
-                EndDate = "06/12/2024",
-                Package = "1 month",
-                AllocatedSpace = "First Floor (AC)",
-                PaymentStatus = "Paid",
-                Dues = "00.00"
-            }
-        };
+        List<CustomerPackageViewModel> customerPackageViewModels = _bookingService.GetActiveCustomerList();
+        ActiveCustomers = new ObservableCollection<CustomerPackageViewModel>(customerPackageViewModels);
 
         _activeView = new CustomerView(ActiveCustomers);
         _activeView.CustomerSelected += OnCustomerSelected;

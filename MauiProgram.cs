@@ -7,6 +7,7 @@ using OwlReadingRoom.Services.Database;
 using OwlReadingRoom.Services.Email;
 using OwlReadingRoom.Services.Repository;
 using OwlReadingRoom.Services.Resources;
+using OwlReadingRoom.Services.Transactions;
 using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
 using OwlReadingRoom.Views;
@@ -76,6 +77,7 @@ namespace OwlReadingRoom
             builder.Services.AddTransient<RoomListView>();
             builder.Services.AddTransient<NewRoom>();
             builder.Services.AddTransient<PackageListView>();
+            builder.Services.AddTransient<CustomerListView>();
             builder.Services.AddTransient<NewPackage>();
             builder.Services.AddTransient<Func<RoomListViewModel, UpdateRoom>>(sp =>
             {
@@ -100,15 +102,22 @@ namespace OwlReadingRoom
                 var packageService = ActivatorUtilities.CreateInstance<PackageService>(sp);
                 return TransactionalProxy<IPackageService>.CreateProxy(packageService, databaseConnectionService);
             });
+
+            builder.Services.AddSingleton(sp =>
+            {
+                var databaseConnectionService = sp.GetService<IDatabaseConnectionService>();
+                var bookingService = ActivatorUtilities.CreateInstance<BookingService>(sp);
+                return TransactionalProxy<IBookingService>.CreateProxy(bookingService, databaseConnectionService);
+            });
             //services
 
 #if WINDOWS
             builder.Services.AddSingleton<IPdfService,PdfService>();
 #endif
-            builder.Services.AddSingleton<IBookingService, BookingService>();
             builder.Services.AddSingleton<ICustomerService, CustomerService>();
             builder.Services.AddSingleton<IUserService, UserService>();
             builder.Services.AddSingleton<IEmailService, EmailService>();
+            builder.Services.AddSingleton<ITransactionService, TransactionService>();
             builder.Services.AddSingleton<IRoomService, RoomService>();
             builder.Services.AddSingleton<IDeskService, DeskService>();
 

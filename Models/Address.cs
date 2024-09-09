@@ -9,22 +9,13 @@ namespace OwlReadingRoom.Models
 {
     public class Address : BaseModel
     {
-        [Column("province")]
-        public string Province { get; set; }
+        [Column("temporary_address")]
+        public string TemporaryAddress { get; set; }
+        [Column("permanent_address")]
+        public string PermanentAddress { get; set; }
 
-        [Column("zone")]
-        public string Zone { get; set; }
-
-        [Column("metropolitan_city_vdc")]
-        public string MetropolitanCity { get; set; }
-
-        [Column("city")]
-        public string City { get; set; }
-
-        [Column("ward_no")]
-        public int WardNo { get; set; }
-
-        [Column("street")]
-        public string Tole { get; set; }
+        [Column("customer_id")]
+        [Indexed]
+        public int CustomerId { get; set; }
     }
 }

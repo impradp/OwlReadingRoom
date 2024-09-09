@@ -50,7 +50,7 @@ namespace OwlReadingRoom
         private void SetCustomerListView()
         {
             // Create a single instance of CustomerListView
-            _customerListView = new CustomerListView();
+            _customerListView = _serviceProvider.GetService<CustomerListView>();
             _customerListView.CustomerSelected += OnCustomerSelected;
 
             UnsubscribeFromCurrentDetailView();
