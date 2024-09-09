@@ -1,119 +1,80 @@
 using CommunityToolkit.Maui.Views;
-using OwlReadingRoom.Events;
+using OwlReadingRoom.Components.AlertDialog;
+using OwlReadingRoom.DTOs;
 using OwlReadingRoom.Models;
 using OwlReadingRoom.Services;
 using OwlReadingRoom.Utils;
-using OwlReadingRoom.ViewModels;
-using System.Windows.Input;
-using OwlReadingRoom.DTOs;
 
 namespace OwlReadingRoom.Views.Customer;
 
 public partial class NewCustomer : Popup
 {
-    public ICommand UploadCommand { get;  set; }
     private readonly IPackageService _packageService;
     private readonly IBookingService _bookingService;
     public List<PackageType> PackageTypes { get; set; }
-    public PackageType SelectedPackage { get; set; }
-    public event EventHandler<CustomerSavedEventArgs> CustomerPackageSaved;
+    public event EventHandler<EventArgs> CustomerPackageSaved;
     public NewCustomer(IPackageService packageService, IBookingService bookingService)
     {
         InitializeComponent();
         _packageService = packageService;
         LoadPackageTypes();
-        UploadCommand = new Command(async () => await ExecuteUploadCommand());
         BindingContext = this;
         _bookingService = bookingService;
     }
 
+    /// <summary>
+    /// Loads the packages saved in the system.
+    /// </summary>
     private void LoadPackageTypes()
     {
         PackageTypes = _packageService.GetPackages();
     }
 
-    private async Task ExecuteUploadCommand()
-    {
-        try
-        {
-            FileResult? result = await FilePicker.PickAsync(new PickOptions
-            {
-                PickerTitle = "Please select a file",
-                FileTypes = FilePickerFileType.Images
-            });
-
-            if (Validator.IsValidDocument(result))
-            {
-                FilePathEntry.Text = result.FileName;
-                FilePathEntryFullPath.Text = result.FullPath;
-            }
-        }
-        catch (Exception ex)
-        {
-            ExceptionHandler.HandleException("Uploading document", ex);
-        }
-    }
-
-    private void OnPackageTypeSelectedIndexChanged(object sender, EventArgs e)
-    {
-        PackageTypeLabel.IsVisible = PackageTypePicker.SelectedIndex == -1;
-    }
-
-    private void OnPaymentTypeSelectedIndexChanged(object sender, EventArgs e)
-    {
-        PaymentTypeLabel.IsVisible = PaymentTypePicker.SelectedIndex == -1;
-    }
-
+    /// <summary>
+    /// Handles the modal popup close for new customer creation.
+    /// </summary>
+    /// <param name="sender">The close button that trigger this action event.</param>
+    /// <param name="e">The event arguments passed into this function to gracefully close the modal popup.</param>
     private void OnCloseClicked(object sender, EventArgs e)
     {
         Close();
     }
 
+    /// <summary>
+    /// Handles the function to clear values for each field in new customer creation modal popup.
+    /// </summary>
+    /// <param name="sender">The clear button that trigger this action event.</param>
+    /// <param name="e">The event arguments passed into this function to gracefully clear the modal popup contents.</param>
     private void OnClearClicked(object sender, EventArgs e)
     {
         // Clear all inputs
         FullNameEntry.Text = string.Empty;
         ContactNumberEntry.Text = string.Empty;
-        PackageTypePicker.SelectedIndex = -1;
-        FilePathEntry.Text = string.Empty;
-        FilePathEntryFullPath.Text = string.Empty;
         AddressEditor.Text = string.Empty;
-        PaymentTypePicker.SelectedIndex = -1;
-
-        // Reset labels if necessary
-        PackageTypeLabel.Text = "Select";
-        PaymentTypeLabel.Text = "Select";
     }
 
+    /// <summary>
+    /// Handles the creation of new customer.
+    /// </summary>
+    /// <param name="sender">The save button that trigger this creation event.</param>
+    /// <param name="e">The event arguments passed into this function to save the new customer.</param>
     private async void OnCreateClicked(object sender, EventArgs e)
     {
         try
         {
-            if (Validator.IsValidNewCustomer(FullNameEntry.Text, ContactNumberEntry.Text, PackageTypePicker.SelectedIndex, PaymentTypePicker.SelectedIndex, FilePathEntryFullPath.Text))
+            if (Validator.IsValidNewCustomer(FullNameEntry.Text, ContactNumberEntry.Text, false, null, null, ""))
             {
-                string customerFolderName = SanitizeCustomerFolderName(ContactNumberEntry.Text);
-                string destinationFolderPath = Path.Combine(FileSystem.AppDataDirectory, "Assets", "Documents", customerFolderName);
-
-                EnsureDirectoryExists(destinationFolderPath);
-
-                string documentFilePath = CopyFileToCustomerFolder(FilePathEntryFullPath.Text, destinationFolderPath);
-
                 //TODO: Create customer object
                 _bookingService.RegisterWithMinimumDetails(new MinimumCustomerDetail
                 {
                     FullName = FullNameEntry.Text,
-                    DocumentPath = documentFilePath,
                     ContactNumber = ContactNumberEntry.Text,
-                    PackageType = SelectedPackage.Id,
-                    PaymentType = PaymentTypePicker.SelectedIndex
+                    CurrentAddress = AddressEditor.Text
                 });
 
-                CustomerPackageViewModel savedCustomerPackage = new CustomerPackageViewModel();
-
+                AlertService.Instance.ShowAlert("Success", "New customer registered successfully.", AlertType.Success);
+                CustomerPackageSaved?.Invoke(this, EventArgs.Empty);
                 await CloseAsync();
-
-                //TODO: Redirect to package detail update and payment selection page
-                CustomerPackageSaved?.Invoke(this, new CustomerSavedEventArgs(savedCustomerPackage));
             }
 
         }
@@ -123,6 +84,11 @@ public partial class NewCustomer : Popup
         }
     }
 
+    /// <summary>
+    /// Handles the validation aof contact number during customer registration.
+    /// </summary>
+    /// <param name="sender">The key change event that triggers this function.</param>
+    /// <param name="e">The event argument passed on to this function for the validation of customer's contact number.</param>
     private void OnContactNumberTextChanged(object sender, TextChangedEventArgs e)
     {
         if (e.NewTextValue != null)
@@ -142,12 +108,20 @@ public partial class NewCustomer : Popup
         }
     }
 
-
+    /// <summary>
+    /// Prepares the customer folder name in the AppData to store the documents of selected customer.
+    /// </summary>
+    /// <param name="contactNumber">The contact number with which the customer folder is created.</param>
+    /// <returns></returns>
     private string SanitizeCustomerFolderName(string contactNumber)
     {
         return contactNumber.Replace(" ", "").Replace("+", "").Replace("-", "");
     }
 
+    /// <summary>
+    /// Validates the existence or else creates the new folder for customer document storage.
+    /// </summary>
+    /// <param name="directoryPath"></param>
     private void EnsureDirectoryExists(string directoryPath)
     {
         if (!Directory.Exists(directoryPath))
@@ -156,6 +130,12 @@ public partial class NewCustomer : Popup
         }
     }
 
+    /// <summary>
+    /// Copies the original file to customer folder to be readily used by the application.
+    /// </summary>
+    /// <param name="sourceFilePath">The original path of the file in the machine.</param>
+    /// <param name="destinationFolderPath">The folder path in the application's AppData directory.</param>
+    /// <returns></returns>
     private string CopyFileToCustomerFolder(string sourceFilePath, string destinationFolderPath)
     {
         string fileName = Path.GetFileName(sourceFilePath);

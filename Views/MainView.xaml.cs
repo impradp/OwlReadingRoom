@@ -10,7 +10,6 @@ using OwlReadingRoom.ViewModels;
 using OwlReadingRoom.Views;
 using OwlReadingRoom.Views.Customer;
 using OwlReadingRoom.Views.Profile;
-using OwlReadingRoom.Views.Resources;
 using OwlReadingRoom.Views.Resources.Package;
 using OwlReadingRoom.Views.Resources.Rooms;
 using System.ComponentModel;
@@ -27,7 +26,7 @@ namespace OwlReadingRoom
         private readonly IServiceProvider _serviceProvider;
         private SelectedSubMenu _currentSubmenu = SelectedSubMenu.None;
 
-        private readonly CustomerListView _customerListView;
+        private CustomerListView _customerListView;
         private CustomerDetailsView _currentCustomerDetailsView;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -39,22 +38,30 @@ namespace OwlReadingRoom
             _auth0Client = auth0Client;
             _serviceProvider = serviceProvider;
 
-            // Create a single instance of CustomerListView
-            _customerListView = new CustomerListView();
-            _customerListView.CustomerSelected += OnCustomerSelected;
-
             // Set initial content
             SetCustomerListView();
 
             BindingContext = this;
         }
 
+        /// <summary>
+        /// Sets the list of customers to be displayed on landing page.
+        /// </summary>
         private void SetCustomerListView()
         {
+            // Create a single instance of CustomerListView
+            _customerListView = new CustomerListView();
+            _customerListView.CustomerSelected += OnCustomerSelected;
+
             UnsubscribeFromCurrentDetailView();
             DynamicContentArea.Content = _customerListView;
         }
 
+        /// <summary>
+        /// Sets the customer detail view for the selected customer.
+        /// </summary>
+        /// <param name="sender">The object that triggers the customer selection event.</param>
+        /// <param name="selectedCustomer">The selected customer object passed on to this function for detailed display.</param>
         private void OnCustomerSelected(object sender, CustomerPackageViewModel selectedCustomer)
         {
             UnsubscribeFromCurrentDetailView();
@@ -65,6 +72,9 @@ namespace OwlReadingRoom
             DynamicContentArea.Content = _currentCustomerDetailsView;
         }
 
+        /// <summary>
+        /// Unsubscribes the event triggers for the current view.
+        /// </summary>
         private void UnsubscribeFromCurrentDetailView()
         {
             if (_currentCustomerDetailsView != null)
@@ -75,6 +85,11 @@ namespace OwlReadingRoom
             }
         }
 
+        /// <summary>
+        /// Handles the display of the receipt view for selected customer.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnCustomerReceiptSelected(object sender, CustomerSavedEventArgs e)
         {
             IPdfService pdfService = _serviceProvider.GetService<IPdfService>();
@@ -146,48 +161,87 @@ namespace OwlReadingRoom
 
         #region Event Handlers
 
+        /// <summary>
+        /// Handles the display of room list upon room sub menu click.
+        /// </summary>
+        /// <param name="sender">The sub menu that triggers this event.</param>
+        /// <param name="e">The event argument passed on to this function for room list display.</param>
         private void OnRoomSubmenuClicked(object sender, EventArgs e)
         {
             CurrentSubmenu = SelectedSubMenu.Room;
             DynamicContentArea.Content = _serviceProvider.GetService<RoomListView>();
         }
 
+        /// <summary>
+        /// Handles the display of the package list upon package sub menu click.
+        /// </summary>
+        /// <param name="sender">The package menu that triggers this event.</param>
+        /// <param name="e">The event argument passed on to this function for package list display.</param>
         private void OnPackageSubmenuClicked(object sender, EventArgs e)
         {
             CurrentSubmenu = SelectedSubMenu.Package;
             DynamicContentArea.Content = _serviceProvider.GetService<PackageListView>();
         }
 
+        /// <summary>
+        /// Handles the display of customer creation form as a modal popup.
+        /// </summary>
+        /// <param name="sender">The new entry button that triggers this event.</param>
+        /// <param name="e">The event argument passed on to this function for customer registration.</param>
         private void OnNewEntryButtonClicked(object sender, EventArgs e)
         {
             var newCustomerPopup = _serviceProvider.GetService<NewCustomer>();
+            newCustomerPopup.CustomerPackageSaved += OnCustomerMenuClicked;
             this.ShowPopup(newCustomerPopup);
         }
 
+        /// <summary>
+        /// Handles the display of customer update view.
+        /// </summary>
+        /// <param name="sender">The edit button that triggered the customer update function.</param>
+        /// <param name="e">The argument passed down to update the selected customer.</param>
         private void OnCustomerUpdateSelected(object sender, CustomerSavedEventArgs e)
         {
             var customerUpdateView = new CustomerUpdateView(e.SavedCustomerPackage);
             DynamicContentArea.Content = customerUpdateView;
         }
 
+        /// <summary>
+        /// Handles the display of customer list through customer menu click event.
+        /// </summary>
+        /// <param name="sender">The customer menu that triggered this action event.</param>
+        /// <param name="e">The argument passed down to display the list of customers.</param>
         private void OnCustomerMenuClicked(object sender, EventArgs e)
         {
             SelectedMenu = "Customer";
             SetCustomerListView();
         }
-
+        /// <summary>
+        /// Handles the display of resources list through resource menu click event.
+        /// </summary>
+        /// <param name="sender">The resource menu that triggered this action event.</param>
+        /// <param name="e">The argument passed down to display the list of resources.</param>
         private void OnResourceMenuClicked(object sender, EventArgs e)
         {
             IsResourceMenuExpanded = !IsResourceMenuExpanded;
             SelectedMenu = "Resources";
         }
 
+        /// <summary>
+        /// Handles the profile settings through profile menu click event.
+        /// </summary>
+        /// <param name="sender">The profile menu that triggered this action event.</param>
+        /// <param name="e">The argument passed down to display the profile settings.</param>
         private void OnProfileMenuClicked(object sender, EventArgs e)
         {
             SelectedMenu = "Settings";
             DynamicContentArea.Content = new ProfileView();
         }
 
+        /// Handles the logout function through logout menu click event.
+        /// </summary>
+        /// <param name="sender">The logout menu that triggered this action event.</param>
+        /// <param name="e">The argument passed down to logout the current user.</param>
         private async void OnLogoutMenuClicked(object sender, EventArgs e)
         {
             SelectedMenu = "Logout";
@@ -204,6 +258,11 @@ namespace OwlReadingRoom
             Navigation.RemovePage(Navigation.NavigationStack[Navigation.NavigationStack.Count - 2]);
         }
 
+        /// <summary>
+        /// Handles the home selection event that will display the landing page.
+        /// </summary>
+        /// <param name="sender">The company image that triggers this event.</param>
+        /// <param name="e">The argument passed on to display landing page upon company image click.</param>
         private void OnHomeSelected(object sender, EventArgs e)
         {
             SetCustomerListView();
@@ -211,6 +270,10 @@ namespace OwlReadingRoom
 
         #endregion
 
+        /// <summary>
+        /// Handles the property change event.
+        /// </summary>
+        /// <param name="propertyName">The name of the property that is responsible to change the state of the corresponding fields.</param>
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

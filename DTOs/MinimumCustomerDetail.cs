@@ -7,5 +7,6 @@ public class MinimumCustomerDetail
     public int PackageType { get; set; }
     public int PaymentType { get; set; }
     public string DocumentPath { get; set; }
+    public string CurrentAddress { get; set; }
     
 }
