@@ -9,9 +9,9 @@ public partial class CustomerUpdateView : ContentView
     private DocumentDetailView _documentDetailView;
     private PackagePaymentDetailView _packagePaymentDetailView;
 
-    public CustomerPackageViewModel Customer { get; set; }
+    public CustomerDetailViewModel Customer { get; set; }
 
-    public CustomerUpdateView(CustomerPackageViewModel viewModel)
+    public CustomerUpdateView(CustomerDetailViewModel viewModel)
     {
         try
         {
@@ -27,19 +27,19 @@ public partial class CustomerUpdateView : ContentView
         }
     }
 
-    private void SetPersonalDetailContent(CustomerPackageViewModel customerPackage)
+    private void SetPersonalDetailContent(CustomerDetailViewModel customerPackage)
     {
         //TODO: Implement service method usage for data extraction.
         _personalDetailView = new PersonalDetailView(customerPackage);
     }
 
-    private void SetDocumentDetailContent(CustomerPackageViewModel customerPackage)
+    private void SetDocumentDetailContent(CustomerDetailViewModel customerPackage)
     {
         //TODO: Implement service method usage for data extraction.
         _documentDetailView = new DocumentDetailView(customerPackage);
     }
 
-    private void SetPackagePaymentDetailContent(CustomerPackageViewModel customerPackage)
+    private void SetPackagePaymentDetailContent(CustomerDetailViewModel customerPackage)
     {
         //TODO: Implement service method usage for data extraction.
         _packagePaymentDetailView = new PackagePaymentDetailView(customerPackage);

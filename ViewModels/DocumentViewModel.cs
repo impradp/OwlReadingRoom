@@ -13,6 +13,7 @@ namespace OwlReadingRoom.ViewModels
         public string DocumentNumber { get; set; }
         public DateTime IssueDate { get; set; }
         public DocumentType DocumentType { get; set; }
+        public String PlaceOfIssue { get; set; }
         public List<DocumentImageViewModel> Locations { get; set; }
     }
 }

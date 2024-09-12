@@ -1,9 +1,8 @@
 
 using CommunityToolkit.Maui.Views;
-using OwlReadingRoom.Models.Enums;
 using OwlReadingRoom.Services.Resources;
-using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
+using OwlReadingRoom.Views.Resources.Rooms.Plans;
 
 namespace OwlReadingRoom.Views.Resources.Rooms;
 
@@ -11,26 +10,48 @@ public partial class DeskLayout : Popup
 {
     private IPhysicalResourceService _resourceSerivce;
     public RoomListViewModel Room { get; set; }
-    public DeskLayout(RoomListViewModel room, IPhysicalResourceService resourceSerivce)
+    private ACRoomPlan _acRoomPlan;
+    private NonACRoomPlan _nonAcRoomPlan;
+    private readonly IServiceProvider _serviceProvider;
+    private List<DeskInfoViewModel> _desks;
+
+    public DeskLayout(RoomListViewModel room, IPhysicalResourceService resourceSerivce, IServiceProvider serviceProvider)
     {
         InitializeComponent();
         Room = room;
         _resourceSerivce = resourceSerivce;
-        SetDesks();
+        _serviceProvider = serviceProvider;
+        LoadDesks();
         BindingContext = this;
     }
-
-    public List<DeskInfoViewModel> Desks { get; set; }
 
     private void OnCloseButtonClicked(object sender, EventArgs e)
     {
         Close();
     }
-
-    private void SetDesks()
+    /// <summary>
+    /// Loads all desks information for the selected room.
+    /// </summary>
+    private void LoadDesks()
     {
-        //TODO: Fetch desk info based on room id
-        // Populate this list with actual desk data
-        Desks =  _resourceSerivce.GetDeskInfoPerRoom(Room.Id);
+        _desks = _resourceSerivce.GetDeskInfoPerRoom(Room.Id);
+
+        switch (Room.RoomType)
+        {
+            case "AC Room":
+                _acRoomPlan = ActivatorUtilities.CreateInstance<ACRoomPlan>(_serviceProvider, _desks);
+                DynamicLayoutArea.Content = _acRoomPlan;
+                break;
+                //Fix: room should be Room.
+            case "Non-AC room":
+                _nonAcRoomPlan = ActivatorUtilities.CreateInstance<NonACRoomPlan>(_serviceProvider, _desks);
+                _nonAcRoomPlan.Desks = _desks;
+                DynamicLayoutArea.Content = _nonAcRoomPlan;
+                break;
+            default:
+                // No plan detected.
+                break;
+
+        }
     }
 }

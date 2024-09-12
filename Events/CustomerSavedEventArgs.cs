@@ -4,11 +4,11 @@ namespace OwlReadingRoom.Events
 {
     public class CustomerSavedEventArgs : EventArgs
     {
-        public CustomerPackageViewModel SavedCustomerPackage { get; }
+        public CustomerDetailViewModel SavedCustomerDetail { get; }
 
-        public CustomerSavedEventArgs(CustomerPackageViewModel customerPackage)
+        public CustomerSavedEventArgs(CustomerDetailViewModel customerDetail)
         {
-            SavedCustomerPackage = customerPackage;
+            SavedCustomerDetail = customerDetail;
         }
     }
 }
