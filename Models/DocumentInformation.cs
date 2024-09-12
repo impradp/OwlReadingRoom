@@ -1,14 +1,8 @@
 ﻿using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OwlReadingRoom.Models
 {
-    public class Document : BaseModel
+    public class DocumentInformation : BaseModel
     {
         [Column("document_number")]
         public string DocumentNumber { get; set; }
@@ -19,13 +13,17 @@ namespace OwlReadingRoom.Models
         [Column("document_type")]
         public DocumentType DocumentType { get; set; }
 
-        [Column("location")]
-        public string Location { get; set; }
+        [Column("customer_id")]
+        [Indexed]
+        public int CustomerId { get; set; }
+
+        [Ignore]
+        public List<DocumentImage> Images { get; set; }
 
     }
 
     public enum DocumentType
     {
-        CTZN, VOTERS_ID, LICENSE
+        CITIZENSHIP, VOTERS_ID, LICENSE
     }
 }

@@ -1,5 +1,6 @@
 ﻿using OwlReadingRoom.Models;
 using OwlReadingRoom.ViewModels;
+using SQLite;
 
 namespace OwlReadingRoom.Services;
 
@@ -10,4 +11,6 @@ public interface IPackageService
     List<PackageListViewModel> GetPackageList();
 
     void SavePackage(PackageType packageType);
+
+    TableQuery<PackageType> TableQuery { get; }
 }

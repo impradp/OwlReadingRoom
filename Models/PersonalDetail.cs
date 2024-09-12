@@ -17,5 +17,12 @@ namespace OwlReadingRoom.Models
 
         [Column("gender")]
         public string Gender { get; set; }
+
+        [Column("faculty")]
+        public string Faculty { get; set; }
+
+        [Column("customer_id")]
+        [Indexed]
+        public int CustomerId { get; set; }
     }
 }

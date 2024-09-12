@@ -30,7 +30,7 @@ public partial class CustomerDetailsView : ContentView, INotifyPropertyChanged
             }
         }
     }
-    public bool HasDocuments => Customer != null && Customer.Documents != null && Customer.Documents.Count > 0;
+    public bool HasDocuments => Customer != null && Customer.Documents != null && Customer.Documents.Locations.Count > 0;
     public bool IsEmptyState => !HasDocuments;
 
     private void OnEditClicked(object sender, EventArgs e)

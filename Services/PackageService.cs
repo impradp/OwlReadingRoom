@@ -1,21 +1,20 @@
 ﻿using OwlReadingRoom.Models;
 using OwlReadingRoom.Proxy;
-using OwlReadingRoom.Services.Database;
 using OwlReadingRoom.Services.Repository;
 using OwlReadingRoom.ViewModels;
+using SQLite;
 
 namespace OwlReadingRoom.Services
 {
     public class PackageService : IPackageService
     {
         private readonly IRepository<PackageType> _packageRepository;
-
-        private readonly IDatabaseConnectionService _databaseConnectionService;
-        public PackageService(IRepository<PackageType> packageRepository, IDatabaseConnectionService databaseConnectionService)
+        public PackageService(IRepository<PackageType> packageRepository)
         {
             this._packageRepository = packageRepository;
-            _databaseConnectionService = databaseConnectionService;
         }
+
+        public TableQuery<PackageType> TableQuery => _packageRepository.Table;
 
         [Transactional(readOnly: true)]
         public List<PackageListViewModel> GetPackageList()
