@@ -1,5 +1,6 @@
 ﻿using OwlReadingRoom.Models;
 using OwlReadingRoom.Proxy;
+using OwlReadingRoom.Services.Constants;
 using OwlReadingRoom.Services.Repository;
 using OwlReadingRoom.ViewModels;
 using SQLite;
@@ -25,7 +26,7 @@ namespace OwlReadingRoom.Services
                 Id = package.Id,
                 Name = package.Name,
                 Price = package.Price,
-                RoomType = package.RoomType == RoomType.NON_AC ? "Non-AC Room" : "AC Room"
+                RoomType = package.RoomType == RoomType.NON_AC ? ResourceConstants.RoomConstants.NonAcRoom : ResourceConstants.RoomConstants.AcRoom
             }).ToList();
                 
         }

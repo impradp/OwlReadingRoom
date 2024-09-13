@@ -1,6 +1,7 @@
 ﻿using OwlReadingRoom.Models;
 using OwlReadingRoom.Models.Enums;
 using OwlReadingRoom.Proxy;
+using OwlReadingRoom.Services.Constants;
 using OwlReadingRoom.Services.Database;
 using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
@@ -46,7 +47,7 @@ public class ResourceService : IPhysicalResourceService
             {
                 Id = room.RoomId,
                 Name = room.RoomName,
-                RoomType = room.RoomType == RoomType.AC ? "AC Room" : "Non-AC room",
+                RoomType = room.RoomType == RoomType.AC ? ResourceConstants.RoomConstants.AcRoom : ResourceConstants.RoomConstants.NonAcRoom,
                 TotalDesks = room.Desks,
                 AvailableDesks = room.Desks - unavailableDesks.GetValueOrDefault(room.RoomId, 0)
             });
@@ -88,7 +89,8 @@ public class ResourceService : IPhysicalResourceService
 
                 deskInfoViewModels.Add(new DeskInfoViewModel
                 {
-                    Name = $"{desk.Name} ",
+                    Id = desk.Id,
+                    Name = $"{desk.Name}",
                     Status = firstReservation.Status,
                     Color = Utility.GetBackGroundColorByDeskStatus(firstReservation.Status),
                     TextColor = Utility.GetTextColorByDeskStatus(firstReservation.Status),
@@ -100,7 +102,8 @@ public class ResourceService : IPhysicalResourceService
                 // No reservation, use default values
                 deskInfoViewModels.Add(new DeskInfoViewModel
                 {
-                    Name = $"{desk.Name} ",
+                    Id = desk.Id,
+                    Name = $"{desk.Name}",
                     Status = DeskStatus.Available, // Assuming 'Available' is a default status
                     Color = Utility.GetBackGroundColorByDeskStatus(DeskStatus.Available),
                     TextColor = Utility.GetTextColorByDeskStatus(DeskStatus.Available),
@@ -111,4 +114,21 @@ public class ResourceService : IPhysicalResourceService
         return deskInfoViewModels;
     }
 
+    [Transactional]
+    public void AddRooms(RoomType roomType, int? numberOfRooms, string roomInitials = "RM")
+    {
+        var roomDeskNames = roomType == RoomType.NON_AC ? RoomPlan.Non_AC_Room_Desks : RoomPlan.AC_Room_Desks;
+
+        List<Room> rooms = _roomService.AddRooms(roomType, numberOfRooms, roomInitials);
+
+        var roomIds = rooms.Select(r => r.Id).ToList();
+
+        var desks = new List<Desk>();
+        foreach (var roomId in roomIds)
+        {
+            desks.AddRange(roomDeskNames.Select(deskName => new Desk { RoomId = roomId, Name = deskName.Trim() }));
+        }
+
+        _deskService.AddDesks(desks);
+    }
 }

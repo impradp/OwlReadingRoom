@@ -1,4 +1,5 @@
-﻿using OwlReadingRoom.Proxy;
+﻿using OwlReadingRoom.Models;
+using OwlReadingRoom.Proxy;
 using OwlReadingRoom.ViewModels;
 
 namespace OwlReadingRoom.Services.Resources;
@@ -50,4 +51,7 @@ public interface IPhysicalResourceService
     /// If an exception occurs during the process, the transaction is rolled back.
     /// </remarks>
     void UpdateRoom(RoomListViewModel roomViewModel, string roomName, int numberOfDesks, string deskInitial);
+
+
+    void AddRooms(RoomType roomType, int? numberOfRooms, string roomInitials = "RM");
 }

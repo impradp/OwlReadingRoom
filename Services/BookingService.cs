@@ -172,7 +172,7 @@ public class BookingService : IBookingService
         TableQuery<DocumentInformation> documentQuery = _customerService.DocumentTableQuery;
         TableQuery<DocumentImage> documentImageQuery = _customerService.DocumentImageTableQuery;
 
-
+        //TODO: order latest reservation by id
         // Step 1: Group bookings by customer and get the latest booking (if exists)
         var latestBookingsQuery = from booking in _bookingRepository.Table
                                   group booking by booking.CustomerId into bookingGroup

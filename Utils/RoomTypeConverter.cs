@@ -1,4 +1,5 @@
 ﻿using OwlReadingRoom.Models;
+using OwlReadingRoom.Services.Constants;
 using System.Globalization;
 
 namespace OwlReadingRoom.Utils;
@@ -10,8 +11,8 @@ public class RoomTypeConverter : IValueConverter
         RoomType roomType = (RoomType)value;
         return roomType switch
         {
-            RoomType.AC => "AC Room",
-            RoomType.NON_AC => "Non-AC Room",
+            RoomType.AC => ResourceConstants.RoomConstants.AcRoom,
+            RoomType.NON_AC => ResourceConstants.RoomConstants.NonAcRoom,
         };
     }
 
@@ -20,8 +21,8 @@ public class RoomTypeConverter : IValueConverter
         string roomTypeString = value as string;
         return roomTypeString switch
         {
-            "AC Room" => RoomType.AC,
-            "Non-AC Room" => RoomType.NON_AC
+            ResourceConstants.RoomConstants.AcRoom => RoomType.AC,
+            ResourceConstants.RoomConstants.NonAcRoom => RoomType.NON_AC
         };
 
     }

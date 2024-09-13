@@ -29,7 +29,7 @@ namespace OwlReadingRoom.Utils
             var frameName = parameters[0];
             var propertyName = parameters[1];
 
-            var desk = desks.FirstOrDefault(d => d.Name == frameName);
+            var desk = desks.FirstOrDefault(d => d.Name.Equals(frameName));
             if (desk == null)
                 return null;
 
