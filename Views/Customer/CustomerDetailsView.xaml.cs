@@ -9,6 +9,7 @@ public partial class CustomerDetailsView : ContentView, INotifyPropertyChanged
     public event EventHandler<CustomerSavedEventArgs> CustomerUpdateSelected;
     public event EventHandler<CustomerSavedEventArgs> CustomerReceiptSelected;
     private CustomerPackageViewModel _customer;
+    private CustomerDetailViewModel Customer { get; set; }
     public CustomerDetailsView(CustomerPackageViewModel customer)
     {
         InitializeComponent();
@@ -16,7 +17,7 @@ public partial class CustomerDetailsView : ContentView, INotifyPropertyChanged
         _customer = customer;
     }
 
-    public CustomerPackageViewModel Customer
+    public CustomerPackageViewModel CustomerPackage
     {
         get => _customer;
         set
@@ -30,8 +31,15 @@ public partial class CustomerDetailsView : ContentView, INotifyPropertyChanged
             }
         }
     }
-    public bool HasDocuments => Customer != null && Customer.Documents != null && Customer.Documents.Locations.Count > 0;
-    public bool IsEmptyState => !HasDocuments;
+
+    public void LoadCustomerDetail()
+    {
+        //TODO: Load Customer Data from CustomerPackageInformation
+        //TODO: Set HasDocument flag and IsEmptyState  as well.
+    }
+
+    public bool HasDocuments { get; set; }
+    public bool IsEmptyState { get; set; }
 
     private void OnEditClicked(object sender, EventArgs e)
     {

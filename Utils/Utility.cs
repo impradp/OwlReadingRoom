@@ -1,9 +1,4 @@
 ﻿using OwlReadingRoom.Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OwlReadingRoom.Utils
 {
@@ -22,13 +17,13 @@ namespace OwlReadingRoom.Utils
             switch (status)
             {
                 case DeskStatus.Available:
-                    return Color.FromHex("#E7F7E5");
+                    return Color.FromHex("#22C55E");
                 case DeskStatus.NotAvailable:
-                    return Color.FromHex("#FFE5E5");
+                    return Color.FromHex("#DF1212");
                 case DeskStatus.Reserved:
-                    return Color.FromHex("#FCDDAE");
+                    return Color.FromHex("#FACC15");
                 default:
-                    return Color.FromHex("#FFFFFF"); // Default color for unknown status
+                    return Color.FromHex("#1E293B"); // Default color for unknown status
             }
         }
 

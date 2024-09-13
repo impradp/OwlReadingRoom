@@ -9,7 +9,6 @@ using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
 using OwlReadingRoom.Views;
 using OwlReadingRoom.Views.Customer;
-using OwlReadingRoom.Views.Profile;
 using OwlReadingRoom.Views.Resources.Package;
 using OwlReadingRoom.Views.Resources.Rooms;
 using System.ComponentModel;
@@ -93,7 +92,7 @@ namespace OwlReadingRoom
         private void OnCustomerReceiptSelected(object sender, CustomerSavedEventArgs e)
         {
             IPdfService pdfService = _serviceProvider.GetService<IPdfService>();
-            var customerReceiptView = new ReceiptView(e.SavedCustomerPackage, pdfService);
+            var customerReceiptView = new ReceiptView(e.SavedCustomerDetail, pdfService);
             DynamicContentArea.Content = customerReceiptView;
         }
 
@@ -202,7 +201,7 @@ namespace OwlReadingRoom
         /// <param name="e">The argument passed down to update the selected customer.</param>
         private void OnCustomerUpdateSelected(object sender, CustomerSavedEventArgs e)
         {
-            var customerUpdateView = new CustomerUpdateView(e.SavedCustomerPackage);
+            var customerUpdateView = new CustomerUpdateView(e.SavedCustomerDetail);
             DynamicContentArea.Content = customerUpdateView;
         }
 
@@ -225,17 +224,6 @@ namespace OwlReadingRoom
         {
             IsResourceMenuExpanded = !IsResourceMenuExpanded;
             SelectedMenu = "Resources";
-        }
-
-        /// <summary>
-        /// Handles the profile settings through profile menu click event.
-        /// </summary>
-        /// <param name="sender">The profile menu that triggered this action event.</param>
-        /// <param name="e">The argument passed down to display the profile settings.</param>
-        private void OnProfileMenuClicked(object sender, EventArgs e)
-        {
-            SelectedMenu = "Settings";
-            DynamicContentArea.Content = new ProfileView();
         }
 
         /// Handles the logout function through logout menu click event.

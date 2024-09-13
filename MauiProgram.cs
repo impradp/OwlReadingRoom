@@ -15,6 +15,9 @@ using OwlReadingRoom.Views.Customer;
 using OwlReadingRoom.Views.Resources.Package;
 using OwlReadingRoom.Views.Resources.Rooms;
 using System.Reflection;
+using OwlReadingRoom.Views.Resources.Rooms.Plans;
+
+
 #if WINDOWS
 using OwlReadingRoom.Platforms.Windows.Services;
 #endif
@@ -79,6 +82,8 @@ namespace OwlReadingRoom
             builder.Services.AddTransient<PackageListView>();
             builder.Services.AddTransient<CustomerListView>();
             builder.Services.AddTransient<NewPackage>();
+            builder.Services.AddTransient<ACRoomPlan>();
+            builder.Services.AddTransient<NonACRoomPlan>();
             builder.Services.AddTransient<Func<RoomListViewModel, UpdateRoom>>(sp =>
             {
                 var resourceService = sp.GetRequiredService<IPhysicalResourceService>();
@@ -87,7 +92,8 @@ namespace OwlReadingRoom
             builder.Services.AddTransient<Func<RoomListViewModel, DeskLayout>>(sp =>
             {
                 var resourceService = sp.GetRequiredService<IPhysicalResourceService>();
-                return room => new DeskLayout(room, resourceService);
+                var serviceProvider = sp.GetRequiredService<IServiceProvider>();
+                return room => new DeskLayout(room, resourceService,serviceProvider);
             });
             builder.Services.AddSingleton(sp =>
             {

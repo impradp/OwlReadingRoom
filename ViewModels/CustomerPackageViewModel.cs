@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OwlReadingRoom.ViewModels
+﻿namespace OwlReadingRoom.ViewModels
 {
     public class CustomerPackageViewModel
     {
@@ -18,5 +12,6 @@ namespace OwlReadingRoom.ViewModels
         public String PaymentStatus { get; set; }
         public String Dues { get; set; }
         public DocumentViewModel Documents { get; set; }
+        public TransactionDetailViewModel Transaction { get; set; }
     }
 }

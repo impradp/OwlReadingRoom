@@ -5,8 +5,8 @@ namespace OwlReadingRoom.Views.Customer;
 
 public partial class PersonalDetailView : ContentView
 {
-    private CustomerPackageViewModel _customer;
-    public PersonalDetailView(CustomerPackageViewModel customer)
+    private CustomerDetailViewModel _customer;
+    public PersonalDetailView(CustomerDetailViewModel customer)
     {
         InitializeComponent();
         _customer = customer;

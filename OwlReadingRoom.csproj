@@ -122,6 +122,12 @@
 	  <Compile Update="Views\MainView.xaml.cs">
 	    <DependentUpon>MainView.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\Resources\Rooms\Plans\ACRoomPlan.xaml.cs">
+	    <DependentUpon>ACRoomPlan.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Resources\Rooms\Plans\NonACRoomPlan.xaml.cs">
+	    <DependentUpon>NonACRoomPlan.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\Resources\Rooms\RoomListView.xaml.cs">
 	    <DependentUpon>RoomListView.xaml</DependentUpon>
 	  </Compile>
@@ -170,6 +176,12 @@
 	  <MauiXaml Update="Views\Resources\Rooms\DeskLayout.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Resources\Rooms\Plans\ACRoomPlan.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Resources\Rooms\Plans\NonACRoomPlan.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Resources\Rooms\NewRoom.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -183,9 +195,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Customer\PersonalDetailView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Profile\ProfileView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Customer\CustomerListView.xaml">

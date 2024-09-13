@@ -11,7 +11,7 @@ namespace OwlReadingRoom.Views.Customer;
 public partial class DocumentDetailView : ContentView, INotifyPropertyChanged
 {
     private ObservableCollection<FileItem> _selectedFiles = new ObservableCollection<FileItem>();
-    private CustomerPackageViewModel _customer;
+    private CustomerDetailViewModel _customer;
     public ObservableCollection<FileItem> SelectedFiles
     {
         get => _selectedFiles;
@@ -27,7 +27,7 @@ public partial class DocumentDetailView : ContentView, INotifyPropertyChanged
     }
 
     public bool HasSelectedFiles => SelectedFiles.Any();
-    public DocumentDetailView(CustomerPackageViewModel customer)
+    public DocumentDetailView(CustomerDetailViewModel customer)
     {
         InitializeComponent();
         BindingContext = this;

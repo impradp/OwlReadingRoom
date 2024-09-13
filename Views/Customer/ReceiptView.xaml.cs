@@ -6,12 +6,12 @@ namespace OwlReadingRoom.Views.Customer
 {
     public partial class ReceiptView : ContentView
     {
-        private CustomerPackageViewModel _customer;
+        private CustomerDetailViewModel _customer;
 
         private IPdfService _pdfService;
         public ICommand DownloadCommand { get; private set; }
 
-        public ReceiptView(CustomerPackageViewModel customer, IPdfService pdfService)
+        public ReceiptView(CustomerDetailViewModel customer, IPdfService pdfService)
         {
             InitializeComponent();
             _customer = customer;
@@ -20,7 +20,7 @@ namespace OwlReadingRoom.Views.Customer
             BindingContext = this;
         }
 
-        public CustomerPackageViewModel Customer
+        public CustomerDetailViewModel Customer
         {
             get => _customer;
             set
