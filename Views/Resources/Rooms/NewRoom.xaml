@@ -5,7 +5,7 @@
                xmlns:local="clr-namespace:OwlReadingRoom.Utils"
                xmlns:component="clr-namespace:OwlReadingRoom.Components"
                x:Class="OwlReadingRoom.Views.Resources.Rooms.NewRoom"
-               Size="402,470"
+               Size="402,370"
                Color="Transparent"
                VerticalOptions="Center"
                CanBeDismissedByTappingOutsideOfPopup="False">
@@ -75,13 +75,13 @@
                                    CornerRadius="4"
                                    BorderColor="#CBD5E1"
                                    HasShadow="False">
-                                <component:NumericEntry 
-                                       x:Name="NoOfRoomsEntry"
-                                       Placeholder="Enter Number"
-                                       PlaceholderColor="#647087"
-                                       Style="{StaticResource EntryInfoStyle}"
-                                       MaxLength="2"
-                                       Keyboard="Telephone" />
+                                <component:NumericEntry x:Name="NoOfRoomsEntry"
+                                                        Placeholder="Enter Number"
+                                                        PlaceholderColor="#647087"
+                                                        Background="White"
+                                                        Style="{StaticResource EntryInfoStyle}"
+                                                        MaxLength="2"
+                                                        Keyboard="Telephone" />
                             </Frame>
                         </VerticalStackLayout>
 
@@ -104,35 +104,14 @@
                                            TextColor="Gray"
                                            Margin="5,0,0,0" />
                                     <Picker x:Name="RoomTypePicker"
-                                        Style="{StaticResource EntryInfoStyle}"
-                                        ItemsSource="{Binding RoomTypes}"
-                                        SelectedIndexChanged="OnRoomTypeSelectedIndexChanged">
+                                            Style="{StaticResource EntryInfoStyle}"
+                                            ItemsSource="{Binding RoomTypes}"
+                                            SelectedIndexChanged="OnRoomTypeSelectedIndexChanged">
                                         <Picker.ItemDisplayBinding>
                                             <Binding Converter="{StaticResource RoomTypeConverter}" />
                                         </Picker.ItemDisplayBinding>
                                     </Picker>
                                 </Grid>
-                            </Frame>
-                        </VerticalStackLayout>
-
-                        <VerticalStackLayout>
-                            <Label Text="Required No. of Desks"
-                                   FontFamily="Inter"
-                                   FontSize="14"
-                                   Padding="0,0,0,10"
-                                   TextColor="#35405C" />
-                            <Frame BackgroundColor="White"
-                                   Padding="12,0"
-                                   HeightRequest="48"
-                                   CornerRadius="4"
-                                   BorderColor="#CBD5E1"
-                                   HasShadow="False">
-                                <component:NumericEntry x:Name="NoOfDeskEntry"
-                                       Placeholder="Enter Number"
-                                       Style="{StaticResource EntryInfoStyle}"
-                                       PlaceholderColor="#647087"
-                                       MaxLength="2"
-                                       Keyboard="Telephone" />
                             </Frame>
                         </VerticalStackLayout>
                     </StackLayout>

@@ -32,8 +32,8 @@ public partial class NewRoom : Popup
 
     private void OnClearClicked(object sender, EventArgs e)
     {
-
         RoomTypeLabel.Text = "Select";
+        NoOfRoomsEntry.Text = "";
     }
 
     /// <summary>

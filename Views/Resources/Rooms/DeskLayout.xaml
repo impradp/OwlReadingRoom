@@ -64,7 +64,7 @@
                             <Label Text="Room Name"
                                    FontSize="14"
                                    TextColor="#37404C" />
-                            <Label Text="{Binding Room.RoomType}"
+                            <Label Text="{Binding Room.Name}"
                                    FontSize="16"
                                    FontAttributes="Bold"
                                    TextColor="#37404C" />
