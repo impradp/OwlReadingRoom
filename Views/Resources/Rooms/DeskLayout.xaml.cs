@@ -1,5 +1,6 @@
 
 using CommunityToolkit.Maui.Views;
+using OwlReadingRoom.Services.Constants;
 using OwlReadingRoom.Services.Resources;
 using OwlReadingRoom.ViewModels;
 using OwlReadingRoom.Views.Resources.Rooms.Plans;
@@ -38,12 +39,11 @@ public partial class DeskLayout : Popup
 
         switch (Room.RoomType)
         {
-            case "AC Room":
+            case ResourceConstants.RoomConstants.AcRoom:
                 _acRoomPlan = ActivatorUtilities.CreateInstance<ACRoomPlan>(_serviceProvider, _desks);
                 DynamicLayoutArea.Content = _acRoomPlan;
                 break;
-                //Fix: room should be Room.
-            case "Non-AC room":
+            case ResourceConstants.RoomConstants.NonAcRoom:
                 _nonAcRoomPlan = ActivatorUtilities.CreateInstance<NonACRoomPlan>(_serviceProvider, _desks);
                 _nonAcRoomPlan.Desks = _desks;
                 DynamicLayoutArea.Content = _nonAcRoomPlan;

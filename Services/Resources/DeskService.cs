@@ -16,6 +16,7 @@ public class DeskService : IDeskService
 
     public TableQuery<Desk> TableQuery => _deskRepository.Table;
 
+    [Obsolete("Please use AddDesks(int) instead.")]
     public void AddDesks(int roomId, int? numberOfDesks, string deskInitials = "DSK")
     {
         if (numberOfDesks == null || numberOfDesks < 0)
@@ -37,6 +38,12 @@ public class DeskService : IDeskService
             });
         }
         _deskRepository.InsertAll(deskList);
+    }
+
+    public List<Desk> AddDesks(List<Desk> desks)
+    {
+        _deskRepository.InsertAll(desks);
+        return desks;
     }
 
     public List<Desk> GetDesksOfRoom(int roomId)

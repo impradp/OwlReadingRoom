@@ -10,13 +10,13 @@ public partial class NewRoom : Popup
 {
     public event EventHandler<EventArgs> RoomCreated;
 
-    private readonly IRoomService _roomService;
+    private readonly IPhysicalResourceService _resourceService;
     public ObservableCollection<RoomType> RoomTypes { get; set; }
-    public NewRoom(IRoomService roomService)
+    public NewRoom(IPhysicalResourceService resourceService)
     {
         InitializeComponent();
         RoomTypes = new ObservableCollection<RoomType>(Enum.GetValues(typeof(RoomType)).Cast<RoomType>());
-        _roomService = roomService;
+        _resourceService = resourceService;
         BindingContext = this;
     }
 
@@ -48,7 +48,7 @@ public partial class NewRoom : Popup
             if (Validator.IsValidRoom(NoOfRoomsEntry.Text, RoomTypePicker.SelectedIndex))
             {
                 //TODO: Change the default room initials to the one sent by the user
-                _roomService.AddRooms((RoomType)RoomTypePicker.SelectedItem, Int32.Parse(NoOfRoomsEntry.Text));
+                _resourceService.AddRooms((RoomType)RoomTypePicker.SelectedItem, Int32.Parse(NoOfRoomsEntry.Text));
 
                 //TODO: Create desks for rooms using Room Plan
                 // If RoomType is AC Room then create the desks for AC Room using Room Plan.

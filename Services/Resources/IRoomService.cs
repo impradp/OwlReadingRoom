@@ -16,7 +16,9 @@ public interface IRoomService
     /// <remarks>
     /// This method adds the specified number of rooms to the database. Each room is
     /// assigned a unique identifier based on the provided room initials.
-    ///  
+    /// <returns>
+    /// A list pf Room object representing the room with the specified ID.
+    /// </returns>
     /// Room naming convention:
     /// - Room names are generated in the format: {roomInitials}-{number}
     /// - If rooms with the given initials already exist, numbering starts from the last existing number + 1
@@ -24,7 +26,7 @@ public interface IRoomService
     /// 
     /// If <paramref name="numberOfRooms"/> is null or less than or equal to 0, no rooms will be added.
     /// </remarks>
-    void AddRooms(RoomType roomType, int? numberOfRooms, string roomInitials = "RM");
+    List<Room> AddRooms(RoomType roomType, int? numberOfRooms, string roomInitials = "RM");
 
     /// <summary>
     /// Retrieves a room by its ID.

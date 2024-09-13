@@ -34,4 +34,6 @@ public interface IDeskService
     /// </remarks>
     List<Desk> GetDesksOfRoom(int roomId);
     TableQuery<Desk> TableQuery { get; }
+
+    List<Desk> AddDesks(List<Desk> desks);
 }

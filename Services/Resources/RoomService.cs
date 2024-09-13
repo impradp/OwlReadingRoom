@@ -17,13 +17,8 @@ public class RoomService : IRoomService
 
     public TableQuery<Room> TableQuery => _roomRepository.Table;
 
-    public void AddRooms(RoomType roomType, int? numberOfRooms, string roomInitials = "RM")
+    public List<Room> AddRooms(RoomType roomType, int? numberOfRooms, string roomInitials = "RM")
     {
-        if(numberOfRooms == null || numberOfRooms <= 0)
-        {
-            CustomAlert.ShowAlert("Error", "The number of rooms cannot be negative. Please enter a non-negative integer.", "OK");
-            return;
-        }
         int initialRoomNumber = GetLastRoomNumber(roomInitials);
         List<Room> roomList = new List<Room>();
 
@@ -37,6 +32,7 @@ public class RoomService : IRoomService
         }
         
         _roomRepository.InsertAll(roomList);
+        return roomList;
 
     }
 

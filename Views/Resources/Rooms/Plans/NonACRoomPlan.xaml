@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:OwlReadingRoom.Utils"
              x:Class="OwlReadingRoom.Views.Resources.Rooms.Plans.NonACRoomPlan">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <local:NameToDeskInfoConverter x:Key="NameToDeskInfoConverter"/>
+        </ResourceDictionary>
+    </ContentView.Resources>
     <Grid Margin="73,20,72,20">
         <!-- Blue lines -->
         <BoxView Color="#4285F4"
@@ -702,7 +709,7 @@
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A11,Message', Mode=OneWay, TargetNullValue=''}">
 
             <Grid>
-                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A12,Color', Mode=OneWay, TargetNullValue=''}"
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A11,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
                          HeightRequest="52" />
                 <Label Text="A11"
