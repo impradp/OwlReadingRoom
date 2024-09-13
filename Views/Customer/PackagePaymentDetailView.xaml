@@ -39,6 +39,21 @@
                                 </Picker>
                             </Frame>
                         </VerticalStackLayout>
+                        <VerticalStackLayout Padding="0,10,10,0"
+                                             Spacing="4">
+                            <Label Text="Package Start Date"
+                                   Style="{StaticResource EntryLabelStyle}"
+                                   HeightRequest="24" />
+                            <Frame BackgroundColor="White"
+                                   Padding="12,0"
+                                   HeightRequest="48"
+                                   CornerRadius="4"
+                                   BorderColor="#CBD5E1"
+                                   HasShadow="False">
+                                <DatePicker Format="MM/dd/yyyy"
+                                            TextColor="Black" />
+                            </Frame>
+                        </VerticalStackLayout>
                     </VerticalStackLayout>
                     <VerticalStackLayout Grid.Column="1"
                                          Spacing="4">
@@ -64,6 +79,22 @@
                                         <x:String>RM 202</x:String>
                                     </Picker.Items>
                                 </Picker>
+                            </Frame>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Padding="0,10,0,0"
+                                             Spacing="4">
+                            <Label Text="Package End Date"
+                                   Style="{StaticResource EntryLabelStyle}"
+                                   HeightRequest="24" />
+                            <Frame BackgroundColor="White"
+                                   Padding="12,0"
+                                   HeightRequest="48"
+                                   CornerRadius="4"
+                                   BorderColor="#CBD5E1"
+                                   HasShadow="False">
+                                <DatePicker Format="MM/dd/yyyy"
+                                            IsEnabled="False"
+                                            TextColor="Black" />
                             </Frame>
                         </VerticalStackLayout>
                     </VerticalStackLayout>
@@ -100,36 +131,16 @@
 
                 <!-- Payment Information Section -->
                 <Label Text="Payment "
+                       Padding="0,30,0,0"
                        Style="{StaticResource SubTitleStyle}" />
 
                 <Grid ColumnDefinitions="*, *, *"
                       ColumnSpacing="15"
                       RowDefinitions="Auto, Auto"
                       RowSpacing="15"
-                      Padding="0,24,0,0">
+                      Padding="0,24,10,0">
                     <VerticalStackLayout Grid.Row="0"
                                          Grid.Column="0"
-                                         Spacing="4">
-                        <Label Text="Payment Type"
-                               Style="{StaticResource EntryLabelStyle}"
-                               HeightRequest="24" />
-                        <Frame BackgroundColor="White"
-                               Padding="12,0"
-                               HeightRequest="48"
-                               CornerRadius="4"
-                               BorderColor="#CBD5E1"
-                               HasShadow="False">
-                            <Picker Style="{StaticResource EntryInfoStyle}">
-                                <Picker.Items>
-                                    <x:String>Cash</x:String>
-                                    <x:String>Online</x:String>
-                                </Picker.Items>
-                            </Picker>
-                        </Frame>
-                    </VerticalStackLayout>
-
-                    <VerticalStackLayout Grid.Row="0"
-                                         Grid.Column="1"
                                          Spacing="4">
                         <Label Text="Payment Method"
                                Style="{StaticResource EntryLabelStyle}"
@@ -150,7 +161,8 @@
                         </Frame>
                     </VerticalStackLayout>
 
-                    <VerticalStackLayout Grid.Column="2"
+                    <VerticalStackLayout Grid.Row="0"
+                                         Grid.Column="1"
                                          Spacing="4">
                         <Label Text="Paid Date"
                                Style="{StaticResource EntryLabelStyle}"
@@ -165,125 +177,35 @@
                                         TextColor="Black" />
                         </Frame>
                     </VerticalStackLayout>
-                </Grid>
 
-                <!-- Buttons -->
-                <Grid ColumnDefinitions="*, *"
-                      ColumnSpacing="10">
-                    <Button Grid.Column="0"
-                            Text="Clear"
-                            TextColor="#415A77"
-                            BackgroundColor="Transparent"
-                            BorderColor="#E2E8F0"
-                            BorderWidth="1" />
-                    <Button Grid.Column="1"
-                            Text="Save"
-                            Clicked="OnCreateClicked"
-                            TextColor="White"
-                            BackgroundColor="#778DA9" />
-                </Grid>
-            </VerticalStackLayout>
-
-            <VerticalStackLayout Padding="24,0,0,0"
-                                 Spacing="20">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-
-                    <VerticalStackLayout Grid.Column="0"
-                                         Grid.RowSpan="2"
-                                         Spacing="10">
-                        <Label Text="Additional Information"
-                               FontSize="20"
-                               TextColor="#0D1B2A"
-                               FontFamily="Inter-SemiBold" />
-                        <Label Text="*Please fill the details below as per your official documents"
-                               FontSize="16"
-                               TextColor="#415A77"
-                               FontFamily="Inter-Medium" />
+                    <VerticalStackLayout Grid.Column="2"
+                                         Spacing="4">
+                        <Label Text="Amount"
+                               Style="{StaticResource EntryLabelStyle}"
+                               HeightRequest="24" />
+                        <Frame BackgroundColor="White"
+                               Padding="12,0"
+                               HeightRequest="48"
+                               CornerRadius="4"
+                               BorderColor="#CBD5E1"
+                               HasShadow="False">
+                            <Entry x:Name="PaidAmountEntry"
+                                   Style="{StaticResource EntryInfoStyle}"
+                                   PlaceholderColor="#647087"
+                                   Placeholder="Enter Amount"
+                                   MaxLength="7"
+                                   Keyboard="Numeric" />
+                        </Frame>
                     </VerticalStackLayout>
-
-                    <BoxView Grid.ColumnSpan="2"
-                             Grid.Row="2"
-                             HeightRequest="1"
-                             Color="#D9D9D9"
-                             Margin="0,10,0,0" />
                 </Grid>
 
                 <VerticalStackLayout Spacing="20">
-                    <!-- Personal Information Section -->
-                    <Label Text="Medical Information"
-                           Style="{StaticResource SubTitleStyle}" />
-                    <Grid ColumnDefinitions="*, *"
-                          ColumnSpacing="15">
-                        <VerticalStackLayout Grid.Column="0"
-                                             Spacing="4">
-                            <VerticalStackLayout Grid.Column="2"
-                                                 Spacing="4">
-                                <Label Text="Disease"
-                                       Style="{StaticResource EntryLabelStyle}"
-                                       HeightRequest="24" />
-                                <Frame BackgroundColor="White"
-                                       Padding="0"
-                                       HeightRequest="48"
-                                       CornerRadius="4"
-                                       BorderColor="#CBD5E1"
-                                       HasShadow="False">
-                                    <Picker TitleColor="#647087"
-                                            TextColor="#07003B"
-                                            FontSize="16"
-                                            FontFamily="Inter"
-                                            VerticalOptions="Center"
-                                            HorizontalOptions="FillAndExpand">
-                                        <Picker.Items>
-                                            <x:String>Yes</x:String>
-                                            <x:String>No</x:String>
-                                        </Picker.Items>
-                                    </Picker>
-                                </Frame>
-                            </VerticalStackLayout>
-                        </VerticalStackLayout>
-                        <VerticalStackLayout Grid.Column="1"
-                                             Spacing="4">
-                            <VerticalStackLayout Grid.Column="2"
-                                                 Spacing="4">
-                                <Label Text="Allergy"
-                                       Style="{StaticResource EntryLabelStyle}"
-                                       HeightRequest="24" />
-                                <Frame BackgroundColor="White"
-                                       Padding="0"
-                                       HeightRequest="48"
-                                       CornerRadius="4"
-                                       BorderColor="#CBD5E1"
-                                       HasShadow="False">
-                                    <Picker TitleColor="#647087"
-                                            TextColor="#07003B"
-                                            FontSize="16"
-                                            FontFamily="Inter"
-                                            VerticalOptions="Center"
-                                            HorizontalOptions="FillAndExpand">
-                                        <Picker.Items>
-                                            <x:String>Yes</x:String>
-                                            <x:String>No</x:String>
-                                        </Picker.Items>
-                                    </Picker>
-                                </Frame>
-                            </VerticalStackLayout>
-                        </VerticalStackLayout>
-                    </Grid>
 
                     <!-- Belonging Information Section -->
                     <Label Text="Belonging"
                            Style="{StaticResource SubTitleStyle}" />
 
-                    <Grid ColumnDefinitions="*, *"
+                    <Grid ColumnDefinitions="*, *,*,*"
                           ColumnSpacing="15"
                           RowDefinitions="Auto, Auto"
                           RowSpacing="15">
@@ -331,7 +253,7 @@
                     </Grid>
 
                     <!-- Buttons -->
-                    <Grid ColumnDefinitions="*, *"
+                    <Grid ColumnDefinitions="*,*,*, *"
                           ColumnSpacing="10">
                         <Button Grid.Column="0"
                                 Text="Clear"
@@ -341,7 +263,7 @@
                                 BorderWidth="1" />
                         <Button Grid.Column="1"
                                 Text="Save"
-                                Clicked="OnMedicalInfoClicked"
+                                Clicked="OnCreateClicked"
                                 TextColor="White"
                                 BackgroundColor="#778DA9" />
                     </Grid>

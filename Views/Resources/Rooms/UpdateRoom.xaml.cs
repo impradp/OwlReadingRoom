@@ -24,7 +24,6 @@ public partial class UpdateRoom : Popup
     {
         IdEntry.Text = Room.Id.ToString();
         NameEntry.Text = Room.Name;
-        NoOfDeskEntry.Text = Room.TotalDesks.ToString();
         EditRoomHeaderLabel.Text = String.Concat("Edit Room #", Room.Id);
         // Populate other fields as needed
     }
@@ -37,7 +36,6 @@ public partial class UpdateRoom : Popup
     private void OnClearClicked(object sender, EventArgs e)
     {
         NameEntry.Text = "";
-        NoOfDeskEntry.Text = "";
     }
 
     private async void OnUpdateClicked(object sender, EventArgs e)
@@ -46,7 +44,7 @@ public partial class UpdateRoom : Popup
         {
             if (Validator.isValidRoomName(NameEntry.Text))
             {
-                _resourceService.UpdateRoom(Room, NameEntry.Text, Int32.Parse(NoOfDeskEntry.Text), string.IsNullOrEmpty(DeskInitialsEntry.Text) ? "DSK" : DeskInitialsEntry.Text);
+                _resourceService.UpdateRoom(Room, NameEntry.Text);
                 RoomUpdated?.Invoke(this, EventArgs.Empty);
                 await CloseAsync();
                 AlertService.Instance.ShowAlert("Info", "Room updated successfully.", AlertType.Info);

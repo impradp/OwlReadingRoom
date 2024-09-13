@@ -18,11 +18,4 @@ public partial class PackagePaymentDetailView : ContentView
         //TODO: Update CustomerPackageViewModel accordingly.
         AlertService.Instance.ShowAlert("Success", "Package details saved successfully.");
     }
-
-    private async void OnMedicalInfoClicked(object sender, EventArgs e)
-    {
-        //TODO: Update any necessary info from form 
-        //TODO: Update CustomerPackageViewModel accordingly.
-        AlertService.Instance.ShowAlert("Success", "Medical details saved successfully.");
-    }
 }

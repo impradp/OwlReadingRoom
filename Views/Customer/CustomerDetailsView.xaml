@@ -123,41 +123,6 @@
                                 <Label Text="9800110011"
                                        Style="{StaticResource EntryLabelReadonly}" />
                             </VerticalStackLayout>
-                            <VerticalStackLayout Grid.Column="0"
-                                                 Grid.Row="2">
-                                <Label Text="Start Date"
-                                       Style="{StaticResource RegularLabel}" />
-                                <Label Text="2021-04-16 AD"
-                                       Style="{StaticResource EntryLabelReadonly}" />
-                            </VerticalStackLayout>
-                            <VerticalStackLayout Grid.Column="1"
-                                                 Grid.Row="2">
-                                <Label Text="End Date"
-                                       Style="{StaticResource RegularLabel}" />
-                                <Label Text="2025-04-31 AD"
-                                       Style="{StaticResource EntryLabelReadonly}" />
-                            </VerticalStackLayout>
-                            <VerticalStackLayout Grid.Column="2"
-                                                 Grid.Row="2">
-                                <Label Text="Amount"
-                                       Style="{StaticResource RegularLabel}" />
-                                <Label Text="NPR 5243.00"
-                                       Style="{StaticResource EntryLabelReadonly}" />
-                            </VerticalStackLayout>
-                            <VerticalStackLayout Grid.Column="3"
-                                                 Grid.Row="2">
-                                <Label Text="Status"
-                                       Style="{StaticResource RegularLabel}" />
-                                <Frame BackgroundColor="#F6FDF9"
-                                       Padding="8,4"
-                                       CornerRadius="6"
-                                       BorderColor="Transparent"
-                                       HorizontalOptions="Start">
-                                    <Label Text="Active"
-                                           TextColor="#22C55E"
-                                           FontSize="12" />
-                                </Frame>
-                            </VerticalStackLayout>
                         </Grid>
                     </VerticalStackLayout>
                 </Frame>

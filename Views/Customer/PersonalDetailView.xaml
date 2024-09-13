@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="OwlReadingRoom.Views.Customer.PersonalDetailView">
     <ScrollView>
-        <VerticalStackLayout Padding="0,24,24,0" Spacing="20">
+        <VerticalStackLayout Padding="0,24,24,0"
+                             Spacing="20">
             <!-- Personal Information Section -->
             <Label Text="Personal Information"
                    Style="{StaticResource SubTitleStyle}" />
@@ -174,6 +175,102 @@
                     </Frame>
                 </VerticalStackLayout>
             </Grid>
+
+            <VerticalStackLayout Spacing="20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <VerticalStackLayout Grid.Column="0"
+                                         Grid.RowSpan="2"
+                                         Spacing="10">
+                        <Label Text="Additional Information"
+                               FontSize="20"
+                               TextColor="#0D1B2A"
+                               FontFamily="Inter-SemiBold" />
+                        <Label Text="*Please fill the details below as per your official documents"
+                               FontSize="16"
+                               TextColor="#415A77"
+                               FontFamily="Inter-Medium" />
+                    </VerticalStackLayout>
+
+                    <BoxView Grid.ColumnSpan="2"
+                             Grid.Row="2"
+                             HeightRequest="1"
+                             Color="#D9D9D9"
+                             Margin="0,10,0,0" />
+                </Grid>
+
+                <VerticalStackLayout Spacing="20">
+                    <!-- Personal Information Section -->
+                    <Label Text="Medical Information"
+                           Style="{StaticResource SubTitleStyle}" />
+                    <Grid ColumnDefinitions="*, *"
+                          ColumnSpacing="15">
+                        <VerticalStackLayout Grid.Column="0"
+                                             Spacing="4">
+                            <VerticalStackLayout Grid.Column="2"
+                                                 Spacing="4">
+                                <Label Text="Disease"
+                                       Style="{StaticResource EntryLabelStyle}"
+                                       HeightRequest="24" />
+                                <Frame BackgroundColor="White"
+                                       Padding="0"
+                                       HeightRequest="48"
+                                       CornerRadius="4"
+                                       BorderColor="#CBD5E1"
+                                       HasShadow="False">
+                                    <Picker TitleColor="#647087"
+                                            TextColor="#07003B"
+                                            FontSize="16"
+                                            FontFamily="Inter"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="FillAndExpand">
+                                        <Picker.Items>
+                                            <x:String>Yes</x:String>
+                                            <x:String>No</x:String>
+                                        </Picker.Items>
+                                    </Picker>
+                                </Frame>
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1"
+                                             Spacing="4">
+                            <VerticalStackLayout Grid.Column="2"
+                                                 Spacing="4">
+                                <Label Text="Allergy"
+                                       Style="{StaticResource EntryLabelStyle}"
+                                       HeightRequest="24" />
+                                <Frame BackgroundColor="White"
+                                       Padding="0"
+                                       HeightRequest="48"
+                                       CornerRadius="4"
+                                       BorderColor="#CBD5E1"
+                                       HasShadow="False">
+                                    <Picker TitleColor="#647087"
+                                            TextColor="#07003B"
+                                            FontSize="16"
+                                            FontFamily="Inter"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="FillAndExpand">
+                                        <Picker.Items>
+                                            <x:String>Yes</x:String>
+                                            <x:String>No</x:String>
+                                        </Picker.Items>
+                                    </Picker>
+                                </Frame>
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
 
             <!-- Buttons -->
             <Grid ColumnDefinitions="*, *"

@@ -57,14 +57,8 @@ public class ResourceService : IPhysicalResourceService
     }
 
     [Transactional]
-    public void UpdateRoom(RoomListViewModel roomViewModel, string roomName, int numberOfDesks, string deskInitial)
+    public void UpdateRoom(RoomListViewModel roomViewModel, string roomName)
     {
-
-        if (numberOfDesks > 0)
-        {
-            _deskService.AddDesks(roomViewModel.Id, numberOfDesks, deskInitial);
-        }
-
         Room room = _roomService.GetRoomById(roomViewModel.Id);
 
         if (!room.Name.Equals(roomName))

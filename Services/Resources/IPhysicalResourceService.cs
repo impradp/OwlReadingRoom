@@ -42,16 +42,19 @@ public interface IPhysicalResourceService
     /// </summary>
     /// <param name="roomViewModel">The view model containing the room's current information.</param>
     /// <param name="roomName">The new name for the room.</param>
-    /// <param name="numberOfDesks">The number of new desks to add to the room.</param>
-    /// <param name="deskInitial">The initial string to use for naming new desks.</param>
     /// <remarks>
     /// This method performs the following operations within a transaction:
     /// 1. Adds new desks to the room if numberOfDesks is greater than 0.
     /// 2. Updates the room's name if it has changed.
     /// If an exception occurs during the process, the transaction is rolled back.
     /// </remarks>
-    void UpdateRoom(RoomListViewModel roomViewModel, string roomName, int numberOfDesks, string deskInitial);
+    void UpdateRoom(RoomListViewModel roomViewModel, string roomName);
 
-
+    /// <summary>
+    /// Creates rooms of certain type in the system
+    /// </summary>
+    /// <param name="roomType">The type of room: AC or Non Ac</param>
+    /// <param name="numberOfRooms">The number of rooms</param>
+    /// <param name="roomInitials">The initials of room.</param>
     void AddRooms(RoomType roomType, int? numberOfRooms, string roomInitials = "RM");
 }
