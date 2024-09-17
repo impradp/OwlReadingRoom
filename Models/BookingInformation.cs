@@ -1,9 +1,4 @@
 ﻿using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OwlReadingRoom.Models
 {
@@ -18,15 +13,16 @@ namespace OwlReadingRoom.Models
         [Column("customer_id")]
         public int CustomerId { get; set; }
 
-        [Column("transaction_id")]
-        public int TransactionId { get; set; }
-
         [Column("reservation_start_date")]
-        public DateTime ReservationStartDate { get; set; }
+        public DateTime? ReservationStartDate { get; set; }
 
         [Column("reservation_end_date")]
-        public DateTime ReservationEndDate { get; set; }
+        public DateTime? ReservationEndDate { get; set; }
 
+        [Column("locker_facility")]
+        public bool HasBookedLocker { get; set; }
 
+        [Column("parking_facility")]
+        public bool HasBookedParking { get; set; }
     }
 }

@@ -11,8 +11,8 @@ public class RoomTypeConverter : IValueConverter
         RoomType roomType = (RoomType)value;
         return roomType switch
         {
-            RoomType.AC => ResourceConstants.RoomConstants.AcRoom,
-            RoomType.NON_AC => ResourceConstants.RoomConstants.NonAcRoom,
+            RoomType.AC => AppConstants.RoomConstants.AcRoom,
+            RoomType.NON_AC => AppConstants.RoomConstants.NonAcRoom,
         };
     }
 
@@ -21,8 +21,8 @@ public class RoomTypeConverter : IValueConverter
         string roomTypeString = value as string;
         return roomTypeString switch
         {
-            ResourceConstants.RoomConstants.AcRoom => RoomType.AC,
-            ResourceConstants.RoomConstants.NonAcRoom => RoomType.NON_AC
+            AppConstants.RoomConstants.AcRoom => RoomType.AC,
+            AppConstants.RoomConstants.NonAcRoom => RoomType.NON_AC
         };
 
     }

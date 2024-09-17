@@ -39,11 +39,11 @@ public partial class DeskLayout : Popup
 
         switch (Room.RoomType)
         {
-            case ResourceConstants.RoomConstants.AcRoom:
+            case AppConstants.RoomConstants.AcRoom:
                 _acRoomPlan = ActivatorUtilities.CreateInstance<ACRoomPlan>(_serviceProvider, _desks);
                 DynamicLayoutArea.Content = _acRoomPlan;
                 break;
-            case ResourceConstants.RoomConstants.NonAcRoom:
+            case AppConstants.RoomConstants.NonAcRoom:
                 _nonAcRoomPlan = ActivatorUtilities.CreateInstance<NonACRoomPlan>(_serviceProvider, _desks);
                 _nonAcRoomPlan.Desks = _desks;
                 DynamicLayoutArea.Content = _nonAcRoomPlan;

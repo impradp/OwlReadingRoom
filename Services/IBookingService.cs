@@ -1,6 +1,6 @@
 ﻿using OwlReadingRoom.DTOs;
 using OwlReadingRoom.ViewModels;
-using static OwlReadingRoom.Services.BookingService;
+using static OwlReadingRoom.Services.BookingDetailsService;
 
 namespace OwlReadingRoom.Services;
 
@@ -94,24 +94,9 @@ public interface IBookingService
     List<CustomerPackageViewModel> GetInactiveCustomerList();
 
     /// <summary>
-    /// Registers a new customer with minimum details, ensuring no duplicate entries exist.
+    /// Retrieves booking details for a given booking ID.
     /// </summary>
-    /// <param name="minimumCustomerDetail">An object containing the minimum required details for customer registration.</param>
-    /// <remarks>
-    /// This method performs the following steps:
-    /// 1. Checks if a customer with the provided contact number already exists.
-    /// 2. If a customer exists, it throws an InvalidDataException.
-    /// 3. If no existing customer is found, it creates a new customer with the provided minimum details.
-    /// 
-    /// This method is marked with the [Transactional] attribute, ensuring that all database operations
-    /// within the method are executed as a single transaction. If any part of the operation fails,
-    /// all changes will be rolled back.
-    /// </remarks>
-    /// <exception cref="InvalidDataException">
-    /// Thrown when a customer with the provided contact number already exists in the system.
-    /// </exception>
-    /// <seealso cref="MinimumCustomerDetail"/>
-    /// <seealso cref="CreateNewCustomerWithMinimumDetails"/>
-    void RegisterWithMinimumDetails(MinimumCustomerDetail minimumCutomerDetail);
-
+    /// <param name="bookingId">The ID of the booking.</param>
+    /// <returns>A BookingInfoViewModel containing booking details, or null if the bookingId is not provided.</returns>
+    BookingInfoViewModel GetBookingDetails(int? bookingId);
 }

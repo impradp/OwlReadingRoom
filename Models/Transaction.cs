@@ -9,14 +9,18 @@ namespace OwlReadingRoom.Models
 {
     public class Transaction : BaseModel
     {
-        [Column("customer_id")]
-        public int CustomerId { get; set; }
+
+        [Column("total_amount")]
+        public double TotalAmount { get; set; }
 
         [Column("paid_amount")]
         public double PaidAmount { get; set; }
 
-        [Column("dues")]
-        public double Dues { get; set; }
+        [Column("due_amount")]
+        public double DueAmount { get; set; }
+
+        [Column("booking_information_id")]
+        public int BookingInformationId { get; set; }
 
         [Column("payment_status")]
         public PaymentStatusEnum PaymentStatus { get; set; } // Foreign key to PaymentStatus

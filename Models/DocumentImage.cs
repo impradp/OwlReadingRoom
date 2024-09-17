@@ -9,4 +9,7 @@ public class DocumentImage : BaseModel
     public int DocumentInformationId { get; set; }
     [Column("image_path")]
     public string ImagePath { get; set; }
+
+    [Column("status")]
+    public Status status { get; set; }
 }

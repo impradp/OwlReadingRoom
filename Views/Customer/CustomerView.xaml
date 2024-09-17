@@ -2,6 +2,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="OwlReadingRoom.Views.Customer.CustomerView"
+              xmlns:local="clr-namespace:OwlReadingRoom.Utils"
              BackgroundColor="White">
     <ContentView.Resources>
         <Style x:Key="CellLabelStyle"
@@ -32,6 +33,9 @@
                     Value="Center" />
 
         </Style>
+        <ResourceDictionary>
+            <local:DateFormatConverter x:Key="DateFormatConverter"/>
+        </ResourceDictionary>
     </ContentView.Resources>
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
@@ -140,10 +144,10 @@
                                         <Label Text="{Binding Faculty}"
                                                Style="{StaticResource CellLabelStyle}"
                                                Grid.Column="2" />
-                                        <Label Text="{Binding StartDate}"
+                                        <Label Text="{Binding StartDate, Converter={StaticResource DateFormatConverter}, FallbackValue='N/A', TargetNullValue= 'N/A'}"
                                                Style="{StaticResource CellLabelStyle}"
                                                Grid.Column="3" />
-                                        <Label Text="{Binding EndDate}"
+                                        <Label Text="{Binding EndDate, Converter={StaticResource DateFormatConverter}, FallbackValue='N/A', TargetNullValue= 'N/A'}"
                                                Style="{StaticResource CellLabelStyle}"
                                                Grid.Column="4" />
                                         <Label Text="{Binding Package}"

@@ -1,5 +1,6 @@
 ﻿using OwlReadingRoom.DTOs;
 using OwlReadingRoom.Models;
+using OwlReadingRoom.ViewModels;
 using SQLite;
 
 namespace OwlReadingRoom.Services;
@@ -41,6 +42,47 @@ public interface ICustomerService
     /// <seealso cref="Customer"/>
     Customer GetCustomerByMobileNumber(string mobileNumber);
 
+    /// <summary>
+    /// Registers a new customer with minimum details, ensuring no duplicate entries exist.
+    /// </summary>
+    /// <param name="minimumCustomerDetail">An object containing the minimum required details for customer registration.</param>
+    /// <remarks>
+    /// This method performs the following steps:
+    /// 1. Checks if a customer with the provided contact number already exists.
+    /// 2. If a customer exists, it throws an InvalidDataException.
+    /// 3. If no existing customer is found, it creates a new customer with the provided minimum details.
+    /// 
+    /// This method is marked with the [Transactional] attribute, ensuring that all database operations
+    /// within the method are executed as a single transaction. If any part of the operation fails,
+    /// all changes will be rolled back.
+    /// </remarks>
+    /// <exception cref="InvalidDataException">
+    /// Thrown when a customer with the provided contact number already exists in the system.
+    /// </exception>
+    /// <seealso cref="MinimumCustomerDetail"/>
+    /// <seealso cref="CreateNewCustomerWithMinimumDetails"/>
+    void RegisterWithMinimumDetails(MinimumCustomerDetail minimumCutomerDetail);
+
+    /// <summary>
+    /// Retrieves document details for a given customer ID.
+    /// </summary>
+    /// <param name="customerId">The ID of the customer.</param>
+    /// <returns>A DocumentViewModel containing the customer's document information and associated images.</returns>
+    DocumentViewModel GetCustomerDocumentDetails(int customerId);
+
+    /// <summary>
+    /// Retrieves personal details for a given customer ID.
+    /// </summary>
+    /// <param name="customerId">The ID of the customer.</param>
+    /// <returns>A PersonalDetail object containing the customer's personal information.</returns>
+    PersonalDetail GetPersonalDetails(int customerId);
+
+    /// <summary>
+    /// Retrieves address details for a given customer ID.
+    /// </summary>
+    /// <param name="customerId">The ID of the customer.</param>
+    /// <returns>An Address Model containing the customer's temporary address and permanent address.</returns>
+    Address GetAddressDetails(int customerId);  
     TableQuery<PersonalDetail> PersonalDetailTableQuery { get; }
 
     TableQuery<DocumentInformation> DocumentTableQuery { get; }

@@ -53,7 +53,7 @@ namespace OwlReadingRoom.Services.Repository
             return items;
         }
 
-        public T GetItem(int id)
+        public T GetItem(int? id)
         {
             connectionService.Init<T>();
             return connectionService.Connection.Table<T>().Where(model => model.Id == id).FirstOrDefault();

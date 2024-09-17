@@ -64,8 +64,8 @@ namespace OwlReadingRoom
         private void OnCustomerSelected(object sender, CustomerPackageViewModel selectedCustomer)
         {
             UnsubscribeFromCurrentDetailView();
-
-            _currentCustomerDetailsView = new CustomerDetailsView(selectedCustomer);
+            Func<CustomerPackageViewModel, CustomerDetailsView>? customerDetailView = _serviceProvider.GetService<Func<CustomerPackageViewModel, CustomerDetailsView>>();
+            _currentCustomerDetailsView = customerDetailView(selectedCustomer);
             _currentCustomerDetailsView.CustomerUpdateSelected += OnCustomerUpdateSelected;
             _currentCustomerDetailsView.CustomerReceiptSelected += OnCustomerReceiptSelected;
             DynamicContentArea.Content = _currentCustomerDetailsView;

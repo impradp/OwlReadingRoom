@@ -13,13 +13,19 @@ namespace OwlReadingRoom.Models
         public string FullName { get; set; }
 
         [Column("dob")]
-        public DateTime DOB { get; set; }
+        public DateTime? DOB { get; set; }
 
         [Column("gender")]
         public string Gender { get; set; }
 
         [Column("faculty")]
         public string Faculty { get; set; }
+
+        [Column("disease")]
+        public string Disease { get; set; }
+
+        [Column("allergies")]
+        public string Allergies { get; set; }
 
         [Column("customer_id")]
         [Indexed]
