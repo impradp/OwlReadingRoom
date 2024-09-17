@@ -107,6 +107,8 @@
                             <component:ActionButtonsView Grid.Column="4"
                                                          EditClicked="OnRoomEditClicked"
                                                          EyeClicked="OnRoomEyeClicked"
+                                                         IsEditVisible="{Binding ShouldShowEditButton}"
+                                                         IsEyeVisible="{Binding ShouldShowEyeButton}"
                                                          BindingContext="{Binding .}" />
                         </Grid>
                         <BoxView Grid.Row="1"

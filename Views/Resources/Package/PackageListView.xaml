@@ -106,7 +106,10 @@
                                    Grid.Column="3" />
                             <component:ActionButtonsView Grid.Column="4"
                                                          EditClicked="OnPackageEditClicked"
-                                                         EyeClicked="OnPackageEyeClicked" />
+                                                         EyeClicked="OnPackageEyeClicked"
+                                                         IsEditVisible="{Binding ShouldShowEditButton}"
+                                                         IsEyeVisible="{Binding ShouldShowEyeButton}"
+                                                         BindingContext="{Binding .}" />
                         </Grid>
                         <BoxView Grid.Row="1"
                                  HeightRequest="1"

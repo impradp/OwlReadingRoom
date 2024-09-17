@@ -1,7 +1,10 @@
 using CommunityToolkit.Maui.Views;
+using Microsoft.Extensions.Configuration;
 using OwlReadingRoom.Components;
+using OwlReadingRoom.Configurations;
 using OwlReadingRoom.Models;
 using OwlReadingRoom.Services;
+using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -14,11 +17,14 @@ public partial class PackageListView : ContentView, INotifyPropertyChanged
     private ObservableCollection<PackageListViewModel> _packages;
     private readonly IServiceProvider _serviceProvider;
     private readonly IPackageService _packageService;
+    private Boolean ShouldShowEditButton;
+    private Boolean ShouldShowEyeButton;
+    private Boolean ShouldShowDeleteButton;
     public PackageListView(IServiceProvider serviceProvider, IPackageService packageService)
     {
         InitializeComponent();
         _serviceProvider = serviceProvider;
-        _packageService = packageService;   
+        _packageService = packageService;
         BindingContext = this;
         LoadPackageData();
     }
@@ -55,7 +61,23 @@ public partial class PackageListView : ContentView, INotifyPropertyChanged
 
     private void LoadPackageData()
     {
-        Packages = new ObservableCollection<PackageListViewModel>(_packageService.GetPackageList());
+        try
+        {
+            #region Fetch actions flag from environment variables
+
+            //IConfiguration configuration = _serviceProvider.GetService<IConfiguration>();
+            //ActionFeatures actions = ConfigurationHandler.GetActionFeatures(configuration, "PackageActions");
+            //ShouldShowEditButton = actions.Edit;
+            //ShouldShowDeleteButton = actions.Delete;
+            //ShouldShowEyeButton = actions.View;
+
+            #endregion
+            Packages = new ObservableCollection<PackageListViewModel>(_packageService.GetPackageList());
+        }catch(Exception ex)
+        {
+            ExceptionHandler.HandleException("Loading packages", ex);
+        }
+        
     }
 
     private void OnPackageEditClicked(object sender, EventArgs e)

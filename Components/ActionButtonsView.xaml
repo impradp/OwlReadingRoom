@@ -8,15 +8,15 @@
                 HeightRequest="24"
                 BackgroundColor="Transparent"
                 ImageSource="update_icon.png"
-                Clicked="OnEditClicked">
-        </Button>
+                Clicked="OnEditClicked"
+                IsVisible="{Binding IsEditVisible, Source={RelativeSource AncestorType={x:Type ContentView}}}" />
 
         <Button x:Name="EyeButton"
                 WidthRequest="24"
                 HeightRequest="24"
                 ImageSource="eye_icon.png"
                 BackgroundColor="Transparent"
-                Clicked="OnEyeClicked">
-        </Button>
+                Clicked="OnEyeClicked"
+                IsVisible="{Binding IsEyeVisible, Source={RelativeSource AncestorType={x:Type ContentView}}}" />
     </HorizontalStackLayout>
 </ContentView>
