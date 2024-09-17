@@ -12,5 +12,6 @@ namespace OwlReadingRoom.ViewModels
         public string Name { get; set; }
         public string RoomType { get; set; }
         public double Price { get; set; }
+        public double Days { get; set; }
     }
 }

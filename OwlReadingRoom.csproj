@@ -74,6 +74,7 @@
 	  <None Remove="Resources\Images\circle_check_filled_icon.svg" />
 	  <None Remove="Resources\Images\close_icon.svg" />
 	  <None Remove="Resources\Images\customer_icon.svg" />
+	  <None Remove="Resources\Images\danger_triangle_icon.svg" />
 	  <None Remove="Resources\Images\download_icon.svg" />
 	  <None Remove="Resources\Images\email_icon.svg" />
 	  <None Remove="Resources\Images\empty_state.svg" />
@@ -93,6 +94,7 @@
 	  <None Remove="Resources\Images\resources_icon.svg" />
 	  <None Remove="Resources\Images\settings_icon.svg" />
 	  <None Remove="Resources\Images\success_icon.svg" />
+	  <None Remove="Resources\Images\trash_icon.svg" />
 	  <None Remove="Resources\Images\update_icon.svg" />
 	</ItemGroup>
 
@@ -170,7 +172,13 @@
 	  <MauiXaml Update="Views\Customer\ReceiptView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Resources\Package\DeletePackageDialog.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Resources\Package\NewPackage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Resources\Package\UpdatePackage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Resources\Rooms\DeskLayout.xaml">

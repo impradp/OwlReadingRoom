@@ -93,7 +93,7 @@ namespace OwlReadingRoom
             {
                 var resourceService = sp.GetRequiredService<IPhysicalResourceService>();
                 var serviceProvider = sp.GetRequiredService<IServiceProvider>();
-                return room => new DeskLayout(room, resourceService,serviceProvider);
+                return room => new DeskLayout(room, resourceService, serviceProvider);
             });
             builder.Services.AddTransient<Func<CustomerPackageViewModel, CustomerDetailsView>>(sp =>
             {
@@ -133,6 +133,11 @@ namespace OwlReadingRoom
                 var databaseConnectionService = sp.GetService<IDatabaseConnectionService>();
                 var customerService = ActivatorUtilities.CreateInstance<CustomerDetailsService>(sp);
                 return TransactionalProxy<ICustomerDetailsService>.CreateProxy(customerService, databaseConnectionService);
+            });
+            builder.Services.AddTransient<Func<PackageListViewModel, UpdatePackage>>(sp =>
+            {
+                var resourceService = sp.GetRequiredService<IPhysicalResourceService>();
+                return package => new UpdatePackage(package, resourceService);
             });
             //services
 

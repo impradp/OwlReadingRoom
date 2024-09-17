@@ -106,7 +106,10 @@
                                    Grid.Column="3" />
                             <component:ActionButtonsView Grid.Column="4"
                                                          EditClicked="OnPackageEditClicked"
-                                                         EyeClicked="OnPackageEyeClicked" />
+                                                         TrashClicked="OnPackageTrashClicked"
+                                                         IsEditVisible="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=BindingContext.ShouldShowEditButton}"
+                                                         IsTrashVisible="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=BindingContext.ShouldShowTrashButton}"
+                                                         BindingContext="{Binding .}" />
                         </Grid>
                         <BoxView Grid.Row="1"
                                  HeightRequest="1"

@@ -107,6 +107,8 @@
                             <component:ActionButtonsView Grid.Column="4"
                                                          EditClicked="OnRoomEditClicked"
                                                          EyeClicked="OnRoomEyeClicked"
+                                                         IsEditVisible="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=BindingContext.ShouldShowEditButton}"
+                                                         IsEyeVisible="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=BindingContext.ShouldShowEyeButton}"
                                                          BindingContext="{Binding .}" />
                         </Grid>
                         <BoxView Grid.Row="1"

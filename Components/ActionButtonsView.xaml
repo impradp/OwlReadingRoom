@@ -8,6 +8,7 @@
                 HeightRequest="24"
                 BackgroundColor="Transparent"
                 ImageSource="update_icon.png"
+                IsVisible="{Binding IsEditVisible, Source={RelativeSource AncestorType={x:Type ContentView}}}"
                 Clicked="OnEditClicked">
         </Button>
 
@@ -16,7 +17,16 @@
                 HeightRequest="24"
                 ImageSource="eye_icon.png"
                 BackgroundColor="Transparent"
+                IsVisible="{Binding IsEyeVisible, Source={RelativeSource AncestorType={x:Type ContentView}}}"
                 Clicked="OnEyeClicked">
+        </Button>
+        <Button x:Name="TrashButton"
+                WidthRequest="24"
+                HeightRequest="24"
+                ImageSource="trash_icon.png"
+                BackgroundColor="Transparent"
+                IsVisible="{Binding IsTrashVisible, Source={RelativeSource AncestorType={x:Type ContentView}}}"
+                Clicked="OnTrashClicked">
         </Button>
     </HorizontalStackLayout>
 </ContentView>

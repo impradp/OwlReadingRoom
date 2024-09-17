@@ -8,8 +8,8 @@
 
     <Border BackgroundColor="White"
             StrokeShape="RoundRectangle 8"
-            Stroke="Transparent"
-            Shadow="{OnPlatform WinUI=Hard, Default=None}">
+            Stroke="Transparent">
+        <!--Shadow="{OnPlatform WinUI=Hard, Default=None}">-->
         <Grid RowDefinitions="Auto,Auto,*">
             <!-- Header -->
             <Grid ColumnDefinitions="*,Auto"
