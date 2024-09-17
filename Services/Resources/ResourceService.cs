@@ -5,7 +5,7 @@ using OwlReadingRoom.Services.Constants;
 using OwlReadingRoom.Services.Database;
 using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
-using static OwlReadingRoom.Services.BookingService;
+using static OwlReadingRoom.Services.BookingDetailsService;
 
 namespace OwlReadingRoom.Services.Resources;
 
@@ -47,7 +47,7 @@ public class ResourceService : IPhysicalResourceService
             {
                 Id = room.RoomId,
                 Name = room.RoomName,
-                RoomType = room.RoomType == RoomType.AC ? ResourceConstants.RoomConstants.AcRoom : ResourceConstants.RoomConstants.NonAcRoom,
+                RoomType = room.RoomType == RoomType.AC ? AppConstants.RoomConstants.AcRoom : AppConstants.RoomConstants.NonAcRoom,
                 TotalDesks = room.Desks,
                 AvailableDesks = room.Desks - unavailableDesks.GetValueOrDefault(room.RoomId, 0)
             });

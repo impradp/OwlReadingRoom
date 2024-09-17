@@ -17,6 +17,9 @@ namespace OwlReadingRoom.Models
         [Indexed]
         public int CustomerId { get; set; }
 
+        [Column("place_of_issue")]
+        public string PlaceOfIssue{ get; set; }
+
         [Ignore]
         public List<DocumentImage> Images { get; set; }
 
@@ -24,6 +27,6 @@ namespace OwlReadingRoom.Models
 
     public enum DocumentType
     {
-        CITIZENSHIP, VOTERS_ID, LICENSE
+        CITIZENSHIP, VOTERS_ID, LICENSE, PASSPORT
     }
 }

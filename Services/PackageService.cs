@@ -18,6 +18,12 @@ namespace OwlReadingRoom.Services
         public TableQuery<PackageType> TableQuery => _packageRepository.Table;
 
         [Transactional(readOnly: true)]
+        public PackageType GetPackageById(int? Id)
+        {
+            return _packageRepository.GetItem(Id);
+        }
+
+        [Transactional(readOnly: true)]
         public List<PackageListViewModel> GetPackageList()
         {
             return (from package in GetPackages()
@@ -26,7 +32,7 @@ namespace OwlReadingRoom.Services
                 Id = package.Id,
                 Name = package.Name,
                 Price = package.Price,
-                RoomType = package.RoomType == RoomType.NON_AC ? ResourceConstants.RoomConstants.NonAcRoom : ResourceConstants.RoomConstants.AcRoom
+                RoomType = package.RoomType == RoomType.NON_AC ? AppConstants.RoomConstants.NonAcRoom : AppConstants.RoomConstants.AcRoom
             }).ToList();
                 
         }

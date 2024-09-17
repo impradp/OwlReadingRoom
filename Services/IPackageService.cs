@@ -13,4 +13,6 @@ public interface IPackageService
     void SavePackage(PackageType packageType);
 
     TableQuery<PackageType> TableQuery { get; }
+
+    PackageType GetPackageById(int? Id);
 }

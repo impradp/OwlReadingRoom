@@ -95,6 +95,11 @@ namespace OwlReadingRoom
                 var serviceProvider = sp.GetRequiredService<IServiceProvider>();
                 return room => new DeskLayout(room, resourceService,serviceProvider);
             });
+            builder.Services.AddTransient<Func<CustomerPackageViewModel, CustomerDetailsView>>(sp =>
+            {
+                var customerDetailService = sp.GetRequiredService<ICustomerDetailsService>();
+                return customerPackageViewModel => new CustomerDetailsView(customerPackageViewModel, customerDetailService);
+            });
             builder.Services.AddSingleton(sp =>
             {
                 var databaseConnectionService = sp.GetService<IDatabaseConnectionService>();
@@ -112,8 +117,22 @@ namespace OwlReadingRoom
             builder.Services.AddSingleton(sp =>
             {
                 var databaseConnectionService = sp.GetService<IDatabaseConnectionService>();
-                var bookingService = ActivatorUtilities.CreateInstance<BookingService>(sp);
+                var bookingService = ActivatorUtilities.CreateInstance<BookingDetailsService>(sp);
                 return TransactionalProxy<IBookingService>.CreateProxy(bookingService, databaseConnectionService);
+            });
+
+            builder.Services.AddSingleton(sp =>
+            {
+                var databaseConnectionService = sp.GetService<IDatabaseConnectionService>();
+                var customerService = ActivatorUtilities.CreateInstance<CustomerService>(sp);
+                return TransactionalProxy<ICustomerService>.CreateProxy(customerService, databaseConnectionService);
+            });
+
+            builder.Services.AddSingleton(sp =>
+            {
+                var databaseConnectionService = sp.GetService<IDatabaseConnectionService>();
+                var customerService = ActivatorUtilities.CreateInstance<CustomerDetailsService>(sp);
+                return TransactionalProxy<ICustomerDetailsService>.CreateProxy(customerService, databaseConnectionService);
             });
             //services
 
