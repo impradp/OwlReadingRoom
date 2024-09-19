@@ -103,7 +103,7 @@ public class TransactionalProxy<T> : DispatchProxy where T : class
                     Debug.WriteLine("Performing rollback");
                     _databaseConnectionService.RollBack();
                 }
-                throw; // Re-throw the exception after handling
+                throw ex.InnerException ?? ex; // Re-throw the exception after handling
             }
         }
     }

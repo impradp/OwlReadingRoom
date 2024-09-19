@@ -1,8 +1,6 @@
 using OwlReadingRoom.Components.AlertDialog;
-using OwlReadingRoom.Events;
 using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -10,28 +8,12 @@ namespace OwlReadingRoom.Views.Customer;
 
 public partial class DocumentDetailView : ContentView, INotifyPropertyChanged
 {
-    private ObservableCollection<FileItem> _selectedFiles = new ObservableCollection<FileItem>();
-    private CustomerDetailViewModel _customer;
-    public ObservableCollection<FileItem> SelectedFiles
-    {
-        get => _selectedFiles;
-        set
-        {
-            if (_selectedFiles != value)
-            {
-                _selectedFiles = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(HasSelectedFiles));
-            }
-        }
-    }
-
-    public bool HasSelectedFiles => SelectedFiles.Any();
-    public DocumentDetailView(CustomerDetailViewModel customer)
+    private DocumentEditViewModel _customerEditViewModel;
+    public DocumentDetailView(DocumentEditViewModel viewModel)
     {
         InitializeComponent();
-        BindingContext = this;
-        _customer = customer;
+        _customerEditViewModel = viewModel;
+        BindingContext = _customerEditViewModel;
     }
 
     private async void OnCreateClicked(object sender, EventArgs e)
@@ -55,9 +37,10 @@ public partial class DocumentDetailView : ContentView, INotifyPropertyChanged
             {
                 foreach (var file in result)
                 {
-                    SelectedFiles.Add(new FileItem { FileName = file.FileName, FilePath = file.FullPath });
+                    _customerEditViewModel.SelectedFiles.Add(new DocumentImageViewModel { ImageName = file.FileName, ImagePath = file.FullPath });
+
                 }
-                OnPropertyChanged(nameof(HasSelectedFiles));
+                /*_customerEditViewModel.NotifyCustomerUpdated();*/
             }
         }
         catch (Exception ex)
@@ -68,10 +51,9 @@ public partial class DocumentDetailView : ContentView, INotifyPropertyChanged
 
     private void OnRemoveClicked(object sender, EventArgs e)
     {
-        if (sender is Button button && button.CommandParameter is FileItem fileItem)
+        if (sender is Button button && button.CommandParameter is DocumentImageViewModel fileItem)
         {
-            SelectedFiles.Remove(fileItem);
-            OnPropertyChanged(nameof(HasSelectedFiles));
+            _customerEditViewModel.SelectedFiles.Remove(fileItem);
         }
     }
 

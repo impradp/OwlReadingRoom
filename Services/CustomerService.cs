@@ -1,6 +1,7 @@
 ﻿using OwlReadingRoom.DTOs;
 using OwlReadingRoom.Models;
 using OwlReadingRoom.Proxy;
+using OwlReadingRoom.Services.Exceptions;
 using OwlReadingRoom.Services.Repository;
 using OwlReadingRoom.ViewModels;
 using SQLite;
@@ -137,5 +138,75 @@ public class CustomerService : ICustomerService
         return _addressRepository.Table.Where(add
             => add.CustomerId == customerId)
             .FirstOrDefault();
+    }
+
+    [Transactional]
+    public void UpdateCustomer(PersonalDetailEditViewModel viewModel)
+    {
+
+        Customer customer = _customerRepository.GetItem(viewModel.CustomerId);
+        ValidateMobileNumber(customer, viewModel.MobileNumber);
+        UpdateCustomerDetails(customer, viewModel);
+        UpdatePersonalDetails(viewModel);
+        UpdateAddressDetails(viewModel);
+        _customerRepository.SaveItem(customer);
+    }
+
+    /// <summary>
+    /// Updates the address details for a customer.
+    /// </summary>
+    /// <param name="viewModel">The view model containing updated address information.</param>
+    private void UpdateAddressDetails(PersonalDetailEditViewModel viewModel)
+    {
+        var addressDetail = _addressRepository.Table.FirstOrDefault(address => address.CustomerId == viewModel.CustomerId);
+        addressDetail.PermanentAddress = viewModel.PermanantAddress;
+        addressDetail.TemporaryAddress = viewModel.CurrentAddress;
+        _addressRepository.SaveItem(addressDetail);
+    }
+
+    /// <summary>
+    /// Validates the new mobile number to ensure it's not already associated with another customer.
+    /// </summary>
+    /// <param name="customer">The current customer object.</param>
+    /// <param name="newMobileNumber">The new mobile number to validate.</param>
+    /// <exception cref="DuplicateEntryException">Thrown when the new mobile number is already associated with another customer.</exception>
+    private void ValidateMobileNumber(Customer customer, string newMobileNumber)
+    {
+        if (customer.MobileNumber != newMobileNumber)
+        {
+            var existingCustomer = GetCustomerByMobileNumber(newMobileNumber);
+            if (existingCustomer != null)
+            {
+                throw new DuplicateEntryException($"A customer with the contact number {newMobileNumber} already exists.");
+            }
+        }
+    }
+
+    /// <summary>
+    /// Updates the customer's mobile number.
+    /// </summary>
+    /// <param name="customer">The customer object to update.</param>
+    /// <param name="viewModel">The view model containing the new mobile number.</param>
+    private void UpdateCustomerDetails(Customer customer, PersonalDetailEditViewModel viewModel)
+    {
+        customer.MobileNumber = viewModel.MobileNumber;
+    }
+
+    /// <summary>
+    /// Updates the personal details of a customer.
+    /// </summary>
+    /// <param name="viewModel">The view model containing updated personal information.</param>
+    private void UpdatePersonalDetails(PersonalDetailEditViewModel viewModel)
+    {
+        var personalDetail = _personalDetailRepository.Table.FirstOrDefault(detail => detail.CustomerId == viewModel.CustomerId);
+
+        personalDetail.FullName = viewModel.FullName;
+        personalDetail.Faculty = viewModel.Faculty;
+        personalDetail.Allergies = viewModel.Allergies;
+        personalDetail.Disease = viewModel.Disease;
+        personalDetail.DOB = viewModel.DateOfBirth;
+        personalDetail.Gender = viewModel.Gender;
+
+        _personalDetailRepository.SaveItem(personalDetail);
     }
 }

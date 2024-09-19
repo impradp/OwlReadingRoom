@@ -82,7 +82,15 @@ public interface ICustomerService
     /// </summary>
     /// <param name="customerId">The ID of the customer.</param>
     /// <returns>An Address Model containing the customer's temporary address and permanent address.</returns>
-    Address GetAddressDetails(int customerId);  
+    Address GetAddressDetails(int customerId);
+
+    /// <summary>
+    /// Updates customer information based on the provided view model.
+    /// </summary>
+    /// <param name="viewModel">The view model containing updated customer information.</param>
+    /// <exception cref="DuplicateEntryException">Thrown when attempting to update to a mobile number that already exists for another customer.</exception>
+    void UpdateCustomer(PersonalDetailEditViewModel viewModel);
+
     TableQuery<PersonalDetail> PersonalDetailTableQuery { get; }
 
     TableQuery<DocumentInformation> DocumentTableQuery { get; }

@@ -26,6 +26,7 @@ public class CustomerDetailsService : ICustomerDetailsService
             bookingInformation?.HasParking ?? false, bookingInformation?.HasLocker ?? false);
         return new CustomerDetailViewModel
         {
+            CustomerId = minimumInformation.CustomerId,
             FullName = personalDetail.FullName,
             Allergies = personalDetail.Allergies,   
             CurrentAddress = addressDetail.TemporaryAddress,
