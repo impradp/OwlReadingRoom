@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Views;
 using OwlReadingRoom.Services.Constants;
 using OwlReadingRoom.Services.Resources;
+using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
 using OwlReadingRoom.Views.Resources.Rooms.Plans;
 using static OwlReadingRoom.Services.Constants.AppConstants;
@@ -36,23 +37,34 @@ public partial class DeskLayout : Popup
     /// </summary>
     private void LoadDesks()
     {
-        _desks = _resourceSerivce.GetDeskInfoPerRoom(Room.Id);
-
-        switch (Room.RoomType)
+        try
         {
-            case RoomConstants.AcRoom:
-                _acRoomPlan = ActivatorUtilities.CreateInstance<ACRoomPlan>(_serviceProvider, _desks);
-                DynamicLayoutArea.Content = _acRoomPlan;
-                break;
-            case RoomConstants.NonAcRoom:
-                _nonAcRoomPlan = ActivatorUtilities.CreateInstance<NonACRoomPlan>(_serviceProvider, _desks);
-                _nonAcRoomPlan.Desks = _desks;
-                DynamicLayoutArea.Content = _nonAcRoomPlan;
-                break;
-            default:
-                // No plan detected.
-                break;
+            _desks = _resourceSerivce.GetDeskInfoPerRoom(Room.Id);
 
+            switch (Room.RoomType)
+            {
+                case RoomConstants.AcRoom:
+                    _acRoomPlan = ActivatorUtilities.CreateInstance<ACRoomPlan>(_serviceProvider, _desks, false);
+                    _acRoomPlan.Desks = _desks;
+                    _acRoomPlan.IsSelectable = false;
+                    DynamicLayoutArea.Content = _acRoomPlan;
+                    break;
+                case RoomConstants.NonAcRoom:
+                    _nonAcRoomPlan = ActivatorUtilities.CreateInstance<NonACRoomPlan>(_serviceProvider, _desks, false);
+                    _nonAcRoomPlan.Desks = _desks;
+                    _nonAcRoomPlan.IsSelectable = false;
+                    DynamicLayoutArea.Content = _nonAcRoomPlan;
+                    break;
+                default:
+                    // No plan detected.
+                    break;
+
+            }
         }
+        catch (Exception ex)
+        {
+            ExceptionHandler.HandleException("Loading into desks", ex);
+        }
+
     }
 }

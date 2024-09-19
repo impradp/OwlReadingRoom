@@ -87,7 +87,6 @@ public class ResourceService : IPhysicalResourceService
                     Name = $"{desk.Name}",
                     Status = firstReservation.Status,
                     Color = Utility.GetBackGroundColorByDeskStatus(firstReservation.Status),
-                    TextColor = Utility.GetTextColorByDeskStatus(firstReservation.Status),
                     Message = $"Reserved by {firstReservation.CustomerFullName} from {firstReservation.StartDate} to {firstReservation.EndDate}"
                 });
             }
@@ -100,7 +99,6 @@ public class ResourceService : IPhysicalResourceService
                     Name = $"{desk.Name}",
                     Status = DeskStatus.Available, // Assuming 'Available' is a default status
                     Color = Utility.GetBackGroundColorByDeskStatus(DeskStatus.Available),
-                    TextColor = Utility.GetTextColorByDeskStatus(DeskStatus.Available),
                     Message = "Available"
                 });
             }
