@@ -1,7 +1,10 @@
 using CommunityToolkit.Maui.Views;
+using Microsoft.Extensions.Configuration;
 using OwlReadingRoom.Components;
+using OwlReadingRoom.Configurations;
 using OwlReadingRoom.Models;
 using OwlReadingRoom.Services.Resources;
+using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -17,6 +20,8 @@ public partial class RoomListView : ContentView, INotifyPropertyChanged
     private readonly IPhysicalResourceService _resourceService;
     private readonly Func<RoomListViewModel, UpdateRoom> _updateRoomFactory;
     private readonly Func<RoomListViewModel, DeskLayout> _deskLayoutFactory;
+    private bool _shouldShowEditButton;
+    private bool _shouldShowEyeButton;
     public RoomListView(IServiceProvider serviceProvider, IRoomService roomService, IPhysicalResourceService resourceService, Func<RoomListViewModel, UpdateRoom> updateRoomFactory, Func<RoomListViewModel, DeskLayout> deskLayoutFactory)
     {
         _serviceProvider = serviceProvider;
@@ -44,6 +49,33 @@ public partial class RoomListView : ContentView, INotifyPropertyChanged
         }
     }
 
+    public bool ShouldShowEditButton
+    {
+        get => _shouldShowEditButton;
+        set
+        {
+            if (_shouldShowEditButton != value)
+            {
+                _shouldShowEditButton = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+
+    public bool ShouldShowEyeButton
+    {
+        get => _shouldShowEyeButton;
+        set
+        {
+            if (_shouldShowEyeButton != value)
+            {
+                _shouldShowEyeButton = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
     public bool HasRooms => Rooms != null && Rooms.Count > 0;
     public bool IsEmptyState => !HasRooms;
 
@@ -61,7 +93,23 @@ public partial class RoomListView : ContentView, INotifyPropertyChanged
 
     private void LoadRoomData()
     {
-        Rooms = new ObservableCollection<RoomListViewModel>(_resourceService.fetchRooms());
+        try
+        {
+            #region Fetch actions flag from environment variables
+
+            IConfiguration configuration = _serviceProvider.GetService<IConfiguration>();
+            ActionFeatures actions = ConfigurationHandler.GetActionFeatures(configuration, "RoomActions");
+            ShouldShowEditButton = actions.Edit;
+            ShouldShowEyeButton = actions.View;
+
+            #endregion
+
+            Rooms = new ObservableCollection<RoomListViewModel>(_resourceService.fetchRooms());
+        }
+        catch (Exception ex)
+        {
+            ExceptionHandler.HandleException("Loading rooms", ex);
+        }
         //TODO: Fetch created room list
         //TODO: Set to Observable Collection of Rooms
     }

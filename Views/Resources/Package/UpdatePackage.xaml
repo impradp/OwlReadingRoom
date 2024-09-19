@@ -2,9 +2,9 @@
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-               x:Class="OwlReadingRoom.Views.Resources.Rooms.UpdateRoom"
+               x:Class="OwlReadingRoom.Views.Resources.Package.UpdatePackage"
                xmlns:component="clr-namespace:OwlReadingRoom.Components"
-               Size="402,370"
+               Size="402,470"
                Color="White"
                VerticalOptions="Center"
                CanBeDismissedByTappingOutsideOfPopup="False">
@@ -35,8 +35,8 @@
                                  BackgroundColor="White"
                                  Padding="20"
                                  HorizontalOptions="FillAndExpand">
-                        <Label x:Name="EditRoomHeaderLabel"
-                               Text="Edit Room"
+                        <Label x:Name="EditPackageHeaderLabel"
+                               Text="Edit Package"
                                FontFamily="Inter"
                                FontSize="20"
                                TextColor="#1E293B"
@@ -73,10 +73,29 @@
                                    BackgroundColor="#F1F5F9"
                                    HasShadow="False">
                                 <Entry x:Name="IdEntry"
-                                       Text="{Binding Room.Id}"
+                                       Text="{Binding Package.Id}"
                                        Style="{StaticResource EntryInfoStyle}"
                                        VerticalOptions="Center"
                                        IsEnabled="False" />
+                            </Frame>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout>
+                            <Label Text="Room Type"
+                                   FontFamily="Inter"
+                                   FontSize="14"
+                                   Padding="0,0,0,10"
+                                   TextColor="#35405C" />
+                            <Frame BackgroundColor="White"
+                                   Padding="12,0"
+                                   HeightRequest="48"
+                                   CornerRadius="4"
+                                   BorderColor="#CBD5E1"
+                                   HasShadow="False">
+                                <Entry x:Name="RoomTypeEntry"
+                                       Text="{Binding Package.RoomType}"
+                                       Style="{StaticResource EntryInfoStyle}"
+                                       VerticalOptions="Center" />
                             </Frame>
                         </VerticalStackLayout>
 
@@ -93,7 +112,45 @@
                                    BorderColor="#CBD5E1"
                                    HasShadow="False">
                                 <Entry x:Name="NameEntry"
-                                       Text="{Binding Room.Name}"
+                                       Text="{Binding Package.Name}"
+                                       Style="{StaticResource EntryInfoStyle}"
+                                       VerticalOptions="Center" />
+                            </Frame>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout>
+                            <Label Text="Amount"
+                                   FontFamily="Inter"
+                                   FontSize="14"
+                                   Padding="0,0,0,10"
+                                   TextColor="#35405C" />
+                            <Frame BackgroundColor="White"
+                                   Padding="12,0"
+                                   HeightRequest="48"
+                                   CornerRadius="4"
+                                   BorderColor="#CBD5E1"
+                                   HasShadow="False">
+                                <Entry x:Name="AmountEntry"
+                                       Text="{Binding Package.Amount}"
+                                       Style="{StaticResource EntryInfoStyle}"
+                                       VerticalOptions="Center" />
+                            </Frame>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout>
+                            <Label Text="Days"
+                                   FontFamily="Inter"
+                                   FontSize="14"
+                                   Padding="0,0,0,10"
+                                   TextColor="#35405C" />
+                            <Frame BackgroundColor="White"
+                                   Padding="12,0"
+                                   HeightRequest="48"
+                                   CornerRadius="4"
+                                   BorderColor="#CBD5E1"
+                                   HasShadow="False">
+                                <Entry x:Name="DaysEntry"
+                                       Text="{Binding Package.Days}"
                                        Style="{StaticResource EntryInfoStyle}"
                                        VerticalOptions="Center" />
                             </Frame>
