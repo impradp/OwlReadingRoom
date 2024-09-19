@@ -88,7 +88,10 @@
                VerticalOptions="Start"
                Margin="105,12,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='N1,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="N1" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='N1,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -109,7 +112,10 @@
                VerticalOptions="Start"
                Margin="170,12,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='N2,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="N2" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='N2,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -130,7 +136,10 @@
                VerticalOptions="Start"
                Margin="235,12,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='N3,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="N3" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='N3,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -151,7 +160,10 @@
                VerticalOptions="Start"
                Margin="300,12,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='N4,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="N4" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='N4,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -173,7 +185,10 @@
                VerticalOptions="Start"
                Margin="105,157,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='N5,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="N5" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='N5,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -194,7 +209,10 @@
                VerticalOptions="Start"
                Margin="105,209,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='N6,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="N6" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='N6,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -215,7 +233,10 @@
                VerticalOptions="Start"
                Margin="105,261,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='N7,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="N7" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='N7,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -237,7 +258,10 @@
                VerticalOptions="Start"
                Margin="267,211,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='M1,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="M1" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='M1,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -258,7 +282,10 @@
                VerticalOptions="Start"
                Margin="332,211,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='M2,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="M2" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='M2,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -279,7 +306,10 @@
                VerticalOptions="Start"
                Margin="397,211,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='M3,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="M3" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='M3,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -300,7 +330,10 @@
                VerticalOptions="Start"
                Margin="462,211,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='M4,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="M4" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='M4,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -322,7 +355,10 @@
                VerticalOptions="Start"
                Margin="267,263,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='M5,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="M5" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='M5,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -343,7 +379,10 @@
                VerticalOptions="Start"
                Margin="332,263,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='M26,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="M6" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='M6,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -364,7 +403,10 @@
                VerticalOptions="Start"
                Margin="397,263,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='M7,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="M7" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='M7,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -385,7 +427,10 @@
                VerticalOptions="Start"
                Margin="462,263,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='M8,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="M8" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='M8,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -407,7 +452,10 @@
                VerticalOptions="Start"
                Margin="332,437,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='M9,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="M9" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='M9,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -428,7 +476,10 @@
                VerticalOptions="Start"
                Margin="397,437,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='M10,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="M10" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='M10,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -449,7 +500,10 @@
                VerticalOptions="Start"
                Margin="462,437,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='M11,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="M11" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='M11,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -471,7 +525,10 @@
                VerticalOptions="Start"
                Margin="332,489,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='M12,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="M12" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='M12,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -493,7 +550,10 @@
                VerticalOptions="Start"
                Margin="12,670,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A1,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="A1" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A1,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -514,7 +574,10 @@
                VerticalOptions="Start"
                Margin="12,727,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A2,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="A2" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A2,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -535,7 +598,10 @@
                VerticalOptions="Start"
                Margin="12,782,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A3,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="A3" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A3,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -556,7 +622,10 @@
                VerticalOptions="Start"
                Margin="12,837,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A4,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="A4" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A4,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -578,7 +647,10 @@
                VerticalOptions="Start"
                Margin="189,670,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A5,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="A5" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A5,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="52"
@@ -600,7 +672,10 @@
                VerticalOptions="Start"
                Margin="235,753,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A6,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="A6" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A6,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -622,7 +697,10 @@
                VerticalOptions="Start"
                Margin="158,839,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A7,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="A7" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A7,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -644,7 +722,10 @@
                VerticalOptions="Start"
                Margin="462,613,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A8,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="A8" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A8,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -665,7 +746,10 @@
                VerticalOptions="Start"
                Margin="462,665,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A9,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="A9" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A9,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -686,7 +770,10 @@
                VerticalOptions="Start"
                Margin="462,717,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A10,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="A10" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A10,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"
@@ -707,7 +794,10 @@
                VerticalOptions="Start"
                Margin="462,769,0,0"
                ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A11,Message', Mode=OneWay, TargetNullValue=''}">
-
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDeskSelected"
+                                      CommandParameter="A11" />
+            </Frame.GestureRecognizers>
             <Grid>
                 <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A11,Color', Mode=OneWay, TargetNullValue=''}"
                          WidthRequest="65"

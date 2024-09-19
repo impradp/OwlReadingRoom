@@ -22,24 +22,12 @@ namespace OwlReadingRoom.Utils
                     return Color.FromHex("#DF1212");
                 case DeskStatus.Reserved:
                     return Color.FromHex("#FACC15");
+                case DeskStatus.Selected:
+                    return Color.FromHex("#BAD3FB");
                 default:
                     return Color.FromHex("#1E293B"); // Default color for unknown status
             }
         }
 
-        public static object GetTextColorByDeskStatus(DeskStatus status)
-        {
-            switch (status)
-            {
-                case DeskStatus.Available:
-                    return Color.FromHex("#29BB00");
-                case DeskStatus.NotAvailable:
-                    return Color.FromHex("#B91C1C");
-                case DeskStatus.Reserved:
-                    return Color.FromHex("#F59E0B");
-                default:
-                    return Color.FromHex("#FFFFFF"); // Default color for unknown status
-            }
-        }
     }
 }

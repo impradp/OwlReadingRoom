@@ -10,6 +10,7 @@ namespace OwlReadingRoom.Models.Enums
     {
         Reserved,
         NotAvailable,
-        Available
+        Available,
+        Selected
     }
 }
