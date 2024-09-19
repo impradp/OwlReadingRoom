@@ -4,6 +4,7 @@ using OwlReadingRoom.Services.Constants;
 using OwlReadingRoom.Services.Resources;
 using OwlReadingRoom.ViewModels;
 using OwlReadingRoom.Views.Resources.Rooms.Plans;
+using static OwlReadingRoom.Services.Constants.AppConstants;
 
 namespace OwlReadingRoom.Views.Resources.Rooms;
 
@@ -39,11 +40,11 @@ public partial class DeskLayout : Popup
 
         switch (Room.RoomType)
         {
-            case AppConstants.RoomConstants.AcRoom:
+            case RoomConstants.AcRoom:
                 _acRoomPlan = ActivatorUtilities.CreateInstance<ACRoomPlan>(_serviceProvider, _desks);
                 DynamicLayoutArea.Content = _acRoomPlan;
                 break;
-            case AppConstants.RoomConstants.NonAcRoom:
+            case RoomConstants.NonAcRoom:
                 _nonAcRoomPlan = ActivatorUtilities.CreateInstance<NonACRoomPlan>(_serviceProvider, _desks);
                 _nonAcRoomPlan.Desks = _desks;
                 DynamicLayoutArea.Content = _nonAcRoomPlan;

@@ -6,7 +6,7 @@
 
     <ContentView.Resources>
         <ResourceDictionary>
-            <local:NameToDeskInfoConverter x:Key="NameToDeskInfoConverter"/>
+            <local:NameToDeskInfoConverter x:Key="NameToDeskInfoConverter" />
         </ResourceDictionary>
     </ContentView.Resources>
     <Grid Margin="73,20,72,20">
@@ -95,7 +95,7 @@
                          HeightRequest="52" />
                 <Label Text="N1"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -116,7 +116,7 @@
                          HeightRequest="52" />
                 <Label Text="N2"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -137,7 +137,7 @@
                          HeightRequest="52" />
                 <Label Text="N3"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -158,7 +158,7 @@
                          HeightRequest="52" />
                 <Label Text="N4"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -180,7 +180,7 @@
                          HeightRequest="52" />
                 <Label Text="N5"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -201,7 +201,7 @@
                          HeightRequest="52" />
                 <Label Text="N6"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -222,7 +222,7 @@
                          HeightRequest="52" />
                 <Label Text="N7"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -244,7 +244,7 @@
                          HeightRequest="52" />
                 <Label Text="M1"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -265,7 +265,7 @@
                          HeightRequest="52" />
                 <Label Text="M2"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -286,7 +286,7 @@
                          HeightRequest="52" />
                 <Label Text="M3"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -307,7 +307,7 @@
                          HeightRequest="52" />
                 <Label Text="M4"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -329,7 +329,7 @@
                          HeightRequest="52" />
                 <Label Text="M5"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -350,7 +350,7 @@
                          HeightRequest="52" />
                 <Label Text="M6"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -371,7 +371,7 @@
                          HeightRequest="52" />
                 <Label Text="M7"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -392,7 +392,7 @@
                          HeightRequest="52" />
                 <Label Text="M8"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -414,7 +414,7 @@
                          HeightRequest="52" />
                 <Label Text="M9"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -435,7 +435,7 @@
                          HeightRequest="52" />
                 <Label Text="M10"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -456,7 +456,7 @@
                          HeightRequest="52" />
                 <Label Text="M11"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -478,7 +478,7 @@
                          HeightRequest="52" />
                 <Label Text="M12"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -500,7 +500,7 @@
                          HeightRequest="57" />
                 <Label Text="A1"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -521,7 +521,7 @@
                          HeightRequest="57" />
                 <Label Text="A2"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -542,7 +542,7 @@
                          HeightRequest="57" />
                 <Label Text="A3"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -563,7 +563,7 @@
                          HeightRequest="59" />
                 <Label Text="A4"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -585,7 +585,7 @@
                          HeightRequest="52" />
                 <Label Text="A5"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -607,7 +607,7 @@
                          HeightRequest="50" />
                 <Label Text="A6"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -629,7 +629,7 @@
                          HeightRequest="57" />
                 <Label Text="A7"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -651,7 +651,7 @@
                          HeightRequest="52" />
                 <Label Text="A8"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -672,7 +672,7 @@
                          HeightRequest="52" />
                 <Label Text="A9"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -693,7 +693,7 @@
                          HeightRequest="52" />
                 <Label Text="A10"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>
@@ -714,7 +714,7 @@
                          HeightRequest="52" />
                 <Label Text="A11"
                        FontSize="14"
-                       FontAttributes="Bold"
+                       Style="{StaticResource LabelBold}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
             </Grid>

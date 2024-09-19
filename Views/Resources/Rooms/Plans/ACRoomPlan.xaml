@@ -1,11 +1,864 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:OwlReadingRoom.Utils"
              x:Class="OwlReadingRoom.Views.Resources.Rooms.Plans.ACRoomPlan">
-    <VerticalStackLayout>
-        <Label Text="Need to update AC Room Plan"
-               VerticalOptions="Center"
-               HorizontalOptions="Center"
-               TextColor="Black" />
-    </VerticalStackLayout>
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <local:NameToDeskInfoConverter x:Key="NameToDeskInfoConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <Grid Margin="40,0,0,20">
+        <!-- Blue lines (Go from left line to full clockwise view of borders)-->
+        <!--1 Vertical line After Gap(Mid)-->
+        <BoxView Color="#4285F4"
+                 WidthRequest="10"
+                 HeightRequest="52"
+                 HorizontalOptions="Start"
+                 VerticalOptions="Start"
+                 Margin="360,578,0,0" />
+        <!--2 Horizontal line(Mid)-->
+        <BoxView Color="#4285F4"
+                 WidthRequest="241"
+                 HeightRequest="11"
+                 HorizontalOptions="Start"
+                 VerticalOptions="Start"
+                 Margin="360,620,0,0" />
+        <!--3 Vertical line(Right)-->
+        <BoxView Color="#4285F4"
+                 WidthRequest="19"
+                 HeightRequest="267"
+                 HorizontalOptions="Start"
+                 VerticalOptions="Start"
+                 Margin="582,623,0,0" />
+        <!--4 Horizontal line(Bottom)-->
+        <BoxView Color="#4285F4"
+                 WidthRequest="241"
+                 HeightRequest="22"
+                 HorizontalOptions="Start"
+                 VerticalOptions="Start"
+                 Margin="360,890,0,0" />
+        <!--5 Vertical line(Bottom)-->
+        <BoxView Color="#4285F4"
+                 WidthRequest="30"
+                 HeightRequest="113"
+                 HorizontalOptions="Start"
+                 VerticalOptions="Start"
+                 Margin="360,780,0,0" />
+
+        <!--6 Horizontal line(Bottom)-->
+        <BoxView Color="#4285F4"
+                 WidthRequest="381"
+                 HeightRequest="22"
+                 HorizontalOptions="Start"
+                 VerticalOptions="Start"
+                 Margin="0,800,0,0" />
+        <!--7 vertical line(Left)-->
+        <BoxView Color="#4285F4"
+                 WidthRequest="17"
+                 HeightRequest="818"
+                 HorizontalOptions="Start"
+                 VerticalOptions="Start"
+                 Margin="0,0,0,0" />
+        <!--8 horizontal line(Top)-->
+        <BoxView Color="#4285F4"
+                 WidthRequest="386"
+                 HeightRequest="12"
+                 HorizontalOptions="Start"
+                 VerticalOptions="Start"
+                 Margin="0,0,0,0" />
+        <!--9 Vertical line(Mid)-->
+        <BoxView Color="#4285F4"
+                 WidthRequest="16"
+                 HeightRequest="113"
+                 HorizontalOptions="Start"
+                 VerticalOptions="Start"
+                 Margin="370,11,0,0" />
+        <!--10 Horizontal line(Mid)-->
+        <BoxView Color="#4285F4"
+                 WidthRequest="143"
+                 HeightRequest="20"
+                 HorizontalOptions="Start"
+                 VerticalOptions="Start"
+                 Margin="360,120,0,0" />
+        <!--11 Vertical line Above gap(Mid)-->
+        <BoxView Color="#4285F4"
+                 WidthRequest="23"
+                 HeightRequest="250"
+                 HorizontalOptions="Start"
+                 VerticalOptions="Start"
+                 Margin="480,140,0,0" />
+
+
+        <!-- Updated Framed BoxViews with Labels inside -->
+        <Frame x:Name="A5"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="303,12,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A5,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A5,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="A5"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="A4"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="238,12,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A4,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A4,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="A4"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="A3"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="173,12,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A3,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A3,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="A3"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="A2"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="108,12,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A2,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A2,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="A2"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="A1"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="43,12,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A1,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A1,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="A1"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="A6"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="413,140,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A6,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A6,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="A6"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="A7"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="413,192,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A7,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A7,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="A7"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="A8"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="413,244,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A8,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A8,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="A8"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="A9"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="413,296,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A9,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A9,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="A9"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="A10"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="515,650,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A10,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A10,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="A10"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="A11"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="515,702,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A11,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A11,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="A11"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="A12"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="515,754,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A12,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A12,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="A12"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="A13"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="515,806,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A13,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A13,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="A12"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="A14"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="390,837,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A14,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A14,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="A14"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="A15"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="370,631,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A15,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='A15,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="A15"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="B15"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="30,631,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B15,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B15,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="B15"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="B16"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="95,631,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B16,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B16,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="B16"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="B17"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="160,631,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B17,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B17,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="B17"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="B18"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="30,684,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B18,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B18,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="B18"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="B19"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="95,684,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B19,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B19,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="B19"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="B20"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="160,684,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B20,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B20,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="B20"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="B9"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="30,380,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B9,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B9,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="B9"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="B10"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="95,380,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B10,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B10,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="B10"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="B11"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="160,380,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B11,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B11,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="B11"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="B12"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="30,433,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B12,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B12,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="B12"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="B13"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="95,433,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B13,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B13,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="B13"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="B14"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="160,433,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B14,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B14,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="B14"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="B1"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="30,180,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B1,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B1,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="B1"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="B2"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="95,180,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B2,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B2,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="B2"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="B3"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="160,180,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B3,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B3,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="B3"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="B4"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="225,180,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B4,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B4,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="B4"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="B5"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="30,233,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B5,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B5,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="B5"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="B6"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="95,233,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B6,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B6,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="B6"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="B7"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="160,233,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B7,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B7,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="B7"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="B8"
+               BorderColor="#D4D4D4"
+               CornerRadius="0"
+               Padding="0"
+               IsClippedToBounds="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               Margin="225,233,0,0"
+               ToolTipProperties.Text="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B8,Message', Mode=OneWay, TargetNullValue=''}">
+
+            <Grid>
+                <BoxView Color="{Binding Desks, Converter={StaticResource NameToDeskInfoConverter}, ConverterParameter='B8,Color', Mode=OneWay, TargetNullValue=''}"
+                         WidthRequest="65"
+                         HeightRequest="52" />
+                <Label Text="B8"
+                       FontSize="14"
+                       Style="{StaticResource LabelBold}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+    </Grid>
 </ContentView>
