@@ -148,7 +148,7 @@
                         </Grid>
                         <ScrollView Grid.Row="2">
                             <Grid WidthRequest="684"
-                                  HeightRequest="1082">
+                                  HeightRequest="950">
                                 <ContentView x:Name="DynamicLayoutArea"
                                              BackgroundColor="White" />
                             </Grid>
