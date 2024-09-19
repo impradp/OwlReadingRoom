@@ -144,7 +144,6 @@ namespace OwlReadingRoom
 #if WINDOWS
             builder.Services.AddSingleton<IPdfService,PdfService>();
 #endif
-            builder.Services.AddSingleton<ICustomerService, CustomerService>();
             builder.Services.AddSingleton<IUserService, UserService>();
             builder.Services.AddSingleton<IEmailService, EmailService>();
             builder.Services.AddSingleton<ITransactionService, TransactionService>();

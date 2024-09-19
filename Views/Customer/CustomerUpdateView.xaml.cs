@@ -1,5 +1,7 @@
+using OwlReadingRoom.Services;
 using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
+using System.Collections.ObjectModel;
 
 namespace OwlReadingRoom.Views.Customer;
 
@@ -8,11 +10,13 @@ public partial class CustomerUpdateView : ContentView
     private PersonalDetailView _personalDetailView;
     private DocumentDetailView _documentDetailView;
     private PackagePaymentDetailView _packagePaymentDetailView;
+    private readonly IServiceProvider _serviceProvider;
 
     public CustomerDetailViewModel Customer { get; set; }
 
-    public CustomerUpdateView(CustomerDetailViewModel viewModel)
+    public CustomerUpdateView(CustomerDetailViewModel viewModel, IServiceProvider serviceProvider)
     {
+        _serviceProvider = serviceProvider;
         try
         {
             InitializeComponent();
@@ -29,14 +33,37 @@ public partial class CustomerUpdateView : ContentView
 
     private void SetPersonalDetailContent(CustomerDetailViewModel customerPackage)
     {
-        //TODO: Implement service method usage for data extraction.
-        _personalDetailView = new PersonalDetailView(customerPackage);
+        PersonalDetailEditViewModel personalDetailEditViewModel = new PersonalDetailEditViewModel
+        {
+            CustomerId = customerPackage.CustomerId,
+            Allergies = customerPackage.Allergies,
+            CurrentAddress = customerPackage.CurrentAddress,
+            DateOfBirth = customerPackage.DateOfBirth,
+            Disease = customerPackage.Disease,
+            Faculty = customerPackage.Faculty,
+            FullName = customerPackage.FullName,
+            Gender = customerPackage.Gender,
+            MobileNumber = customerPackage.MobileNumber,
+            PermanantAddress = customerPackage.PermanantAddress,
+            Status = customerPackage.Status
+        };
+
+        _personalDetailView = new PersonalDetailView(personalDetailEditViewModel, _serviceProvider.GetService<ICustomerService>());
     }
 
     private void SetDocumentDetailContent(CustomerDetailViewModel customerPackage)
     {
-        //TODO: Implement service method usage for data extraction.
-        _documentDetailView = new DocumentDetailView(customerPackage);
+        DocumentEditViewModel viewModel = new DocumentEditViewModel()
+        {
+            CustomerId = customerPackage.CustomerId,
+            DocumentInformationId = customerPackage.Documents?.Id,
+            DocumentNumber = customerPackage.Documents?.DocumentNumber,
+            DocumentType = customerPackage.Documents?.DocumentType,
+            IssueDate = customerPackage.Documents?.IssueDate,
+            PlaceOfIssue = customerPackage.Documents?.PlaceOfIssue,
+            SelectedFiles = new ObservableCollection<DocumentImageViewModel>(customerPackage.Documents?.Locations ?? Enumerable.Empty<DocumentImageViewModel>())
+        };
+        _documentDetailView = new DocumentDetailView(viewModel);
     }
 
     private void SetPackagePaymentDetailContent(CustomerDetailViewModel customerPackage)

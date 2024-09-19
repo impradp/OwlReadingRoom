@@ -51,6 +51,7 @@
                            BorderColor="#CBD5E1"
                            HasShadow="False">
                         <Entry Placeholder="Eg: 123-456-89"
+                               Text="{Binding DocumentNumber}"
                                Style="{StaticResource EntryInfoStyle}"
                                PlaceholderColor="#647087" />
                     </Frame>
@@ -136,7 +137,7 @@
                             <DataTemplate>
                                 <Grid WidthRequest="200"
                                       HeightRequest="200">
-                                    <Image Source="{Binding FilePath}"
+                                    <Image Source="{Binding ImagePath}"
                                            Aspect="AspectFill" />
                                     <Button Text="X"
                                             FontAttributes="Bold"

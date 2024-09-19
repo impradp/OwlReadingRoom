@@ -10,6 +10,7 @@ namespace OwlReadingRoom.ViewModels
     public class CustomerDetailViewModel
     {
         //Personal Details
+        public int CustomerId { get; set; }
         public string FullName { get; set; }
         public string Gender { get; set; }
         public string Faculty { get; set; }

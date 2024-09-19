@@ -201,7 +201,8 @@ namespace OwlReadingRoom
         /// <param name="e">The argument passed down to update the selected customer.</param>
         private void OnCustomerUpdateSelected(object sender, CustomerSavedEventArgs e)
         {
-            var customerUpdateView = new CustomerUpdateView(e.SavedCustomerDetail);
+
+            var customerUpdateView = new CustomerUpdateView(e.SavedCustomerDetail, _serviceProvider);
             DynamicContentArea.Content = customerUpdateView;
         }
 
