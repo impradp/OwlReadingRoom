@@ -91,6 +91,12 @@ public interface ICustomerService
     /// <exception cref="DuplicateEntryException">Thrown when attempting to update to a mobile number that already exists for another customer.</exception>
     void UpdateCustomer(PersonalDetailEditViewModel viewModel);
 
+    /// <summary>
+    /// Updates or creates a customer document and associated images based on the provided view model.
+    /// </summary>
+    /// <param name="customerEditViewModel">The view model containing document information and selected files.</param>
+    void UpdateCustomerDocument(DocumentEditViewModel customerEditViewModel);
+
     TableQuery<PersonalDetail> PersonalDetailTableQuery { get; }
 
     TableQuery<DocumentInformation> DocumentTableQuery { get; }

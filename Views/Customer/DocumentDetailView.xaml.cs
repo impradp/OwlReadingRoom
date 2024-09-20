@@ -1,4 +1,5 @@
 using OwlReadingRoom.Components.AlertDialog;
+using OwlReadingRoom.Services;
 using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
 using System.ComponentModel;
@@ -9,18 +10,26 @@ namespace OwlReadingRoom.Views.Customer;
 public partial class DocumentDetailView : ContentView, INotifyPropertyChanged
 {
     private DocumentEditViewModel _customerEditViewModel;
-    public DocumentDetailView(DocumentEditViewModel viewModel)
+    private readonly ICustomerService _customerService;
+    public DocumentDetailView(DocumentEditViewModel viewModel, ICustomerService customerService)
     {
         InitializeComponent();
         _customerEditViewModel = viewModel;
         BindingContext = _customerEditViewModel;
+        _customerService = customerService;
     }
 
     private async void OnCreateClicked(object sender, EventArgs e)
     {
-        //TODO: Update any necessary info from form 
-        //TODO: Update CustomerPackageViewModel accordingly.
-        AlertService.Instance.ShowAlert("Success", "Documents saved successfully.");
+        try
+        {
+            _customerService.UpdateCustomerDocument(_customerEditViewModel);
+            AlertService.Instance.ShowAlert("Success", "Documents saved successfully.");
+        }
+        catch (Exception ex)
+        {
+            ExceptionHandler.HandleException("updating documents", ex);
+        }
     }
 
     private async void OnBrowseClicked(object sender, EventArgs e)
@@ -37,10 +46,12 @@ public partial class DocumentDetailView : ContentView, INotifyPropertyChanged
             {
                 foreach (var file in result)
                 {
-                    _customerEditViewModel.SelectedFiles.Add(new DocumentImageViewModel { ImageName = file.FileName, ImagePath = file.FullPath });
-
+                    if (Validator.IsValidDocument(file))
+                    {
+                        _customerEditViewModel.SelectedFiles.Add(new DocumentImageViewModel { ImageName = file.FileName, ImagePath = file.FullPath, IsDeleted = false });
+                        _customerEditViewModel.NotifyActiveImageList();
+                    }
                 }
-                /*_customerEditViewModel.NotifyCustomerUpdated();*/
             }
         }
         catch (Exception ex)
@@ -53,7 +64,15 @@ public partial class DocumentDetailView : ContentView, INotifyPropertyChanged
     {
         if (sender is Button button && button.CommandParameter is DocumentImageViewModel fileItem)
         {
-            _customerEditViewModel.SelectedFiles.Remove(fileItem);
+            if (fileItem.Id.HasValue)
+            {
+                fileItem.IsDeleted = true;
+            }
+            else
+            {
+                _customerEditViewModel.SelectedFiles.Remove(fileItem);
+            }
+            _customerEditViewModel.NotifyActiveImageList();
         }
     }
 

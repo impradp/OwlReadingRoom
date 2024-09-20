@@ -9,6 +9,7 @@
             <toolkit:TextCaseConverter x:Key="TextCaseConverter" Type="FirstUpperRestLower" />
             <local:RoomTypeConverter x:Key="RoomTypeConverter"/>
             <local:DateFormatConverter x:Key="DateFormatConverter"/>
+            <local:DocumentTypeConverter x:Key="DocumentTypeConverter"/>
         </ResourceDictionary>
     </ContentView.Resources>
     <ScrollView>
@@ -188,9 +189,9 @@
                               RowSpacing="16">
                             <VerticalStackLayout Grid.Column="0"
                                                  Grid.Row="0">
-                                <Label Text="{Binding Documents.DocumentType, FallbackValue='Document Number', TargetNullValue='Document Number', StringFormat= '{0} Number'}"
+                                <Label Text="{Binding Documents.DocumentType, Converter={StaticResource DocumentTypeConverter}, FallbackValue='Document Number', TargetNullValue='Document Number', StringFormat= '{0} Number'}"
                                        Style="{StaticResource RegularLabel}" />
-                                <Label Text="{Binding Documents.DocumentNumber, FallbackValue='N/A'}"
+                                <Label Text="{Binding Documents.DocumentNumber, FallbackValue='N/A', TargetNullValue='N/A'}"
                                        Style="{StaticResource EntryLabelReadonly}" />
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Column="1"
@@ -258,7 +259,7 @@
                                                    WidthRequest="177"
                                                    HeightRequest="228"
                                                    Aspect="AspectFit" />
-                                            <Label Text="{Binding DocumentName, FallbackValue='N/A', TargetNullValue='N/A'}"
+                                            <Label Text="{Binding ImageName, FallbackValue='N/A', TargetNullValue='N/A'}"
                                                    TextColor="#64748B"
                                                    FontSize="16"
                                                    HorizontalOptions="Center" />

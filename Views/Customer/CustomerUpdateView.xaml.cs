@@ -63,7 +63,7 @@ public partial class CustomerUpdateView : ContentView
             PlaceOfIssue = customerPackage.Documents?.PlaceOfIssue,
             SelectedFiles = new ObservableCollection<DocumentImageViewModel>(customerPackage.Documents?.Locations ?? Enumerable.Empty<DocumentImageViewModel>())
         };
-        _documentDetailView = new DocumentDetailView(viewModel);
+        _documentDetailView = new DocumentDetailView(viewModel, _serviceProvider.GetService<ICustomerService>());
     }
 
     private void SetPackagePaymentDetailContent(CustomerDetailViewModel customerPackage)

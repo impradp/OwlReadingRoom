@@ -11,7 +11,7 @@ namespace OwlReadingRoom.ViewModels
     {
         public int? Id { get; set; }
         public string DocumentNumber { get; set; }
-        public string IssueDate { get; set; }
+        public DateTime? IssueDate { get; set; }
         public DocumentType? DocumentType { get; set; }
         public string PlaceOfIssue { get; set; }
         public List<DocumentImageViewModel> Locations { get; set; }

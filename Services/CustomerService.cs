@@ -3,10 +3,10 @@ using OwlReadingRoom.Models;
 using OwlReadingRoom.Proxy;
 using OwlReadingRoom.Services.Exceptions;
 using OwlReadingRoom.Services.Repository;
+using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
 using SQLite;
 using System.Diagnostics;
-
 namespace OwlReadingRoom.Services;
 
 public class CustomerService : ICustomerService
@@ -58,11 +58,12 @@ public class CustomerService : ICustomerService
         var query = from customer in _customerRepository.Table
                     join document in _documentRepository.Table on customer.Id equals document.CustomerId
                     join documentImage in _documentImageRepository.Table on document.Id equals documentImage.DocumentInformationId
-                    where customer.Id == customerId
+                    where customer.Id == customerId && documentImage?.IsDeleted is false
                     group new DocumentImageViewModel
                     {
                         Id = documentImage.Id,
                         ImagePath = documentImage.ImagePath,
+                        ImageName = documentImage.ImageName
                     } by document into documentGroup
                     let documentInfo = documentGroup.Key
                     select new DocumentViewModel
@@ -70,7 +71,7 @@ public class CustomerService : ICustomerService
                         Id = documentInfo.Id,
                         DocumentNumber = documentInfo.DocumentNumber,
                         DocumentType = documentInfo.DocumentType,
-                        IssueDate = documentInfo.IssueDate.ToShortDateString(),
+                        IssueDate = documentInfo.IssueDate,
                         PlaceOfIssue = documentInfo.PlaceOfIssue,
                         Locations = documentGroup.ToList()
                     };
@@ -208,5 +209,136 @@ public class CustomerService : ICustomerService
         personalDetail.Gender = viewModel.Gender;
 
         _personalDetailRepository.SaveItem(personalDetail);
+    }
+
+    [Transactional]
+    public void UpdateCustomerDocument(DocumentEditViewModel customerEditViewModel)
+    {
+        var documentInformation = UpdateOrCreateDocumentInformation(customerEditViewModel);
+        _documentRepository.SaveItem(documentInformation);
+
+        var destinationFolderPath = CreateCustomerDocumentFolder(customerEditViewModel.CustomerId);
+
+        var newImages = CreateNewDocumentImages(customerEditViewModel, documentInformation, destinationFolderPath);
+        _documentImageRepository.InsertAll(newImages);
+
+        SoftDeleteMarkedImages(customerEditViewModel);
+    }
+
+
+    /// <summary>
+    /// Updates an existing document information or creates a new one if it doesn't exist.
+    /// </summary>
+    /// <param name="viewModel">The view model containing document information.</param>
+    /// <returns>The updated or newly created DocumentInformation object.</returns>
+    private DocumentInformation UpdateOrCreateDocumentInformation(DocumentEditViewModel viewModel)
+    {
+        if (viewModel.DocumentInformationId.HasValue)
+        {
+            return UpdateExistingDocumentInformation(viewModel);
+        }
+        return CreateNewDocumentInformation(viewModel);
+    }
+
+    /// <summary>
+    /// Updates an existing document information.
+    /// </summary>
+    /// <param name="viewModel">The view model containing updated document information.</param>
+    /// <returns>The updated DocumentInformation object.</returns>
+    private DocumentInformation UpdateExistingDocumentInformation(DocumentEditViewModel viewModel)
+    {
+        var documentInformation = _documentRepository.Table.FirstOrDefault(doc => doc.Id == viewModel.DocumentInformationId);
+        if (documentInformation == null)
+        {
+            throw new InvalidOperationException("Document information not found.");
+        }
+
+        documentInformation.DocumentNumber = viewModel.DocumentNumber;
+        documentInformation.IssueDate = viewModel.IssueDate;
+        documentInformation.PlaceOfIssue = viewModel.PlaceOfIssue;
+        documentInformation.DocumentType = viewModel.DocumentType;
+
+        return documentInformation;
+    }
+
+    /// <summary>
+    /// Creates a new document information object.
+    /// </summary>
+    /// <param name="viewModel">The view model containing new document information.</param>
+    /// <returns>A new DocumentInformation object.</returns>
+    private DocumentInformation CreateNewDocumentInformation(DocumentEditViewModel viewModel)
+    {
+        return new DocumentInformation
+        {
+            DocumentNumber = viewModel.DocumentNumber,
+            IssueDate = viewModel.IssueDate,
+            PlaceOfIssue = viewModel.PlaceOfIssue,
+            DocumentType = viewModel.DocumentType,
+            CustomerId = viewModel.CustomerId
+        };
+    }
+
+    /// <summary>
+    /// Creates a folder for storing customer documents.
+    /// </summary>
+    /// <param name="customerId">The ID of the customer.</param>
+    /// <returns>The path to the created folder.</returns>
+    private string CreateCustomerDocumentFolder(int customerId)
+    {
+        string customerFolderName = DocumentHandler.SanitizeCustomerFolderName(customerId.ToString());
+        string destinationFolderPath = Path.Combine(FileSystem.AppDataDirectory, "Assets", "Documents", customerFolderName);
+        DocumentHandler.EnsureDirectoryExists(destinationFolderPath);
+        return destinationFolderPath;
+    }
+
+    /// <summary>
+    /// Creates new document images from the selected files in the view model.
+    /// </summary>
+    /// <param name="viewModel">The view model containing selected files.</param>
+    /// <param name="documentInformation">The associated document information.</param>
+    /// <param name="destinationFolderPath">The path to store the new images.</param>
+    /// <returns>A list of newly created DocumentImage objects.</returns>
+    private List<DocumentImage> CreateNewDocumentImages(DocumentEditViewModel viewModel, DocumentInformation documentInformation, string destinationFolderPath)
+    {
+        return viewModel.SelectedFiles
+            .Where(img => img.Id == null && !img.IsDeleted)
+            .Select(image => CreateNewDocumentImage(image, documentInformation, destinationFolderPath))
+            .ToList();
+    }
+
+    /// <summary>
+    /// Creates a new document image.
+    /// </summary>
+    /// <param name="image">The image information from the view model.</param>
+    /// <param name="documentInformation">The associated document information.</param>
+    /// <param name="destinationFolderPath">The path to store the new image.</param>
+    /// <returns>A new DocumentImage object.</returns>
+    private DocumentImage CreateNewDocumentImage(DocumentImageViewModel image, DocumentInformation documentInformation, string destinationFolderPath)
+    {
+        string documentFilePath = DocumentHandler.CopyFileToCustomerFolder(image.ImagePath, destinationFolderPath);
+        return new DocumentImage
+        {
+            IsDeleted = false,
+            ImagePath = documentFilePath,
+            ImageName = image.ImageName,
+            DocumentInformationId = documentInformation.Id
+        };
+    }
+
+    /// <summary>
+    /// Soft deletes the images marked for deletion in the view model.
+    /// </summary>
+    /// <param name="viewModel">The view model containing the images to be deleted.</param>
+    private void SoftDeleteMarkedImages(DocumentEditViewModel viewModel)
+    {
+        foreach (var image in viewModel.SelectedFiles.Where(img => img.IsDeleted))
+        {
+            var documentImage = _documentImageRepository.Table.FirstOrDefault(img => img.Id == image.Id);
+            if (documentImage != null)
+            {
+                documentImage.IsDeleted = true;
+                _documentImageRepository.SaveItem(documentImage);
+            }
+        }
     }
 }
