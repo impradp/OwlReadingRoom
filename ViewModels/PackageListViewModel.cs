@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OwlReadingRoom.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,8 @@ namespace OwlReadingRoom.ViewModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string RoomType { get; set; }
+        public RoomType RoomType { get; set; }
         public double Price { get; set; }
-        public double Days { get; set; }
+        public int Days { get; set; }
     }
 }

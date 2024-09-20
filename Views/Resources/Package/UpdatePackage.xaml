@@ -4,6 +4,7 @@
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                x:Class="OwlReadingRoom.Views.Resources.Package.UpdatePackage"
                xmlns:component="clr-namespace:OwlReadingRoom.Components"
+               xmlns:local="clr-namespace:OwlReadingRoom.Utils"
                Size="402,470"
                Color="White"
                VerticalOptions="Center"
@@ -18,6 +19,7 @@
             <Setter Property="FontSize"
                     Value="14" />
         </Style>
+        <local:RoomTypeConverter x:Key="RoomTypeConverter"/>
     </toolkit:Popup.Resources>
     <toolkit:Popup.Content>
         <Border StrokeShape="RoundRectangle 8"
@@ -36,7 +38,7 @@
                                  Padding="20"
                                  HorizontalOptions="FillAndExpand">
                         <Label x:Name="EditPackageHeaderLabel"
-                               Text="Edit Package"
+                               Text="{Binding Package.Id, StringFormat='Edit Package # {0}'}"
                                FontFamily="Inter"
                                FontSize="20"
                                TextColor="#1E293B"
@@ -92,10 +94,14 @@
                                    CornerRadius="4"
                                    BorderColor="#CBD5E1"
                                    HasShadow="False">
-                                <Entry x:Name="RoomTypeEntry"
-                                       Text="{Binding Package.RoomType}"
+                                <Picker x:Name="RoomTypePicker"
                                        Style="{StaticResource EntryInfoStyle}"
-                                       VerticalOptions="Center" />
+                                       ItemsSource="{Binding RoomTypes}"
+                                       SelectedItem="{Binding Package.RoomType}">
+                                    <Picker.ItemDisplayBinding>
+                                        <Binding Converter="{StaticResource RoomTypeConverter}" />
+                                    </Picker.ItemDisplayBinding>
+                                </Picker>
                             </Frame>
                         </VerticalStackLayout>
 
@@ -131,7 +137,7 @@
                                    BorderColor="#CBD5E1"
                                    HasShadow="False">
                                 <Entry x:Name="AmountEntry"
-                                       Text="{Binding Package.Amount}"
+                                       Text="{Binding Package.Price}"
                                        Style="{StaticResource EntryInfoStyle}"
                                        VerticalOptions="Center" />
                             </Frame>

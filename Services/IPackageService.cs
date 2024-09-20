@@ -15,4 +15,6 @@ public interface IPackageService
     TableQuery<PackageType> TableQuery { get; }
 
     PackageType GetPackageById(int? Id);
+    void UpdatePackage(PackageListViewModel package);
+    void DeletePackage(int id);
 }

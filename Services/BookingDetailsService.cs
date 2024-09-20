@@ -211,6 +211,27 @@ public class BookingDetailsService : IBookingService
         return query.FirstOrDefault();
     }
 
+    public bool ContainsActiveBookingWithPackageId(int? packageId)
+    {
+        if (!packageId.HasValue)
+        {
+            return false;
+        }
+
+        return GetActiveBookingsForPackage(packageId.Value).Any();
+    }
+
+    /// <summary>
+    /// Retrieves a list of active booking details for a specific package.
+    /// </summary>
+    /// <param name="packageId">The ID of the package to retrieve bookings for.</param>
+    /// <returns>A list of active booking details for the specified package.</returns>
+    private List<BookingInfo> GetActiveBookingsForPackage(int? packageId)
+    {
+        var currentTime = DateTime.Now;
+        return _bookingRepository.Table.Where(booking => booking.PackageId == packageId && booking.ReservationEndDate >= currentTime).ToList();
+    }
+
     public class ReservationInfo
     {
         public int CustomerID { get; set; }

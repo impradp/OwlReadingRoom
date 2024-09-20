@@ -11,23 +11,13 @@ public partial class NewCustomer : Popup
 {
     private readonly IPackageService _packageService;
     private readonly ICustomerService _customerService;
-    public List<PackageType> PackageTypes { get; set; }
     public event EventHandler<EventArgs> CustomerPackageSaved;
     public NewCustomer(IPackageService packageService, ICustomerService customerService)
     {
         InitializeComponent();
         _packageService = packageService;
-        LoadPackageTypes();
         BindingContext = this;
         _customerService = customerService;
-    }
-
-    /// <summary>
-    /// Loads the packages saved in the system.
-    /// </summary>
-    private void LoadPackageTypes()
-    {
-        PackageTypes = _packageService.GetPackages();
     }
 
     /// <summary>

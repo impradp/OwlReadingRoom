@@ -159,7 +159,7 @@ public partial class PackageListView : ContentView, INotifyPropertyChanged
         var package = button?.BindingContext as PackageListViewModel;
         if (package != null)
         {
-            var deletePackagePopup = new DeletePackageDialog(package);
+            var deletePackagePopup = new DeletePackageDialog(package, _serviceProvider);
             deletePackagePopup.DeleteConfirmed += OnDeletePackageConfirmed;
             await Application.Current.MainPage.ShowPopupAsync(deletePackagePopup);
         }
