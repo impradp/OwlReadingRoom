@@ -8,10 +8,10 @@ namespace OwlReadingRoom.Models
         public string DocumentNumber { get; set; }
 
         [Column("issued_date")]
-        public DateTime IssueDate { get; set; }
+        public DateTime? IssueDate { get; set; }
 
         [Column("document_type")]
-        public DocumentType DocumentType { get; set; }
+        public DocumentType? DocumentType { get; set; }
 
         [Column("customer_id")]
         [Indexed]

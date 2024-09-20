@@ -16,14 +16,17 @@ public class DocumentTypeConverter : IValueConverter
     /// <returns>The string representation of the DocumentType.</returns>
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        DocumentType documentType = (DocumentType)value;
-        return documentType switch
+        if (value is DocumentType documentType)
         {
-            DocumentType.CITIZENSHIP => AppConstants.DocumentConstants.citizenship,
-            DocumentType.LICENSE => AppConstants.DocumentConstants.license,
-            DocumentType.VOTERS_ID => AppConstants.DocumentConstants.votersId,
-            DocumentType.PASSPORT => AppConstants.DocumentConstants.passport,
-        };
+            return documentType switch
+            {
+                DocumentType.CITIZENSHIP => AppConstants.DocumentConstants.citizenship,
+                DocumentType.LICENSE => AppConstants.DocumentConstants.license,
+                DocumentType.VOTERS_ID => AppConstants.DocumentConstants.votersId,
+                DocumentType.PASSPORT => AppConstants.DocumentConstants.passport
+            };
+        }        
+        return null;
     }
 
     /// <summary>
@@ -36,14 +39,16 @@ public class DocumentTypeConverter : IValueConverter
     /// <returns>The DocumentType enum value.</returns>
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        string documentTypeString = value as string;
-        return documentTypeString switch
+        if (value is string documentTypeString)
         {
-            AppConstants.DocumentConstants.citizenship => DocumentType.CITIZENSHIP,
-            AppConstants.DocumentConstants.license => DocumentType.LICENSE,
-            AppConstants.DocumentConstants.votersId => DocumentType.VOTERS_ID,
-            AppConstants.DocumentConstants.passport => AppConstants.DocumentConstants.passport
-        };
-
+            return documentTypeString switch
+            {
+                AppConstants.DocumentConstants.citizenship => DocumentType.CITIZENSHIP,
+                AppConstants.DocumentConstants.license => DocumentType.LICENSE,
+                AppConstants.DocumentConstants.votersId => DocumentType.VOTERS_ID,
+                AppConstants.DocumentConstants.passport => AppConstants.DocumentConstants.passport
+            };
+        }
+        return null;
     }
 }

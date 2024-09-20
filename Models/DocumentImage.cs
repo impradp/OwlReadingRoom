@@ -9,7 +9,9 @@ public class DocumentImage : BaseModel
     public int DocumentInformationId { get; set; }
     [Column("image_path")]
     public string ImagePath { get; set; }
+    [Column("image_name")]
+    public string ImageName { get; set; }
 
-    [Column("status")]
-    public Status status { get; set; }
+    [Column("is_deleted")]
+    public bool IsDeleted { get; set; } = false;
 }

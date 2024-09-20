@@ -1,4 +1,6 @@
-﻿using OwlReadingRoom.Models;
+﻿using Microsoft.IdentityModel.Tokens;
+using Microsoft.Maui.Devices.Sensors;
+using OwlReadingRoom.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -10,14 +12,16 @@ public class DocumentEditViewModel : INotifyPropertyChanged
     private int _customerId;
     private int? _documentInformationId;
     private string _documentNumber;
-    private string _issueDate;
+    private DateTime? _issueDate;
     private DocumentType? _documentType;
     private string _placeOfIssue;
     private ObservableCollection<DocumentImageViewModel>? _selectedFiles;
-    public bool HasDocuments => _selectedFiles is not null;
+    public bool HasDocuments => ActiveImages is not null && !ActiveImages.IsNullOrEmpty();
+    public ObservableCollection<DocumentType> DocumentTypes { get; set; }
     public DocumentEditViewModel()
     {
         SelectedFiles = new ObservableCollection<DocumentImageViewModel>();
+        DocumentTypes = new ObservableCollection<DocumentType>(Enum.GetValues(typeof(DocumentType)).Cast<DocumentType>());
     }
 
     public int CustomerId
@@ -59,7 +63,7 @@ public class DocumentEditViewModel : INotifyPropertyChanged
         }
     }
 
-    public string IssueDate
+    public DateTime? IssueDate
     {
         get => _issueDate;
         set
@@ -98,6 +102,17 @@ public class DocumentEditViewModel : INotifyPropertyChanged
         }
     }
 
+    public ObservableCollection<DocumentImageViewModel> ActiveImages
+    {
+        get => new ObservableCollection<DocumentImageViewModel>(SelectedFiles.Where(img => !img.IsDeleted));
+    }
+
+    public void NotifyActiveImageList()
+    {
+        OnPropertyChanged(nameof(ActiveImages));
+        OnPropertyChanged(nameof(HasDocuments));
+    }
+       
     public ObservableCollection<DocumentImageViewModel> SelectedFiles
     {
         get => _selectedFiles;

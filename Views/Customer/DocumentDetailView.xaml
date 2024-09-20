@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:OwlReadingRoom.Utils"
+             xmlns:system="clr-namespace:System;assembly=netstandard"
              x:Class="OwlReadingRoom.Views.Customer.DocumentDetailView">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            
+            <local:DateFormatConverter x:Key="DateFormatConverter"/>
+            <local:DocumentTypeConverter x:Key="DocumentTypeConverter"/>
+        </ResourceDictionary>
+    </ContentView.Resources>
     <ScrollView>
         <VerticalStackLayout Padding="0,24,24,0"
                              Spacing="20">
@@ -23,18 +32,17 @@
                                CornerRadius="4"
                                BorderColor="#CBD5E1"
                                HasShadow="False">
-                            <Picker TitleColor="#647087"
+                            <Picker ItemsSource="{Binding DocumentTypes}"
+                                    TitleColor="#647087"
                                     TextColor="#07003B"
                                     FontSize="16"
                                     FontFamily="Inter"
                                     VerticalOptions="Center"
-                                    HorizontalOptions="FillAndExpand">
-                                <Picker.Items>
-                                    <x:String>National ID</x:String>
-                                    <x:String>Citizenship Id</x:String>
-                                    <x:String>Driving License</x:String>
-                                    <x:String>Passport</x:String>
-                                </Picker.Items>
+                                    HorizontalOptions="FillAndExpand"
+                                    SelectedItem="{Binding DocumentType}">
+                                <Picker.ItemDisplayBinding>
+                                    <Binding Converter="{StaticResource DocumentTypeConverter}" />
+                                </Picker.ItemDisplayBinding>
                             </Picker>
                         </Frame>
                     </VerticalStackLayout>
@@ -68,6 +76,9 @@
                            BorderColor="#CBD5E1"
                            HasShadow="False">
                         <DatePicker Format="MM/dd/yyyy"
+                                    Date="{Binding IssueDate, 
+                                           TargetNullValue={x:Static system:DateTime.Today}, 
+                                           FallbackValue={x:Static system:DateTime.Today}}"
                                     TextColor="Black" />
                     </Frame>
                 </VerticalStackLayout>
@@ -126,7 +137,7 @@
 
                     <CollectionView x:Name="FileList"
                                     IsVisible="{Binding HasSelectedFiles}"
-                                    ItemsSource="{Binding SelectedFiles}">
+                                    ItemsSource="{Binding ActiveImages}">
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout Orientation="Vertical"
                                              Span="3"
