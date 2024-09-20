@@ -40,7 +40,8 @@ namespace OwlReadingRoom.Services
                 Id = package.Id,
                 Name = package.Name,
                 Price = package.Price,
-                RoomType = package.RoomType
+                RoomType = package.RoomType,
+                Days = package.Days
             }).ToList();
                 
         }

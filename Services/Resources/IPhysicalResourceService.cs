@@ -57,4 +57,18 @@ public interface IPhysicalResourceService
     /// <param name="numberOfRooms">The number of rooms</param>
     /// <param name="roomInitials">The initials of room.</param>
     void AddRooms(RoomType roomType, int? numberOfRooms, string roomInitials = "RM");
+
+    /// <summary>
+    /// Fetches room list view model by room id.
+    /// </summary>
+    /// <param name="id">The unique identifier of room.</param>
+    /// <returns>The room list view model with selected room details</returns>
+    RoomListViewModel FetchRoomById(int id);
+
+    /// <summary>
+    /// Fetches room list view model by room type.
+    /// </summary>
+    /// <param name="roomType">The type of room to be queried.</param>
+    /// <returns>The room list view model with selected room details</returns>
+    List<RoomListViewModel> FetchRoomsByType(RoomType roomType);
 }

@@ -56,6 +56,69 @@ public class ResourceService : IPhysicalResourceService
         return result;
     }
 
+    [Transactional(readOnly: true)]
+    public List<RoomListViewModel> FetchRoomsByType(RoomType roomType)
+    {
+
+        var roomDeskCounts = from room in _roomService.TableQuery
+                         join desk in _deskService.TableQuery on room.Id equals desk.RoomId into deskGroup
+                         where room.RoomType == roomType
+                         select new
+                         {
+                             RoomId = room.Id,
+                             RoomName = room.Name,
+                             RoomType = room.RoomType,
+                             Desks = deskGroup.Count(d => d != null)
+                         };
+
+        Dictionary<int, int> unavailableDesks = _bookingService.FetchUnavailableDesksCount();
+        List<RoomListViewModel> result = new List<RoomListViewModel>();
+
+        foreach (var room in roomDeskCounts)
+        {
+            result.Add(new RoomListViewModel
+            {
+                Id = room.RoomId,
+                Name = room.RoomName,
+                RoomType = room.RoomType == RoomType.AC ? AppConstants.RoomConstants.AcRoom : AppConstants.RoomConstants.NonAcRoom,
+                TotalDesks = room.Desks,
+                AvailableDesks = room.Desks - unavailableDesks.GetValueOrDefault(room.RoomId, 0)
+            });
+        }
+
+        return result;
+    }
+
+
+    [Transactional(readOnly: true)]
+    public RoomListViewModel FetchRoomById(int id)
+    {
+
+        var roomResult = (from room in _roomService.TableQuery
+                          join desk in _deskService.TableQuery on room.Id equals desk.RoomId into deskGroup
+                          where room.Id == id
+                          select new
+                          {
+                              RoomId = room.Id,
+                              RoomName = room.Name,
+                              RoomType = room.RoomType,
+                              Desks = deskGroup.Count(d => d != null)
+                          }).FirstOrDefault();
+
+        Dictionary<int, int> unavailableDesks = _bookingService.FetchUnavailableDesksCount();
+
+        RoomListViewModel result = new RoomListViewModel
+        {
+            Id = roomResult.RoomId,
+            Name = roomResult.RoomName,
+            RoomType = roomResult.RoomType == RoomType.AC ? AppConstants.RoomConstants.AcRoom : AppConstants.RoomConstants.NonAcRoom,
+            TotalDesks = roomResult.Desks,
+            AvailableDesks = roomResult.Desks - unavailableDesks.GetValueOrDefault(roomResult.RoomId, 0)
+        };
+
+        return result;
+    }
+
     [Transactional]
     public void UpdateRoom(RoomListViewModel roomViewModel, string roomName)
     {

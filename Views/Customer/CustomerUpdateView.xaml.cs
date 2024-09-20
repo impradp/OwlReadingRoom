@@ -1,4 +1,5 @@
 using OwlReadingRoom.Services;
+using OwlReadingRoom.Services.Resources;
 using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
 using System.Collections.ObjectModel;
@@ -68,8 +69,12 @@ public partial class CustomerUpdateView : ContentView
 
     private void SetPackagePaymentDetailContent(CustomerDetailViewModel customerPackage)
     {
-        //TODO: Implement service method usage for data extraction.
-        _packagePaymentDetailView = new PackagePaymentDetailView(customerPackage);
+        PackageAndPaymentEditViewModel packageAndPaymentEditViewModel = new PackageAndPaymentEditViewModel
+        {
+            Id = customerPackage.BookingDetails?.Id
+            
+        };
+        _packagePaymentDetailView = new PackagePaymentDetailView(packageAndPaymentEditViewModel, _serviceProvider.GetService<IPhysicalResourceService>(), _serviceProvider);
     }
 
     private void OnPersonalDetailTabTapped(object sender, EventArgs e)

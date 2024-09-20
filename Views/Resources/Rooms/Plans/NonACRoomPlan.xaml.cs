@@ -8,6 +8,7 @@ public partial class NonACRoomPlan : ContentView
 {
     public List<DeskInfoViewModel> Desks { get; set; }
     public Boolean IsSelectable { get; set; }
+    public event EventHandler<string> DeskSelected;
     public NonACRoomPlan(List<DeskInfoViewModel> deskInfoViewModels, Boolean _isSelectable)
     {
         InitializeComponent();
@@ -39,6 +40,7 @@ public partial class NonACRoomPlan : ContentView
 
                 // Notify that the Desks collection has been updated
                 OnPropertyChanged(nameof(Desks));
+                DeskSelected?.Invoke(this, deskName);
             }
         }
     }

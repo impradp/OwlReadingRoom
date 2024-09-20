@@ -95,6 +95,13 @@ namespace OwlReadingRoom
                 var serviceProvider = sp.GetRequiredService<IServiceProvider>();
                 return room => new DeskLayout(room, resourceService, serviceProvider);
             });
+
+            builder.Services.AddTransient<Func<RoomListViewModel, DeskSelectView>>(sp =>
+            {
+                var resourceService = sp.GetRequiredService<IPhysicalResourceService>();
+                var serviceProvider = sp.GetRequiredService<IServiceProvider>();
+                return room => new DeskSelectView(room, resourceService, serviceProvider);
+            });
             builder.Services.AddTransient<Func<CustomerPackageViewModel, CustomerDetailsView>>(sp =>
             {
                 var customerDetailService = sp.GetRequiredService<ICustomerDetailsService>();

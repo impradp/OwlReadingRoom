@@ -1,6 +1,4 @@
-
 using CommunityToolkit.Maui.Views;
-using OwlReadingRoom.Services.Constants;
 using OwlReadingRoom.Services.Resources;
 using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
@@ -9,16 +7,18 @@ using static OwlReadingRoom.Services.Constants.AppConstants;
 
 namespace OwlReadingRoom.Views.Resources.Rooms;
 
-public partial class DeskLayout : Popup
+public partial class DeskSelectView : Popup
 {
-    private IPhysicalResourceService _resourceSerivce;
-    public RoomListViewModel Room { get; set; }
     private ACRoomPlan _acRoomPlan;
     private NonACRoomPlan _nonAcRoomPlan;
-    private readonly IServiceProvider _serviceProvider;
     private List<DeskInfoViewModel> _desks;
+    public RoomListViewModel Room { get; set; }
+    public event EventHandler<string> DeskSelected;
+    private IPhysicalResourceService _resourceSerivce;
+    private readonly IServiceProvider _serviceProvider;
+    private string SelectedDeskName;
 
-    public DeskLayout(RoomListViewModel room, IPhysicalResourceService resourceSerivce, IServiceProvider serviceProvider)
+    public DeskSelectView(RoomListViewModel room, IPhysicalResourceService resourceSerivce, IServiceProvider serviceProvider)
     {
         InitializeComponent();
         Room = room;
@@ -30,6 +30,10 @@ public partial class DeskLayout : Popup
 
     private void OnCloseButtonClicked(object sender, EventArgs e)
     {
+        if (!String.IsNullOrEmpty(SelectedDeskName))
+        {
+            DeskSelected?.Invoke(this, SelectedDeskName);
+        }
         Close();
     }
     /// <summary>
@@ -39,6 +43,7 @@ public partial class DeskLayout : Popup
     {
         try
         {
+            DeskSelectLabel.Text = Room.RoomType + "(" + Room.Name + ")";
             _desks = _resourceSerivce.GetDeskInfoPerRoom(Room.Id);
 
             switch (Room.RoomType)
@@ -47,12 +52,14 @@ public partial class DeskLayout : Popup
                     _acRoomPlan = ActivatorUtilities.CreateInstance<ACRoomPlan>(_serviceProvider, _desks, false);
                     _acRoomPlan.Desks = _desks;
                     _acRoomPlan.IsSelectable = Room.IsSelectable;
+                    _acRoomPlan.DeskSelected += OnDeskSelected;
                     DynamicLayoutArea.Content = _acRoomPlan;
                     break;
                 case RoomConstants.NonAcRoom:
                     _nonAcRoomPlan = ActivatorUtilities.CreateInstance<NonACRoomPlan>(_serviceProvider, _desks, false);
                     _nonAcRoomPlan.Desks = _desks;
                     _nonAcRoomPlan.IsSelectable = Room.IsSelectable;
+                    _nonAcRoomPlan.DeskSelected += OnDeskSelected;
                     DynamicLayoutArea.Content = _nonAcRoomPlan;
                     break;
                 default:
@@ -66,5 +73,15 @@ public partial class DeskLayout : Popup
             ExceptionHandler.HandleException("Loading into desks", ex);
         }
 
+    }
+
+    /// <summary>
+    /// Handles the desk selected desk event.
+    /// </summary>
+    /// <param name="sender">The button that triggered this event.</param>
+    /// <param name="deskName">The name of the desk that is selected and is passed as a event param.</param>
+    private void OnDeskSelected(object sender, string deskName)
+    {
+        SelectedDeskName = deskName;
     }
 }
