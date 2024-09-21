@@ -1,6 +1,5 @@
 ﻿using OwlReadingRoom.Models;
 using OwlReadingRoom.Proxy;
-using OwlReadingRoom.Services.Constants;
 using OwlReadingRoom.Services.Repository;
 using OwlReadingRoom.ViewModels;
 using SQLite;
@@ -17,6 +16,14 @@ namespace OwlReadingRoom.Services
 
         public TableQuery<PackageType> TableQuery => _packageRepository.Table;
 
+        [Transactional]
+        public void DeletePackage(int id)
+        {
+            PackageType packageType = _packageRepository.GetItem(id);
+            packageType.Enabled = false;
+            _packageRepository.SaveItem(packageType);
+        }
+
         [Transactional(readOnly: true)]
         public PackageType GetPackageById(int? Id)
         {
@@ -27,12 +34,13 @@ namespace OwlReadingRoom.Services
         public List<PackageListViewModel> GetPackageList()
         {
             return (from package in GetPackages()
-            select new PackageListViewModel
+                    where package.Enabled is true
+                    select new PackageListViewModel
             {
                 Id = package.Id,
                 Name = package.Name,
                 Price = package.Price,
-                RoomType = package.RoomType == RoomType.NON_AC ? AppConstants.RoomConstants.NonAcRoom : AppConstants.RoomConstants.AcRoom
+                RoomType = package.RoomType
             }).ToList();
                 
         }
@@ -46,6 +54,18 @@ namespace OwlReadingRoom.Services
         [Transactional]
         public void SavePackage(PackageType packageType)
         {
+            _packageRepository.SaveItem(packageType);
+        }
+
+        [Transactional]
+        public void UpdatePackage(PackageListViewModel package)
+        {
+            PackageType packageType = _packageRepository.GetItem(package.Id);
+            packageType.Name = package.Name;
+            packageType.Price = package.Price;
+            packageType.RoomType = package.RoomType;
+            packageType.Days = package.Days;
+            packageType.Enabled = true;
             _packageRepository.SaveItem(packageType);
         }
     }

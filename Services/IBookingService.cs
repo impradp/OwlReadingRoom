@@ -99,4 +99,11 @@ public interface IBookingService
     /// <param name="bookingId">The ID of the booking.</param>
     /// <returns>A BookingInfoViewModel containing booking details, or null if the bookingId is not provided.</returns>
     BookingInfoViewModel GetBookingDetails(int? bookingId);
+
+    /// <summary>
+    /// Checks if there are any active bookings for a given package.
+    /// </summary>
+    /// <param name="packageId">The ID of the package to check.</param>
+    /// <returns>True if there are active bookings for the package, false otherwise.</returns>
+    bool ContainsActiveBookingWithPackageId(int? packageId);
 }

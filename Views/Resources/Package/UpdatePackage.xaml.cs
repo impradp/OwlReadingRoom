@@ -1,39 +1,39 @@
 using CommunityToolkit.Maui.Views;
 using OwlReadingRoom.Components.AlertDialog;
+using OwlReadingRoom.Models;
+using OwlReadingRoom.Services;
 using OwlReadingRoom.Services.Resources;
 using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
+using System.Collections.ObjectModel;
 
 namespace OwlReadingRoom.Views.Resources.Package;
 
 public partial class UpdatePackage : Popup
 {
-    public PackageListViewModel Package;
+    
     public event EventHandler PackageUpdated;
-    private readonly IPhysicalResourceService _resourceService;
-
-    public UpdatePackage(PackageListViewModel package, IPhysicalResourceService resourceService)
+    private readonly IPackageService _packageService;
+    private PackageListViewModel _package;
+    public ObservableCollection<RoomType> RoomTypes { get; set; }
+    public PackageListViewModel Package
     {
-        InitializeComponent();
-        Package = package;
-        BindingContext = this;
-        PopulateFields();
-        _resourceService = resourceService;
-
+        get => _package;
+        set
+        {
+            _package = value;
+            OnPropertyChanged(nameof(Package));
+        }
     }
 
-    /// <summary>
-    /// Populates the package details in the modal poup.
-    /// </summary>
-    private void PopulateFields()
+    public UpdatePackage(PackageListViewModel package, IPackageService packageService)
     {
-        IdEntry.Text = Package.Id.ToString();
-        NameEntry.Text = Package.Name;
-        RoomTypeEntry.Text = Package.RoomType;
-        AmountEntry.Text = Package.Price.ToString();
-        DaysEntry.Text = Package.Days.ToString();
-        EditPackageHeaderLabel.Text = String.Concat("Edit Package #", Package.Id);
-        // Populate other fields as needed
+        InitializeComponent();
+        RoomTypes = new ObservableCollection<RoomType>(Enum.GetValues(typeof(RoomType)).Cast<RoomType>());
+        Package = package;
+        _packageService = packageService;
+        BindingContext = this;
+
     }
 
     /// <summary>
@@ -65,9 +65,11 @@ public partial class UpdatePackage : Popup
     {
         try
         {
-            //TODO: Validate And Update
-            await CloseAsync();
+            _packageService.UpdatePackage(Package);
+            
             AlertService.Instance.ShowAlert("Info", "Package updated successfully.", AlertType.Info);
+            PackageUpdated?.Invoke(this, EventArgs.Empty);
+            await CloseAsync();
         }
         catch (Exception ex)
         {
