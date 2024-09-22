@@ -87,6 +87,7 @@
 	  <None Remove="Resources\Images\logout_icon.svg" />
 	  <None Remove="Resources\Images\new_entry_icon.svg" />
 	  <None Remove="Resources\Images\owl_logo_icon.svg" />
+	  <None Remove="Resources\Images\plus_icon.svg" />
 	  <None Remove="Resources\Images\print_icon.svg" />
 	  <None Remove="Resources\Images\profile_picture_icon.svg" />
 	  <None Remove="Resources\Images\receipt_icon.svg" />
@@ -170,6 +171,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Customer\ReceiptView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Resources\Rooms\DeskSelectView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Resources\Package\DeletePackageDialog.xaml">

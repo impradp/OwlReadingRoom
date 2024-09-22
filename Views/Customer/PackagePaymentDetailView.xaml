@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:OwlReadingRoom.Utils"
+             xmlns:System="clr-namespace:System;assembly=netstandard"
              x:Class="OwlReadingRoom.Views.Customer.PackagePaymentDetailView">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <local:BoolToIntConverter x:Key="BoolToIntConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
     <ScrollView>
         <StackLayout Padding="0,24,24,0"
                      Spacing="24">
@@ -17,7 +24,7 @@
                                          Spacing="4">
                         <VerticalStackLayout Grid.Column="2"
                                              Spacing="4">
-                            <Label Text="Room Type"
+                            <Label Text="Package Name"
                                    Style="{StaticResource EntryLabelStyle}"
                                    HeightRequest="24" />
                             <Frame BackgroundColor="White"
@@ -26,16 +33,17 @@
                                    CornerRadius="4"
                                    BorderColor="#CBD5E1"
                                    HasShadow="False">
-                                <Picker TitleColor="#647087"
+                                <Picker x:Name="PackageNameEntry"
+                                        IsEnabled="{Binding IsEditable}"
+                                        TitleColor="#647087"
                                         TextColor="#07003B"
                                         FontSize="16"
                                         FontFamily="Inter"
                                         VerticalOptions="Center"
-                                        HorizontalOptions="FillAndExpand">
-                                    <Picker.Items>
-                                        <x:String>AC Room</x:String>
-                                        <x:String>Non-AC Room</x:String>
-                                    </Picker.Items>
+                                        HorizontalOptions="FillAndExpand"
+                                        ItemsSource="{Binding PackageOptions}"
+                                        ItemDisplayBinding="{Binding Name}"
+                                        SelectedItem="{Binding SelectedPackage}">
                                 </Picker>
                             </Frame>
                         </VerticalStackLayout>
@@ -51,9 +59,13 @@
                                    BorderColor="#CBD5E1"
                                    HasShadow="False">
                                 <DatePicker Format="MM/dd/yyyy"
-                                            TextColor="Black" />
+                                            IsEnabled="{Binding IsEditable}"
+                                            TextColor="Black"
+                                            Date="{Binding PackageStartDate, TargetNullValue={x:Static System:DateTime.Today}}">
+                                </DatePicker>
                             </Frame>
                         </VerticalStackLayout>
+
                     </VerticalStackLayout>
                     <VerticalStackLayout Grid.Column="1"
                                          Spacing="4">
@@ -68,16 +80,17 @@
                                    CornerRadius="4"
                                    BorderColor="#CBD5E1"
                                    HasShadow="False">
-                                <Picker TitleColor="#647087"
+                                <Picker x:Name="RoomNamePicker"
+                                        IsEnabled="{Binding IsEditable}"
+                                        TitleColor="#647087"
                                         TextColor="#07003B"
                                         FontSize="16"
                                         FontFamily="Inter"
                                         VerticalOptions="Center"
-                                        HorizontalOptions="FillAndExpand">
-                                    <Picker.Items>
-                                        <x:String>RM 101</x:String>
-                                        <x:String>RM 202</x:String>
-                                    </Picker.Items>
+                                        HorizontalOptions="FillAndExpand"
+                                        ItemsSource="{Binding RoomOptions}"
+                                        ItemDisplayBinding="{Binding Name}"
+                                        SelectedItem="{Binding SelectedRoom}">
                                 </Picker>
                             </Frame>
                         </VerticalStackLayout>
@@ -94,38 +107,45 @@
                                    HasShadow="False">
                                 <DatePicker Format="MM/dd/yyyy"
                                             IsEnabled="False"
-                                            TextColor="Black" />
+                                            TextColor="Black"
+                                            Date="{Binding PackageEndDate, TargetNullValue={x:Static System:DateTime.Today}}">
+                                </DatePicker>
                             </Frame>
                         </VerticalStackLayout>
                     </VerticalStackLayout>
 
                     <VerticalStackLayout Grid.Column="2"
                                          Spacing="4">
-                        <VerticalStackLayout Grid.Column="2"
-                                             Spacing="4">
-                            <Label Text="Desk No"
-                                   Style="{StaticResource EntryLabelStyle}"
-                                   HeightRequest="24" />
-                            <Frame BackgroundColor="White"
-                                   Padding="0"
-                                   HeightRequest="48"
-                                   CornerRadius="4"
-                                   BorderColor="#CBD5E1"
-                                   HasShadow="False">
-                                <Picker TitleColor="#647087"
-                                        TextColor="#07003B"
-                                        FontSize="16"
-                                        FontFamily="Inter"
-                                        VerticalOptions="Center"
-                                        HorizontalOptions="FillAndExpand">
-                                    <Picker.Items>
-                                        <x:String>DSK-1</x:String>
-                                        <x:String>DSK-1</x:String>
-                                        <x:String>DSK-1</x:String>
-                                    </Picker.Items>
-                                </Picker>
-                            </Frame>
-                        </VerticalStackLayout>
+                        <Label Text="Desk No"
+                               Style="{StaticResource EntryLabelStyle}"
+                               HeightRequest="24" />
+                        <Frame BackgroundColor="#EFF6FF"
+                               BorderColor="#CBD5E1"
+                               CornerRadius="4"
+                               HeightRequest="48"
+                               WidthRequest="360"
+                               Padding="0"
+                               HorizontalOptions="Start">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDeskSelectClicked" />
+                            </Frame.GestureRecognizers>
+                            <Grid ColumnDefinitions="Auto,*"
+                                  ColumnSpacing="8">
+                                <Image Grid.Column="0"
+                                       Source="plus_icon.png"
+                                       HeightRequest="24"
+                                       WidthRequest="24"
+                                       Margin="12,0,0,0"
+                                       VerticalOptions="Center" />
+                                <Entry x:Name="DeskNameEntry"
+                                       Grid.Column="1"
+                                       Text="{Binding SelectedDesk}"
+                                       Style="{StaticResource EntryInfoStyle}"
+                                       PlaceholderColor="#647087"
+                                       Placeholder="Select Desk"
+                                       IsEnabled="False" />
+                            </Grid>
+                        </Frame>
                     </VerticalStackLayout>
                 </Grid>
 
@@ -151,7 +171,8 @@
                                CornerRadius="4"
                                BorderColor="#CBD5E1"
                                HasShadow="False">
-                            <Picker Style="{StaticResource EntryInfoStyle}">
+                            <Picker Style="{StaticResource EntryInfoStyle}"
+                                    IsEnabled="{Binding IsEditable}">
                                 <Picker.Items>
                                     <x:String>Cash</x:String>
                                     <x:String>Esewa/Khalti</x:String>
@@ -174,7 +195,9 @@
                                BorderColor="#CBD5E1"
                                HasShadow="False">
                             <DatePicker Format="MM/dd/yyyy"
-                                        TextColor="Black" />
+                                        IsEnabled="{Binding IsEditable}"
+                                        TextColor="Black"
+                                        Date="{Binding PackagePaymentDetail.LastPaymentDate}" />
                         </Frame>
                     </VerticalStackLayout>
 
@@ -194,7 +217,8 @@
                                    PlaceholderColor="#647087"
                                    Placeholder="Enter Amount"
                                    MaxLength="7"
-                                   Keyboard="Numeric" />
+                                   Keyboard="Numeric"
+                                   Text="{Binding PackagePaymentDetail.PaidAmount}" />
                         </Frame>
                     </VerticalStackLayout>
                 </Grid>
@@ -221,10 +245,12 @@
                                    CornerRadius="4"
                                    BorderColor="#CBD5E1"
                                    HasShadow="False">
-                                <Picker Style="{StaticResource EntryInfoStyle}">
+                                <Picker Style="{StaticResource EntryInfoStyle}"
+                                        IsEnabled="{Binding IsEditable}"
+                                        SelectedIndex="{Binding PackagePaymentDetail.HasParking, Converter={StaticResource BoolToIntConverter}}">
                                     <Picker.Items>
-                                        <x:String>Yes</x:String>
                                         <x:String>No</x:String>
+                                        <x:String>Yes</x:String>
                                     </Picker.Items>
                                 </Picker>
                             </Frame>
@@ -242,10 +268,12 @@
                                    CornerRadius="4"
                                    BorderColor="#CBD5E1"
                                    HasShadow="False">
-                                <Picker Style="{StaticResource EntryInfoStyle}">
+                                <Picker Style="{StaticResource EntryInfoStyle}"
+                                        IsEnabled="{Binding IsEditable}"
+                                        SelectedIndex="{Binding PackagePaymentDetail.HasLocker, Converter={StaticResource BoolToIntConverter}}">
                                     <Picker.Items>
-                                        <x:String>Yes</x:String>
                                         <x:String>No</x:String>
+                                        <x:String>Yes</x:String>
                                     </Picker.Items>
                                 </Picker>
                             </Frame>
@@ -260,7 +288,8 @@
                                 TextColor="#415A77"
                                 BackgroundColor="Transparent"
                                 BorderColor="#E2E8F0"
-                                BorderWidth="1" />
+                                BorderWidth="1"
+                                Clicked="OnClearClicked" />
                         <Button Grid.Column="1"
                                 Text="Save"
                                 Clicked="OnCreateClicked"
@@ -272,4 +301,3 @@
         </StackLayout>
     </ScrollView>
 </ContentView>
-    

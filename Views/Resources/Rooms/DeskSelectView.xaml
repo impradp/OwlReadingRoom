@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="OwlReadingRoom.Views.Resources.Rooms.DeskSelectView"
+               CanBeDismissedByTappingOutsideOfPopup="False"
+               Size="800,600">
+
+    <Border BackgroundColor="White"
+            StrokeShape="RoundRectangle 8"
+            Stroke="Transparent">
+        <!--Shadow="{OnPlatform WinUI=Hard, Default=None}">-->
+        <Grid RowDefinitions="Auto,Auto,*">
+            <!-- Header -->
+            <Grid ColumnDefinitions="*,Auto"
+                  Padding="24,24,24,16">
+                <Label x:Name="DeskSelectLabel"
+                       FontSize="20"
+                       FontFamily="Inter-Bold"
+                       TextColor="#1E293B"
+                       VerticalOptions="Center" />
+                <Button WidthRequest="24"
+                        HeightRequest="24"
+                        BackgroundColor="Transparent"
+                        Clicked="OnCloseButtonClicked"
+                        HorizontalOptions="End">
+                    <Button.ImageSource>
+                        <FileImageSource File="close_icon.png" />
+                    </Button.ImageSource>
+                </Button>
+            </Grid>
+
+            <!-- Content -->
+            <ScrollView Grid.Row="2"
+                        Padding="24,16">
+                <VerticalStackLayout Spacing="24">
+                    <!-- Desk List -->
+                    <VerticalStackLayout Spacing="4">
+                        <BoxView Grid.Row="1"
+                                 HeightRequest="1"
+                                 Color="#E5E7EB" />
+                        <Grid BackgroundColor="White"
+                              WidthRequest="640"
+                              HeightRequest="72">
+                            <HorizontalStackLayout Spacing="10">
+
+                                <HorizontalStackLayout Spacing="5">
+
+                                    <Frame BackgroundColor="#BAD3FB"
+                                           WidthRequest="24"
+                                           HeightRequest="24"
+                                           CornerRadius="4"
+                                           Padding="0" />
+                                    <Label Text="Selected"
+                                           TextColor="#1E293B"
+                                           FontSize="16"
+                                           FontFamily="Inter"
+                                           VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="5">
+
+                                    <Frame BackgroundColor="#22C55E"
+                                           WidthRequest="24"
+                                           HeightRequest="24"
+                                           CornerRadius="4"
+                                           Padding="0" />
+                                    <Label Text="Available"
+                                           TextColor="#1E293B"
+                                           FontSize="16"
+                                           FontFamily="Inter"
+                                           VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="5">
+                                    <Frame BackgroundColor="#FACC15"
+                                           WidthRequest="24"
+                                           HeightRequest="24"
+                                           CornerRadius="4"
+                                           Padding="0" />
+                                    <Label Text="Reserved"
+                                           TextColor="#1E293B"
+                                           FontSize="16"
+                                           FontFamily="Inter"
+                                           VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="5">
+                                    <Frame BackgroundColor="#DF1212"
+                                           WidthRequest="24"
+                                           HeightRequest="24"
+                                           CornerRadius="4"
+                                           Padding="0" />
+                                    <Label Text="Not available"
+                                           TextColor="#1E293B"
+                                           FontSize="16"
+                                           FontFamily="Inter"
+                                           VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="5">
+                                    <Frame BackgroundColor="#D4D4D4"
+                                           WidthRequest="24"
+                                           HeightRequest="24"
+                                           CornerRadius="4"
+                                           Padding="0" />
+                                    <Label Text="Under maintenance"
+                                           TextColor="#1E293B"
+                                           FontSize="16"
+                                           FontFamily="Inter"
+                                           VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                            </HorizontalStackLayout>
+                        </Grid>
+                        <ScrollView Grid.Row="2">
+                            <Grid WidthRequest="684"
+                                  HeightRequest="950">
+                                <ContentView x:Name="DynamicLayoutArea"
+                                             BackgroundColor="White" />
+                            </Grid>
+                        </ScrollView>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
+    </Border>
+</toolkit:Popup>

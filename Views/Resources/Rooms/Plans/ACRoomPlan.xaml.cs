@@ -6,10 +6,9 @@ namespace OwlReadingRoom.Views.Resources.Rooms.Plans;
 
 public partial class ACRoomPlan : ContentView
 {
-
-    public List<DeskInfoViewModel> Desks { get; set; }
-
     public Boolean IsSelectable { get; set; }
+    public event EventHandler<string> DeskSelected;
+    public List<DeskInfoViewModel> Desks { get; set; }
     public ACRoomPlan(List<DeskInfoViewModel> deskInfoViewModels,Boolean _isSelectable)
     {
         InitializeComponent();
@@ -41,6 +40,7 @@ public partial class ACRoomPlan : ContentView
 
                 // Notify that the Desks collection has been updated
                 OnPropertyChanged(nameof(Desks));
+                DeskSelected?.Invoke(this, deskName);
             }
         }
     }
