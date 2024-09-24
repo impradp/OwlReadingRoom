@@ -15,4 +15,10 @@ public static class AppConstants
         public const string votersId = "Voters ID";
         public const string license = "License";
     }
+
+    public static class FacilitiesPrices
+    {
+        public const double locker = 500;
+        public const double parking = 500;
+    }
 }

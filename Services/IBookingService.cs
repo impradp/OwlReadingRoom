@@ -1,4 +1,5 @@
 ﻿using OwlReadingRoom.DTOs;
+using OwlReadingRoom.Models;
 using OwlReadingRoom.ViewModels;
 using static OwlReadingRoom.Services.BookingDetailsService;
 
@@ -101,9 +102,30 @@ public interface IBookingService
     BookingInfoViewModel GetBookingDetails(int? bookingId);
 
     /// <summary>
+    /// Retrieves the booking details by the booking ID.
+    /// </summary>
+    /// <param name="bookingId">The ID of the booking to retrieve.</param>
+    /// <returns>The booking information with the specified ID.</returns>
+    BookingInfo GetBookingDetailsById(int? bookingId);
+
+    /// <summary>
     /// Checks if there are any active bookings for a given package.
     /// </summary>
     /// <param name="packageId">The ID of the package to check.</param>
     /// <returns>True if there are active bookings for the package, false otherwise.</returns>
     bool ContainsActiveBookingWithPackageId(int? packageId);
+
+    /// <summary>
+    /// Performs the initial booking process.
+    /// This method registers a new customer with the minimum required details and creates a new booking.
+    /// </summary>
+    /// <param name="minimumCustomerDetail">The minimum customer details required for booking.</param>
+    void PerformInitialBooking(MinimumCustomerDetail minimumCustomerDetail);
+
+    /// <summary>
+    /// Performs the initial booking process.
+    /// This method registers a new customer with the minimum required details and creates a new booking.
+    /// </summary>
+    /// <param name="minimumCustomerDetail">The minimum customer details required for booking.</param>
+    void SaveItem(BookingInfo bookingInfo);
 }

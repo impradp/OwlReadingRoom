@@ -8,22 +8,27 @@ public class RoomTypeConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        RoomType roomType = (RoomType)value;
-        return roomType switch
+        if(value is RoomType roomType)
         {
-            RoomType.AC => AppConstants.RoomConstants.AcRoom,
-            RoomType.NON_AC => AppConstants.RoomConstants.NonAcRoom,
-        };
+            return roomType switch
+            {
+                RoomType.AC => AppConstants.RoomConstants.AcRoom,
+                RoomType.NON_AC => AppConstants.RoomConstants.NonAcRoom,
+            };
+        }
+        return null;
     }
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        string roomTypeString = value as string;
-        return roomTypeString switch
+        if(value is string roomTypeString)
         {
-            AppConstants.RoomConstants.AcRoom => RoomType.AC,
-            AppConstants.RoomConstants.NonAcRoom => RoomType.NON_AC
-        };
-
+            return roomTypeString switch
+            {
+                AppConstants.RoomConstants.AcRoom => RoomType.AC,
+                AppConstants.RoomConstants.NonAcRoom => RoomType.NON_AC
+            };
+        }
+        return null;        
     }
 }

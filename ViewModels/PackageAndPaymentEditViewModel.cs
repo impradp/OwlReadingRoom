@@ -10,8 +10,8 @@ namespace OwlReadingRoom.ViewModels
         public RoomListViewModel Room { get; set; }
 
         public string DeskName { get; set; }
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
+        public DateTime? PackageStartDate { get; set; } = DateTime.Now;
+        public DateTime? PackageEndDate { get; set; }
         public bool HasLocker { get; set; }
         public bool HasParking { get; set; }
 
@@ -23,6 +23,7 @@ namespace OwlReadingRoom.ViewModels
         public double PaidAmount { get; set; }
         public double DueAmount { get; set; }
         public string PaymentStatus { get; set; }
-        public DateTime? LastPaymentDate { get; set; }
+        public DateTime? LastPaymentDate { get; set; } = DateTime.Now;
+        public string PaymentMethod { get; set; }
     }
 }

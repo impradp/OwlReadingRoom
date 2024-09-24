@@ -51,17 +51,17 @@ public interface ICustomerService
     /// 1. Checks if a customer with the provided contact number already exists.
     /// 2. If a customer exists, it throws an InvalidDataException.
     /// 3. If no existing customer is found, it creates a new customer with the provided minimum details.
-    /// 
-    /// This method is marked with the [Transactional] attribute, ensuring that all database operations
-    /// within the method are executed as a single transaction. If any part of the operation fails,
-    /// all changes will be rolled back.
+    /// <returns>
+    /// A Customer object if a customer with the specified mobile number is found;
+    /// otherwise, null.
+    /// </returns>
     /// </remarks>
     /// <exception cref="InvalidDataException">
     /// Thrown when a customer with the provided contact number already exists in the system.
     /// </exception>
     /// <seealso cref="MinimumCustomerDetail"/>
     /// <seealso cref="CreateNewCustomerWithMinimumDetails"/>
-    void RegisterWithMinimumDetails(MinimumCustomerDetail minimumCutomerDetail);
+    Customer RegisterWithMinimumDetails(MinimumCustomerDetail minimumCutomerDetail);
 
     /// <summary>
     /// Retrieves document details for a given customer ID.

@@ -15,8 +15,8 @@ namespace OwlReadingRoom.Models
         [Column("last_paid_amount")]
         public double LastPaidAmount { get; set; }
 
-        [Column("package_type_id")]
-        public int PackageId { get; set; }
+        [Column("payment_method")]
+        public string PaymentMethod { get; set; }
 
         [Column("payment_date")]
         public DateTime PaymentDate { get; set; }

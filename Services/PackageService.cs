@@ -41,9 +41,24 @@ namespace OwlReadingRoom.Services
                 Name = package.Name,
                 Price = package.Price,
                 RoomType = package.RoomType,
-                Days = package.Days
+                Days = package.Days,
+                IsSelectable = true
             }).ToList();
                 
+        }
+
+        [Transactional(readOnly: true)]
+        public PackageListViewModel GetPackageListViewModelById(int? packageId)
+        {
+            return _packageRepository.Table.Where(p => p.Id == packageId)
+                .Select(p => new PackageListViewModel
+                {
+                    Id = p.Id,
+                    Days = p.Days,
+                    Name = p.Name,
+                    Price= p.Price,
+                    RoomType = p.RoomType    
+                }).FirstOrDefault();
         }
 
         [Transactional(readOnly: true)]

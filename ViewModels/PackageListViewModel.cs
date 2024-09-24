@@ -14,5 +14,6 @@ namespace OwlReadingRoom.ViewModels
         public RoomType RoomType { get; set; }
         public double Price { get; set; }
         public int Days { get; set; }
+        public bool IsSelectable { get; set; }
     }
 }

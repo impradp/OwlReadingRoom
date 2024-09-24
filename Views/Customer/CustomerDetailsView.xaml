@@ -352,7 +352,7 @@
                             <Label Text="Package Amount"
                                    Style="{StaticResource RegularLabel}" />
                             <Label Grid.Column="1"
-                                   Text="{Binding TransactionDetails.PackageAmount, FallbackValue='0'}"
+                                   Text="{Binding BookingDetails.PackagePrice, FallbackValue='0'}"
                                    Style="{StaticResource EntryLabelReadonly}" />
                             <Label Grid.Row="1"
                                    Text="Locker Service"

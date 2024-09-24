@@ -46,6 +46,11 @@ public class DeskService : IDeskService
         return desks;
     }
 
+    public Desk GetDesk(int? deskId)
+    {
+        return _deskRepository.GetItem(deskId);
+    }
+
     public List<Desk> GetDesksOfRoom(int roomId)
     {
         return _deskRepository.Table.Where(d => d.RoomId == roomId).ToList();

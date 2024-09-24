@@ -15,5 +15,17 @@ public interface ITransactionService
     /// <param name="hasLocker">Indicates whether the booking includes a locker.</param>
     /// <returns>A TransactionDetailViewModel containing transaction details, or null if the bookingId is not provided.</returns>
     TransactionDetailViewModel GetTransactionDetails(int? bookingId, bool hasParking, bool hasLocker);
+
+    /// <summary>
+    /// Saves a transaction.
+    /// </summary>
+    /// <param name="transaction">The transaction to be saved.</param>
+    void SaveTransaction(Transaction transaction);
+
+    /// <summary>
+    /// Saves a transaction log.
+    /// </summary>
+    /// <param name="log">The transaction log to be saved.</param>
+    void SaveTransactionLog(TransactionLogs log);
 }
 

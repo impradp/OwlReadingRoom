@@ -1,5 +1,7 @@
-﻿using OwlReadingRoom.Models;
+﻿using OwlReadingRoom.DTOs;
+using OwlReadingRoom.Models;
 using OwlReadingRoom.Models.Enums;
+using OwlReadingRoom.Proxy;
 using OwlReadingRoom.Services.Repository;
 using OwlReadingRoom.Services.Resources;
 using OwlReadingRoom.Services.Transactions;
@@ -97,7 +99,7 @@ public class BookingDetailsService : IBookingService
                                   {
                                       CustomerId = bookingGroup.Key,
                                       LatestBooking = bookingGroup
-                                          .OrderByDescending(b => b.ReservationEndDate)
+                                          .OrderByDescending(b => b.Id)
                                           .FirstOrDefault()
                                   };
 
@@ -123,6 +125,7 @@ public class BookingDetailsService : IBookingService
                         Package = package.Name,
                         AllocatedSpace = $"{room.Name} - {desk.Name}",
                         Dues = transaction.DueAmount.ToString(),
+                        PaymentStatus = transaction != null ? transaction.PaymentStatus.ToString() : PaymentStatusEnum.UNPAID.ToString(),
                         Status = Status.ACTIVE
                     };
         return query.ToList();
@@ -145,7 +148,7 @@ public class BookingDetailsService : IBookingService
                                   {
                                       CustomerId = bookingGroup.Key,
                                       LatestBooking = bookingGroup
-                                          .OrderByDescending(b => b.ReservationEndDate)
+                                          .OrderByDescending(b => b.Id)
                                           .FirstOrDefault()
                                   };
 
@@ -153,8 +156,7 @@ public class BookingDetailsService : IBookingService
         var query = from customer in customerQuery
                     join personalDetail in personalDetailsQuery on customer.Id equals personalDetail.CustomerId
                     join latestBooking in latestBookingsQuery
-                    on customer.Id equals latestBooking.CustomerId into customerBookings
-                    from latestBooking in customerBookings.DefaultIfEmpty() // Left join: include customers with no bookings
+                    on customer.Id equals latestBooking.CustomerId 
                     join desk in _deskService.TableQuery on latestBooking?.LatestBooking?.DeskId equals desk.Id into deskGroup
                     from desk in deskGroup.DefaultIfEmpty() // Handle null desk if no bookings
                     join room in roomQuery on desk?.RoomId equals room?.Id into roomGroup
@@ -163,19 +165,19 @@ public class BookingDetailsService : IBookingService
                     from package in packageGroup.DefaultIfEmpty() // Handle null package if no bookings
                     join transaction in transactionQuery on latestBooking?.LatestBooking?.Id equals transaction?.BookingInformationId into transactionGroup
                     from transaction in transactionGroup.DefaultIfEmpty() // Handle null transaction if no bookings
-                    where latestBooking == null || latestBooking?.LatestBooking?.ReservationEndDate < currentTime // Customers with no bookings or expired bookings
+                    where latestBooking.LatestBooking.ReservationEndDate == null || latestBooking.LatestBooking?.ReservationEndDate < currentTime // Customers with no bookings or expired bookings
                     orderby customer.Id
                     select new CustomerPackageViewModel
                     {
                         CustomerId = customer.Id,
-                        BookingId = latestBooking != null ? latestBooking.LatestBooking.Id : null,
+                        BookingId = latestBooking.LatestBooking.Id,
                         FullName = personalDetail.FullName,
                         ContactNumber = customer.MobileNumber,
                         Faculty = personalDetail.Faculty,
-                        StartDate = latestBooking != null ? latestBooking.LatestBooking.ReservationStartDate : null,
-                        EndDate = latestBooking != null ? latestBooking.LatestBooking.ReservationEndDate : null,
+                        StartDate = latestBooking.LatestBooking.ReservationStartDate,
+                        EndDate = latestBooking.LatestBooking.ReservationEndDate,
                         Package = package != null ? package.Name : "N/A",
-                        AllocatedSpace = latestBooking != null ? $"{room?.Name ?? "N/A"} - {desk?.Name ?? "N/A"}" : "N/A",
+                        AllocatedSpace = latestBooking.LatestBooking.PackageId != null ? $"{room?.Name ?? "N/A"} - {desk?.Name ?? "N/A"}" : "N/A",
                         PaymentStatus = transaction != null ? transaction.PaymentStatus.ToString() : PaymentStatusEnum.UNPAID.ToString(),
                         Dues =  transaction != null ? transaction.DueAmount.ToString() : "0",
                         Status = Status.INACTIVE
@@ -206,7 +208,8 @@ public class BookingDetailsService : IBookingService
                         EndDate = booking.ReservationEndDate,
                         HasLocker = booking.HasBookedLocker,
                         HasParking = booking.HasBookedParking,
-                        DeskName = deskInfo?.Name
+                        DeskName = deskInfo?.Name,
+                        PackagePrice = pacakgeInfo?.Price ?? 0
                     };
         return query.FirstOrDefault();
     }
@@ -230,6 +233,31 @@ public class BookingDetailsService : IBookingService
     {
         var currentTime = DateTime.Now;
         return _bookingRepository.Table.Where(booking => booking.PackageId == packageId && booking.ReservationEndDate >= currentTime).ToList();
+    }
+
+    public BookingInfo GetBookingDetailsById(int? bookingId)
+    {
+        return _bookingRepository.GetItem(bookingId);
+    }
+
+    [Transactional]
+    public void PerformInitialBooking(MinimumCustomerDetail minimumCustomerDetail)
+    {
+        Customer customer = _customerService.RegisterWithMinimumDetails(minimumCustomerDetail);
+        _bookingRepository.SaveItem(new BookingInfo
+        {
+            CustomerId = customer.Id,
+        });
+    }
+
+    private bool isNewPackage(BookingInfo bookingInfo)
+    {
+        return bookingInfo.PackageId == null;
+    }
+
+    public void SaveItem(BookingInfo bookingInfo)
+    {
+        _bookingRepository.SaveItem(bookingInfo);
     }
 
     public class ReservationInfo
