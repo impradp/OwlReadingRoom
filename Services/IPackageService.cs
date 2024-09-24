@@ -10,6 +10,13 @@ public interface IPackageService
 
     List<PackageListViewModel> GetPackageList();
 
+    /// <summary>
+    /// Retrieves the package list view model by the package ID.
+    /// </summary>
+    /// <param name="packageId">The ID of the package to retrieve.</param>
+    /// <returns>The package list view model with the specified ID.</returns>
+    PackageListViewModel GetPackageListViewModelById(int? packageId);
+
     void SavePackage(PackageType packageType);
 
     TableQuery<PackageType> TableQuery { get; }

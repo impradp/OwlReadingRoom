@@ -35,5 +35,12 @@ public interface IDeskService
     List<Desk> GetDesksOfRoom(int roomId);
     TableQuery<Desk> TableQuery { get; }
 
+    /// <summary>
+    /// Retrieves a desk by its ID.
+    /// </summary>
+    /// <param name="deskId">The ID of the desk to retrieve.</param>
+    /// <returns>The desk with the specified ID.</returns>
+    Desk GetDesk(int? deskId);
+
     List<Desk> AddDesks(List<Desk> desks);
 }

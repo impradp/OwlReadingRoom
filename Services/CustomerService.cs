@@ -80,8 +80,7 @@ public class CustomerService : ICustomerService
 
     }
 
-    [Transactional]
-    public void RegisterWithMinimumDetails(MinimumCustomerDetail minimumCutomerDetail)
+    public Customer RegisterWithMinimumDetails(MinimumCustomerDetail minimumCutomerDetail)
     {
         Customer customer = GetCustomerByMobileNumber(minimumCutomerDetail.ContactNumber);
         if (customer is not null)
@@ -89,7 +88,7 @@ public class CustomerService : ICustomerService
             Debug.WriteLine($"A customer with the contact number :{minimumCutomerDetail.ContactNumber} already exists.");
             throw new InvalidDataException("Duplicate user entry.");
         }
-        this.CreateNewCustomerWithMinimumDetails(minimumCutomerDetail);
+        return this.CreateNewCustomerWithMinimumDetails(minimumCutomerDetail);
     }
 
     private Address SaveTemporaryAddress(string currentAddress, int customerId)

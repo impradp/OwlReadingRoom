@@ -1,4 +1,5 @@
 ﻿using OwlReadingRoom.Models;
+using OwlReadingRoom.ViewModels;
 
 namespace OwlReadingRoom.Utils
 {
@@ -149,6 +150,21 @@ namespace OwlReadingRoom.Utils
         }
 
         /// <summary>
+        /// Validates the booking details.
+        /// </summary>
+        /// <param name="deskName">The name of the desk.</param>
+        /// <param name="room">The room information.</param>
+        /// <returns>True if the booking details are valid, false otherwise.</returns>
+        public static Boolean isValidBooking(string deskName, RoomListViewModel room)
+        {
+            if (string.IsNullOrWhiteSpace(deskName) || room == null)
+            {
+                return ShowError(ValidationMessages.IncompleteBookingDetails);
+            }
+            return true;
+        }
+
+        /// <summary>
         /// Shows the error message with detailed error message.
         /// </summary>
         /// <param name="message">The message passed down to display upon error.</param>
@@ -173,5 +189,6 @@ namespace OwlReadingRoom.Utils
         public const string EmptyRoomName = "Please enter a valid room name.";
         public const string InvalidAmount = "Please enter valid amount.";
         public const string InvalidDays = "Please enter a valid number of days.";
+        public const string IncompleteBookingDetails = "Incomplete booking details.";
     }
 }

@@ -16,6 +16,7 @@ using OwlReadingRoom.Views.Resources.Package;
 using OwlReadingRoom.Views.Resources.Rooms;
 using System.Reflection;
 using OwlReadingRoom.Views.Resources.Rooms.Plans;
+using OwlReadingRoom.Services.Booking;
 
 
 #if WINDOWS
@@ -141,6 +142,32 @@ namespace OwlReadingRoom
                 var customerService = ActivatorUtilities.CreateInstance<CustomerDetailsService>(sp);
                 return TransactionalProxy<ICustomerDetailsService>.CreateProxy(customerService, databaseConnectionService);
             });
+
+            // New Package Booking Strategy
+            builder.Services.AddSingleton<IBookingStrategy>(sp =>
+            {
+                var databaseConnectionService = sp.GetService<IDatabaseConnectionService>();
+                var newPackageBookingStrategy = ActivatorUtilities.CreateInstance<NewPackageBookingStrategy>(sp);
+                return TransactionalProxy<IBookingStrategy>.CreateProxy(newPackageBookingStrategy, databaseConnectionService);
+            });
+
+            // Package Change Booking Strategy
+            builder.Services.AddSingleton<IBookingStrategy>(sp =>
+            {
+                var databaseConnectionService = sp.GetService<IDatabaseConnectionService>();
+                var packageChangeBookingStrategy = ActivatorUtilities.CreateInstance<PackageChangeBookingStrategy>(sp);
+                return TransactionalProxy<IBookingStrategy>.CreateProxy(packageChangeBookingStrategy, databaseConnectionService);
+            });
+
+            // Default Booking Strategy
+            builder.Services.AddSingleton<IBookingStrategy>(sp =>
+            {
+                var databaseConnectionService = sp.GetService<IDatabaseConnectionService>();
+                var defaultBookingStrategy = ActivatorUtilities.CreateInstance<DefaultBookingStrategy>(sp);
+                return TransactionalProxy<IBookingStrategy>.CreateProxy(defaultBookingStrategy, databaseConnectionService);
+            });
+
+            builder.Services.AddTransient<IBookingProcessor, BookingProcessor>();
             builder.Services.AddTransient<Func<PackageListViewModel, UpdatePackage>>(sp =>
             {
                 var packageService = sp.GetRequiredService<IPackageService>();

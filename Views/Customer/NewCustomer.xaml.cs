@@ -10,14 +10,14 @@ namespace OwlReadingRoom.Views.Customer;
 public partial class NewCustomer : Popup
 {
     private readonly IPackageService _packageService;
-    private readonly ICustomerService _customerService;
+    private readonly IBookingService _bookingService;
     public event EventHandler<EventArgs> CustomerPackageSaved;
-    public NewCustomer(IPackageService packageService, ICustomerService customerService)
+    public NewCustomer(IPackageService packageService, IBookingService bookingService)
     {
         InitializeComponent();
         _packageService = packageService;
         BindingContext = this;
-        _customerService = customerService;
+        _bookingService = bookingService;
     }
 
     /// <summary>
@@ -55,7 +55,7 @@ public partial class NewCustomer : Popup
             if (Validator.IsValidNewCustomer(FullNameEntry.Text, ContactNumberEntry.Text, false, null, null, ""))
             {
                 //TODO: Create customer object
-                _customerService.RegisterWithMinimumDetails(new MinimumCustomerDetail
+                _bookingService.PerformInitialBooking(new MinimumCustomerDetail
                 {
                     FullName = FullNameEntry.Text,
                     ContactNumber = ContactNumberEntry.Text,

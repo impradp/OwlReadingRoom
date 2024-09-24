@@ -141,7 +141,7 @@
                                         <Label Text="{Binding ContactNumber}"
                                                Style="{StaticResource CellLabelStyle}"
                                                Grid.Column="1" />
-                                        <Label Text="{Binding Faculty}"
+                                        <Label Text="{Binding Faculty, FallbackValue='N/A', TargetNullValue= 'N/A'}"
                                                Style="{StaticResource CellLabelStyle}"
                                                Grid.Column="2" />
                                         <Label Text="{Binding StartDate, Converter={StaticResource DateFormatConverter}, FallbackValue='N/A', TargetNullValue= 'N/A'}"
@@ -150,18 +150,18 @@
                                         <Label Text="{Binding EndDate, Converter={StaticResource DateFormatConverter}, FallbackValue='N/A', TargetNullValue= 'N/A'}"
                                                Style="{StaticResource CellLabelStyle}"
                                                Grid.Column="4" />
-                                        <Label Text="{Binding Package}"
+                                        <Label Text="{Binding Package, FallbackValue='N/A', TargetNullValue= 'N/A'}"
                                                Style="{StaticResource CellLabelStyle}"
                                                Grid.Column="5" />
-                                        <Label Text="{Binding AllocatedSpace}"
+                                        <Label Text="{Binding AllocatedSpace, FallbackValue='N/A', TargetNullValue= 'N/A'}"
                                                Style="{StaticResource CellLabelStyle}"
                                                Grid.Column="6" />
-                                        <Label Text="{Binding PaymentStatus}"
+                                        <Label Text="{Binding PaymentStatus, FallbackValue='N/A', TargetNullValue= 'N/A'}"
                                                Style="{StaticResource CellLabelStyle}"
                                                TextColor="White"
                                                BackgroundColor="#22C55E"
                                                Grid.Column="7" />
-                                        <Label Text="{Binding Dues}"
+                                        <Label Text="{Binding Dues, FallbackValue='N/A', TargetNullValue= 'N/A'}"
                                                Style="{StaticResource CellLabelStyle}"
                                                Grid.Column="8" />
                                     </Grid>

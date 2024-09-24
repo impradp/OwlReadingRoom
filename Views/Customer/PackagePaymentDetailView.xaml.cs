@@ -1,9 +1,12 @@
 using CommunityToolkit.Maui.Views;
+using OwlReadingRoom.Models;
 using OwlReadingRoom.Services;
+using OwlReadingRoom.Services.Booking;
 using OwlReadingRoom.Services.Resources;
 using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
 using OwlReadingRoom.Views.Resources.Rooms;
+using System.Diagnostics;
 
 namespace OwlReadingRoom.Views.Customer;
 
@@ -11,18 +14,23 @@ public partial class PackagePaymentDetailView : ContentView
 {
     public string SelectedDesk { get; set; }
     public List<RoomListViewModel> RoomOptions { get; private set; }
+    public List<RoomListViewModel> ACRoomOptions { get; private set; }
+    public List<RoomListViewModel> NonACRoomOptions { get; private set; }
     public List<PackageListViewModel> PackageOptions { get; private set; }
 
     private PackageListViewModel _selectedPackage;
     private RoomListViewModel _selectedRoom;
-    private DateTime _packageStartDate;
-    private DateTime _packageEndDate;
+    private DateTime? _packageStartDate;
+    private DateTime? _packageEndDate;
+    private bool _hasExistingPackage;
     private IPhysicalResourceService _resourceService;
     private readonly IServiceProvider _serviceProvider;
+    private readonly IBookingService _bookingService;
+    private readonly IBookingProcessor _bookingProcessor;
+    private readonly IDeskService _deskService;
+    private readonly IPackageService _packageService;
 
     public PackageAndPaymentEditViewModel PackagePaymentDetail { get; private set; }
-    public bool IsEditable { get; private set; }
-
     public PackagePaymentDetailView(PackageAndPaymentEditViewModel packageAndPaymentDetail,
         IPhysicalResourceService resourceService, IServiceProvider serviceProvider)
     {
@@ -30,7 +38,10 @@ public partial class PackagePaymentDetailView : ContentView
         PackagePaymentDetail = packageAndPaymentDetail;
         _resourceService = resourceService;
         _serviceProvider = serviceProvider;
-        IsEditable = PackagePaymentDetail.Id == null;
+        _bookingService = _serviceProvider.GetService<IBookingService>();
+        _deskService = _serviceProvider.GetService<IDeskService>();
+        _packageService = _serviceProvider.GetService<IPackageService>();
+        _bookingProcessor = _serviceProvider.GetService<IBookingProcessor>();
         LoadResources();
         LoadExistingData();
         BindingContext = this;
@@ -41,8 +52,10 @@ public partial class PackagePaymentDetailView : ContentView
     /// </summary>
     private void LoadResources()
     {
-        IPackageService packageService = _serviceProvider.GetService<IPackageService>();
-        PackageOptions = packageService.GetPackageList();
+        PackageOptions = _packageService.GetPackageList();
+        ACRoomOptions = _resourceService.FetchRoomsByType(RoomType.AC);
+        NonACRoomOptions = _resourceService.FetchRoomsByType(RoomType.NON_AC);
+        PackageStartDate = DateTime.Now.Date;
         OnPropertyChanged(nameof(PackageOptions));
     }
 
@@ -51,26 +64,27 @@ public partial class PackagePaymentDetailView : ContentView
     /// </summary>
     private void LoadExistingData()
     {
-        if (PackagePaymentDetail != null)
+        BookingInfo bookingInformation = _bookingService.GetBookingDetailsById(PackagePaymentDetail.Id);
+        if (bookingInformation.PackageId == null)
         {
-            //TODO: Fetch Booking Details
-            //TODO: Fetch existing package
-            //TODO: Fetch existing rooms and use it as selected packages/rooms and desks
-
-            SelectedPackage = PackagePaymentDetail.Package;
-            SelectedRoom = PackagePaymentDetail.Room;
-            SelectedDesk = PackagePaymentDetail.DeskName;
-            PackageStartDate = PackagePaymentDetail.StartDate ?? DateTime.Today;
-            PackageEndDate = PackagePaymentDetail.EndDate ?? DateTime.Today.AddDays(SelectedPackage?.Days ?? 0);
-
-            // Update UI elements
-            OnPropertyChanged(nameof(SelectedPackage));
-            OnPropertyChanged(nameof(SelectedRoom));
-            OnPropertyChanged(nameof(SelectedDesk));
-            OnPropertyChanged(nameof(PackageStartDate));
-            OnPropertyChanged(nameof(PackageEndDate));
-            OnPropertyChanged(nameof(IsEditable));
+            Debug.WriteLine($"Package not assigned for booking Id: {bookingInformation.Id}");
+            return;
         }
+
+        SelectedPackage = PackageOptions.FirstOrDefault(p => p.Id == bookingInformation.PackageId);
+        if(SelectedPackage == null)
+        {
+            PackageListViewModel packageListViewModel = _packageService.GetPackageListViewModelById(bookingInformation.PackageId);
+            packageListViewModel.IsSelectable = false;
+            PackageOptions.Add(packageListViewModel);
+            SelectedPackage = packageListViewModel;
+        }
+        Desk desk = _deskService.GetDesk(bookingInformation.DeskId);
+        SelectedRoom = RoomOptions.FirstOrDefault(r => r.Id == desk.RoomId);
+        SelectedDesk = desk.Name;
+        PackageStartDate = bookingInformation.ReservationStartDate ?? DateTime.Today;
+        PackageEndDate = bookingInformation.ReservationEndDate ?? DateTime.Today.AddDays(SelectedPackage?.Days ?? 0);
+        HasExistingPackage = true;
     }
 
     #region Event Handler
@@ -79,7 +93,7 @@ public partial class PackagePaymentDetailView : ContentView
         get => _selectedPackage;
         set
         {
-            if (IsEditable)
+            if (_selectedPackage != value)
             {
                 _selectedPackage = value;
                 OnPropertyChanged();
@@ -94,21 +108,22 @@ public partial class PackagePaymentDetailView : ContentView
         get => _selectedRoom;
         set
         {
-            if (IsEditable)
+            if (_selectedRoom != value)
             {
                 _selectedRoom = value;
                 OnPropertyChanged();
-                LoadDesksForSelectedRoom();
+                SelectedDesk = null;
+                OnPropertyChanged(nameof(SelectedDesk));
             }
         }
     }
 
-    public DateTime PackageStartDate
+    public DateTime? PackageStartDate
     {
         get => _packageStartDate;
         set
         {
-            if (IsEditable)
+            if (_packageStartDate != value)
             {
                 _packageStartDate = value;
                 OnPropertyChanged();
@@ -116,17 +131,36 @@ public partial class PackagePaymentDetailView : ContentView
             }
         }
     }
-    public DateTime PackageEndDate
+    public DateTime? PackageEndDate
     {
         get => _packageEndDate;
         set
         {
-            _packageEndDate = value;
-            OnPropertyChanged();
+            if (_packageEndDate != value)
+            {
+                _packageEndDate = value;
+                OnPropertyChanged();
+            }
+
         }
     }
     #endregion
 
+    public bool HasExistingPackage
+    {
+        get => _hasExistingPackage;
+        set
+        {
+            if (_hasExistingPackage != value)
+            {
+                _hasExistingPackage = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsEditable));
+            }
+        }
+    }
+
+    public bool IsEditable => !HasExistingPackage;
 
     /// <summary>
     /// Updates the package end date upon package selection
@@ -135,7 +169,7 @@ public partial class PackagePaymentDetailView : ContentView
     {
         if (SelectedPackage != null)
         {
-            PackageEndDate = PackageStartDate.AddDays(SelectedPackage.Days);
+            PackageEndDate = PackageStartDate?.AddDays(SelectedPackage.Days);
         }
     }
 
@@ -147,27 +181,14 @@ public partial class PackagePaymentDetailView : ContentView
     {
         if (SelectedPackage != null)
         {
-            RoomOptions = _resourceService.FetchRoomsByType(SelectedPackage.RoomType);
-            OnPropertyChanged(nameof(RoomOptions));
-
+            RoomOptions = RoomType.AC.Equals(SelectedPackage.RoomType) ? ACRoomOptions : NonACRoomOptions;
+            
             // Clear the previously selected room only if it's not matching the current package type
             if (SelectedRoom != null && !RoomOptions.Contains(SelectedRoom))
             {
                 SelectedRoom = null;
-                DeskNameEntry.Text = null;
             }
-        }
-    }
-
-    /// <summary>
-    /// Loads the associated desks for the selected room.
-    /// </summary>
-    private void LoadDesksForSelectedRoom()
-    {
-        // If there's no selected desk or the selected room has changed, clear the desk
-        if (string.IsNullOrEmpty(SelectedDesk) || (SelectedRoom != null && SelectedDesk != PackagePaymentDetail.DeskName))
-        {
-            DeskNameEntry.Text = null;
+            OnPropertyChanged(nameof(RoomOptions));
         }
     }
 
@@ -182,14 +203,23 @@ public partial class PackagePaymentDetailView : ContentView
         PackagePaymentDetail.Package = SelectedPackage;
         PackagePaymentDetail.Room = SelectedRoom;
         PackagePaymentDetail.DeskName = SelectedDesk;
-        PackagePaymentDetail.StartDate = PackageStartDate;
-        PackagePaymentDetail.EndDate = PackageEndDate;
+        PackagePaymentDetail.PackageStartDate = PackageStartDate;
+        PackagePaymentDetail.PackageEndDate = PackageEndDate;
+        PackagePaymentDetail.PackageAmount = SelectedPackage.Price;
 
-        // TODO: Add validation logic here
+        try
+        {
+            if (Validator.isValidBooking(SelectedDesk, SelectedRoom))
+            {
+                _bookingProcessor.ProcessBooking(PackagePaymentDetail);
 
-        // TODO: Save the updated PackagePaymentDetail
-
-        CustomAlert.ShowAlert("Success", "Package details saved successfully.", "OK");
+                await CustomAlert.ShowAlert("Success", "Package details saved successfully.", "OK");
+            }
+        }
+        catch (Exception ex)
+        {
+            ExceptionHandler.HandleException("booking a package for customer.", ex);
+        }
     }
 
     /// <summary>
@@ -206,8 +236,11 @@ public partial class PackagePaymentDetailView : ContentView
                 await CustomAlert.ShowAlert("Error", "Please select room before selecting desks.", "OK");
                 return;
             }
-
-            SelectedRoom.IsSelectable = true;
+            if (IsEditable)
+            {
+                SelectedRoom.IsSelectable = true;
+            }
+            
             Func<RoomListViewModel, DeskSelectView> _deskLayoutFactory = _serviceProvider.GetService<Func<RoomListViewModel, DeskSelectView>>();
             var deskLayoutPopup = _deskLayoutFactory(SelectedRoom);
             deskLayoutPopup.DeskSelected += OnDeskSelected;
@@ -256,6 +289,18 @@ public partial class PackagePaymentDetailView : ContentView
         else
         {
             CustomAlert.ShowAlert("Info", "Cannot clear details for existing packages.", "OK");
+        }
+    }
+
+    private void OnCustomerSelected(object sender, EventArgs e)
+    {
+        var picker = sender as Picker;
+        var selectedPackage = picker.SelectedItem as PackageListViewModel;
+
+        if (selectedPackage != null && !selectedPackage.IsSelectable)
+        {
+            CustomAlert.ShowAlert("Error", $"{selectedPackage.Name} is not selectable.", "OK");
+            picker.SelectedItem = null; // Reset selection
         }
     }
 }

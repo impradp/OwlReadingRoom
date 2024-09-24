@@ -61,7 +61,8 @@
                                 <DatePicker Format="MM/dd/yyyy"
                                             IsEnabled="{Binding IsEditable}"
                                             TextColor="Black"
-                                            Date="{Binding PackageStartDate, TargetNullValue={x:Static System:DateTime.Today}}">
+                                            Date="{Binding PackageStartDate, TargetNullValue={x:Static System:DateTime.Today},
+                                    FallbackValue={x:Static System:DateTime.Today}}">
                                 </DatePicker>
                             </Frame>
                         </VerticalStackLayout>
@@ -108,7 +109,7 @@
                                 <DatePicker Format="MM/dd/yyyy"
                                             IsEnabled="False"
                                             TextColor="Black"
-                                            Date="{Binding PackageEndDate, TargetNullValue={x:Static System:DateTime.Today}}">
+                                            Date="{Binding PackageEndDate, TargetNullValue={x:Static System:DateTime.Today}, FallbackValue={x:Static System:DateTime.Today}}">
                                 </DatePicker>
                             </Frame>
                         </VerticalStackLayout>
@@ -172,7 +173,7 @@
                                BorderColor="#CBD5E1"
                                HasShadow="False">
                             <Picker Style="{StaticResource EntryInfoStyle}"
-                                    IsEnabled="{Binding IsEditable}">
+                                    SelectedItem="{Binding PackagePaymentDetail.PaymentMethod, Mode=OneWayToSource}">
                                 <Picker.Items>
                                     <x:String>Cash</x:String>
                                     <x:String>Esewa/Khalti</x:String>
@@ -195,7 +196,6 @@
                                BorderColor="#CBD5E1"
                                HasShadow="False">
                             <DatePicker Format="MM/dd/yyyy"
-                                        IsEnabled="{Binding IsEditable}"
                                         TextColor="Black"
                                         Date="{Binding PackagePaymentDetail.LastPaymentDate}" />
                         </Frame>

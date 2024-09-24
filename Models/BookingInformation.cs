@@ -5,10 +5,10 @@ namespace OwlReadingRoom.Models
     public class BookingInfo : BaseModel
     {
         [Column("package_id")]
-        public int PackageId { get; set; }
+        public int? PackageId { get; set; }
 
         [Column("desk_id")]
-        public int DeskId { get; set; }
+        public int? DeskId { get; set; }
 
         [Column("customer_id")]
         public int CustomerId { get; set; }
