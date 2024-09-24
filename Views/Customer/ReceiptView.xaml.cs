@@ -14,7 +14,7 @@ namespace OwlReadingRoom.Views.Customer
         public ReceiptView(CustomerDetailViewModel customer, IPdfService pdfService)
         {
             InitializeComponent();
-            _customer = customer;
+            Customer = customer;
             _pdfService = pdfService;
             DownloadCommand = new Command(async () => await DownloadReceiptPdfAsync());
             BindingContext = this;

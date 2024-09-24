@@ -198,6 +198,8 @@ public class BookingDetailsService : IBookingService
                     from pacakgeInfo in packageGroup.DefaultIfEmpty()
                     join desk in _deskService.TableQuery on booking.DeskId equals desk.Id into deskGroup
                     from deskInfo in deskGroup.DefaultIfEmpty()
+                    join room in _roomService.TableQuery on deskInfo?.RoomId equals room.Id into roomGroup
+                    from room in roomGroup.DefaultIfEmpty()
                     where booking.Id == bookingId
                     select new BookingInfoViewModel
                     {
@@ -209,7 +211,8 @@ public class BookingDetailsService : IBookingService
                         HasLocker = booking.HasBookedLocker,
                         HasParking = booking.HasBookedParking,
                         DeskName = deskInfo?.Name,
-                        PackagePrice = pacakgeInfo?.Price ?? 0
+                        PackagePrice = pacakgeInfo?.Price ?? 0,
+                        RoomName = room?.Name
                     };
         return query.FirstOrDefault();
     }
