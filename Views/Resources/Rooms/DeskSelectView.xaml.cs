@@ -36,6 +36,21 @@ public partial class DeskSelectView : Popup
         }
         Close();
     }
+
+    /// <summary>
+    /// Invoked when the popup is dismissed by tapping outside of the popup.
+    /// This is an override method for the existing method in popup community toolkit.
+    /// </summary>
+    /// <param name="token">The event token passed when a popup is invoked</param>
+    /// <returns>Completed task for closing the modal popup.</returns>
+    protected override async Task OnDismissedByTappingOutsideOfPopup(CancellationToken token = default(CancellationToken))
+    {
+        if (!String.IsNullOrEmpty(SelectedDeskName))
+        {
+            DeskSelected?.Invoke(this, SelectedDeskName);
+        }
+        await OnClosed(ResultWhenUserTapsOutsideOfPopup, wasDismissedByTappingOutsideOfPopup: true, token);
+    }
     /// <summary>
     /// Loads all desks information for the selected room.
     /// </summary>

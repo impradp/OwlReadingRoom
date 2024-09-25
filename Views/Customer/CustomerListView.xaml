@@ -3,53 +3,63 @@
              x:Class="OwlReadingRoom.Views.Customer.CustomerListView">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="64" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Frame Grid.Row="0"
                BackgroundColor="White"
-               Padding="0"
+               Padding="0,0,0,1"
                BorderColor="Transparent"
                HasShadow="False">
-            <HorizontalStackLayout>
-                <StackLayout x:Name="ActiveTab"
-                             BackgroundColor="White">
-                    <Label x:Name="ActiveTabLabel"
-                           Text="Active Customers"
-                           TextColor="#3B82F6"
-                           FontFamily="Inter-SemiBold"
-                           VerticalOptions="Center" />
-                    <BoxView x:Name="ActiveTabIndicator"
-                             Color="#3B82F6"
-                             Margin="0,10,0,0"
-                             WidthRequest="130"
-                             HeightRequest="2"
-                             VerticalOptions="End" />
-                    <StackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnActiveTabTapped" />
-                    </StackLayout.GestureRecognizers>
-                </StackLayout>
+            <Frame.Content>
+                <StackLayout>
+                    <HorizontalStackLayout>
+                        <StackLayout x:Name="ActiveTab"
+                                     BackgroundColor="White">
+                            <Label x:Name="ActiveTabLabel"
+                                   Text="Active Customers"
+                                   TextColor="#3B82F6"
+                                   Style="{StaticResource LabelMedium}"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center" />
+                            <BoxView x:Name="ActiveTabIndicator"
+                                     Color="#3B82F6"
+                                     Margin="0,10,0,0"
+                                     WidthRequest="150"
+                                     HeightRequest="2"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="Center" />
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnActiveTabTapped" />
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
 
-                <StackLayout x:Name="InactiveTab"
-                             Padding="0,0"
-                             BackgroundColor="White">
-                    <Label x:Name="InactiveTabLabel"
-                           Text="Inactive Customers"
-                           TextColor="#64748B"
-                           FontFamily="Inter-SemiBold"
-                           VerticalOptions="Center" />
-                    <BoxView x:Name="InactiveTabIndicator"
+                        <StackLayout x:Name="InactiveTab"
+                                     Padding="0,0"
+                                     BackgroundColor="White">
+                            <Label x:Name="InactiveTabLabel"
+                                   Text="Inactive Customers"
+                                   Style="{StaticResource LabelMedium}"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center" />
+                            <BoxView x:Name="InactiveTabIndicator"
+                                     Color="#E2E8F0"
+                                     WidthRequest="160"
+                                     Margin="0,10,0,0"
+                                     HeightRequest="2"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="Center" />
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnInactiveTabTapped" />
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </HorizontalStackLayout>
+                    <BoxView HeightRequest="1"
                              Color="#E2E8F0"
-                             WidthRequest="140"
-                             Margin="0,10,0,0"
-                             HeightRequest="2"
-                             VerticalOptions="End" />
-                    <StackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnInactiveTabTapped" />
-                    </StackLayout.GestureRecognizers>
+                             HorizontalOptions="Fill" />
                 </StackLayout>
-            </HorizontalStackLayout>
+            </Frame.Content>
         </Frame>
 
         <!-- Content area for the selected tab -->

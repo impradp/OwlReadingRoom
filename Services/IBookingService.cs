@@ -126,6 +126,13 @@ public interface IBookingService
     /// Performs the initial booking process.
     /// This method registers a new customer with the minimum required details and creates a new booking.
     /// </summary>
-    /// <param name="minimumCustomerDetail">The minimum customer details required for booking.</param>
+    /// <param name="bookingInfo">The to-be created booking info of the current customer.</param>
     void SaveItem(BookingInfo bookingInfo);
+
+    /// <summary>
+    /// Renews the customer package association with new booking id.
+    /// </summary>
+    /// <param name="customerId">The unique identifier of customer.</param>
+    /// <returns>The created booking info id</returns>
+    int PerformCustomerRenew(int customerId);
 }

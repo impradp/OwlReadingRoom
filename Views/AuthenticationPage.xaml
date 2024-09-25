@@ -41,7 +41,8 @@
                         <Frame BackgroundColor="#F5F9FF"
                                CornerRadius="6"
                                Padding="15"
-                               HasShadow="True">
+                               HasShadow="True"
+                               x:Name="AdminFrame">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnLoginClicked" />
                             </Frame.GestureRecognizers>

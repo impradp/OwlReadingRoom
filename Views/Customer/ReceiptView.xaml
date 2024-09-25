@@ -2,7 +2,14 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="OwlReadingRoom.Views.Customer.ReceiptView"
+             xmlns:local="clr-namespace:OwlReadingRoom.Utils"
              BackgroundColor="White">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <local:RoomTypeConverter x:Key="RoomTypeConverter"/>
+            <local:DateFormatConverter x:Key="DateFormatConverter"/>
+        </ResourceDictionary>
+    </ContentView.Resources>
     <ScrollView>
 
         <VerticalStackLayout Padding="24"
@@ -83,7 +90,7 @@
                                            FontSize="10"
                                            TextColor="#5A5A5A"
                                            Style="{StaticResource LabelBold}" />
-                                    <Label Text="MM/DD/YYYY"
+                                    <Label Text="{Binding Customer.BookingDetails.StartDate,Converter={StaticResource DateFormatConverter}, TargetNullValue='N/A', FallbackValue='N/A'}"
                                            Grid.Column="1"
                                            FontSize="10"
                                            TextColor="#181818"
@@ -95,7 +102,7 @@
                                            FontSize="10"
                                            TextColor="#5A5A5A"
                                            Style="{StaticResource LabelBold}" />
-                                    <Label Text="MM/DD/YYYY"
+                                    <Label Text="{Binding Customer.BookingDetails.EndDate,Converter={StaticResource DateFormatConverter}, TargetNullValue='N/A', FallbackValue='N/A'}"
                                            Grid.Column="1"
                                            FontSize="10"
                                            TextColor="#181818"
@@ -111,7 +118,7 @@
                                            FontSize="10"
                                            TextColor="#5A5A5A"
                                            Style="{StaticResource LabelBold}" />
-                                    <Label Text="xxxxxx"
+                                    <Label Text="{Binding Customer.TransactionDetails.InvoiceNumber, FallbackValue='N/A'}"
                                            Grid.Column="1"
                                            FontSize="10"
                                            TextColor="#181818"
@@ -123,7 +130,7 @@
                                            FontSize="10"
                                            TextColor="#5A5A5A"
                                            Style="{StaticResource LabelBold}" />
-                                    <Label Text="NPR 500.00"
+                                    <Label Text="{Binding Customer.TransactionDetails.DueAmount, StringFormat='NPR {0:F2}', FallbackValue='NPR 0.00'}"
                                            Grid.Column="1"
                                            FontSize="10"
                                            TextColor="#181818"
@@ -161,15 +168,15 @@
                             <Label Text="Billed to:"
                                    FontSize="12"
                                    TextColor="#1B263B" />
-                            <Label Text="Shree Krishna"
+                            <Label Text="{Binding Customer.FullName}"
                                    FontSize="12"
                                    TextColor="#415A77"
                                    Style="{StaticResource LabelMedium}" />
-                            <Label Text="9800000000"
+                            <Label Text="{Binding Customer.MobileNumber}"
                                    FontSize="12"
                                    TextColor="#415A77"
                                    Style="{StaticResource LabelBold}" />
-                            <Label Text="Brindaban, Earth, Universe"
+                            <Label Text="{Binding Customer.CurrentAddress}"
                                    FontSize="12"
                                    TextColor="#415A77"
                                    Style="{StaticResource LabelBold}" />
@@ -178,7 +185,7 @@
 
                     <!-- Payment information -->
                     <Label Grid.Row="2"
-                           Text="Partial Payment of NPR 1000 has been received for the booking of following resource:"
+                           Text="Payment of NPR 1000 has been received for the booking of following resource:"
                            FontSize="12"
                            TextColor="#0D1B2A"
                            Margin="0,0,0,24" />
@@ -217,18 +224,18 @@
 
                             <Grid Padding="24,9"
                                   ColumnDefinitions="2*,*,*,*">
-                                <Label Text="AC Room, Desk 02"
+                                <Label Text="{Binding Customer.BookingDetails.RoomAndDeskName, TargetNullValue='N/A'}"
                                        FontSize="12"
                                        TextColor="#415A77" />
                                 <Label Text="1"
                                        Grid.Column="1"
                                        FontSize="12"
                                        TextColor="#415A77" />
-                                <Label Text="NPR 4000.00"
+                                <Label Text="{Binding Customer.BookingDetails.PackagePrice, StringFormat='NPR {0:F2}', FallbackValue='NPR 0.00'}"
                                        Grid.Column="2"
                                        FontSize="12"
                                        TextColor="#181818" />
-                                <Label Text="NPR 4000.00"
+                                <Label Text="{Binding Customer.BookingDetails.PackagePrice, StringFormat='NPR {0:F2}', FallbackValue='NPR 0.00'}"
                                        Grid.Column="3"
                                        FontSize="12"
                                        TextColor="#181818" />
@@ -242,15 +249,15 @@
                                 <Label Text="Locker Room"
                                        FontSize="12"
                                        TextColor="#415A77" />
-                                <Label Text="2"
+                                <Label Text="1"
                                        Grid.Column="1"
                                        FontSize="12"
                                        TextColor="#415A77" />
-                                <Label Text="NPR 1000.00"
+                                <Label Text="{Binding Customer.TransactionDetails.LockerAmount, StringFormat='NPR {0:F2}', FallbackValue='NPR 0.00'}"
                                        Grid.Column="2"
                                        FontSize="12"
                                        TextColor="#181818" />
-                                <Label Text="NPR 1000.00"
+                                <Label Text="{Binding Customer.TransactionDetails.LockerAmount, StringFormat='NPR {0:F2}', FallbackValue='NPR 0.00'}"
                                        Grid.Column="3"
                                        FontSize="12"
                                        TextColor="#181818" />
@@ -268,11 +275,11 @@
                                        Grid.Column="1"
                                        FontSize="12"
                                        TextColor="#415A77" />
-                                <Label Text="NPR 100.00"
+                                <Label Text="{Binding Customer.TransactionDetails.ParkingAmount, StringFormat='NPR {0:F2}', FallbackValue='NPR 0.00'}"
                                        Grid.Column="2"
                                        FontSize="12"
                                        TextColor="#181818" />
-                                <Label Text="NPR 100.00"
+                                <Label Text="{Binding Customer.TransactionDetails.ParkingAmount, StringFormat='NPR {0:F2}', FallbackValue='NPR 0.00'}"
                                        Grid.Column="3"
                                        FontSize="12"
                                        TextColor="#181818" />
@@ -289,7 +296,7 @@
                                    FontSize="12"
                                    TextColor="#5A5A5A"
                                    Style="{StaticResource LabelBold}" />
-                            <Label Text="NPR 5100.00"
+                            <Label Text="{Binding Customer.TransactionDetails.TotalAmount, StringFormat='NPR {0:F2}', FallbackValue='NPR 0.00'}"
                                    Grid.Column="1"
                                    FontSize="12"
                                    TextColor="#181818"
@@ -300,7 +307,7 @@
                                    FontSize="12"
                                    TextColor="#5A5A5A"
                                    Style="{StaticResource LabelBold}" />
-                            <Label Text="NPR 143.00"
+                            <Label Text="NPR 0.00"
                                    Grid.Column="1"
                                    FontSize="12"
                                    TextColor="#181818"
@@ -311,7 +318,7 @@
                                    FontSize="12"
                                    TextColor="#5A5A5A"
                                    Style="{StaticResource LabelBold}" />
-                            <Label Text="NPR 5243.00"
+                            <Label Text="{Binding Customer.TransactionDetails.TotalAmount, StringFormat='NPR {0:F2}', FallbackValue='NPR 0.00'}"
                                    Grid.Column="1"
                                    FontSize="12"
                                    TextColor="#181818"
@@ -326,7 +333,7 @@
                                    FontSize="12"
                                    TextColor="#5A5A5A"
                                    Style="{StaticResource LabelBold}" />
-                            <Label Text="NPR 1000.00"
+                            <Label Text="{Binding Customer.TransactionDetails.PaidAmount, StringFormat='NPR {0:F2}', FallbackValue='NPR 0.00'}"
                                    Grid.Column="1"
                                    FontSize="12"
                                    TextColor="#181818"
@@ -337,7 +344,7 @@
                                    FontSize="12"
                                    TextColor="#5A5A5A"
                                    Style="{StaticResource LabelBold}" />
-                            <Label Text="NPR 4243.00"
+                            <Label Text="{Binding Customer.TransactionDetails.DueAmount, StringFormat='NPR {0:F2}', FallbackValue='NPR 0.00'}"
                                    Grid.Column="1"
                                    FontSize="14"
                                    TextColor="#181818"
@@ -416,7 +423,7 @@
                         BorderColor="#E2E8F0"
                         BorderWidth="1"
                         CornerRadius="8"
-                        Command="{Binding DownloadCommand}"
+                        Released="OnDownloadReceiptClicked"
                         Padding="24,12" />
             </HorizontalStackLayout>
         </VerticalStackLayout>

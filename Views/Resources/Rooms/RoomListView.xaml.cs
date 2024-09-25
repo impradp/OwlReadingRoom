@@ -14,7 +14,7 @@ namespace OwlReadingRoom.Views.Resources.Rooms;
 
 public partial class RoomListView : ContentView, INotifyPropertyChanged
 {
-    private ObservableCollection<RoomListViewModel> _rooms;
+    private List<RoomListViewModel> _rooms;
     private readonly IServiceProvider _serviceProvider;
     private readonly IRoomService _roomService;
     private readonly IPhysicalResourceService _resourceService;
@@ -34,7 +34,7 @@ public partial class RoomListView : ContentView, INotifyPropertyChanged
         _deskLayoutFactory = deskLayoutFactory;
     }
 
-    public ObservableCollection<RoomListViewModel> Rooms
+    public List<RoomListViewModel> Rooms
     {
         get => _rooms;
         set
@@ -104,7 +104,7 @@ public partial class RoomListView : ContentView, INotifyPropertyChanged
 
             #endregion
 
-            Rooms = new ObservableCollection<RoomListViewModel>(_resourceService.fetchRooms());
+            Rooms = _resourceService.fetchRooms();
         }
         catch (Exception ex)
         {
@@ -132,15 +132,24 @@ public partial class RoomListView : ContentView, INotifyPropertyChanged
         LoadRoomData();
     }
 
-    private void OnRoomEyeClicked(object sender, EventArgs e)
+    private async void OnRoomEyeClicked(object sender, EventArgs e)
     {
-        var button = sender as ActionButtonsView;
-        var room = button?.BindingContext as RoomListViewModel;
-        if (room != null)
+
+        try
         {
-            var deskLayoutPopup = _deskLayoutFactory(room);
-            Application.Current.MainPage.ShowPopup(deskLayoutPopup);
+            var button = sender as ActionButtonsView;
+            var room = button?.BindingContext as RoomListViewModel;
+            if (room != null)
+            {
+                var deskLayoutPopup = _deskLayoutFactory(room);
+                await Application.Current.MainPage.ShowPopupAsync(deskLayoutPopup);
+            }
         }
+        catch (Exception ex)
+        {
+            ExceptionHandler.HandleException("Displaying layout.", ex);
+        }
+
     }
 
 

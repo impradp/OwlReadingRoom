@@ -2,21 +2,24 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="OwlReadingRoom.Views.Customer.CustomerView"
-              xmlns:local="clr-namespace:OwlReadingRoom.Utils"
+             xmlns:local="clr-namespace:OwlReadingRoom.Utils"
+             xmlns:converter="clr-namespace:OwlReadingRoom.Utils.Converter"
              BackgroundColor="White">
     <ContentView.Resources>
         <Style x:Key="CellLabelStyle"
                TargetType="Label">
             <Setter Property="FontFamily"
-                    Value="Inter" />
+                    Value="Inter-Medium" />
             <Setter Property="FontSize"
-                    Value="16" />
+                    Value="{OnPlatform iOS=14, Android=12, Default=14}" />
             <Setter Property="VerticalOptions"
                     Value="Center" />
             <Setter Property="HorizontalOptions"
                     Value="Center" />
             <Setter Property="TextColor"
                     Value="#475569" />
+            <Setter Property="LineBreakMode"
+                    Value="TailTruncation" />
         </Style>
 
         <Style x:Key="CellHeaderStyle"
@@ -24,157 +27,185 @@
             <Setter Property="FontFamily"
                     Value="Inter-Medium" />
             <Setter Property="FontSize"
-                    Value="14" />
+                    Value="{OnPlatform iOS=14, Android=12, Default=14}" />
             <Setter Property="VerticalOptions"
                     Value="Center" />
             <Setter Property="TextColor"
                     Value="#1E293B" />
             <Setter Property="HorizontalOptions"
                     Value="Center" />
-
+            <Setter Property="LineBreakMode"
+                    Value="TailTruncation" />
         </Style>
-        <ResourceDictionary>
-            <local:DateFormatConverter x:Key="DateFormatConverter"/>
-        </ResourceDictionary>
+
+        <local:DateFormatConverter x:Key="DateFormatConverter" />
+        <converter:PaymentStatusToColorConverter x:Key="PaymentStatusToColorConverter" />
     </ContentView.Resources>
+
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="80" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <!-- Title and Sort Button -->
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0"
+              Padding="10,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <Label Text="Customer list"
-                   FontSize="20"
+                   FontSize="{OnPlatform iOS=20, Android=18, Default=20}"
+                   Style="{StaticResource LabelMedium}"
+                   VerticalOptions="Center"
+                   Padding="0,24,0,24"
                    TextColor="#778DA9" />
         </Grid>
 
+        <!-- Headers -->
+        <Grid Grid.Row="1"
+              ColumnSpacing="5"
+              BackgroundColor="#E2E8F0"
+              HeightRequest="80">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Full Names"
+                   Grid.Column="0"
+                   Style="{StaticResource CellHeaderStyle}" />
+            <Label Text="Contact Number"
+                   Grid.Column="1"
+                   Style="{StaticResource CellHeaderStyle}" />
+            <Label Text="Faculty"
+                   Grid.Column="2"
+                   Style="{StaticResource CellHeaderStyle}" />
+            <Label Text="Start Date"
+                   Grid.Column="3"
+                   Style="{StaticResource CellHeaderStyle}" />
+            <Label Text="End Date"
+                   Grid.Column="4"
+                   Style="{StaticResource CellHeaderStyle}" />
+            <Label Text="Package"
+                   Grid.Column="5"
+                   Style="{StaticResource CellHeaderStyle}" />
+            <Label Text="Allocated Space"
+                   Grid.Column="6"
+                   Style="{StaticResource CellHeaderStyle}" />
+            <Label Text="Payment Status"
+                   Grid.Column="7"
+                   Style="{StaticResource CellHeaderStyle}" />
+            <Label Text="Dues"
+                   Grid.Column="8"
+                   Style="{StaticResource CellHeaderStyle}" />
+        </Grid>
+
         <!-- Customer Table -->
-        <!-- Customer Table with Synchronized Horizontal Scroll -->
-        <ScrollView Grid.Row="1"
-                    Orientation="Horizontal" HorizontalScrollBarVisibility="Always"
-                    HorizontalOptions="StartAndExpand">
-            <Grid MinimumWidthRequest="1180">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="80" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+        <ScrollView Grid.Row="2"
+                    Orientation="Both"
+                    HorizontalScrollBarVisibility="Always"
+                    VerticalScrollBarVisibility="Always">
+            <CollectionView ItemsSource="{Binding Customers}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnSpacing="5"
+                              HeightRequest="56">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=CustomerTappedCommand}"
+                                                      CommandParameter="{Binding .}" />
+                            </Grid.GestureRecognizers>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="4*" />
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
 
-                <!-- Sticky Headers -->
-                <Grid Grid.Row="0"
-                      BackgroundColor="#E2E8F0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="160" />
-                        <ColumnDefinition Width="150" />
-                        <ColumnDefinition Width="110" />
-                        <ColumnDefinition Width="110" />
-                        <ColumnDefinition Width="110" />
-                        <ColumnDefinition Width="105" />
-                        <ColumnDefinition Width="190" />
-                        <ColumnDefinition Width="80" />
-                        <ColumnDefinition Width="115" />
-                    </Grid.ColumnDefinitions>
-                    <Label Text="Full Names"
-                           Grid.Column="0"
-                           Style="{StaticResource CellHeaderStyle}" />
-                    <Label Text="Contact Number"
-                           Grid.Column="1"
-                           Style="{StaticResource CellHeaderStyle}" />
-                    <Label Text="Faculty"
-                           Grid.Column="2"
-                           Style="{StaticResource CellHeaderStyle}" />
-                    <Label Text="Start Date"
-                           Grid.Column="3"
-                           Style="{StaticResource CellHeaderStyle}" />
-                    <Label Text="End Date"
-                           Grid.Column="4"
-                           Style="{StaticResource CellHeaderStyle}" />
-                    <Label Text="Package"
-                           Grid.Column="5"
-                           Style="{StaticResource CellHeaderStyle}" />
-                    <Label Text="Allocated Space"
-                           Grid.Column="6"
-                           Style="{StaticResource CellHeaderStyle}" />
-                    <Label Text="Payment Status"
-                           Grid.Column="7"
-                           Style="{StaticResource CellHeaderStyle}" />
-                    <Label Text="Dues"
-                           Grid.Column="8"
-                           Style="{StaticResource CellHeaderStyle}" />
-                </Grid>
+                            <Label Text="{Binding FullName}"
+                                   Style="{StaticResource CellLabelStyle}"
+                                   Grid.Column="0" />
+                            <Label Text="{Binding ContactNumber}"
+                                   Style="{StaticResource CellLabelStyle}"
+                                   Grid.Column="1" />
+                            <Label Text="{Binding Faculty}"
+                                   Style="{StaticResource CellLabelStyle}"
+                                   Grid.Column="2" />
+                            <Label Text="{Binding StartDate, Converter={StaticResource DateFormatConverter}, FallbackValue='N/A', TargetNullValue='N/A'}"
+                                   Style="{StaticResource CellLabelStyle}"
+                                   Grid.Column="3" />
+                            <Label Text="{Binding EndDate, Converter={StaticResource DateFormatConverter}, FallbackValue='N/A', TargetNullValue='N/A'}"
+                                   Style="{StaticResource CellLabelStyle}"
+                                   Grid.Column="4" />
+                            <Label Text="{Binding Package}"
+                                   Style="{StaticResource CellLabelStyle}"
+                                   Grid.Column="5" />
+                            <Label Text="{Binding AllocatedSpace}"
+                                   Style="{StaticResource CellLabelStyle}"
+                                   Grid.Column="6" />
+                            <Frame Grid.Column="7"
+                                   BackgroundColor="{Binding PaymentStatus, Converter={StaticResource PaymentStatusToColorConverter}}"
+                                   CornerRadius="4"
+                                   Padding="8,4"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   Margin="16,8">
+                                <Label Text="{Binding PaymentStatus}"
+                                       TextColor="White"
+                                       FontSize="12"
+                                       FontAttributes="Bold"
+                                       VerticalTextAlignment="Center"
+                                       HorizontalTextAlignment="Center" />
+                            </Frame>
+                            <Label Text="{Binding Dues}"
+                                   Style="{StaticResource CellLabelStyle}"
+                                   Grid.Column="8" />
 
-                <!-- Customer Table Content with Vertical Scroll -->
-                <Grid Grid.Row="1">
-                    <CollectionView ItemsSource="{Binding Customers}">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=CustomerTappedCommand}"
-                                                              CommandParameter="{Binding .}" />
-                                    </Grid.GestureRecognizers>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="56" />
-                                        <RowDefinition Height="1" />
-                                    </Grid.RowDefinitions>
-                                    <Grid Grid.Row="0">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="160" />
-                                            <ColumnDefinition Width="150" />
-                                            <ColumnDefinition Width="110" />
-                                            <ColumnDefinition Width="110" />
-                                            <ColumnDefinition Width="110" />
-                                            <ColumnDefinition Width="105" />
-                                            <ColumnDefinition Width="190" />
-                                            <ColumnDefinition Width="80" />
-                                            <ColumnDefinition Width="115" />
-                                        </Grid.ColumnDefinitions>
-                                        <Label Text="{Binding FullName}"
-                                               Style="{StaticResource CellLabelStyle}"
-                                               Grid.Column="0" />
-                                        <Label Text="{Binding ContactNumber}"
-                                               Style="{StaticResource CellLabelStyle}"
-                                               Grid.Column="1" />
-                                        <Label Text="{Binding Faculty, FallbackValue='N/A', TargetNullValue= 'N/A'}"
-                                               Style="{StaticResource CellLabelStyle}"
-                                               Grid.Column="2" />
-                                        <Label Text="{Binding StartDate, Converter={StaticResource DateFormatConverter}, FallbackValue='N/A', TargetNullValue= 'N/A'}"
-                                               Style="{StaticResource CellLabelStyle}"
-                                               Grid.Column="3" />
-                                        <Label Text="{Binding EndDate, Converter={StaticResource DateFormatConverter}, FallbackValue='N/A', TargetNullValue= 'N/A'}"
-                                               Style="{StaticResource CellLabelStyle}"
-                                               Grid.Column="4" />
-                                        <Label Text="{Binding Package, FallbackValue='N/A', TargetNullValue= 'N/A'}"
-                                               Style="{StaticResource CellLabelStyle}"
-                                               Grid.Column="5" />
-                                        <Label Text="{Binding AllocatedSpace, FallbackValue='N/A', TargetNullValue= 'N/A'}"
-                                               Style="{StaticResource CellLabelStyle}"
-                                               Grid.Column="6" />
-                                        <Label Text="{Binding PaymentStatus, FallbackValue='N/A', TargetNullValue= 'N/A'}"
-                                               Style="{StaticResource CellLabelStyle}"
-                                               TextColor="White"
-                                               BackgroundColor="#22C55E"
-                                               Grid.Column="7" />
-                                        <Label Text="{Binding Dues, FallbackValue='N/A', TargetNullValue= 'N/A'}"
-                                               Style="{StaticResource CellLabelStyle}"
-                                               Grid.Column="8" />
-                                    </Grid>
-                                    <BoxView Grid.Row="1"
-                                             HeightRequest="1"
-                                             Color="#E2E8F0"
-                                             HorizontalOptions="FillAndExpand" />
-                                </Grid>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </Grid>
-            </Grid>
+                            <BoxView Grid.ColumnSpan="9"
+                                     HeightRequest="1"
+                                     Color="#E2E8F0"
+                                     VerticalOptions="End" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </ScrollView>
+        <VerticalStackLayout Grid.Row="2"
+                             VerticalOptions="Center"
+                             HorizontalOptions="Center"
+                             Spacing="16"
+                             IsVisible="{Binding IsEmptyState}">
+            <Image Source="empty_state.png"
+                   WidthRequest="188"
+                   HeightRequest="140" />
+            <Label Text="Oops! No active customers."
+                   Style="{StaticResource LabelSemiBold}"
+                   FontSize="16"
+                   TextColor="#1E293B"
+                   FontAttributes="Italic"
+                   HorizontalOptions="Center" />
+            <Label Text="Click on the new entry button at the top to create new customers."
+                   Style="{StaticResource LabelMedium}"
+                   FontSize="14"
+                   TextColor="#64748B"
+                   HorizontalOptions="Center"
+                   WidthRequest="386"
+                   HorizontalTextAlignment="Center" />
+        </VerticalStackLayout>
     </Grid>
 </ContentView>

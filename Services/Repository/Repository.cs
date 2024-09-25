@@ -67,7 +67,8 @@ namespace OwlReadingRoom.Services.Repository
             {
                 item.UpdatedAt = now;
                 item.UpdatedBy = _userService.CurrentUser.Name;
-                return connectionService.Connection.Update(item);
+                connectionService.Connection.Update(item);
+                return item.Id;
             }
             else
             {
@@ -75,7 +76,8 @@ namespace OwlReadingRoom.Services.Repository
                 item.UpdatedAt = now;
                 item.CreatedBy = _userService.CurrentUser.Name;
                 item.UpdatedBy = _userService.CurrentUser.Name;
-                return connectionService.Connection.Insert(item);
+                connectionService.Connection.Insert(item);
+                return connectionService.Connection.ExecuteScalar<int>("SELECT last_insert_rowid()");
             }
         }
 

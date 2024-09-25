@@ -1,4 +1,5 @@
 ﻿
+using OwlReadingRoom.Models;
 using OwlReadingRoom.Services.Transactions;
 using OwlReadingRoom.ViewModels;
 
@@ -28,18 +29,27 @@ public class CustomerDetailsService : ICustomerDetailsService
         {
             CustomerId = minimumInformation.CustomerId,
             FullName = personalDetail.FullName,
-            Allergies = personalDetail.Allergies,   
+            Allergies = personalDetail.Allergies,
             CurrentAddress = addressDetail.TemporaryAddress,
             PermanantAddress = addressDetail.PermanentAddress,
             DateOfBirth = personalDetail.DOB,
             Disease = personalDetail.Disease,
-            Gender = personalDetail.Gender, 
+            Gender = personalDetail.Gender,
             Faculty = personalDetail.Faculty,
             MobileNumber = minimumInformation.ContactNumber,
             BookingDetails = bookingInformation,
             TransactionDetails = transactionInformation,
             Documents = documentInformation,
             Status = minimumInformation.Status.ToString()
+        };
+    }
+
+    public void RenewCustomerBooking(CustomerDetailViewModel customerDetail)
+    {
+        int bookingId = _bookingService.PerformCustomerRenew(customerDetail.CustomerId);
+        customerDetail.BookingDetails = new BookingInfoViewModel()
+        {
+            Id = bookingId,
         };
     }
 }

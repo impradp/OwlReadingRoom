@@ -19,6 +19,6 @@ public static class AppConstants
     public static class FacilitiesPrices
     {
         public const double locker = 500;
-        public const double parking = 500;
+        public const double parking = 0;
     }
 }
