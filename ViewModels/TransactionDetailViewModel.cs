@@ -11,5 +11,9 @@
         public double DueAmount { get; set; }
         public string PaymentStatus { get; set; } 
         public DateTime? LastPaymentDate { get; set; }
+        public string InvoiceNumber
+        {
+            get { return $"{DateTimeOffset.Now.ToUnixTimeMilliseconds()}"; }
+        }
     }
 }
