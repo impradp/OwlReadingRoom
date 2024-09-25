@@ -141,7 +141,7 @@
                                 <Entry x:Name="DeskNameEntry"
                                        Grid.Column="1"
                                        Text="{Binding SelectedDesk}"
-                                       Style="{StaticResource EntryInfoStyle}"
+                                       Style="{StaticResource LabelRegular}"
                                        PlaceholderColor="#647087"
                                        Placeholder="Select Desk"
                                        IsEnabled="False" />
@@ -172,7 +172,7 @@
                                CornerRadius="4"
                                BorderColor="#CBD5E1"
                                HasShadow="False">
-                            <Picker Style="{StaticResource EntryInfoStyle}"
+                            <Picker Style="{StaticResource LabelRegular}"
                                     SelectedItem="{Binding PackagePaymentDetail.PaymentMethod, Mode=OneWayToSource}">
                                 <Picker.Items>
                                     <x:String>Cash</x:String>
@@ -213,7 +213,7 @@
                                BorderColor="#CBD5E1"
                                HasShadow="False">
                             <Entry x:Name="PaidAmountEntry"
-                                   Style="{StaticResource EntryInfoStyle}"
+                                   Style="{StaticResource LabelRegular}"
                                    PlaceholderColor="#647087"
                                    Placeholder="Enter Amount"
                                    MaxLength="7"
@@ -245,7 +245,7 @@
                                    CornerRadius="4"
                                    BorderColor="#CBD5E1"
                                    HasShadow="False">
-                                <Picker Style="{StaticResource EntryInfoStyle}"
+                                <Picker Style="{StaticResource LabelRegular}"
                                         IsEnabled="{Binding IsEditable}"
                                         SelectedIndex="{Binding PackagePaymentDetail.HasParking, Converter={StaticResource BoolToIntConverter}}">
                                     <Picker.Items>
@@ -268,7 +268,7 @@
                                    CornerRadius="4"
                                    BorderColor="#CBD5E1"
                                    HasShadow="False">
-                                <Picker Style="{StaticResource EntryInfoStyle}"
+                                <Picker Style="{StaticResource LabelRegular}"
                                         IsEnabled="{Binding IsEditable}"
                                         SelectedIndex="{Binding PackagePaymentDetail.HasLocker, Converter={StaticResource BoolToIntConverter}}">
                                     <Picker.Items>

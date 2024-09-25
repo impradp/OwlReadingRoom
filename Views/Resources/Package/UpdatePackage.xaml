@@ -76,7 +76,7 @@
                                    HasShadow="False">
                                 <Entry x:Name="IdEntry"
                                        Text="{Binding Package.Id}"
-                                       Style="{StaticResource EntryInfoStyle}"
+                                       Style="{StaticResource LabelRegular}"
                                        VerticalOptions="Center"
                                        IsEnabled="False" />
                             </Frame>
@@ -95,7 +95,7 @@
                                    BorderColor="#CBD5E1"
                                    HasShadow="False">
                                 <Picker x:Name="RoomTypePicker"
-                                       Style="{StaticResource EntryInfoStyle}"
+                                       Style="{StaticResource LabelRegular}"
                                        ItemsSource="{Binding RoomTypes}"
                                        SelectedItem="{Binding Package.RoomType}">
                                     <Picker.ItemDisplayBinding>
@@ -119,7 +119,7 @@
                                    HasShadow="False">
                                 <Entry x:Name="NameEntry"
                                        Text="{Binding Package.Name}"
-                                       Style="{StaticResource EntryInfoStyle}"
+                                       Style="{StaticResource LabelRegular}"
                                        VerticalOptions="Center" />
                             </Frame>
                         </VerticalStackLayout>
@@ -138,7 +138,7 @@
                                    HasShadow="False">
                                 <Entry x:Name="AmountEntry"
                                        Text="{Binding Package.Price}"
-                                       Style="{StaticResource EntryInfoStyle}"
+                                       Style="{StaticResource LabelRegular}"
                                        VerticalOptions="Center" />
                             </Frame>
                         </VerticalStackLayout>
@@ -157,7 +157,7 @@
                                    HasShadow="False">
                                 <Entry x:Name="DaysEntry"
                                        Text="{Binding Package.Days}"
-                                       Style="{StaticResource EntryInfoStyle}"
+                                       Style="{StaticResource LabelRegular}"
                                        VerticalOptions="Center" />
                             </Frame>
                         </VerticalStackLayout>

@@ -7,6 +7,12 @@
              xmlns:component="clr-namespace:OwlReadingRoom.Components"
              BackgroundColor="White">
 
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <local:RoomTypeConverter x:Key="RoomTypeConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

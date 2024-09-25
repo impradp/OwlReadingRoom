@@ -66,52 +66,52 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiImage Remove="Resources\Images\owl_logo.png" />
+		<MauiImage Remove="Resources\Images\owl_logo.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="appsettings.json" />
-	  <None Remove="Resources\Fonts\Inika-Bold.ttf" />
-	  <None Remove="Resources\Fonts\Inika-Regular.ttf" />
-	  <None Remove="Resources\Fonts\Inter-Bold.ttf" />
-	  <None Remove="Resources\Fonts\Inter-Medium.ttf" />
-	  <None Remove="Resources\Fonts\Inter-Regular.ttf" />
-	  <None Remove="Resources\Fonts\Inter-SemiBold.ttf" />
-	  <None Remove="Resources\Images\admin_logo_icon.svg" />
-	  <None Remove="Resources\Images\bell_icon.png" />
-	  <None Remove="Resources\Images\call_icon.svg" />
-	  <None Remove="Resources\Images\circle_check_filled_icon.svg" />
-	  <None Remove="Resources\Images\close_icon.svg" />
-	  <None Remove="Resources\Images\customer_icon.svg" />
-	  <None Remove="Resources\Images\danger_triangle_icon.svg" />
-	  <None Remove="Resources\Images\download_icon.svg" />
-	  <None Remove="Resources\Images\email_icon.svg" />
-	  <None Remove="Resources\Images\empty_state.svg" />
-	  <None Remove="Resources\Images\error_icon.svg" />
-	  <None Remove="Resources\Images\eye_icon.svg" />
-	  <None Remove="Resources\Images\facebook_icon.svg" />
-	  <None Remove="Resources\Images\info_icon.svg" />
-	  <None Remove="Resources\Images\instagram_icon.svg" />
-	  <None Remove="Resources\Images\linked_in_icon.svg" />
-	  <None Remove="Resources\Images\logout_icon.svg" />
-	  <None Remove="Resources\Images\new_entry_icon.svg" />
-	  <None Remove="Resources\Images\owl_logo_icon.svg" />
-	  <None Remove="Resources\Images\plus_icon.svg" />
-	  <None Remove="Resources\Images\print_icon.svg" />
-	  <None Remove="Resources\Images\profile_picture_icon.svg" />
-	  <None Remove="Resources\Images\receipt_icon.svg" />
-	  <None Remove="Resources\Images\reception_icon.svg" />
-	  <None Remove="Resources\Images\resources_icon.svg" />
-	  <None Remove="Resources\Images\settings_icon.svg" />
-	  <None Remove="Resources\Images\success_icon.svg" />
-	  <None Remove="Resources\Images\trash_icon.svg" />
-	  <None Remove="Resources\Images\update_icon.svg" />
+		<None Remove="appsettings.json" />
+		<None Remove="Resources\Fonts\Inika-Bold.ttf" />
+		<None Remove="Resources\Fonts\Inika-Regular.ttf" />
+		<None Remove="Resources\Fonts\Inter-Bold.ttf" />
+		<None Remove="Resources\Fonts\Inter-Medium.ttf" />
+		<None Remove="Resources\Fonts\Inter-Regular.ttf" />
+		<None Remove="Resources\Fonts\Inter-SemiBold.ttf" />
+		<None Remove="Resources\Images\admin_logo_icon.svg" />
+		<None Remove="Resources\Images\bell_icon.png" />
+		<None Remove="Resources\Images\call_icon.svg" />
+		<None Remove="Resources\Images\circle_check_filled_icon.svg" />
+		<None Remove="Resources\Images\close_icon.svg" />
+		<None Remove="Resources\Images\customer_icon.svg" />
+		<None Remove="Resources\Images\danger_triangle_icon.svg" />
+		<None Remove="Resources\Images\download_icon.svg" />
+		<None Remove="Resources\Images\email_icon.svg" />
+		<None Remove="Resources\Images\empty_state.svg" />
+		<None Remove="Resources\Images\error_icon.svg" />
+		<None Remove="Resources\Images\eye_icon.svg" />
+		<None Remove="Resources\Images\facebook_icon.svg" />
+		<None Remove="Resources\Images\info_icon.svg" />
+		<None Remove="Resources\Images\instagram_icon.svg" />
+		<None Remove="Resources\Images\linked_in_icon.svg" />
+		<None Remove="Resources\Images\logout_icon.svg" />
+		<None Remove="Resources\Images\new_entry_icon.svg" />
+		<None Remove="Resources\Images\owl_logo_icon.svg" />
+		<None Remove="Resources\Images\plus_icon.svg" />
+		<None Remove="Resources\Images\print_icon.svg" />
+		<None Remove="Resources\Images\profile_picture_icon.svg" />
+		<None Remove="Resources\Images\receipt_icon.svg" />
+		<None Remove="Resources\Images\reception_icon.svg" />
+		<None Remove="Resources\Images\resources_icon.svg" />
+		<None Remove="Resources\Images\settings_icon.svg" />
+		<None Remove="Resources\Images\success_icon.svg" />
+		<None Remove="Resources\Images\trash_icon.svg" />
+		<None Remove="Resources\Images\update_icon.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="appsettings.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </EmbeddedResource>
+		<EmbeddedResource Include="appsettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -124,106 +124,117 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 		<PackageReference Include="SkiaSharp" Version="2.88.8" />
 		<PackageReference Include="SonarAnalyzer.CSharp" Version="9.30.0.95878">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Views\MainView.xaml.cs">
-	    <DependentUpon>MainView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Resources\Rooms\Plans\ACRoomPlan.xaml.cs">
-	    <DependentUpon>ACRoomPlan.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Resources\Rooms\Plans\NonACRoomPlan.xaml.cs">
-	    <DependentUpon>NonACRoomPlan.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Resources\Rooms\RoomListView.xaml.cs">
-	    <DependentUpon>RoomListView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Customer\PersonalDetailView.xaml.cs">
-	    <DependentUpon>PersonalDetailView.xaml</DependentUpon>
-	  </Compile>
+		<Compile Update="Views\MainView.xaml.cs">
+			<DependentUpon>MainView.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Resources\Rooms\Plans\ACRoomPlan.xaml.cs">
+			<DependentUpon>ACRoomPlan.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Resources\Rooms\Plans\NonACRoomPlan.xaml.cs">
+			<DependentUpon>NonACRoomPlan.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Resources\Rooms\RoomListView.xaml.cs">
+			<DependentUpon>RoomListView.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Customer\PersonalDetailView.xaml.cs">
+			<DependentUpon>PersonalDetailView.xaml</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Components\ActionButtonsView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Components\AlertDialog\AlertView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Components\AvailableDeskView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\AuthenticationPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Components\Loader.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Customer\CustomerDetailsView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Customer\CustomerUpdateView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Customer\CustomerView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Customer\DocumentDetailView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Customer\NewCustomer.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Customer\ReceiptView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Resources\Rooms\DeskSelectView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Resources\Package\DeletePackageDialog.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Resources\Package\NewPackage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Resources\Package\UpdatePackage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Resources\Rooms\DeskLayout.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Resources\Rooms\Plans\ACRoomPlan.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Resources\Rooms\Plans\NonACRoomPlan.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Resources\Rooms\NewRoom.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Resources\Package\PackageListView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Resources\Rooms\RoomListView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Customer\PackagePaymentDetailView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Customer\PersonalDetailView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Customer\CustomerListView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Resources\Rooms\UpdateRoom.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+		<MauiXaml Update="Components\ActionButtonsView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Components\AlertDialog\AlertView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Components\AvailableDeskView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\AuthenticationPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Components\Loader.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Customer\CustomerDetailsView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Customer\CustomerUpdateView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Customer\CustomerView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Customer\DocumentDetailView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Customer\NewCustomer.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Customer\ReceiptView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Resources\Rooms\DeskSelectView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Resources\Package\DeletePackageDialog.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Resources\Package\NewPackage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Resources\Package\UpdatePackage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Resources\Rooms\DeskLayout.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Resources\Rooms\Plans\ACRoomPlan.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Resources\Rooms\Plans\NonACRoomPlan.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Resources\Rooms\NewRoom.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Resources\Package\PackageListView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Resources\Rooms\RoomListView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Customer\PackagePaymentDetailView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Customer\PersonalDetailView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Customer\CustomerListView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Resources\Rooms\UpdateRoom.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="OwlReadingRoom_TemporaryKey.pfx">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Update="README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 
 </Project>

@@ -72,7 +72,7 @@
                                 <Entry x:Name="FullNameEntry"
                                        Placeholder="Full name"
                                        PlaceholderColor="#647087"
-                                       Style="{StaticResource EntryInfoStyle}"
+                                       Style="{StaticResource LabelRegular}"
                                        VerticalOptions="Center" />
                             </Frame>
                         </VerticalStackLayout>
@@ -90,7 +90,7 @@
                                    HasShadow="False">
                                 <Entry x:Name="ContactNumberEntry"
                                        Text="+977-"
-                                       Style="{StaticResource EntryInfoStyle}"
+                                       Style="{StaticResource LabelRegular}"
                                        PlaceholderColor="#647087"
                                        MaxLength="15"
                                        TextChanged="OnContactNumberTextChanged"

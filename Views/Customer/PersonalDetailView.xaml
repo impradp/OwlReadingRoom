@@ -26,7 +26,7 @@
                         <Entry Placeholder="Full name"
                                Text="{Binding FullName}"
                                PlaceholderColor="#647087"
-                               Style="{StaticResource EntryInfoStyle}"
+                               Style="{StaticResource LabelRegular}"
                                VerticalOptions="Center" />
                     </Frame>
                 </VerticalStackLayout>
@@ -95,7 +95,7 @@
                            HasShadow="False">
                         <Entry Placeholder="+977-"
                                Text="{Binding MobileNumber}"
-                               Style="{StaticResource EntryInfoStyle}"
+                               Style="{StaticResource LabelRegular}"
                                PlaceholderColor="#647087" />
                     </Frame>
                 </VerticalStackLayout>

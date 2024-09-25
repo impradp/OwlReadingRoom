@@ -78,7 +78,7 @@
                                 <Entry x:Name="PackageName"
                                        Placeholder="Enter Name"
                                        PlaceholderColor="#647087"
-                                       Style="{StaticResource EntryInfoStyle}"
+                                       Style="{StaticResource LabelRegular}"
                                        VerticalOptions="Center" />
                             </Frame>
                         </VerticalStackLayout>
@@ -102,7 +102,7 @@
                                            TextColor="Gray"
                                            Margin="5,0,0,0" />
                                     <Picker x:Name="RoomTypePicker"
-                                        Style="{StaticResource EntryInfoStyle}"
+                                        Style="{StaticResource LabelRegular}"
                                         ItemsSource="{Binding RoomTypes}"
                                         SelectedIndexChanged="OnRoomTypeSelectedIndexChanged">
                                         <Picker.ItemDisplayBinding>
@@ -127,7 +127,7 @@
                                    HasShadow="False">
                                 <component:DoubleEntry x:Name="AmountEntry"
                                        Placeholder="0.00"
-                                       Style="{StaticResource EntryInfoStyle}"
+                                       Style="{StaticResource LabelRegular}"
                                        PlaceholderColor="#647087"
                                        MaxLength="8"
                                        Keyboard="Telephone" />
@@ -148,7 +148,7 @@
                                    HasShadow="False">
                                 <component:NumericEntry x:Name="DaysEntry"
                                        Placeholder="0"
-                                       Style="{StaticResource EntryInfoStyle}"
+                                       Style="{StaticResource LabelRegular}"
                                        PlaceholderColor="#647087"
                                        MaxLength="5"
                                        Keyboard="Telephone" />

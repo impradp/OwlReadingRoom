@@ -79,7 +79,7 @@
                                                         Placeholder="Enter Number"
                                                         PlaceholderColor="#647087"
                                                         Background="White"
-                                                        Style="{StaticResource EntryInfoStyle}"
+                                                        Style="{StaticResource LabelRegular}"
                                                         MaxLength="2"
                                                         Keyboard="Telephone" />
                             </Frame>
@@ -104,7 +104,7 @@
                                            TextColor="Gray"
                                            Margin="5,0,0,0" />
                                     <Picker x:Name="RoomTypePicker"
-                                            Style="{StaticResource EntryInfoStyle}"
+                                            Style="{StaticResource LabelRegular}"
                                             ItemsSource="{Binding RoomTypes}"
                                             SelectedIndexChanged="OnRoomTypeSelectedIndexChanged">
                                         <Picker.ItemDisplayBinding>
