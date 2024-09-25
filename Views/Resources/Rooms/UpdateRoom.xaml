@@ -74,7 +74,7 @@
                                    HasShadow="False">
                                 <Entry x:Name="IdEntry"
                                        Text="{Binding Room.Id}"
-                                       Style="{StaticResource EntryInfoStyle}"
+                                       Style="{StaticResource LabelRegular}"
                                        VerticalOptions="Center"
                                        IsEnabled="False" />
                             </Frame>
@@ -94,7 +94,7 @@
                                    HasShadow="False">
                                 <Entry x:Name="NameEntry"
                                        Text="{Binding Room.Name}"
-                                       Style="{StaticResource EntryInfoStyle}"
+                                       Style="{StaticResource LabelRegular}"
                                        VerticalOptions="Center" />
                             </Frame>
                         </VerticalStackLayout>

@@ -197,6 +197,7 @@
                                    Padding="8,4"
                                    BorderColor="Transparent"
                                    VerticalOptions="Center"
+                                   Margin="0,0,0,10"
                                    CornerRadius="6">
                                 <Label Text="Not added"
                                        IsVisible="{Binding CustomerDetail.IsEmptyState}"
@@ -209,7 +210,7 @@
                                      Color="#E2E8F0"
                                      VerticalOptions="End" />
                         </Grid>
-                        <Grid ColumnDefinitions="*,*,*,*"
+                        <Grid ColumnDefinitions="*,*"
                               RowDefinitions="Auto,Auto"
                               ColumnSpacing="16"
                               RowSpacing="16">
@@ -227,23 +228,6 @@
                                        Style="{StaticResource LabelRegular}"
                                        TextColor="#415A77" />
                                 <Label Text="{Binding CustomerDetail.Documents.IssueDate, Converter={StaticResource DateFormatConverter}, FallbackValue='N/A', TargetNullValue='N/A'}"
-                                       Style="{StaticResource LabelSemiBold}" />
-                            </VerticalStackLayout>
-                            <VerticalStackLayout Grid.Column="2"
-                                                 Grid.Row="0">
-                                <Label Text="Expires On"
-                                       Style="{StaticResource LabelRegular}"
-                                       TextColor="#415A77" />
-                                <Label Text="NA"
-                                       Style="{StaticResource LabelSemiBold}" />
-                            </VerticalStackLayout>
-                            <VerticalStackLayout Grid.Column="3"
-                                                 Grid.Row="0">
-
-                                <Label Text="Place of Issue"
-                                       TextColor="#415A77"
-                                       FontSize="14" />
-                                <Label Text="{Binding CustomerDetail.Documents.PlaceOfIssue, FallbackValue='N/A', TargetNullValue='N/A'}"
                                        Style="{StaticResource LabelSemiBold}" />
                             </VerticalStackLayout>
                         </Grid>
@@ -283,11 +267,11 @@
                                            CornerRadius="8">
                                         <VerticalStackLayout HorizontalOptions="Center"
                                                              VerticalOptions="Center">
-                                            <Image Source="{Binding CustomerDetail.ImagePath}"
+                                            <Image Source="{Binding ImagePath}"
                                                    WidthRequest="177"
                                                    HeightRequest="228"
                                                    Aspect="AspectFit" />
-                                            <Label Text="{Binding CustomerDetail.ImageName, FallbackValue='N/A', TargetNullValue='N/A'}"
+                                            <Label Text="{Binding ImageName, FallbackValue='N/A', TargetNullValue='N/A'}"
                                                    TextColor="#64748B"
                                                    FontSize="16"
                                                    HorizontalOptions="Center" />
@@ -398,7 +382,7 @@
                                    TextColor="#415A77" />
                             <Label Grid.Column="1"
                                    Text="{Binding CustomerDetail.BookingDetails.PackagePrice, FallbackValue='0'}"
-                                   Style="{StaticResource EntryLabelReadonly}" />
+                                   Style="{StaticResource LabelSemiBold}" />
                             <Label Grid.Row="1"
                                    Text="Locker Service"
                                    Style="{StaticResource LabelRegular}"

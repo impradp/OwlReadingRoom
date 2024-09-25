@@ -63,12 +63,19 @@ namespace OwlReadingRoom
         /// <param name="selectedCustomer">The selected customer object passed on to this function for detailed display.</param>
         private void OnCustomerSelected(object sender, CustomerPackageViewModel selectedCustomer)
         {
-            UnsubscribeFromCurrentDetailView();
-            Func<CustomerPackageViewModel, CustomerDetailsView>? customerDetailView = _serviceProvider.GetService<Func<CustomerPackageViewModel, CustomerDetailsView>>();
-            _currentCustomerDetailsView = customerDetailView(selectedCustomer);
-            _currentCustomerDetailsView.CustomerUpdateSelected += OnCustomerUpdateSelected;
-            _currentCustomerDetailsView.CustomerReceiptSelected += OnCustomerReceiptSelected;
-            DynamicContentArea.Content = _currentCustomerDetailsView;
+            try
+            {
+                UnsubscribeFromCurrentDetailView();
+                Func<CustomerPackageViewModel, CustomerDetailsView>? customerDetailView = _serviceProvider.GetService<Func<CustomerPackageViewModel, CustomerDetailsView>>();
+                _currentCustomerDetailsView = customerDetailView(selectedCustomer);
+                _currentCustomerDetailsView.CustomerUpdateSelected += OnCustomerUpdateSelected;
+                _currentCustomerDetailsView.CustomerReceiptSelected += OnCustomerReceiptSelected;
+                DynamicContentArea.Content = _currentCustomerDetailsView;
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.HandleException("displaying customer details", ex);
+            }
         }
 
         /// <summary>

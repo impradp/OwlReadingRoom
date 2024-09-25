@@ -21,7 +21,7 @@
                             <Label x:Name="PersonalDetailTabLabel"
                                    Text="Personal Details"
                                    TextColor="#3B82F6"
-                                   Style="{StaticResource MediumLabel}"
+                                   Style="{StaticResource LabelMedium}"
                                    VerticalOptions="Center"
                                    HorizontalOptions="Center" />
                             <BoxView x:Name="PersonalDetailIndicator"
@@ -41,7 +41,7 @@
                                      BackgroundColor="White">
                             <Label x:Name="DocumentDetailTabLabel"
                                    Text="Document Details"
-                                   Style="{StaticResource MediumLabel}"
+                                   Style="{StaticResource LabelMedium}"
                                    VerticalOptions="Center"
                                    HorizontalOptions="Center" />
                             <BoxView x:Name="DocumentDetailTabIndicator"
@@ -61,7 +61,7 @@
                                      BackgroundColor="White">
                             <Label x:Name="PackagePaymentTabLabel"
                                    Text="Package &amp; Payment"
-                                   Style="{StaticResource MediumLabel}"
+                                   Style="{StaticResource LabelMedium}"
                                    VerticalOptions="Center"
                                    HorizontalOptions="Center" />
                             <BoxView x:Name="PackagePaymentTabIndicator"

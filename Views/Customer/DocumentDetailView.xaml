@@ -60,7 +60,7 @@
                            HasShadow="False">
                         <Entry Placeholder="Eg: 123-456-89"
                                Text="{Binding DocumentNumber}"
-                               Style="{StaticResource EntryInfoStyle}"
+                               Style="{StaticResource LabelRegular}"
                                PlaceholderColor="#647087" />
                     </Frame>
                 </VerticalStackLayout>
