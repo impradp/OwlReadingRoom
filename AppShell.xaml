@@ -4,7 +4,7 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:OwlReadingRoom.Views"
        Shell.FlyoutBehavior="Disabled"
-       Title="OwlReadingRoom">
+       Title="Owl Reading Room">
 
     <ShellContent ContentTemplate="{DataTemplate local:AuthenticationPage}"
                   Route="AuthenticationPage" />
