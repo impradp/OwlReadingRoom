@@ -5,6 +5,7 @@ public class NumericEntry : Entry
     public NumericEntry()
     {
         this.Keyboard = Keyboard.Numeric;
+        this.BackgroundColor = Color.FromHex("#FFFFFF");
     }
 
     protected override void OnTextChanged(string oldValue, string newValue)
