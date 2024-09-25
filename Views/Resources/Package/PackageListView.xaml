@@ -7,25 +7,26 @@
              xmlns:component="clr-namespace:OwlReadingRoom.Components"
              BackgroundColor="White">
 
-    <Grid RowSpacing="20">
+    <Grid RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="80" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0"
+              Padding="10,0,0,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <Label Text="Package list"
-                   FontFamily="Inter-Medium"
-                   FontSize="20"
-                   TextColor="#1B263B"
-                   VerticalOptions="Center" />
+                   FontSize="{OnPlatform iOS=20, Android=18, Default=20}"
+                   Style="{StaticResource LabelMedium}"
+                   VerticalOptions="Center"
+                   TextColor="#778DA9" />
 
             <Button Grid.Column="1"
                     Text="Create Package"
@@ -36,8 +37,7 @@
                     BorderColor="#3B82F6"
                     BorderWidth="1"
                     CornerRadius="4"
-                    Clicked="OnNewPackageButtonClicked"
-                    Padding="12">
+                    Released="OnNewPackageButtonClicked">
                 <Button.ImageSource>
                     <FontImageSource Glyph="+"
                                      Color="#3B82F6"
@@ -48,14 +48,15 @@
 
         <!-- Table Headers -->
         <Grid Grid.Row="1"
-              ColumnSpacing="0"
-              BackgroundColor="#E2E8F0">
+              ColumnSpacing="5"
+              BackgroundColor="#E2E8F0"
+              HeightRequest="80">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="110" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="150" />
-                <ColumnDefinition Width="150" />
-                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <Label Text="Package ID"
@@ -75,23 +76,19 @@
                    Style="{StaticResource HeaderLabelStyle}" />
         </Grid>
 
-        <CollectionView Grid.Row="2"
-                        ItemsSource="{Binding Packages}"
-                        IsVisible="{Binding HasPackages}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="56" />
-                            <RowDefinition Height="1" />
-                        </Grid.RowDefinitions>
-                        <Grid Grid.Row="0">
+        <ScrollView Grid.Row="2">
+            <CollectionView ItemsSource="{Binding Packages}"
+                            IsVisible="{Binding HasPackages}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnSpacing="5"
+                              HeightRequest="56">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="110" />
                                 <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="150" />
-                                <ColumnDefinition Width="150" />
-                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Text="{Binding Id}"
                                    Style="{StaticResource CellLabelStyle}"
@@ -110,16 +107,17 @@
                                                          TrashClicked="OnPackageTrashClicked"
                                                          IsEditVisible="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=BindingContext.ShouldShowEditButton}"
                                                          IsTrashVisible="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=BindingContext.ShouldShowTrashButton}"
-                                                         BindingContext="{Binding .}" />
+                                                         BindingContext="{Binding .}"
+                                                         HorizontalOptions="Center" />
+                            <BoxView Grid.ColumnSpan="5"
+                                     HeightRequest="1"
+                                     Color="#E2E8F0"
+                                     VerticalOptions="End" />
                         </Grid>
-                        <BoxView Grid.Row="1"
-                                 HeightRequest="1"
-                                 Color="#E2E8F0"
-                                 HorizontalOptions="FillAndExpand" />
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
 
         <!-- Empty State -->
         <VerticalStackLayout Grid.Row="2"
@@ -145,42 +143,4 @@
                    HorizontalTextAlignment="Center" />
         </VerticalStackLayout>
     </Grid>
-
-    <ContentView.Resources>
-        <ResourceDictionary>
-            <Style x:Key="HeaderLabelStyle"
-                   TargetType="Label">
-                <Setter Property="FontFamily"
-                        Value="Inter-Medium" />
-                <Setter Property="FontSize"
-                        Value="14" />
-                <Setter Property="TextColor"
-                        Value="#1E293B" />
-                <Setter Property="VerticalTextAlignment"
-                        Value="Center" />
-                <Setter Property="HorizontalTextAlignment"
-                        Value="Center" />
-                <Setter Property="Padding"
-                        Value="8,16" />
-                <Setter Property="Margin"
-                        Value="0,12" />
-            </Style>
-
-            <Style x:Key="CellLabelStyle"
-                   TargetType="Label">
-                <Setter Property="FontFamily"
-                        Value="Inter" />
-                <Setter Property="FontSize"
-                        Value="16" />
-                <Setter Property="VerticalOptions"
-                        Value="Center" />
-                <Setter Property="HorizontalOptions"
-                        Value="Center" />
-                <Setter Property="TextColor"
-                        Value="#475569" />
-            </Style>
-            <local:RoomTypeConverter x:Key="RoomTypeConverter"/>
-        </ResourceDictionary>
-    </ContentView.Resources>
 </ContentView>
-

@@ -31,15 +31,15 @@ public class BookingDetailsService : IBookingService
     public Dictionary<int, int> FetchUnavailableDesksCount()
     {
         var currentTime = DateTime.Now;
-        return  (from desk in _deskService.TableQuery
-                    join booking in _bookingRepository.Table on desk.Id equals booking.DeskId
-                    where booking.ReservationStartDate <= currentTime && booking.ReservationEndDate >= currentTime
-                    group desk by desk.RoomId into deskGroup
-                    select new
-                    {
-                        RoomId = deskGroup.Key,
-                        UnavailableDesksCount = deskGroup.Count()
-                    }).ToDictionary(k => k.RoomId, v => v.UnavailableDesksCount);
+        return (from desk in _deskService.TableQuery
+                join booking in _bookingRepository.Table on desk.Id equals booking.DeskId
+                where booking.ReservationStartDate <= currentTime && booking.ReservationEndDate >= currentTime
+                group desk by desk.RoomId into deskGroup
+                select new
+                {
+                    RoomId = deskGroup.Key,
+                    UnavailableDesksCount = deskGroup.Count()
+                }).ToDictionary(k => k.RoomId, v => v.UnavailableDesksCount);
 
     }
 
@@ -66,18 +66,18 @@ public class BookingDetailsService : IBookingService
                         EndDate = booking.ReservationEndDate?.ToShortDateString(),
                         Status = booking.ReservationStartDate <= currentTime ? DeskStatus.NotAvailable : DeskStatus.Reserved
                     } by desk.Id into deskGroup
-                    select new 
+                    select new
                     {
                         DeskID = deskGroup.Key,
                         Reservations = (from d in deskGroup
-                        select new ReservationInfo
-                        {
-                            CustomerID = d.CustomerID,
-                            CustomerFullName = d.CustomerFullName,
-                            StartDate = d.StartDate,
-                            EndDate = d.EndDate, 
-                            Status = d.Status
-                        }).ToList()
+                                        select new ReservationInfo
+                                        {
+                                            CustomerID = d.CustomerID,
+                                            CustomerFullName = d.CustomerFullName,
+                                            StartDate = d.StartDate,
+                                            EndDate = d.EndDate,
+                                            Status = d.Status
+                                        }).ToList()
                     };
         return query.ToDictionary(key => key.DeskID, value => value.Reservations);
     }
@@ -91,7 +91,7 @@ public class BookingDetailsService : IBookingService
         TableQuery<Room> roomQuery = _roomService.TableQuery;
         TableQuery<Transaction> transactionQuery = _transactionService.TableQuery;
 
-        
+
         // Step 1: Group bookings by customer and get the latest booking (based on ReservationEndDate)
         var latestBookingsQuery = from booking in _bookingRepository.Table
                                   group booking by booking.CustomerId into bookingGroup
@@ -123,7 +123,7 @@ public class BookingDetailsService : IBookingService
                         StartDate = latestBooking.LatestBooking.ReservationStartDate,
                         EndDate = latestBooking.LatestBooking.ReservationEndDate,
                         Package = package.Name,
-                        AllocatedSpace = $"{room.Name} - {desk.Name}",
+                        AllocatedSpace = $"{room.Name} ({desk.Name})",
                         Dues = transaction.DueAmount.ToString(),
                         PaymentStatus = transaction != null ? transaction.PaymentStatus.ToString() : PaymentStatusEnum.UNPAID.ToString(),
                         Status = Status.ACTIVE
@@ -156,7 +156,7 @@ public class BookingDetailsService : IBookingService
         var query = from customer in customerQuery
                     join personalDetail in personalDetailsQuery on customer.Id equals personalDetail.CustomerId
                     join latestBooking in latestBookingsQuery
-                    on customer.Id equals latestBooking.CustomerId 
+                    on customer.Id equals latestBooking.CustomerId
                     join desk in _deskService.TableQuery on latestBooking?.LatestBooking?.DeskId equals desk.Id into deskGroup
                     from desk in deskGroup.DefaultIfEmpty() // Handle null desk if no bookings
                     join room in roomQuery on desk?.RoomId equals room?.Id into roomGroup
@@ -179,7 +179,7 @@ public class BookingDetailsService : IBookingService
                         Package = package != null ? package.Name : "N/A",
                         AllocatedSpace = latestBooking.LatestBooking.PackageId != null ? $"{room?.Name ?? "N/A"} - {desk?.Name ?? "N/A"}" : "N/A",
                         PaymentStatus = transaction != null ? transaction.PaymentStatus.ToString() : PaymentStatusEnum.UNPAID.ToString(),
-                        Dues =  transaction != null ? transaction.DueAmount.ToString() : "0",
+                        Dues = transaction != null ? transaction.DueAmount.ToString() : "0",
                         Status = Status.INACTIVE
                     };
 
@@ -270,6 +270,15 @@ public class BookingDetailsService : IBookingService
         public string StartDate { get; set; }
         public string EndDate { get; set; }
 
-        public DeskStatus Status {  get; set; }
+        public DeskStatus Status { get; set; }
+    }
+
+    [Transactional]
+    public int PerformCustomerRenew(int customerId)
+    {
+        return _bookingRepository.SaveItem(new BookingInfo
+        {
+            CustomerId = customerId
+        });
     }
 }

@@ -1,4 +1,5 @@
 using CommunityToolkit.Maui.Views;
+using OwlReadingRoom.Components.AlertDialog;
 using OwlReadingRoom.Models;
 using OwlReadingRoom.Services;
 using OwlReadingRoom.Services.Booking;
@@ -72,7 +73,7 @@ public partial class PackagePaymentDetailView : ContentView
         }
 
         SelectedPackage = PackageOptions.FirstOrDefault(p => p.Id == bookingInformation.PackageId);
-        if(SelectedPackage == null)
+        if (SelectedPackage == null)
         {
             PackageListViewModel packageListViewModel = _packageService.GetPackageListViewModelById(bookingInformation.PackageId);
             packageListViewModel.IsSelectable = false;
@@ -182,7 +183,7 @@ public partial class PackagePaymentDetailView : ContentView
         if (SelectedPackage != null)
         {
             RoomOptions = RoomType.AC.Equals(SelectedPackage.RoomType) ? ACRoomOptions : NonACRoomOptions;
-            
+
             // Clear the previously selected room only if it's not matching the current package type
             if (SelectedRoom != null && !RoomOptions.Contains(SelectedRoom))
             {
@@ -213,7 +214,7 @@ public partial class PackagePaymentDetailView : ContentView
             {
                 _bookingProcessor.ProcessBooking(PackagePaymentDetail);
 
-                await CustomAlert.ShowAlert("Success", "Package details saved successfully.", "OK");
+                AlertService.Instance.ShowAlert("Success", "Package details saved successfully.", AlertType.Success);
             }
         }
         catch (Exception ex)
@@ -240,7 +241,7 @@ public partial class PackagePaymentDetailView : ContentView
             {
                 SelectedRoom.IsSelectable = true;
             }
-            
+
             Func<RoomListViewModel, DeskSelectView> _deskLayoutFactory = _serviceProvider.GetService<Func<RoomListViewModel, DeskSelectView>>();
             var deskLayoutPopup = _deskLayoutFactory(SelectedRoom);
             deskLayoutPopup.DeskSelected += OnDeskSelected;

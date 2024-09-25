@@ -19,7 +19,7 @@
                         FontSize="18"
                         BackgroundColor="Transparent"
                         TextColor="#1E293B"
-                        Clicked="OnCloseButtonClicked" />
+                        Released="OnCloseButtonClicked" />
             </Grid>
 
             <StackLayout Orientation="Horizontal"
@@ -45,13 +45,13 @@
                         FontSize="16"
                         TextColor="#3B82F6"
                         BackgroundColor="Transparent"
-                        Clicked="OnNoButtonClicked" />
+                        Released="OnNoButtonClicked" />
                 <Button Text="Yes"
                         Style="{StaticResource LabelRegular}"
                         FontSize="16"
                         TextColor="White"
                         BackgroundColor="#3B82F6"
-                        Clicked="OnYesButtonClicked" />
+                        Released="OnYesButtonClicked" />
             </StackLayout>
         </VerticalStackLayout>
     </Frame>

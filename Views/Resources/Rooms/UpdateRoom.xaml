@@ -45,7 +45,7 @@
                         <Button WidthRequest="24"
                                 HeightRequest="24"
                                 BackgroundColor="Transparent"
-                                Clicked="OnCloseClicked"
+                                Released="OnCloseClicked"
                                 HorizontalOptions="End">
                             <Button.ImageSource>
                                 <FileImageSource File="close_icon.png" />
@@ -113,14 +113,14 @@
                                 BorderColor="#E5E7EB"
                                 BorderWidth="1"
                                 BackgroundColor="Transparent"
-                                Clicked="OnClearClicked"
+                                Released="OnClearClicked"
                                 Margin="0,0,10,0"
                                 VerticalOptions="Center" />
                         <Button Grid.Column="2"
                                 Text="Save"
                                 TextColor="White"
                                 BackgroundColor="#007AFF"
-                                Clicked="OnUpdateClicked"
+                                Released="OnUpdateClicked"
                                 VerticalOptions="Center" />
                     </Grid>
                 </StackLayout>

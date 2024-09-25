@@ -24,7 +24,7 @@
                     <VerticalStackLayout Grid.Column="2"
                                          Spacing="4">
                         <Label Text="Document"
-                               Style="{StaticResource EntryLabelStyle}"
+                               Style="{StaticResource LabelMedium}"
                                HeightRequest="24" />
                         <Frame BackgroundColor="White"
                                Padding="0"
@@ -50,7 +50,7 @@
                 <VerticalStackLayout Grid.Column="1"
                                      Spacing="4">
                     <Label Text="Document Number"
-                           Style="{StaticResource EntryLabelStyle}"
+                           Style="{StaticResource LabelMedium}"
                            HeightRequest="24" />
                     <Frame BackgroundColor="White"
                            Padding="12,0"
@@ -67,7 +67,7 @@
                 <VerticalStackLayout Grid.Column="2"
                                      Spacing="4">
                     <Label Text="Issue Date"
-                           Style="{StaticResource EntryLabelStyle}"
+                           Style="{StaticResource LabelMedium}"
                            HeightRequest="24" />
                     <Frame BackgroundColor="White"
                            Padding="12,0"
@@ -160,7 +160,7 @@
                                             HorizontalOptions="End"
                                             VerticalOptions="Start"
                                             Margin="5"
-                                            Clicked="OnRemoveClicked"
+                                            Released="OnRemoveClicked"
                                             CommandParameter="{Binding .}" />
                                 </Grid>
                             </DataTemplate>
@@ -181,7 +181,7 @@
                 <Button Grid.Column="1"
                         Text="Save"
                         TextColor="White"
-                        Clicked="OnCreateClicked"
+                        Released="OnCreateClicked"
                         BackgroundColor="#778DA9" />
             </Grid>
         </VerticalStackLayout>

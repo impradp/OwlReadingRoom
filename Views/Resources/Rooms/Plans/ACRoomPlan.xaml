@@ -12,78 +12,78 @@
         <!-- Blue lines (Go from left line to full clockwise view of borders)-->
         <!--1 Vertical line After Gap(Mid)-->
         <BoxView Color="#4285F4"
-                 WidthRequest="10"
+                 WidthRequest="12"
                  HeightRequest="52"
                  HorizontalOptions="Start"
                  VerticalOptions="Start"
                  Margin="360,578,0,0" />
         <!--2 Horizontal line(Mid)-->
         <BoxView Color="#4285F4"
-                 WidthRequest="241"
-                 HeightRequest="11"
+                 WidthRequest="234"
+                 HeightRequest="12"
                  HorizontalOptions="Start"
                  VerticalOptions="Start"
                  Margin="360,620,0,0" />
         <!--3 Vertical line(Right)-->
         <BoxView Color="#4285F4"
-                 WidthRequest="19"
-                 HeightRequest="267"
+                 WidthRequest="12"
+                 HeightRequest="278"
                  HorizontalOptions="Start"
                  VerticalOptions="Start"
                  Margin="582,623,0,0" />
         <!--4 Horizontal line(Bottom)-->
         <BoxView Color="#4285F4"
-                 WidthRequest="241"
-                 HeightRequest="22"
+                 WidthRequest="213"
+                 HeightRequest="12"
                  HorizontalOptions="Start"
                  VerticalOptions="Start"
-                 Margin="360,890,0,0" />
+                 Margin="380,890,0,0" />
         <!--5 Vertical line(Bottom)-->
         <BoxView Color="#4285F4"
-                 WidthRequest="30"
+                 WidthRequest="12"
                  HeightRequest="113"
                  HorizontalOptions="Start"
                  VerticalOptions="Start"
-                 Margin="360,780,0,0" />
+                 Margin="380,780,0,0" />
 
         <!--6 Horizontal line(Bottom)-->
         <BoxView Color="#4285F4"
                  WidthRequest="381"
-                 HeightRequest="22"
+                 HeightRequest="12"
                  HorizontalOptions="Start"
                  VerticalOptions="Start"
                  Margin="0,800,0,0" />
         <!--7 vertical line(Left)-->
         <BoxView Color="#4285F4"
-                 WidthRequest="17"
-                 HeightRequest="818"
+                 WidthRequest="12"
+                 HeightRequest="811"
                  HorizontalOptions="Start"
                  VerticalOptions="Start"
                  Margin="0,0,0,0" />
         <!--8 horizontal line(Top)-->
         <BoxView Color="#4285F4"
-                 WidthRequest="386"
+                 WidthRequest="382"
                  HeightRequest="12"
                  HorizontalOptions="Start"
                  VerticalOptions="Start"
                  Margin="0,0,0,0" />
         <!--9 Vertical line(Mid)-->
         <BoxView Color="#4285F4"
-                 WidthRequest="16"
-                 HeightRequest="113"
+                 WidthRequest="12"
+                 HeightRequest="118"
                  HorizontalOptions="Start"
                  VerticalOptions="Start"
                  Margin="370,11,0,0" />
         <!--10 Horizontal line(Mid)-->
         <BoxView Color="#4285F4"
-                 WidthRequest="143"
-                 HeightRequest="20"
+                 WidthRequest="132"
+                 HeightRequest="12"
                  HorizontalOptions="Start"
                  VerticalOptions="Start"
-                 Margin="360,120,0,0" />
+                 Margin="360,129,0,0" />
         <!--11 Vertical line Above gap(Mid)-->
         <BoxView Color="#4285F4"
-                 WidthRequest="23"
+                 WidthRequest="12"
                  HeightRequest="250"
                  HorizontalOptions="Start"
                  VerticalOptions="Start"

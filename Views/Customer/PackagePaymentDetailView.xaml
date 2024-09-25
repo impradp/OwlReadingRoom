@@ -25,7 +25,7 @@
                         <VerticalStackLayout Grid.Column="2"
                                              Spacing="4">
                             <Label Text="Package Name"
-                                   Style="{StaticResource EntryLabelStyle}"
+                                   Style="{StaticResource LabelMedium}"
                                    HeightRequest="24" />
                             <Frame BackgroundColor="White"
                                    Padding="0"
@@ -50,7 +50,7 @@
                         <VerticalStackLayout Padding="0,10,10,0"
                                              Spacing="4">
                             <Label Text="Package Start Date"
-                                   Style="{StaticResource EntryLabelStyle}"
+                                   Style="{StaticResource LabelMedium}"
                                    HeightRequest="24" />
                             <Frame BackgroundColor="White"
                                    Padding="12,0"
@@ -73,7 +73,7 @@
                         <VerticalStackLayout Grid.Column="2"
                                              Spacing="4">
                             <Label Text="Room Name"
-                                   Style="{StaticResource EntryLabelStyle}"
+                                   Style="{StaticResource LabelMedium}"
                                    HeightRequest="24" />
                             <Frame BackgroundColor="White"
                                    Padding="0"
@@ -98,7 +98,7 @@
                         <VerticalStackLayout Padding="0,10,0,0"
                                              Spacing="4">
                             <Label Text="Package End Date"
-                                   Style="{StaticResource EntryLabelStyle}"
+                                   Style="{StaticResource LabelMedium}"
                                    HeightRequest="24" />
                             <Frame BackgroundColor="White"
                                    Padding="12,0"
@@ -118,7 +118,7 @@
                     <VerticalStackLayout Grid.Column="2"
                                          Spacing="4">
                         <Label Text="Desk No"
-                               Style="{StaticResource EntryLabelStyle}"
+                               Style="{StaticResource LabelMedium}"
                                HeightRequest="24" />
                         <Frame BackgroundColor="#EFF6FF"
                                BorderColor="#CBD5E1"
@@ -164,7 +164,7 @@
                                          Grid.Column="0"
                                          Spacing="4">
                         <Label Text="Payment Method"
-                               Style="{StaticResource EntryLabelStyle}"
+                               Style="{StaticResource LabelMedium}"
                                HeightRequest="24" />
                         <Frame BackgroundColor="White"
                                Padding="12,0"
@@ -187,7 +187,7 @@
                                          Grid.Column="1"
                                          Spacing="4">
                         <Label Text="Paid Date"
-                               Style="{StaticResource EntryLabelStyle}"
+                               Style="{StaticResource LabelMedium}"
                                HeightRequest="24" />
                         <Frame BackgroundColor="White"
                                Padding="12,0"
@@ -204,7 +204,7 @@
                     <VerticalStackLayout Grid.Column="2"
                                          Spacing="4">
                         <Label Text="Amount"
-                               Style="{StaticResource EntryLabelStyle}"
+                               Style="{StaticResource LabelMedium}"
                                HeightRequest="24" />
                         <Frame BackgroundColor="White"
                                Padding="12,0"
@@ -237,7 +237,7 @@
                                              Grid.Column="0"
                                              Spacing="4">
                             <Label Text="Parking"
-                                   Style="{StaticResource EntryLabelStyle}"
+                                   Style="{StaticResource LabelMedium}"
                                    HeightRequest="24" />
                             <Frame BackgroundColor="White"
                                    Padding="12,0"
@@ -260,7 +260,7 @@
                                              Grid.Column="1"
                                              Spacing="4">
                             <Label Text="Locker"
-                                   Style="{StaticResource EntryLabelStyle}"
+                                   Style="{StaticResource LabelMedium}"
                                    HeightRequest="24" />
                             <Frame BackgroundColor="White"
                                    Padding="12,0"
@@ -289,10 +289,10 @@
                                 BackgroundColor="Transparent"
                                 BorderColor="#E2E8F0"
                                 BorderWidth="1"
-                                Clicked="OnClearClicked" />
+                                Released="OnClearClicked" />
                         <Button Grid.Column="1"
                                 Text="Save"
-                                Clicked="OnCreateClicked"
+                                Released="OnCreateClicked"
                                 TextColor="White"
                                 BackgroundColor="#778DA9" />
                     </Grid>
