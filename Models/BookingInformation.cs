@@ -18,11 +18,5 @@ namespace OwlReadingRoom.Models
 
         [Column("reservation_end_date")]
         public DateTime? ReservationEndDate { get; set; }
-
-        [Column("locker_facility")]
-        public bool HasBookedLocker { get; set; }
-
-        [Column("parking_facility")]
-        public bool HasBookedParking { get; set; }
     }
 }

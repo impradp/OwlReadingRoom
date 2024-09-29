@@ -19,7 +19,7 @@ public class TransactionService : ITransactionService
     }
 
     public TableQuery<Models.Transaction> TableQuery => _transactionRepository.Table;
-    public TransactionDetailViewModel GetTransactionDetails(int? bookingId, bool hasParking, bool hasLocker)
+    public TransactionDetailViewModel GetTransactionDetails(int? bookingId)
     {
         if (!bookingId.HasValue)
         {
@@ -36,8 +36,8 @@ public class TransactionService : ITransactionService
                         DueAmount = transaction.DueAmount,
                         TotalAmount = transaction.TotalAmount,
                         PaidAmount = transaction.PaidAmount,
-                        LockerAmount = hasLocker ? AppConstants.FacilitiesPrices.locker : 0,
-                        ParkingAmount = hasParking ? AppConstants.FacilitiesPrices.parking : 0,
+                        LockerAmount = transaction.LockerAmount,
+                        ParkingAmount = transaction.ParkingAmount,
                         LastPaymentDate = latestLog != null ? latestLog.PaymentDate : (DateTime?)null,
                     };
         return query.FirstOrDefault();

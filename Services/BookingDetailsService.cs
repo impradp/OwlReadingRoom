@@ -208,8 +208,6 @@ public class BookingDetailsService : IBookingService
                         PackageName = pacakgeInfo?.Name,
                         StartDate = booking.ReservationStartDate,
                         EndDate = booking.ReservationEndDate,
-                        HasLocker = booking.HasBookedLocker,
-                        HasParking = booking.HasBookedParking,
                         DeskName = deskInfo?.Name,
                         PackagePrice = pacakgeInfo?.Price ?? 0,
                         RoomName = room?.Name
