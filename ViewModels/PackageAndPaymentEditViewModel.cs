@@ -12,9 +12,6 @@ namespace OwlReadingRoom.ViewModels
         public string DeskName { get; set; }
         public DateTime? PackageStartDate { get; set; } = DateTime.Now;
         public DateTime? PackageEndDate { get; set; }
-        public bool HasLocker { get; set; }
-        public bool HasParking { get; set; }
-
         public int? TransactionId { get; set; }
         public double PackageAmount { get; set; }
         public double LockerAmount { get; set; }

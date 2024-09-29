@@ -23,7 +23,7 @@ public class DefaultBookingStrategy : BaseBookingStrategy
     public override void Process(PackageAndPaymentEditViewModel packagePaymentDetail, BookingInfo booking)
     {
         //TODO: Need to update resources when allowed
-        if (packagePaymentDetail.PackageAmount > 0)
+        if (packagePaymentDetail.PaidAmount > 0)
         {
             Transaction transaction = _transactionService.TableQuery.FirstOrDefault(t => t.BookingInformationId == booking.Id);
             

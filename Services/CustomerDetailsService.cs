@@ -23,8 +23,7 @@ public class CustomerDetailsService : ICustomerDetailsService
         var addressDetail = _customerService.GetAddressDetails(minimumInformation.CustomerId);
         var documentInformation = _customerService.GetCustomerDocumentDetails(minimumInformation.CustomerId);
         var bookingInformation = _bookingService.GetBookingDetails(minimumInformation.BookingId);
-        var transactionInformation = _transactionService.GetTransactionDetails(minimumInformation.BookingId,
-            bookingInformation?.HasParking ?? false, bookingInformation?.HasLocker ?? false);
+        var transactionInformation = _transactionService.GetTransactionDetails(minimumInformation.BookingId);
         return new CustomerDetailViewModel
         {
             CustomerId = minimumInformation.CustomerId,

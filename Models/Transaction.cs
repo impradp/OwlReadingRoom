@@ -24,6 +24,13 @@ namespace OwlReadingRoom.Models
 
         [Column("payment_status")]
         public PaymentStatusEnum PaymentStatus { get; set; } // Foreign key to PaymentStatus
+
+        //TODO: The below facility prices can be moved to a different table later
+        [Column("locker_amount")]
+        public double LockerAmount { get; set; }
+
+        [Column("parking_amount")]
+        public double ParkingAmount { get; set; }
     }
 
     public enum PaymentStatusEnum

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:OwlReadingRoom.Utils"
              xmlns:System="clr-namespace:System;assembly=netstandard"
+             xmlns:component="clr-namespace:OwlReadingRoom.Components"
              x:Class="OwlReadingRoom.Views.Customer.PackagePaymentDetailView">
     <ContentView.Resources>
         <ResourceDictionary>
@@ -245,14 +246,14 @@
                                    CornerRadius="4"
                                    BorderColor="#CBD5E1"
                                    HasShadow="False">
-                                <Picker Style="{StaticResource LabelRegular}"
-                                        IsEnabled="{Binding IsEditable}"
-                                        SelectedIndex="{Binding PackagePaymentDetail.HasParking, Converter={StaticResource BoolToIntConverter}}">
-                                    <Picker.Items>
-                                        <x:String>No</x:String>
-                                        <x:String>Yes</x:String>
-                                    </Picker.Items>
-                                </Picker>
+                                <component:NumericEntry x:Name="ParkingAmount"
+                                    Placeholder="Enter Amount"
+                                    IsEnabled="{Binding IsEditable}"
+                                    PlaceholderColor="#647087"
+                                    Background="White"
+                                    Text="{Binding PackagePaymentDetail.ParkingAmount, FallbackValue='0', TargetNullValue='0'}"
+                                    Style="{StaticResource LabelRegular}"
+                                    Keyboard="Telephone" />
                             </Frame>
                         </VerticalStackLayout>
 
@@ -268,14 +269,14 @@
                                    CornerRadius="4"
                                    BorderColor="#CBD5E1"
                                    HasShadow="False">
-                                <Picker Style="{StaticResource LabelRegular}"
-                                        IsEnabled="{Binding IsEditable}"
-                                        SelectedIndex="{Binding PackagePaymentDetail.HasLocker, Converter={StaticResource BoolToIntConverter}}">
-                                    <Picker.Items>
-                                        <x:String>No</x:String>
-                                        <x:String>Yes</x:String>
-                                    </Picker.Items>
-                                </Picker>
+                                <component:NumericEntry x:Name="LockerAmount"
+                                    Placeholder="Enter Amount"
+                                    IsEnabled="{Binding IsEditable}"
+                                    PlaceholderColor="#647087"
+                                    Background="White"
+                                    Text="{Binding PackagePaymentDetail.LockerAmount, FallbackValue='0', TargetNullValue='0'}"
+                                    Style="{StaticResource LabelRegular}"
+                                    Keyboard="Telephone" />
                             </Frame>
                         </VerticalStackLayout>
                     </Grid>

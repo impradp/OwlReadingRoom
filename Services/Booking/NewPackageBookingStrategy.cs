@@ -34,11 +34,11 @@ public class NewPackageBookingStrategy : BaseBookingStrategy
         decimal dueAmount = CalculateDueAmount(totalAmount, (decimal)packagePaymentDetail.PaidAmount);
 
         // Create and save the transaction
-        Transaction transaction = CreateTransaction(bookingInfo.Id, totalAmount, dueAmount, (decimal)packagePaymentDetail.PaidAmount);
+        Transaction transaction = CreateTransaction(bookingInfo.Id, totalAmount, dueAmount, packagePaymentDetail.PaidAmount, packagePaymentDetail.LockerAmount, packagePaymentDetail.ParkingAmount);
         _transactionService.SaveTransaction(transaction);
 
         // Create and save transaction log if needed
-        if (packagePaymentDetail.PackageAmount > 0)
+        if (packagePaymentDetail.PaidAmount > 0)
         {
             SaveTransactionLog(transaction.Id, packagePaymentDetail.PaidAmount, packagePaymentDetail.LastPaymentDate, packagePaymentDetail.PaymentMethod);
         }
@@ -53,8 +53,6 @@ public class NewPackageBookingStrategy : BaseBookingStrategy
     private void UpdateBookingInformation(BookingInfo bookingInfo, PackageAndPaymentEditViewModel packagePaymentDetail)
     {
         bookingInfo.PackageId = packagePaymentDetail.Package.Id;
-        bookingInfo.HasBookedLocker = packagePaymentDetail.HasLocker;
-        bookingInfo.HasBookedParking = packagePaymentDetail.HasParking;
         // Set ReservationStartDate to 12:00 AM (start of the day)
         bookingInfo.ReservationStartDate = packagePaymentDetail.PackageStartDate?.Date;
         // Set ReservationEndDate to 11:59 PM (end of the day)
@@ -74,9 +72,10 @@ public class NewPackageBookingStrategy : BaseBookingStrategy
     /// <returns>The calculated total amount.</returns>
     private decimal CalculateTotalAmount(PackageAndPaymentEditViewModel packagePaymentDetail)
     {
-        decimal packageAmount = (decimal)packagePaymentDetail.PackageAmount;
-        decimal lockerAmount = packagePaymentDetail.HasLocker ? (decimal)AppConstants.FacilitiesPrices.locker : 0;
-        decimal parkingAmount = packagePaymentDetail.HasParking ? (decimal)AppConstants.FacilitiesPrices.parking : 0;
+        decimal packageAmount = (decimal)packagePaymentDetail.Package.Price;
+
+        decimal lockerAmount = (decimal)packagePaymentDetail.LockerAmount;
+        decimal parkingAmount = (decimal)packagePaymentDetail.ParkingAmount;
 
         // Calculate and round total amount
         decimal totalAmount = packageAmount + lockerAmount + parkingAmount;
@@ -103,7 +102,7 @@ public class NewPackageBookingStrategy : BaseBookingStrategy
     /// <param name="dueAmount">The due amount.</param>
     /// <param name="paidAmount">The paid amount.</param>
     /// <returns>The new transaction.</returns>
-    private Transaction CreateTransaction(int bookingInfoId, decimal totalAmount, decimal dueAmount, decimal paidAmount)
+    private Transaction CreateTransaction(int bookingInfoId, decimal totalAmount, decimal dueAmount, double paidAmount, double lockerAmount, double parkingAmount)
     {
         return new Transaction
         {
@@ -111,7 +110,9 @@ public class NewPackageBookingStrategy : BaseBookingStrategy
             PaymentStatus = GetPaymentStatus(dueAmount, totalAmount),
             DueAmount = decimal.ToDouble(dueAmount),
             TotalAmount = decimal.ToDouble(totalAmount),
-            PaidAmount = decimal.ToDouble(paidAmount),
+            PaidAmount = paidAmount,
+            LockerAmount = lockerAmount,
+            ParkingAmount = parkingAmount,
         };
     }
 

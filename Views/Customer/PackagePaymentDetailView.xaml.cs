@@ -4,6 +4,7 @@ using OwlReadingRoom.Models;
 using OwlReadingRoom.Services;
 using OwlReadingRoom.Services.Booking;
 using OwlReadingRoom.Services.Resources;
+using OwlReadingRoom.Services.Transactions;
 using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
 using OwlReadingRoom.Views.Resources.Rooms;
@@ -30,6 +31,7 @@ public partial class PackagePaymentDetailView : ContentView
     private readonly IBookingProcessor _bookingProcessor;
     private readonly IDeskService _deskService;
     private readonly IPackageService _packageService;
+    private readonly ITransactionService _transactionService;
 
     public PackageAndPaymentEditViewModel PackagePaymentDetail { get; private set; }
     public PackagePaymentDetailView(PackageAndPaymentEditViewModel packageAndPaymentDetail,
@@ -43,6 +45,7 @@ public partial class PackagePaymentDetailView : ContentView
         _deskService = _serviceProvider.GetService<IDeskService>();
         _packageService = _serviceProvider.GetService<IPackageService>();
         _bookingProcessor = _serviceProvider.GetService<IBookingProcessor>();
+        _transactionService = _serviceProvider.GetService<ITransactionService>();
         LoadResources();
         LoadExistingData();
         BindingContext = this;
@@ -61,31 +64,89 @@ public partial class PackagePaymentDetailView : ContentView
     }
 
     /// <summary>
-    /// Loads the existing data into the selected object.
+    /// Loads the existing booking and package data into the view model.
+    /// Retrieves booking details, package, desk, room, and transaction information 
+    /// and updates the UI fields with the retrieved data.
     /// </summary>
     private void LoadExistingData()
     {
-        BookingInfo bookingInformation = _bookingService.GetBookingDetailsById(PackagePaymentDetail.Id);
-        if (bookingInformation.PackageId == null)
+        var bookingInformation = _bookingService.GetBookingDetailsById(PackagePaymentDetail.Id);
+
+        // Check if Package is assigned to the booking
+        if (bookingInformation?.PackageId == null)
         {
-            Debug.WriteLine($"Package not assigned for booking Id: {bookingInformation.Id}");
+            Debug.WriteLine($"Package not assigned for booking Id: {bookingInformation?.Id}");
             return;
         }
 
-        SelectedPackage = PackageOptions.FirstOrDefault(p => p.Id == bookingInformation.PackageId);
-        if (SelectedPackage == null)
+        // Load or create the selected package
+        LoadPackage(bookingInformation.PackageId);
+
+        // Load the selected desk and room
+        LoadDeskAndRoom(bookingInformation.DeskId);
+
+        // Set package start and end dates
+        PackageStartDate = bookingInformation.ReservationStartDate ?? DateTime.Today;
+        PackageEndDate = bookingInformation.ReservationEndDate ?? DateTime.Today.AddDays(SelectedPackage?.Days ?? 0);
+
+        // Load transaction details
+        LoadTransactionDetails(bookingInformation.Id);
+
+        HasExistingPackage = true;
+    }
+
+    /// <summary>
+    /// Loads the package associated with the given packageId.
+    /// If the package is not found in the existing package options, retrieves it 
+    /// from the package service, marks it as non-selectable, and adds it to the list.
+    /// </summary>
+    /// <param name="packageId">The ID of the package to be loaded.</param>
+    private void LoadPackage(int? packageId)
+    {
+        SelectedPackage = PackageOptions.FirstOrDefault(p => p.Id == packageId);
+
+        if (SelectedPackage == null && packageId.HasValue)
         {
-            PackageListViewModel packageListViewModel = _packageService.GetPackageListViewModelById(bookingInformation.PackageId);
+            var packageListViewModel = _packageService.GetPackageListViewModelById(packageId.Value);
             packageListViewModel.IsSelectable = false;
             PackageOptions.Add(packageListViewModel);
             SelectedPackage = packageListViewModel;
         }
-        Desk desk = _deskService.GetDesk(bookingInformation.DeskId);
+    }
+
+    /// <summary>
+    /// Loads the desk and room information based on the given deskId.
+    /// Retrieves the desk details, then selects the corresponding room 
+    /// from the available room options.
+    /// </summary>
+    /// <param name="deskId">The ID of the desk to be loaded.</param>
+    private void LoadDeskAndRoom(int? deskId)
+    {
+        var desk = _deskService.GetDesk(deskId);
+        if (desk == null)
+        {
+            Debug.WriteLine($"Desk not found for DeskId: {deskId}");
+            return;
+        }
+
         SelectedRoom = RoomOptions.FirstOrDefault(r => r.Id == desk.RoomId);
         SelectedDesk = desk.Name;
-        PackageStartDate = bookingInformation.ReservationStartDate ?? DateTime.Today;
-        PackageEndDate = bookingInformation.ReservationEndDate ?? DateTime.Today.AddDays(SelectedPackage?.Days ?? 0);
-        HasExistingPackage = true;
+    }
+
+    /// <summary>
+    /// Loads the transaction details associated with the given bookingId.
+    /// Retrieves locker and parking amounts and assigns them to the payment details.
+    /// </summary>
+    /// <param name="bookingId">The ID of the booking for which transaction details are loaded.</param>
+
+    private void LoadTransactionDetails(int bookingId)
+    {
+        var transactionDetailViewModel = _transactionService.GetTransactionDetails(bookingId);
+        if (transactionDetailViewModel != null)
+        {
+            PackagePaymentDetail.LockerAmount = transactionDetailViewModel.LockerAmount;
+            PackagePaymentDetail.ParkingAmount = transactionDetailViewModel.ParkingAmount;
+        }
     }
 
     #region Event Handler
@@ -206,7 +267,6 @@ public partial class PackagePaymentDetailView : ContentView
         PackagePaymentDetail.DeskName = SelectedDesk;
         PackagePaymentDetail.PackageStartDate = PackageStartDate;
         PackagePaymentDetail.PackageEndDate = PackageEndDate;
-        PackagePaymentDetail.PackageAmount = SelectedPackage.Price;
 
         try
         {
