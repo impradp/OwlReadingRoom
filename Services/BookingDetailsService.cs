@@ -112,7 +112,7 @@ public class BookingDetailsService : IBookingService
                     join package in packageQuery on latestBooking.LatestBooking.PackageId equals package.Id
                     join transaction in transactionQuery on latestBooking.LatestBooking.Id equals transaction.BookingInformationId
                     where latestBooking.LatestBooking.ReservationEndDate >= currentTime
-                    orderby customer.Id
+                    orderby personalDetail.FullName
                     select new CustomerPackageViewModel
                     {
                         CustomerId = customer.Id,
@@ -166,7 +166,7 @@ public class BookingDetailsService : IBookingService
                     join transaction in transactionQuery on latestBooking?.LatestBooking?.Id equals transaction?.BookingInformationId into transactionGroup
                     from transaction in transactionGroup.DefaultIfEmpty() // Handle null transaction if no bookings
                     where latestBooking.LatestBooking.ReservationEndDate == null || latestBooking.LatestBooking?.ReservationEndDate < currentTime // Customers with no bookings or expired bookings
-                    orderby customer.Id
+                    orderby personalDetail.FullName
                     select new CustomerPackageViewModel
                     {
                         CustomerId = customer.Id,
