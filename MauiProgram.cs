@@ -17,6 +17,7 @@ using OwlReadingRoom.Views.Resources.Rooms;
 using System.Reflection;
 using OwlReadingRoom.Views.Resources.Rooms.Plans;
 using OwlReadingRoom.Services.Booking;
+using OwlReadingRoom.Services.Startup;
 
 
 #if WINDOWS
@@ -74,6 +75,8 @@ namespace OwlReadingRoom
         {
             builder.Services.AddSingleton<IDatabaseConnectionService, DatabaseConnectionService>();
             builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            builder.Services.AddTransient<IStartupTask, WeeklyBackupStartupTask>();
+            builder.Services.AddSingleton<StartupCoordinator>();
 
             // View Models
             builder.Services.AddTransient<MainView>();
@@ -179,6 +182,7 @@ namespace OwlReadingRoom
             builder.Services.AddSingleton<IPdfService,PdfService>();
 #endif
             builder.Services.AddSingleton<IUserService, UserService>();
+            builder.Services.AddSingleton<IStartupService, StartupService>();
             builder.Services.AddSingleton<IEmailService, EmailService>();
             builder.Services.AddSingleton<ITransactionService, TransactionService>();
             builder.Services.AddSingleton<IRoomService, RoomService>();

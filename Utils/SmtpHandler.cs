@@ -16,6 +16,8 @@ public static class SmtpHandler
             Username = settings.GetSection("Username").Value,
             Password = settings.GetSection("Password").Value,
             Receiver = settings.GetSection("Receiver").Value,
+            ReceiverName = settings.GetSection("ReceiverName").Value,
+            SenderName = settings.GetSection("SenderName").Value,
             UseSsl = bool.TryParse(settings.GetSection("UseSsl").Value, out bool useSsl) ? useSsl : false  
         };
     }
