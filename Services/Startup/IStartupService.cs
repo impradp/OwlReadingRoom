@@ -14,5 +14,12 @@ namespace OwlReadingRoom.Services.Startup
         /// </summary>
         /// <returns>The completed task of weekly backup process.</returns>
         Task InitiateWeeklyBackupAsync();
+
+        /// <summary>
+        /// Initiates the daily notification process for package expiration.
+        /// This method will check for customers whose package will expire soon and notify them via email.
+        /// The method also logs the notification status to prevent duplicate notifications on the same day.
+        /// </summary>
+        Task InitiateDailyReservationEndNotifyAsync();
     }
 }

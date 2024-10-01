@@ -71,6 +71,7 @@
 
 	<ItemGroup>
 		<None Remove="appsettings.json" />
+		<None Remove="Resources\EmailTemplate\customer_expire_template.html" />
 		<None Remove="Resources\Fonts\Inika-Bold.ttf" />
 		<None Remove="Resources\Fonts\Inika-Regular.ttf" />
 		<None Remove="Resources\Fonts\Inter-Bold.ttf" />
@@ -95,6 +96,7 @@
 		<None Remove="Resources\Images\linked_in_icon.svg" />
 		<None Remove="Resources\Images\logout_icon.svg" />
 		<None Remove="Resources\Images\new_entry_icon.svg" />
+		<None Remove="Resources\Images\owl_logo.png" />
 		<None Remove="Resources\Images\owl_logo_icon.svg" />
 		<None Remove="Resources\Images\plus_icon.svg" />
 		<None Remove="Resources\Images\print_icon.svg" />
@@ -112,6 +114,11 @@
 		<EmbeddedResource Include="appsettings.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</EmbeddedResource>
+		<EmbeddedResource Include="Resources\Images\owl_logo.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\EmailTemplate\customer_expire_template.html" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -146,6 +153,10 @@
 		<Compile Update="Views\Customer\PersonalDetailView.xaml.cs">
 			<DependentUpon>PersonalDetailView.xaml</DependentUpon>
 		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Update="Resources\Images\owl_logo_icon.svg"/>
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f8f8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="cid:{0}" alt="Owl Reading Room">
+        <p>Greetings,<br><br>Please find below the list of customers whose packages are set to expire by {ExpirationThresholdDate}.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Package</th>
+                    <th>Expires In(Days)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {Body}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

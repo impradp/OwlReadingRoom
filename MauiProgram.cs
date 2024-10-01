@@ -76,6 +76,7 @@ namespace OwlReadingRoom
             builder.Services.AddSingleton<IDatabaseConnectionService, DatabaseConnectionService>();
             builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddTransient<IStartupTask, WeeklyBackupStartupTask>();
+            builder.Services.AddTransient<IStartupTask, NotifyReservationExpiryTask>();
             builder.Services.AddSingleton<StartupCoordinator>();
 
             // View Models
