@@ -135,4 +135,31 @@ public interface IBookingService
     /// <param name="customerId">The unique identifier of customer.</param>
     /// <returns>The created booking info id</returns>
     int PerformCustomerRenew(int customerId);
+
+
+    /// <summary>
+    /// Retrieves a list of customers whose packages are about to expire within a specified number of days.
+    /// </summary>
+    /// <returns>A list of <see cref="InactiveCustomerDetail"/> objects representing customers with soon-to-expire packages.</returns>
+    /// <remarks>
+    /// This method performs the following steps:
+    /// 1. Calculates the expiry threshold date based on the current date and <see cref="AppConstants.Notification.DaysUntilExpiration"/>.
+    /// 2. Queries the latest bookings for each customer.
+    /// 3. Joins customer data with personal details, latest bookings, and package information.
+    /// 4. Filters results to include only customers whose packages are not yet expired but will expire within the threshold.
+    /// 5. Maps the results to <see cref="InactiveCustomerDetail"/> objects.
+    /// </remarks>
+    /// <example>
+    /// This example demonstrates how to use the GetToBeInactiveCustomerList method:
+    /// <code>
+    /// var inactiveCustomers = GetToBeInactiveCustomerList();
+    /// foreach (var customer in inactiveCustomers)
+    /// {
+    ///     Console.WriteLine($"Customer {customer.FullName}'s package {customer.PackageName} expires on {customer.ExpiryDate}");
+    /// }
+    /// </code>
+    /// </example>
+    /// <seealso cref="InactiveCustomerDetail"/>
+    /// <seealso cref="AppConstants.Notification.DaysUntilExpiration"/>
+    List<InactiveCustomerDetail> GetToBeInactiveCustomerList();
 }

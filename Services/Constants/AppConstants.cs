@@ -21,4 +21,9 @@ public static class AppConstants
         public const double locker = 500;
         public const double parking = 0;
     }
+
+   public static class Notification
+    {
+        public const int DaysUntilExpiration = 5;
+    }
 }

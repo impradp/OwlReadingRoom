@@ -2,11 +2,13 @@
 using OwlReadingRoom.Models;
 using OwlReadingRoom.Models.Enums;
 using OwlReadingRoom.Proxy;
+using OwlReadingRoom.Services.Constants;
 using OwlReadingRoom.Services.Repository;
 using OwlReadingRoom.Services.Resources;
 using OwlReadingRoom.Services.Transactions;
 using OwlReadingRoom.ViewModels;
 using SQLite;
+using System.Diagnostics;
 
 namespace OwlReadingRoom.Services;
 
@@ -131,6 +133,39 @@ public class BookingDetailsService : IBookingService
         return query.ToList();
     }
 
+    public List<InactiveCustomerDetail> GetToBeInactiveCustomerList()
+    {
+        DateTime currentDate = DateTime.Now;
+        DateTime expiryThresholdDate = currentDate.AddDays(AppConstants.Notification.DaysUntilExpiration).Date;
+        TableQuery<Customer> customerQuery = _customerService.CustomerTableQuery;
+        TableQuery<PackageType> packageQuery = _packageService.TableQuery;
+        TableQuery<PersonalDetail> personalDetailsQuery = _customerService.PersonalDetailTableQuery;
+        // Step 1: Group bookings by customer and get the latest booking (if exists)
+        var latestBookingsQuery = from booking in _bookingRepository.Table
+                                  group booking by booking.CustomerId into bookingGroup
+                                  select new
+                                  {
+                                      CustomerId = bookingGroup.Key,
+                                      LatestBooking = bookingGroup
+                                          .OrderByDescending(b => b.Id)
+                                          .FirstOrDefault()
+                                  };
+        var query = from customer in customerQuery
+                    join personalDetail in personalDetailsQuery on customer.Id equals personalDetail.CustomerId
+                    join latestBooking in latestBookingsQuery on customer.Id equals latestBooking.CustomerId
+                    join package in packageQuery on latestBooking?.LatestBooking?.PackageId equals package?.Id
+                    where latestBooking.LatestBooking.ReservationEndDate?.Date > currentDate.Date && // Package is not expired yet
+                     latestBooking.LatestBooking.ReservationEndDate?.Date <= expiryThresholdDate // Package expires within 5 days
+                    select new InactiveCustomerDetail
+                    {
+                        FullName = personalDetail.FullName,
+                        Mobile = customer.MobileNumber,
+                        PackageName = package.Name,
+                        ExpiryDate = latestBooking.LatestBooking.ReservationEndDate,
+                    };
+        return query.ToList();
+    }
+
     public List<CustomerPackageViewModel> GetInactiveCustomerList()
     {
         var currentTime = DateTime.Now;
@@ -140,7 +175,6 @@ public class BookingDetailsService : IBookingService
         TableQuery<Room> roomQuery = _roomService.TableQuery;
         TableQuery<Transaction> transactionQuery = _transactionService.TableQuery;
 
-        //TODO: order latest reservation by id
         // Step 1: Group bookings by customer and get the latest booking (if exists)
         var latestBookingsQuery = from booking in _bookingRepository.Table
                                   group booking by booking.CustomerId into bookingGroup
