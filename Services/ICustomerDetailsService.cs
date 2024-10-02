@@ -1,4 +1,5 @@
 ﻿
+using OwlReadingRoom.DTOs;
 using OwlReadingRoom.ViewModels;
 
 namespace OwlReadingRoom.Services
@@ -18,5 +19,12 @@ namespace OwlReadingRoom.Services
         /// </summary>
         /// <param name="customerDetailViewModel">The customer details to be updated with new booking id.</param>
         void RenewCustomerBooking(CustomerDetailViewModel customerDetailViewModel);
+
+        /// <summary>
+        /// Retrieves the minimum customer details for a specified customer ID.
+        /// </summary>
+        /// <param name="customerId">The unique identifier of the customer.</param>
+        /// <returns>A <see cref="MinimumCustomerDetail"/> object containing the customer's full name with honorific.</returns>
+        MinimumCustomerDetail GetCustomerMinimumDetail(int customerId);
     }
 }
