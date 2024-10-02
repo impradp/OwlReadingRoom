@@ -52,26 +52,22 @@
               HeightRequest="80">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition Width="0.5*" />
                 <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1.5*" />
                 <ColumnDefinition Width="0.5*" />
             </Grid.ColumnDefinitions>
 
-            <Label Text="Room ID"
+            <Label Text="Room Type"
                    Grid.Column="0"
                    Style="{StaticResource HeaderLabelStyle}" />
-            <Label Text="Room Type"
+            <Label Text="Room Name"
                    Grid.Column="1"
                    Style="{StaticResource HeaderLabelStyle}" />
-            <Label Text="Room Name"
+            <Label Text="Available Desk"
                    Grid.Column="2"
                    Style="{StaticResource HeaderLabelStyle}" />
-            <Label Text="Available Desk"
-                   Grid.Column="3"
-                   Style="{StaticResource HeaderLabelStyle}" />
             <Label Text="Actions"
-                   Grid.Column="4"
+                   Grid.Column="3"
                    Style="{StaticResource HeaderLabelStyle}" />
         </Grid>
 
@@ -84,25 +80,21 @@
                               HeightRequest="56">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="0.5*" />
+                                <ColumnDefinition Width="0.5*" />
                                 <ColumnDefinition Width="1*" />
-                                <ColumnDefinition Width="1*" />
-                                <ColumnDefinition Width="1.5*" />
                                 <ColumnDefinition Width="0.5*" />
                             </Grid.ColumnDefinitions>
-                            <Label Text="{Binding Id}"
-                                   Style="{StaticResource CellLabelStyle}"
-                                   Grid.Column="0" />
                             <Label Text="{Binding RoomType}"
                                    Style="{StaticResource CellLabelStyle}"
-                                   Grid.Column="1" />
+                                   Grid.Column="0" />
                             <Label Text="{Binding Name}"
                                    Style="{StaticResource CellLabelStyle}"
-                                   Grid.Column="2" />
-                            <component:AvailableDeskView Grid.Column="3"
+                                   Grid.Column="1" />
+                            <component:AvailableDeskView Grid.Column="2"
                                                          AvailableDesks="{Binding AvailableDesks}"
                                                          TotalDesks="{Binding TotalDesks}"
                                                          HorizontalOptions="Center" />
-                            <component:ActionButtonsView Grid.Column="4"
+                            <component:ActionButtonsView Grid.Column="3"
                                                          EditClicked="OnRoomEditClicked"
                                                          EyeClicked="OnRoomEyeClicked"
                                                          IsEditVisible="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=BindingContext.ShouldShowEditButton}"

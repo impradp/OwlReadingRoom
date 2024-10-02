@@ -110,8 +110,6 @@ public partial class RoomListView : ContentView, INotifyPropertyChanged
         {
             ExceptionHandler.HandleException("Loading rooms", ex);
         }
-        //TODO: Fetch created room list
-        //TODO: Set to Observable Collection of Rooms
     }
 
     private void OnRoomEditClicked(object sender, EventArgs e)

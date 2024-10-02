@@ -40,6 +40,7 @@
 
         <local:DateFormatConverter x:Key="DateFormatConverter" />
         <converter:PaymentStatusToColorConverter x:Key="PaymentStatusToColorConverter" />
+        <converter:PaymentStatusConverter x:Key="PaymentStatusConverter" />
     </ContentView.Resources>
 
     <Grid RowSpacing="0">
@@ -162,13 +163,12 @@
                                    BackgroundColor="{Binding PaymentStatus, Converter={StaticResource PaymentStatusToColorConverter}}"
                                    CornerRadius="4"
                                    Padding="8,4"
+                                   BorderColor="{Binding PaymentStatus, Converter={StaticResource PaymentStatusToColorConverter}}"
                                    HorizontalOptions="Center"
                                    VerticalOptions="Center"
                                    Margin="16,8">
-                                <Label Text="{Binding PaymentStatus}"
-                                       TextColor="White"
-                                       FontSize="12"
-                                       FontAttributes="Bold"
+                                <Label Text="{Binding PaymentStatus, Converter={StaticResource PaymentStatusConverter}}"
+                                       Style="{StaticResource CellLabelStyle}"
                                        VerticalTextAlignment="Center"
                                        HorizontalTextAlignment="Center" />
                             </Frame>

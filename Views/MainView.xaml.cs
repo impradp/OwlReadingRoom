@@ -98,8 +98,7 @@ namespace OwlReadingRoom
         /// <param name="e"></param>
         private void OnCustomerReceiptSelected(object sender, CustomerSavedEventArgs e)
         {
-            IPdfService pdfService = _serviceProvider.GetService<IPdfService>();
-            var customerReceiptView = new ReceiptView(e.SavedCustomerDetail, pdfService);
+            var customerReceiptView = new ReceiptView(_serviceProvider, e.SavedCustomerDetail);
             DynamicContentArea.Content = customerReceiptView;
         }
 

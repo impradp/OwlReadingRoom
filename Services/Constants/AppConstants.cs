@@ -26,4 +26,12 @@ public static class AppConstants
     {
         public const int DaysUntilExpiration = 5;
     }
+
+    public static class PaymentStatus
+    {
+        public const string PAID = "Paid";
+        public const string UNPAID = "Unpaid";
+        public const string PARTIALLY_PAID = "Partially Paid";
+        public const string ADVANCED = "Advanced";
+    }
 }

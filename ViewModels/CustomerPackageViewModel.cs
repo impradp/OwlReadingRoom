@@ -14,7 +14,7 @@ namespace OwlReadingRoom.ViewModels
         public DateTime? EndDate { get; set; }
         public String Package { get; set; }
         public String AllocatedSpace { get; set; }
-        public String PaymentStatus { get; set; }
+        public PaymentStatusEnum? PaymentStatus { get; set; }
         public String Dues { get; set; }
         public Status Status { get; set; }
     }

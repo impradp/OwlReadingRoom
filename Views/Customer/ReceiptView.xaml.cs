@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Configuration;
+using OwlReadingRoom.Configurations;
 using OwlReadingRoom.Services;
 using OwlReadingRoom.ViewModels;
 
@@ -7,13 +9,16 @@ namespace OwlReadingRoom.Views.Customer
     {
         private CustomerDetailViewModel _customer;
 
-        private IPdfService _pdfService;
+        private readonly IServiceProvider _serviceProvider;
 
-        public ReceiptView(CustomerDetailViewModel customer, IPdfService pdfService)
+        public CompanyDetails Company { get; set; }
+
+        public ReceiptView(IServiceProvider serviceProvider, CustomerDetailViewModel customer)
         {
             InitializeComponent();
             Customer = customer;
-            _pdfService = pdfService;
+            _serviceProvider = serviceProvider;
+            LoadCompanyInfo();
             BindingContext = this;
         }
 
@@ -31,12 +36,23 @@ namespace OwlReadingRoom.Views.Customer
         }
 
         /// <summary>
+        /// Loads conmpany info for receipt generation.
+        /// The company info will be extracted from the configuration manager.
+        /// </summary>
+        public void LoadCompanyInfo()
+        {
+            IConfiguration configuration = _serviceProvider.GetService<IConfiguration>();
+            Company = ConfigurationHandler.GetCompanyInformation(configuration);
+        }
+
+        /// <summary>
         /// Downloads the payment receipt as a pdf.
         /// </summary>
         /// <returns>The downloaded pdf</returns>
         private async void OnDownloadReceiptClicked(object sender, EventArgs e)
         {
-            await _pdfService.DownloadAsync(ReceiptContent);
+            IPdfService pdfService = _serviceProvider.GetService<IPdfService>();
+            await pdfService.DownloadAsync(ReceiptContent);
         }
     }
 }

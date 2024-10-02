@@ -149,15 +149,15 @@
                             <Label Text="Billed from:"
                                    FontSize="12"
                                    TextColor="#1B263B" />
-                            <Label Text="Owl Reading Room"
+                            <Label Text="{Binding Company.Name}"
                                    FontSize="12"
                                    TextColor="#415A77"
                                    Style="{StaticResource LabelMedium}" />
-                            <Label Text="826 Kantipath Road"
+                            <Label Text="{Binding Company.Address}"
                                    FontSize="12"
                                    TextColor="#415A77"
                                    Style="{StaticResource LabelBold}" />
-                            <Label Text="Lazimpat, Kathmandu"
+                            <Label Text="{Binding Company.City}"
                                    FontSize="12"
                                    TextColor="#415A77"
                                    Style="{StaticResource LabelBold}" />
@@ -249,7 +249,7 @@
                                 <Label Text="Locker Room"
                                        FontSize="12"
                                        TextColor="#415A77" />
-                                <Label Text="1"
+                                <Label Text="{Binding Customer.TransactionDetails.LockerQty}"
                                        Grid.Column="1"
                                        FontSize="12"
                                        TextColor="#415A77" />
@@ -271,7 +271,7 @@
                                 <Label Text="Parking"
                                        FontSize="12"
                                        TextColor="#415A77" />
-                                <Label Text="1"
+                                <Label Text="{Binding Customer.TransactionDetails.ParkingQty}"
                                        Grid.Column="1"
                                        FontSize="12"
                                        TextColor="#415A77" />
@@ -378,7 +378,7 @@
                                 <Image Source="email_icon.png"
                                        WidthRequest="12"
                                        HeightRequest="12" />
-                                <Label Text="owlreadingroom@gmail.com"
+                                <Label Text="{Binding Company.EmailID}"
                                        FontSize="10"
                                        TextColor="#5A5A5A"
                                        Style="{StaticResource LabelBold}" />
@@ -387,7 +387,7 @@
                                 <Image Source="call_icon.png"
                                        WidthRequest="12"
                                        HeightRequest="12" />
-                                <Label Text="+1012234"
+                                <Label Text="{Binding Company.MobileNo}"
                                        FontSize="10"
                                        TextColor="#5A5A5A"
                                        Style="{StaticResource LabelBold}" />
