@@ -58,27 +58,23 @@
               BackgroundColor="#E2E8F0"
               HeightRequest="80">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Label Text="Package ID"
+            <Label Text="Name"
                    Grid.Column="0"
                    Style="{StaticResource HeaderLabelStyle}" />
-            <Label Text="Name"
+            <Label Text="Room Type"
                    Grid.Column="1"
                    Style="{StaticResource HeaderLabelStyle}" />
-            <Label Text="Room Type"
+            <Label Text="Amount"
                    Grid.Column="2"
                    Style="{StaticResource HeaderLabelStyle}" />
-            <Label Text="Amount"
-                   Grid.Column="3"
-                   Style="{StaticResource HeaderLabelStyle}" />
             <Label Text="Actions"
-                   Grid.Column="4"
+                   Grid.Column="3"
                    Style="{StaticResource HeaderLabelStyle}" />
         </Grid>
 
@@ -90,25 +86,21 @@
                         <Grid ColumnSpacing="5"
                               HeightRequest="56">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="2*" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Text="{Binding Id}"
-                                   Style="{StaticResource CellLabelStyle}"
-                                   Grid.Column="0" />
                             <Label Text="{Binding Name}"
                                    Style="{StaticResource CellLabelStyle}"
-                                   Grid.Column="1" />
+                                   Grid.Column="0" />
                             <Label Text="{Binding RoomType, Converter={StaticResource RoomTypeConverter}}"
                                    Style="{StaticResource CellLabelStyle}"
-                                   Grid.Column="2" />
+                                   Grid.Column="1" />
                             <Label Text="{Binding Price}"
                                    Style="{StaticResource CellLabelStyle}"
-                                   Grid.Column="3" />
-                            <component:ActionButtonsView Grid.Column="4"
+                                   Grid.Column="2" />
+                            <component:ActionButtonsView Grid.Column="3"
                                                          EditClicked="OnPackageEditClicked"
                                                          TrashClicked="OnPackageTrashClicked"
                                                          IsEditVisible="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=BindingContext.ShouldShowEditButton}"

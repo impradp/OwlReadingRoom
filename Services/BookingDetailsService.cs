@@ -127,7 +127,7 @@ public class BookingDetailsService : IBookingService
                         Package = package.Name,
                         AllocatedSpace = $"{room.Name} ({desk.Name})",
                         Dues = transaction.DueAmount.ToString(),
-                        PaymentStatus = transaction != null ? transaction.PaymentStatus.ToString() : PaymentStatusEnum.UNPAID.ToString(),
+                        PaymentStatus = transaction?.PaymentStatus,
                         Status = Status.ACTIVE
                     };
         return query.ToList();
@@ -212,7 +212,7 @@ public class BookingDetailsService : IBookingService
                         EndDate = latestBooking.LatestBooking.ReservationEndDate,
                         Package = package != null ? package.Name : "N/A",
                         AllocatedSpace = latestBooking.LatestBooking.PackageId != null ? $"{room?.Name ?? "N/A"} - {desk?.Name ?? "N/A"}" : "N/A",
-                        PaymentStatus = transaction != null ? transaction.PaymentStatus.ToString() : PaymentStatusEnum.UNPAID.ToString(),
+                        PaymentStatus = transaction?.PaymentStatus,
                         Dues = transaction != null ? transaction.DueAmount.ToString() : "0",
                         Status = Status.INACTIVE
                     };

@@ -30,6 +30,7 @@ public class ResourceService : IPhysicalResourceService
 
         var roomDeskCounts = from room in _roomService.TableQuery
                              join desk in _deskService.TableQuery on room.Id equals desk.RoomId into deskGroup
+                             orderby room.RoomType ascending
                              select new
                              {
                                  RoomId = room.Id,
@@ -61,15 +62,15 @@ public class ResourceService : IPhysicalResourceService
     {
 
         var roomDeskCounts = from room in _roomService.TableQuery
-                         join desk in _deskService.TableQuery on room.Id equals desk.RoomId into deskGroup
-                         where room.RoomType == roomType
-                         select new
-                         {
-                             RoomId = room.Id,
-                             RoomName = room.Name,
-                             RoomType = room.RoomType,
-                             Desks = deskGroup.Count(d => d != null)
-                         };
+                             join desk in _deskService.TableQuery on room.Id equals desk.RoomId into deskGroup
+                             where room.RoomType == roomType
+                             select new
+                             {
+                                 RoomId = room.Id,
+                                 RoomName = room.Name,
+                                 RoomType = room.RoomType,
+                                 Desks = deskGroup.Count(d => d != null)
+                             };
 
         Dictionary<int, int> unavailableDesks = _bookingService.FetchUnavailableDesksCount();
         List<RoomListViewModel> result = new List<RoomListViewModel>();

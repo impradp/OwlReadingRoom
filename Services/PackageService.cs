@@ -34,6 +34,7 @@ namespace OwlReadingRoom.Services
         public List<PackageListViewModel> GetPackageList()
         {
             return (from package in GetPackages()
+                    orderby package.Name ascending
                     where package.Enabled is true
                     select new PackageListViewModel
             {

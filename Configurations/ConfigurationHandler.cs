@@ -1,9 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OwlReadingRoom.Configurations
 {
@@ -26,6 +21,26 @@ namespace OwlReadingRoom.Configurations
                 Delete = Boolean.Parse(actionIdentifierFeatures.GetSection("Delete").Value),
                 Edit = Boolean.Parse(actionIdentifierFeatures.GetSection("Edit").Value),
                 View = Boolean.Parse(actionIdentifierFeatures.GetSection("View").Value)
+            };
+        }
+
+        /// <summary>
+        /// Fetches the company details from the app settings manager.
+        /// </summary>
+        /// <param name="configuration">The interface that handles the configuration related service invocation.</param>
+        /// <returns>The company details.</returns>
+        public static CompanyDetails GetCompanyInformation(IConfiguration configuration)
+        {
+            var companyInformation = configuration.GetRequiredSection("Company");
+            return new CompanyDetails
+            {
+                Name = companyInformation.GetSection("Name").Value,
+                Address = companyInformation.GetSection("Address").Value,
+                City = companyInformation.GetSection("City").Value,
+                MobileNo = companyInformation.GetSection("MobileNo").Value,
+                AlternateMobileNo = companyInformation.GetSection("AlternateMobileNo").Value,
+                EmailID = companyInformation.GetSection("EmailID").Value,
+                AlternateEmailID = companyInformation.GetSection("AlternateEmailID").Value
             };
         }
     }
