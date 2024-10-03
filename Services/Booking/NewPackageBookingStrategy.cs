@@ -149,7 +149,7 @@ public class NewPackageBookingStrategy : BaseBookingStrategy
         // Set ReservationStartDate to 12:00 AM (start of the day)
         bookingInfo.ReservationStartDate = packagePaymentDetail.PackageStartDate?.Date;
         // Set ReservationEndDate to 11:59 PM (end of the day)
-        bookingInfo.ReservationEndDate = packagePaymentDetail.PackageEndDate?.Date.AddDays(1).AddSeconds(-1) ?? DateTime.MinValue;
+        bookingInfo.ReservationEndDate = packagePaymentDetail.PackageEndDate?.Date.AddDays(1).AddSeconds(-1);
 
         Desk desk = _deskService.TableQuery.FirstOrDefault(d => d.RoomId == packagePaymentDetail.Room.Id && d.Name.Equals(packagePaymentDetail.DeskName));
 

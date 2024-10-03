@@ -6,7 +6,7 @@
              x:Class="OwlReadingRoom.Views.Customer.DocumentDetailView">
     <ContentView.Resources>
         <ResourceDictionary>
-            
+
             <local:DateFormatConverter x:Key="DateFormatConverter"/>
             <local:DocumentTypeConverter x:Key="DocumentTypeConverter"/>
         </ResourceDictionary>
@@ -26,13 +26,7 @@
                         <Label Text="Document"
                                Style="{StaticResource LabelMedium}"
                                HeightRequest="24" />
-                        <Frame BackgroundColor="White"
-                               Padding="0"
-                               HeightRequest="48"
-                               CornerRadius="4"
-                               BorderColor="#CBD5E1"
-                               HasShadow="False">
-                            <Picker ItemsSource="{Binding DocumentTypes}"
+                        <Picker ItemsSource="{Binding DocumentTypes}"
                                     TitleColor="#647087"
                                     TextColor="#07003B"
                                     FontSize="16"
@@ -40,11 +34,10 @@
                                     VerticalOptions="Center"
                                     HorizontalOptions="FillAndExpand"
                                     SelectedItem="{Binding DocumentType}">
-                                <Picker.ItemDisplayBinding>
-                                    <Binding Converter="{StaticResource DocumentTypeConverter}" />
-                                </Picker.ItemDisplayBinding>
-                            </Picker>
-                        </Frame>
+                            <Picker.ItemDisplayBinding>
+                                <Binding Converter="{StaticResource DocumentTypeConverter}" />
+                            </Picker.ItemDisplayBinding>
+                        </Picker>
                     </VerticalStackLayout>
                 </VerticalStackLayout>
                 <VerticalStackLayout Grid.Column="1"
@@ -52,35 +45,21 @@
                     <Label Text="Document Number"
                            Style="{StaticResource LabelMedium}"
                            HeightRequest="24" />
-                    <Frame BackgroundColor="White"
-                           Padding="12,0"
-                           HeightRequest="48"
-                           CornerRadius="4"
-                           BorderColor="#CBD5E1"
-                           HasShadow="False">
-                        <Entry Placeholder="Eg: 123-456-89"
+                    <Entry Placeholder="Eg: 123-456-89"
                                Text="{Binding DocumentNumber}"
                                Style="{StaticResource LabelRegular}"
                                PlaceholderColor="#647087" />
-                    </Frame>
                 </VerticalStackLayout>
                 <VerticalStackLayout Grid.Column="2"
                                      Spacing="4">
                     <Label Text="Issue Date"
                            Style="{StaticResource LabelMedium}"
                            HeightRequest="24" />
-                    <Frame BackgroundColor="White"
-                           Padding="12,0"
-                           HeightRequest="48"
-                           CornerRadius="4"
-                           BorderColor="#CBD5E1"
-                           HasShadow="False">
-                        <DatePicker Format="MM/dd/yyyy"
+                    <DatePicker Format="MM/dd/yyyy"
                                     Date="{Binding IssueDate, 
                                            TargetNullValue={x:Static system:DateTime.Today}, 
                                            FallbackValue={x:Static system:DateTime.Today}}"
                                     TextColor="Black" />
-                    </Frame>
                 </VerticalStackLayout>
             </Grid>
             <ScrollView>

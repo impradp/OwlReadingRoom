@@ -231,7 +231,7 @@ public partial class PackagePaymentDetailView : ContentView
     {
         if (SelectedPackage != null)
         {
-            PackageEndDate = PackageStartDate?.AddDays(SelectedPackage.Days);
+            PackageEndDate = PackageStartDate?.AddDays(SelectedPackage.Days - 1);
         }
     }
 

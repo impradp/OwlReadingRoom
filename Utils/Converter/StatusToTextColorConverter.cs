@@ -13,9 +13,9 @@ namespace OwlReadingRoom.Utils.Converter
         {
             if (value is string status)
             {
-                return status.ToLower() == "active" ? Color.FromHex("#22C55E") : Color.FromHex("#3B82F6");
+                return status.ToLower() == "active" ? Color.FromArgb("#22C55E") : Color.FromArgb("#3B82F6");
             }
-            return Color.FromHex("#000000");
+            return Color.FromArgb("#000000");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

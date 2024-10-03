@@ -16,38 +16,23 @@
                     <Label Text="Full Name"
                            Style="{StaticResource LabelMedium}"
                            HeightRequest="24" />
-
-                    <Frame BackgroundColor="White"
-                           Padding="12,0"
-                           HeightRequest="48"
-                           CornerRadius="4"
-                           BorderColor="#CBD5E1"
-                           HasShadow="False">
-                        <Entry Placeholder="Full name"
+                    <Entry Placeholder="Full name"
                                Text="{Binding FullName}"
                                PlaceholderColor="#647087"
                                Style="{StaticResource LabelRegular}"
                                VerticalOptions="Center" />
-                    </Frame>
                 </VerticalStackLayout>
                 <VerticalStackLayout Grid.Column="1"
                                      Spacing="4">
                     <Label Text="Date of Birth"
                            Style="{StaticResource LabelMedium}"
                            HeightRequest="24" />
-                    <Frame BackgroundColor="White"
-                           Padding="12,0"
-                           HeightRequest="48"
-                           CornerRadius="4"
-                           BorderColor="#CBD5E1"
-                           HasShadow="False">
-                        <DatePicker 
+                    <DatePicker 
                             Date="{Binding DateOfBirth, 
                                            TargetNullValue={x:Static system:DateTime.Today}, 
                                            FallbackValue={x:Static system:DateTime.Today}}"
                             Format="MM/dd/yyyy"
                                     TextColor="Black" />
-                    </Frame>
                 </VerticalStackLayout>
 
                 <VerticalStackLayout Grid.Column="2"
@@ -57,26 +42,19 @@
                         <Label Text="Gender"
                                Style="{StaticResource LabelMedium}"
                                HeightRequest="24" />
-                        <Frame BackgroundColor="White"
-                               Padding="0"
-                               HeightRequest="48"
-                               CornerRadius="4"
-                               BorderColor="#CBD5E1"
-                               HasShadow="False">
-                            <Picker TitleColor="#647087"
+                        <Picker TitleColor="#647087"
                                     TextColor="#07003B"
                                     FontSize="16"
                                     FontFamily="Inter"
                                     VerticalOptions="Center"
                                     HorizontalOptions="FillAndExpand"
                                     SelectedItem="{Binding Gender}" >
-                                <Picker.Items>
-                                    <x:String>Male</x:String>
-                                    <x:String>Female</x:String>
-                                    <x:String>Other</x:String>
-                                </Picker.Items>
-                            </Picker>
-                        </Frame>
+                            <Picker.Items>
+                                <x:String>Male</x:String>
+                                <x:String>Female</x:String>
+                                <x:String>Other</x:String>
+                            </Picker.Items>
+                        </Picker>
                     </VerticalStackLayout>
                 </VerticalStackLayout>
             </Grid>
@@ -87,17 +65,10 @@
                     <Label Text="Mobile Number"
                            Style="{StaticResource LabelMedium}"
                            HeightRequest="24" />
-                    <Frame BackgroundColor="White"
-                           Padding="12,0"
-                           HeightRequest="48"
-                           CornerRadius="4"
-                           BorderColor="#CBD5E1"
-                           HasShadow="False">
-                        <Entry Placeholder="+977-"
+                    <Entry Placeholder="+977-"
                                Text="{Binding MobileNumber}"
                                Style="{StaticResource LabelRegular}"
                                PlaceholderColor="#647087" />
-                    </Frame>
                 </VerticalStackLayout>
                 <VerticalStackLayout Grid.Column="1"
                                      Spacing="4">
@@ -106,16 +77,9 @@
                         <Label Text="Faculty"
                                Style="{StaticResource LabelMedium}"
                                HeightRequest="24" />
-                        <Frame BackgroundColor="White"
-                               Padding="0"
-                               HeightRequest="48"
-                               CornerRadius="4"
-                               BorderColor="#CBD5E1"
-                               HasShadow="False">
-                            <Entry Text="{Binding Faculty}"
+                        <Entry Text="{Binding Faculty}"
                                    Style="{StaticResource LabelRegular}"
                                    PlaceholderColor="#647087" />
-                        </Frame>
                     </VerticalStackLayout>
                 </VerticalStackLayout>
             </Grid>
@@ -134,13 +98,7 @@
                     <Label Text="Current Address"
                            Style="{StaticResource LabelMedium}"
                            HeightRequest="24" />
-                    <Frame BackgroundColor="White"
-                           Padding="12,6"
-                           HeightRequest="128"
-                           CornerRadius="4"
-                           BorderColor="#CBD5E1"
-                           HasShadow="False">
-                        <Editor x:Name="CurrentAddressEditor"
+                    <Editor x:Name="CurrentAddressEditor"
                                 Text="{Binding CurrentAddress}"
                                 Placeholder="Enter Address"
                                 FontFamily="Inter"
@@ -149,7 +107,6 @@
                                 PlaceholderColor="#647087"
                                 BackgroundColor="Transparent"
                                 VerticalOptions="FillAndExpand" />
-                    </Frame>
                 </VerticalStackLayout>
 
                 <VerticalStackLayout Grid.Row="0"
@@ -158,13 +115,7 @@
                     <Label Text="Permanent Address"
                            Style="{StaticResource LabelMedium}"
                            HeightRequest="24" />
-                    <Frame BackgroundColor="White"
-                           Padding="12,6"
-                           HeightRequest="128"
-                           CornerRadius="4"
-                           BorderColor="#CBD5E1"
-                           HasShadow="False">
-                        <Editor x:Name="PermanentAddressEditor"
+                    <Editor x:Name="PermanentAddressEditor"
                                 Text="{Binding PermanantAddress}"
                                 Placeholder="Enter Address"
                                 FontFamily="Inter"
@@ -173,7 +124,6 @@
                                 PlaceholderColor="#647087"
                                 BackgroundColor="Transparent"
                                 VerticalOptions="FillAndExpand" />
-                    </Frame>
                 </VerticalStackLayout>
             </Grid>
 
@@ -222,25 +172,18 @@
                                 <Label Text="Disease"
                                        Style="{StaticResource LabelMedium}"
                                        HeightRequest="24" />
-                                <Frame BackgroundColor="White"
-                                       Padding="0"
-                                       HeightRequest="48"
-                                       CornerRadius="4"
-                                       BorderColor="#CBD5E1"
-                                       HasShadow="False">
-                                    <Picker TitleColor="#647087"
+                                <Picker TitleColor="#647087"
                                             TextColor="#07003B"
                                             FontSize="16"
                                             FontFamily="Inter"
                                             VerticalOptions="Center"
                                             HorizontalOptions="FillAndExpand"
                                             SelectedItem="{Binding Disease}">
-                                        <Picker.Items>
-                                            <x:String>Yes</x:String>
-                                            <x:String>No</x:String>
-                                        </Picker.Items>
-                                    </Picker>
-                                </Frame>
+                                    <Picker.Items>
+                                        <x:String>Yes</x:String>
+                                        <x:String>No</x:String>
+                                    </Picker.Items>
+                                </Picker>
                             </VerticalStackLayout>
                         </VerticalStackLayout>
                         <VerticalStackLayout Grid.Column="1"
@@ -250,25 +193,18 @@
                                 <Label Text="Allergy"
                                        Style="{StaticResource LabelMedium}"
                                        HeightRequest="24" />
-                                <Frame BackgroundColor="White"
-                                       Padding="0"
-                                       HeightRequest="48"
-                                       CornerRadius="4"
-                                       BorderColor="#CBD5E1"
-                                       HasShadow="False">
-                                    <Picker TitleColor="#647087"
+                                <Picker TitleColor="#647087"
                                             TextColor="#07003B"
                                             FontSize="16"
                                             FontFamily="Inter"
                                             VerticalOptions="Center"
                                             HorizontalOptions="FillAndExpand"
                                             SelectedItem="{Binding Allergies}">
-                                        <Picker.Items>
-                                            <x:String>Yes</x:String>
-                                            <x:String>No</x:String>
-                                        </Picker.Items>
-                                    </Picker>
-                                </Frame>
+                                    <Picker.Items>
+                                        <x:String>Yes</x:String>
+                                        <x:String>No</x:String>
+                                    </Picker.Items>
+                                </Picker>
                             </VerticalStackLayout>
                         </VerticalStackLayout>
                     </Grid>

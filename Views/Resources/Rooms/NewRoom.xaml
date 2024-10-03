@@ -69,20 +69,13 @@
                                    FontSize="14"
                                    Padding="0,0,0,10"
                                    TextColor="#35405C" />
-                            <Frame BackgroundColor="White"
-                                   Padding="12,0"
-                                   HeightRequest="48"
-                                   CornerRadius="4"
-                                   BorderColor="#CBD5E1"
-                                   HasShadow="False">
-                                <component:NumericEntry x:Name="NoOfRoomsEntry"
+                            <component:NumericEntry x:Name="NoOfRoomsEntry"
                                                         Placeholder="Enter Number"
                                                         PlaceholderColor="#647087"
                                                         Background="White"
                                                         Style="{StaticResource LabelRegular}"
                                                         MaxLength="2"
                                                         Keyboard="Telephone" />
-                            </Frame>
                         </VerticalStackLayout>
 
                         <VerticalStackLayout>
@@ -91,28 +84,21 @@
                                    FontSize="14"
                                    Padding="0,0,0,10"
                                    TextColor="#35405C" />
-                            <Frame BackgroundColor="White"
-                                   Padding="12,0"
-                                   HeightRequest="48"
-                                   CornerRadius="4"
-                                   BorderColor="#CBD5E1"
-                                   HasShadow="False">
-                                <Grid>
-                                    <Label x:Name="RoomTypeLabel"
+                            <Grid>
+                                <Label x:Name="RoomTypeLabel"
                                            Text="Select"
                                            VerticalOptions="Center"
                                            TextColor="Gray"
                                            Margin="5,0,0,0" />
-                                    <Picker x:Name="RoomTypePicker"
+                                <Picker x:Name="RoomTypePicker"
                                             Style="{StaticResource LabelRegular}"
                                             ItemsSource="{Binding RoomTypes}"
                                             SelectedIndexChanged="OnRoomTypeSelectedIndexChanged">
-                                        <Picker.ItemDisplayBinding>
-                                            <Binding Converter="{StaticResource RoomTypeConverter}" />
-                                        </Picker.ItemDisplayBinding>
-                                    </Picker>
-                                </Grid>
-                            </Frame>
+                                    <Picker.ItemDisplayBinding>
+                                        <Binding Converter="{StaticResource RoomTypeConverter}" />
+                                    </Picker.ItemDisplayBinding>
+                                </Picker>
+                            </Grid>
                         </VerticalStackLayout>
                     </StackLayout>
                 </ScrollView>

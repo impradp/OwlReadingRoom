@@ -12,7 +12,7 @@ namespace OwlReadingRoom.Utils
 
             if (currentSubmenu.ToString() == submenuName)
             {
-                return Color.FromHex("#EFF6FF");  // Selected color
+                return Color.FromArgb("#EFF6FF");  // Selected color
             }
             return Colors.White;  // Default color
         }

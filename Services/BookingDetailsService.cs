@@ -8,7 +8,6 @@ using OwlReadingRoom.Services.Resources;
 using OwlReadingRoom.Services.Transactions;
 using OwlReadingRoom.ViewModels;
 using SQLite;
-using System.Diagnostics;
 
 namespace OwlReadingRoom.Services;
 
@@ -154,8 +153,9 @@ public class BookingDetailsService : IBookingService
                     join personalDetail in personalDetailsQuery on customer.Id equals personalDetail.CustomerId
                     join latestBooking in latestBookingsQuery on customer.Id equals latestBooking.CustomerId
                     join package in packageQuery on latestBooking?.LatestBooking?.PackageId equals package?.Id
-                    where latestBooking.LatestBooking.ReservationEndDate?.Date > currentDate.Date && // Package is not expired yet
+                    where latestBooking.LatestBooking.ReservationEndDate?.Date >= currentDate.Date && // Package is not expired yet
                      latestBooking.LatestBooking.ReservationEndDate?.Date <= expiryThresholdDate // Package expires within 5 days
+                    orderby latestBooking.LatestBooking.ReservationEndDate
                     select new InactiveCustomerDetail
                     {
                         FullName = personalDetail.FullName,
@@ -211,7 +211,7 @@ public class BookingDetailsService : IBookingService
                         StartDate = latestBooking.LatestBooking.ReservationStartDate,
                         EndDate = latestBooking.LatestBooking.ReservationEndDate,
                         Package = package != null ? package.Name : "N/A",
-                        AllocatedSpace = latestBooking.LatestBooking.PackageId != null ? $"{room?.Name ?? "N/A"} - {desk?.Name ?? "N/A"}" : "N/A",
+                        AllocatedSpace = latestBooking.LatestBooking.PackageId != null ? $"{room?.Name}  ({desk?.Name})" : "N/A",
                         PaymentStatus = transaction?.PaymentStatus,
                         Dues = transaction != null ? transaction.DueAmount.ToString() : "0",
                         Status = Status.INACTIVE
