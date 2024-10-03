@@ -17,15 +17,15 @@ namespace OwlReadingRoom.Utils
             switch (status)
             {
                 case DeskStatus.Available:
-                    return Color.FromHex("#22C55E");
+                    return Color.FromArgb("#22C55E");
                 case DeskStatus.NotAvailable:
-                    return Color.FromHex("#DF1212");
+                    return Color.FromArgb("#DF1212");
                 case DeskStatus.Reserved:
-                    return Color.FromHex("#FACC15");
+                    return Color.FromArgb("#FACC15");
                 case DeskStatus.Selected:
-                    return Color.FromHex("#BAD3FB");
+                    return Color.FromArgb("#BAD3FB");
                 default:
-                    return Color.FromHex("#1E293B"); // Default color for unknown status
+                    return Color.FromArgb("#1E293B"); // Default color for unknown status
             }
         }
 

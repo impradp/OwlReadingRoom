@@ -28,13 +28,7 @@
                             <Label Text="Package Name"
                                    Style="{StaticResource LabelMedium}"
                                    HeightRequest="24" />
-                            <Frame BackgroundColor="White"
-                                   Padding="0"
-                                   HeightRequest="48"
-                                   CornerRadius="4"
-                                   BorderColor="#CBD5E1"
-                                   HasShadow="False">
-                                <Picker x:Name="PackageNameEntry"
+                            <Picker x:Name="PackageNameEntry"
                                         IsEnabled="{Binding IsEditable}"
                                         TitleColor="#647087"
                                         TextColor="#07003B"
@@ -45,27 +39,19 @@
                                         ItemsSource="{Binding PackageOptions}"
                                         ItemDisplayBinding="{Binding Name}"
                                         SelectedItem="{Binding SelectedPackage}">
-                                </Picker>
-                            </Frame>
+                            </Picker>
                         </VerticalStackLayout>
                         <VerticalStackLayout Padding="0,10,10,0"
                                              Spacing="4">
                             <Label Text="Package Start Date"
                                    Style="{StaticResource LabelMedium}"
                                    HeightRequest="24" />
-                            <Frame BackgroundColor="White"
-                                   Padding="12,0"
-                                   HeightRequest="48"
-                                   CornerRadius="4"
-                                   BorderColor="#CBD5E1"
-                                   HasShadow="False">
-                                <DatePicker Format="MM/dd/yyyy"
+                            <DatePicker Format="MM/dd/yyyy"
                                             IsEnabled="{Binding IsEditable}"
                                             TextColor="Black"
                                             Date="{Binding PackageStartDate, TargetNullValue={x:Static System:DateTime.Today},
                                     FallbackValue={x:Static System:DateTime.Today}}">
-                                </DatePicker>
-                            </Frame>
+                            </DatePicker>
                         </VerticalStackLayout>
 
                     </VerticalStackLayout>
@@ -76,13 +62,7 @@
                             <Label Text="Room Name"
                                    Style="{StaticResource LabelMedium}"
                                    HeightRequest="24" />
-                            <Frame BackgroundColor="White"
-                                   Padding="0"
-                                   HeightRequest="48"
-                                   CornerRadius="4"
-                                   BorderColor="#CBD5E1"
-                                   HasShadow="False">
-                                <Picker x:Name="RoomNamePicker"
+                            <Picker x:Name="RoomNamePicker"
                                         IsEnabled="{Binding IsEditable}"
                                         TitleColor="#647087"
                                         TextColor="#07003B"
@@ -93,26 +73,18 @@
                                         ItemsSource="{Binding RoomOptions}"
                                         ItemDisplayBinding="{Binding Name}"
                                         SelectedItem="{Binding SelectedRoom}">
-                                </Picker>
-                            </Frame>
+                            </Picker>
                         </VerticalStackLayout>
                         <VerticalStackLayout Padding="0,10,0,0"
                                              Spacing="4">
                             <Label Text="Package End Date"
                                    Style="{StaticResource LabelMedium}"
                                    HeightRequest="24" />
-                            <Frame BackgroundColor="White"
-                                   Padding="12,0"
-                                   HeightRequest="48"
-                                   CornerRadius="4"
-                                   BorderColor="#CBD5E1"
-                                   HasShadow="False">
-                                <DatePicker Format="MM/dd/yyyy"
+                            <DatePicker Format="MM/dd/yyyy"
                                             IsEnabled="False"
                                             TextColor="Black"
                                             Date="{Binding PackageEndDate, TargetNullValue={x:Static System:DateTime.Today}, FallbackValue={x:Static System:DateTime.Today}}">
-                                </DatePicker>
-                            </Frame>
+                            </DatePicker>
                         </VerticalStackLayout>
                     </VerticalStackLayout>
 
@@ -167,21 +139,14 @@
                         <Label Text="Payment Method"
                                Style="{StaticResource LabelMedium}"
                                HeightRequest="24" />
-                        <Frame BackgroundColor="White"
-                               Padding="12,0"
-                               HeightRequest="48"
-                               CornerRadius="4"
-                               BorderColor="#CBD5E1"
-                               HasShadow="False">
-                            <Picker Style="{StaticResource LabelRegular}"
+                        <Picker Style="{StaticResource LabelRegular}"
                                     SelectedItem="{Binding PackagePaymentDetail.PaymentMethod, Mode=OneWayToSource}">
-                                <Picker.Items>
-                                    <x:String>Cash</x:String>
-                                    <x:String>Esewa/Khalti</x:String>
-                                    <x:String>Bank Transaction</x:String>
-                                </Picker.Items>
-                            </Picker>
-                        </Frame>
+                            <Picker.Items>
+                                <x:String>Cash</x:String>
+                                <x:String>Esewa/Khalti</x:String>
+                                <x:String>Bank Transaction</x:String>
+                            </Picker.Items>
+                        </Picker>
                     </VerticalStackLayout>
 
                     <VerticalStackLayout Grid.Row="0"
@@ -190,16 +155,9 @@
                         <Label Text="Paid Date"
                                Style="{StaticResource LabelMedium}"
                                HeightRequest="24" />
-                        <Frame BackgroundColor="White"
-                               Padding="12,0"
-                               HeightRequest="48"
-                               CornerRadius="4"
-                               BorderColor="#CBD5E1"
-                               HasShadow="False">
-                            <DatePicker Format="MM/dd/yyyy"
+                        <DatePicker Format="MM/dd/yyyy"
                                         TextColor="Black"
                                         Date="{Binding PackagePaymentDetail.LastPaymentDate}" />
-                        </Frame>
                     </VerticalStackLayout>
 
                     <VerticalStackLayout Grid.Column="2"
@@ -207,20 +165,13 @@
                         <Label Text="Amount"
                                Style="{StaticResource LabelMedium}"
                                HeightRequest="24" />
-                        <Frame BackgroundColor="White"
-                               Padding="12,0"
-                               HeightRequest="48"
-                               CornerRadius="4"
-                               BorderColor="#CBD5E1"
-                               HasShadow="False">
-                            <Entry x:Name="PaidAmountEntry"
+                        <Entry x:Name="PaidAmountEntry"
                                    Style="{StaticResource LabelRegular}"
                                    PlaceholderColor="#647087"
                                    Placeholder="Enter Amount"
                                    MaxLength="7"
                                    Keyboard="Numeric"
                                    Text="{Binding PackagePaymentDetail.PaidAmount}" />
-                        </Frame>
                     </VerticalStackLayout>
                 </Grid>
 
@@ -237,16 +188,10 @@
                         <VerticalStackLayout Grid.Row="0"
                                              Grid.Column="0"
                                              Spacing="4">
-                            <Label Text="Parking"
+                            <Label Text="Parking Amount"
                                    Style="{StaticResource LabelMedium}"
                                    HeightRequest="24" />
-                            <Frame BackgroundColor="White"
-                                   Padding="12,0"
-                                   HeightRequest="48"
-                                   CornerRadius="4"
-                                   BorderColor="#CBD5E1"
-                                   HasShadow="False">
-                                <component:NumericEntry x:Name="ParkingAmount"
+                            <component:NumericEntry x:Name="ParkingAmount"
                                     Placeholder="Enter Amount"
                                     IsEnabled="{Binding IsEditable}"
                                     PlaceholderColor="#647087"
@@ -254,22 +199,15 @@
                                     Text="{Binding PackagePaymentDetail.ParkingAmount, FallbackValue='0', TargetNullValue='0'}"
                                     Style="{StaticResource LabelRegular}"
                                     Keyboard="Telephone" />
-                            </Frame>
                         </VerticalStackLayout>
 
                         <VerticalStackLayout Grid.Row="0"
                                              Grid.Column="1"
                                              Spacing="4">
-                            <Label Text="Locker"
+                            <Label Text="Locker Amount"
                                    Style="{StaticResource LabelMedium}"
                                    HeightRequest="24" />
-                            <Frame BackgroundColor="White"
-                                   Padding="12,0"
-                                   HeightRequest="48"
-                                   CornerRadius="4"
-                                   BorderColor="#CBD5E1"
-                                   HasShadow="False">
-                                <component:NumericEntry x:Name="LockerAmount"
+                            <component:NumericEntry x:Name="LockerAmount"
                                     Placeholder="Enter Amount"
                                     IsEnabled="{Binding IsEditable}"
                                     PlaceholderColor="#647087"
@@ -277,7 +215,6 @@
                                     Text="{Binding PackagePaymentDetail.LockerAmount, FallbackValue='0', TargetNullValue='0'}"
                                     Style="{StaticResource LabelRegular}"
                                     Keyboard="Telephone" />
-                            </Frame>
                         </VerticalStackLayout>
                     </Grid>
 

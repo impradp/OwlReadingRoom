@@ -91,8 +91,8 @@ public partial class CustomerListView : ContentView
     {
         try
         {
-            ((Label)tab.Children[0]).TextColor = Color.FromHex("#3B82F6");
-            ((BoxView)tab.Children[1]).Color = Color.FromHex("#3B82F6");
+            ((Label)tab.Children[0]).TextColor = Color.FromArgb("#3B82F6");
+            ((BoxView)tab.Children[1]).Color = Color.FromArgb("#3B82F6");
         }
         catch (Exception ex)
         {
@@ -104,8 +104,8 @@ public partial class CustomerListView : ContentView
     {
         try
         {
-            ((Label)tab.Children[0]).TextColor = Color.FromHex("#64748B");
-            ((BoxView)tab.Children[1]).Color = Color.FromHex("#E2E8F0");
+            ((Label)tab.Children[0]).TextColor = Color.FromArgb("#64748B");
+            ((BoxView)tab.Children[1]).Color = Color.FromArgb("#E2E8F0");
         }
         catch (Exception ex)
         {

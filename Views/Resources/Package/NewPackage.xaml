@@ -69,18 +69,11 @@
                                    FontSize="14"
                                    Padding="0,0,0,10"
                                    TextColor="#35405C" />
-                            <Frame BackgroundColor="White"
-                                   Padding="12,0"
-                                   HeightRequest="48"
-                                   CornerRadius="4"
-                                   BorderColor="#CBD5E1"
-                                   HasShadow="False">
-                                <Entry x:Name="PackageName"
+                            <Entry x:Name="PackageName"
                                        Placeholder="Enter Name"
                                        PlaceholderColor="#647087"
                                        Style="{StaticResource LabelRegular}"
                                        VerticalOptions="Center" />
-                            </Frame>
                         </VerticalStackLayout>
 
                         <VerticalStackLayout>
@@ -89,28 +82,21 @@
                                    FontSize="14"
                                    Padding="0,0,0,10"
                                    TextColor="#35405C" />
-                            <Frame BackgroundColor="White"
-                                   Padding="12,0"
-                                   HeightRequest="48"
-                                   CornerRadius="4"
-                                   BorderColor="#CBD5E1"
-                                   HasShadow="False">
-                                <Grid>
-                                    <Label x:Name="RoomTypeLabel"
+                            <Grid>
+                                <Label x:Name="RoomTypeLabel"
                                            Text="Select"
                                            VerticalOptions="Center"
                                            TextColor="Gray"
                                            Margin="5,0,0,0" />
-                                    <Picker x:Name="RoomTypePicker"
+                                <Picker x:Name="RoomTypePicker"
                                         Style="{StaticResource LabelRegular}"
                                         ItemsSource="{Binding RoomTypes}"
                                         SelectedIndexChanged="OnRoomTypeSelectedIndexChanged">
-                                        <Picker.ItemDisplayBinding>
-                                            <Binding Converter="{StaticResource RoomTypeConverter}" />
-                                        </Picker.ItemDisplayBinding>
-                                    </Picker>
-                                </Grid>
-                            </Frame>
+                                    <Picker.ItemDisplayBinding>
+                                        <Binding Converter="{StaticResource RoomTypeConverter}" />
+                                    </Picker.ItemDisplayBinding>
+                                </Picker>
+                            </Grid>
                         </VerticalStackLayout>
 
                         <VerticalStackLayout>
@@ -119,19 +105,12 @@
                                    FontSize="14"
                                    Padding="0,0,0,10"
                                    TextColor="#35405C" />
-                            <Frame BackgroundColor="White"
-                                   Padding="12,0"
-                                   HeightRequest="48"
-                                   CornerRadius="4"
-                                   BorderColor="#CBD5E1"
-                                   HasShadow="False">
-                                <component:DoubleEntry x:Name="AmountEntry"
+                            <component:DoubleEntry x:Name="AmountEntry"
                                        Placeholder="0.00"
                                        Style="{StaticResource LabelRegular}"
                                        PlaceholderColor="#647087"
                                        MaxLength="8"
                                        Keyboard="Telephone" />
-                            </Frame>
                         </VerticalStackLayout>
 
                         <VerticalStackLayout>
@@ -140,19 +119,12 @@
                                    FontSize="14"
                                    Padding="0,0,0,10"
                                    TextColor="#35405C" />
-                            <Frame BackgroundColor="White"
-                                   Padding="12,0"
-                                   HeightRequest="48"
-                                   CornerRadius="4"
-                                   BorderColor="#CBD5E1"
-                                   HasShadow="False">
-                                <component:NumericEntry x:Name="DaysEntry"
+                            <component:NumericEntry x:Name="DaysEntry"
                                        Placeholder="0"
                                        Style="{StaticResource LabelRegular}"
                                        PlaceholderColor="#647087"
                                        MaxLength="5"
                                        Keyboard="Telephone" />
-                            </Frame>
                         </VerticalStackLayout>
                     </StackLayout>
                 </ScrollView>

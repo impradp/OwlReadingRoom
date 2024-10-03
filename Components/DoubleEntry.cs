@@ -5,7 +5,9 @@ class DoubleEntry : Entry
     public DoubleEntry()
     {
         this.Keyboard = Keyboard.Numeric;
-        this.BackgroundColor = Color.FromHex("#FFFFFF");
+        this.BackgroundColor = Color.FromArgb("#FFFFFF");
+        this.TextColor = Color.FromArgb("#000000");
+        this.HeightRequest = 48;
     }
 
     protected override void OnTextChanged(string oldValue, string newValue)

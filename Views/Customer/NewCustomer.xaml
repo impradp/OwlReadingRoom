@@ -7,17 +7,6 @@
                Color="Transparent"
                VerticalOptions="Center"
                CanBeDismissedByTappingOutsideOfPopup="False">
-    <toolkit:Popup.Resources>
-        <Style x:Key="EntryInfoStyle"
-               TargetType="Entry">
-            <Setter Property="TextColor"
-                    Value="#07003B" />
-            <Setter Property="FontFamily"
-                    Value="Inter" />
-            <Setter Property="FontSize"
-                    Value="14" />
-        </Style>
-    </toolkit:Popup.Resources>
     <toolkit:Popup.Content>
         <Border StrokeShape="RoundRectangle 8"
                 Stroke="Transparent">
@@ -63,18 +52,11 @@
                                    FontFamily="Inter"
                                    FontSize="14"
                                    TextColor="#35405C" />
-                            <Frame BackgroundColor="White"
-                                   Padding="12,0"
-                                   HeightRequest="48"
-                                   CornerRadius="4"
-                                   BorderColor="#CBD5E1"
-                                   HasShadow="False">
-                                <Entry x:Name="FullNameEntry"
+                            <Entry x:Name="FullNameEntry"
                                        Placeholder="Full name"
                                        PlaceholderColor="#647087"
                                        Style="{StaticResource LabelRegular}"
                                        VerticalOptions="Center" />
-                            </Frame>
                         </VerticalStackLayout>
 
                         <VerticalStackLayout>
@@ -82,20 +64,13 @@
                                    FontFamily="Inter"
                                    FontSize="14"
                                    TextColor="#35405C" />
-                            <Frame BackgroundColor="White"
-                                   Padding="12,0"
-                                   HeightRequest="48"
-                                   CornerRadius="4"
-                                   BorderColor="#CBD5E1"
-                                   HasShadow="False">
-                                <Entry x:Name="ContactNumberEntry"
+                            <Entry x:Name="ContactNumberEntry"
                                        Text="+977-"
                                        Style="{StaticResource LabelRegular}"
                                        PlaceholderColor="#647087"
                                        MaxLength="15"
                                        TextChanged="OnContactNumberTextChanged"
                                        Keyboard="Telephone" />
-                            </Frame>
                         </VerticalStackLayout>
 
                         <VerticalStackLayout>
@@ -103,21 +78,14 @@
                                    FontFamily="Inter"
                                    FontSize="14"
                                    TextColor="#35405C" />
-                            <Frame BackgroundColor="White"
-                                   Padding="12,6"
-                                   HeightRequest="128"
-                                   CornerRadius="4"
-                                   BorderColor="#CBD5E1"
-                                   HasShadow="False">
-                                <Editor x:Name="AddressEditor"
+                            <Editor x:Name="AddressEditor"
                                         Placeholder="Enter Address"
-                                        FontFamily="Inter"
-                                        FontSize="16"
+                                        HeightRequest="128"
+                                        Style="{StaticResource LabelRegular}"
                                         TextColor="Black"
                                         PlaceholderColor="#647087"
                                         BackgroundColor="Transparent"
                                         VerticalOptions="FillAndExpand" />
-                            </Frame>
                         </VerticalStackLayout>
                     </StackLayout>
                 </ScrollView>
