@@ -46,6 +46,7 @@ public partial class NewPackage : Popup
     {
         try
         {
+            CreateButton.IsEnabled = false;
             if (Validator.isValidPackage(PackageName.Text, DaysEntry.Text, AmountEntry.Text, RoomTypePicker.SelectedIndex))
             {
                 _packageService.SavePackage(new PackageType
@@ -63,6 +64,10 @@ public partial class NewPackage : Popup
         catch (Exception ex)
         {
             ExceptionHandler.HandleException("Saving mew room details", ex);
+        }
+        finally
+        {
+            CreateButton.IsEnabled = true;
         }
     }
 

@@ -116,11 +116,13 @@
         <Setter Property="FontFamily"
                 Value="Inter" />
         <Setter Property="HorizontalOptions"
-Value="StartAndExpand" />
+                Value="StartAndExpand" />
         <Setter Property="FontSize"
                 Value="14" />
         <Setter Property="MinimumWidthRequest"
                 Value="320"/>
+        <Setter Property="MinimumHeightRequest"
+                Value="48"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">

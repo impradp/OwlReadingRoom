@@ -45,6 +45,7 @@ public partial class NewRoom : Popup
     {
         try
         {
+            CreateButton.IsEnabled = false;
             if (Validator.IsValidRoom(NoOfRoomsEntry.Text, RoomTypePicker.SelectedIndex))
             {
                 //TODO: Change the default room initials to the one sent by the user
@@ -61,6 +62,10 @@ public partial class NewRoom : Popup
         catch (Exception ex)
         {
             ExceptionHandler.HandleException("Saving new room details", ex);
+        }
+        finally
+        {
+            CreateButton.IsEnabled = true;
         }
     }
 

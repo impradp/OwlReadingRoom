@@ -15,7 +15,7 @@ namespace OwlReadingRoom.ViewModels
         public int AvailableDesks { get; set; }
         public List<DeskInfoViewModel> Desks { get; set; }
         public int DeskCount { get; set; }
-
         public bool IsSelectable { get; set; }
+        public string SelectedDesk { get; set; }
     }
 }

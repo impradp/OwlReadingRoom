@@ -1,3 +1,4 @@
+using OwlReadingRoom.Events;
 using OwlReadingRoom.Services;
 using OwlReadingRoom.Services.Resources;
 using OwlReadingRoom.Utils;
@@ -14,6 +15,8 @@ public partial class CustomerUpdateView : ContentView
     private readonly IServiceProvider _serviceProvider;
 
     public CustomerDetailViewModel Customer { get; set; }
+
+    public event EventHandler<CustomerSavedEventArgs> PackageCreatedForCustomer;
 
     public CustomerUpdateView(CustomerDetailViewModel viewModel, IServiceProvider serviceProvider)
     {
@@ -52,6 +55,10 @@ public partial class CustomerUpdateView : ContentView
         _personalDetailView = new PersonalDetailView(personalDetailEditViewModel, _serviceProvider.GetService<ICustomerService>());
     }
 
+    /// <summary>
+    /// Sets the document detail content for the document detail tab.
+    /// </summary>
+    /// <param name="customerPackage">The customer package information for the corresponding document owner.</param>
     private void SetDocumentDetailContent(CustomerDetailViewModel customerPackage)
     {
         DocumentEditViewModel viewModel = new DocumentEditViewModel()
@@ -67,16 +74,37 @@ public partial class CustomerUpdateView : ContentView
         _documentDetailView = new DocumentDetailView(viewModel, _serviceProvider.GetService<ICustomerService>());
     }
 
+    /// <summary>
+    /// Sets the package payment information for the package payment information.
+    /// </summary>
+    /// <param name="customerPackage">The customer detail information.</param>
     private void SetPackagePaymentDetailContent(CustomerDetailViewModel customerPackage)
     {
         PackageAndPaymentEditViewModel packageAndPaymentEditViewModel = new PackageAndPaymentEditViewModel
         {
             Id = customerPackage.BookingDetails?.Id
-            
+
         };
-        _packagePaymentDetailView = new PackagePaymentDetailView(packageAndPaymentEditViewModel, _serviceProvider.GetService<IPhysicalResourceService>(), _serviceProvider);
+        _packagePaymentDetailView = new PackagePaymentDetailView(customerPackage, packageAndPaymentEditViewModel, _serviceProvider.GetService<IPhysicalResourceService>(), _serviceProvider);
+        _packagePaymentDetailView.PackageCreated += OnPackageCreated;
     }
 
+    /// <summary>
+    /// Invokes the event once the package is created.
+    /// </summary>
+    /// <param name="sender">The object which initiates the on packagecreated event.</param>
+    /// <param name="updatedCustomer">The event argument containing customer detail view.</param>
+    private void OnPackageCreated(object sender, CustomerDetailViewModel updatedCustomer)
+    {
+        // Notify the MainView that we need to switch back to CustomerDetailsView
+        PackageCreatedForCustomer?.Invoke(this, new CustomerSavedEventArgs(updatedCustomer));
+    }
+
+    /// <summary>
+    /// Handles the personal detail tab tap event.
+    /// </summary>
+    /// <param name="sender">The tab that initiates this event.</param>
+    /// <param name="e">The event argument containing the personal detail.</param>
     private void OnPersonalDetailTabTapped(object sender, EventArgs e)
     {
         try
@@ -91,6 +119,11 @@ public partial class CustomerUpdateView : ContentView
         }
     }
 
+    /// <summary>
+    /// Handles the document detail tab tap event.
+    /// </summary>
+    /// <param name="sender">The button that trigges the tap event.</param>
+    /// <param name="e">The event argument containing the customer info.</param>
     private void OnDocumentDetailTabTapped(object sender, EventArgs e)
     {
         try
@@ -105,6 +138,11 @@ public partial class CustomerUpdateView : ContentView
         }
     }
 
+    /// <summary>
+    /// Handles the package payment tab tap event.
+    /// </summary>
+    /// <param name="sender">The button that handles the tap event.</param>
+    /// <param name="e">The event argument that contains the customer detail argument.</param>
     private void OnPackagePaymentTabTapped(object sender, EventArgs e)
     {
         try
@@ -119,6 +157,10 @@ public partial class CustomerUpdateView : ContentView
         }
     }
 
+    /// <summary>
+    /// Sets the active tab to display the active styles.
+    /// </summary>
+    /// <param name="tab">The tab containing the styles information.</param>
     private void SetActiveTab(StackLayout tab)
     {
         try
@@ -132,7 +174,12 @@ public partial class CustomerUpdateView : ContentView
         }
     }
 
-    private void SetInactiveTabs(StackLayout tab1,StackLayout tab2)
+    /// <summary>
+    /// Sets the inactive tab info and styles info.
+    /// </summary>
+    /// <param name="tab1">The tab containing the styles of its own for active or inactive.</param>
+    /// <param name="tab2">The tab containing the styles of its own for active or inactive.</param>
+    private void SetInactiveTabs(StackLayout tab1, StackLayout tab2)
     {
         try
         {
@@ -146,6 +193,5 @@ public partial class CustomerUpdateView : ContentView
             ExceptionHandler.HandleException("Setting inactive tab", ex);
         }
     }
-
 
 }

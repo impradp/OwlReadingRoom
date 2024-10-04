@@ -1,4 +1,5 @@
 using CommunityToolkit.Maui.Views;
+using OwlReadingRoom.Models.Enums;
 using OwlReadingRoom.Services.Resources;
 using OwlReadingRoom.Utils;
 using OwlReadingRoom.ViewModels;
@@ -14,7 +15,7 @@ public partial class DeskSelectView : Popup
     private List<DeskInfoViewModel> _desks;
     public RoomListViewModel Room { get; set; }
     public event EventHandler<string> DeskSelected;
-    private IPhysicalResourceService _resourceSerivce;
+    private readonly IPhysicalResourceService _resourceSerivce;
     private readonly IServiceProvider _serviceProvider;
     private string SelectedDeskName;
 
@@ -43,7 +44,7 @@ public partial class DeskSelectView : Popup
     /// </summary>
     /// <param name="token">The event token passed when a popup is invoked</param>
     /// <returns>Completed task for closing the modal popup.</returns>
-    protected override async Task OnDismissedByTappingOutsideOfPopup(CancellationToken token = default(CancellationToken))
+    protected override async Task OnDismissedByTappingOutsideOfPopup(CancellationToken token = default)
     {
         if (!String.IsNullOrEmpty(SelectedDeskName))
         {
@@ -60,6 +61,18 @@ public partial class DeskSelectView : Popup
         {
             DeskSelectLabel.Text = Room.RoomType + "(" + Room.Name + ")";
             _desks = _resourceSerivce.GetDeskInfoPerRoom(Room.Id);
+
+            if (!string.IsNullOrEmpty(Room.SelectedDesk))
+            {
+                SelectedDeskName = Room.SelectedDesk;
+                var selectedDesk = _desks.Find(i => i.Name.Equals(Room.SelectedDesk, StringComparison.OrdinalIgnoreCase));
+                if (selectedDesk != null)
+                {
+                    selectedDesk.Status = DeskStatus.Selected;
+                    selectedDesk.Color = Utility.GetBackGroundColorByDeskStatus(DeskStatus.Selected);
+                    selectedDesk.Message = "Selected";
+                }
+            }
 
             switch (Room.RoomType)
             {

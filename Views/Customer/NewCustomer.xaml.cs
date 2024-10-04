@@ -1,7 +1,6 @@
 using CommunityToolkit.Maui.Views;
 using OwlReadingRoom.Components.AlertDialog;
 using OwlReadingRoom.DTOs;
-using OwlReadingRoom.Models;
 using OwlReadingRoom.Services;
 using OwlReadingRoom.Utils;
 
@@ -9,13 +8,11 @@ namespace OwlReadingRoom.Views.Customer;
 
 public partial class NewCustomer : Popup
 {
-    private readonly IPackageService _packageService;
     private readonly IBookingService _bookingService;
     public event EventHandler<EventArgs> CustomerPackageSaved;
     public NewCustomer(IPackageService packageService, IBookingService bookingService)
     {
         InitializeComponent();
-        _packageService = packageService;
         BindingContext = this;
         _bookingService = bookingService;
     }
@@ -52,13 +49,14 @@ public partial class NewCustomer : Popup
     {
         try
         {
+            CreateButton.IsEnabled = false;
+
             if (Validator.IsValidNewCustomer(FullNameEntry.Text, ContactNumberEntry.Text, false, null, null, ""))
             {
-                //TODO: Create customer object
                 _bookingService.PerformInitialBooking(new MinimumCustomerDetail
                 {
                     FullName = FullNameEntry.Text,
-                    ContactNumber = ContactNumberEntry.Text,
+                    ContactNumber = String.Format("+977-{0}", ContactNumberEntry.Text),
                     CurrentAddress = AddressEditor.Text
                 });
 
@@ -72,6 +70,10 @@ public partial class NewCustomer : Popup
         {
             ExceptionHandler.HandleException("Saving customer details", ex);
         }
+        finally
+        {
+            CreateButton.IsEnabled = true;
+        }
     }
 
     /// <summary>
@@ -83,57 +85,21 @@ public partial class NewCustomer : Popup
     {
         if (e.NewTextValue != null)
         {
-            string filteredText = new string(e.NewTextValue.Where(ch => char.IsDigit(ch) || ch == '+' || ch == '-').ToArray());
+            // Only allow digits (removes any other characters)
+            string filteredText = new string(e.NewTextValue.Where(ch => char.IsDigit(ch)).ToArray());
 
-            int digitCount = filteredText.Count(ch => char.IsDigit(ch));
-
-            if (digitCount > 13 || filteredText.Length > 15)
+            // Check if the filtered text has more than 10 digits
+            if (filteredText.Length > 10)
             {
+                // If more than 10 digits, revert to old value
                 ContactNumberEntry.Text = e.OldTextValue;
             }
             else if (filteredText != e.NewTextValue)
             {
+                // If the filtered text is different from input (meaning non-numeric chars were removed)
                 ContactNumberEntry.Text = filteredText;
             }
         }
-    }
-
-    /// <summary>
-    /// Prepares the customer folder name in the AppData to store the documents of selected customer.
-    /// </summary>
-    /// <param name="contactNumber">The contact number with which the customer folder is created.</param>
-    /// <returns></returns>
-    private string SanitizeCustomerFolderName(string contactNumber)
-    {
-        return contactNumber.Replace(" ", "").Replace("+", "").Replace("-", "");
-    }
-
-    /// <summary>
-    /// Validates the existence or else creates the new folder for customer document storage.
-    /// </summary>
-    /// <param name="directoryPath"></param>
-    private void EnsureDirectoryExists(string directoryPath)
-    {
-        if (!Directory.Exists(directoryPath))
-        {
-            Directory.CreateDirectory(directoryPath);
-        }
-    }
-
-    /// <summary>
-    /// Copies the original file to customer folder to be readily used by the application.
-    /// </summary>
-    /// <param name="sourceFilePath">The original path of the file in the machine.</param>
-    /// <param name="destinationFolderPath">The folder path in the application's AppData directory.</param>
-    /// <returns></returns>
-    private string CopyFileToCustomerFolder(string sourceFilePath, string destinationFolderPath)
-    {
-        string fileName = Path.GetFileName(sourceFilePath);
-        string destinationFilePath = Path.Combine(destinationFolderPath, fileName);
-
-        File.Copy(sourceFilePath, destinationFilePath, true);
-
-        return destinationFilePath;
     }
 
 }

@@ -63,7 +63,6 @@
                                    Style="{StaticResource LabelMedium}"
                                    HeightRequest="24" />
                             <Picker x:Name="RoomNamePicker"
-                                        IsEnabled="{Binding IsEditable}"
                                         TitleColor="#647087"
                                         TextColor="#07003B"
                                         FontSize="16"
@@ -221,14 +220,15 @@
                     <!-- Buttons -->
                     <Grid ColumnDefinitions="*,*,*, *"
                           ColumnSpacing="10">
-                        <Button Grid.Column="0"
+                        <Button Grid.Column="2"
                                 Text="Clear"
                                 TextColor="#415A77"
                                 BackgroundColor="Transparent"
                                 BorderColor="#E2E8F0"
                                 BorderWidth="1"
                                 Released="OnClearClicked" />
-                        <Button Grid.Column="1"
+                        <Button x:Name="SaveButton"
+                                Grid.Column="3"
                                 Text="Save"
                                 Released="OnCreateClicked"
                                 TextColor="White"

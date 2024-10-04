@@ -9,7 +9,7 @@ namespace OwlReadingRoom.Views.Customer;
 
 public partial class DocumentDetailView : ContentView, INotifyPropertyChanged
 {
-    private DocumentEditViewModel _customerEditViewModel;
+    private readonly DocumentEditViewModel _customerEditViewModel;
     private readonly ICustomerService _customerService;
     public DocumentDetailView(DocumentEditViewModel viewModel, ICustomerService customerService)
     {
@@ -23,12 +23,17 @@ public partial class DocumentDetailView : ContentView, INotifyPropertyChanged
     {
         try
         {
+            SaveButton.IsEnabled = false;
             _customerService.UpdateCustomerDocument(_customerEditViewModel);
             AlertService.Instance.ShowAlert("Success", "Documents saved successfully.");
         }
         catch (Exception ex)
         {
             ExceptionHandler.HandleException("updating documents", ex);
+        }
+        finally
+        {
+            SaveButton.IsEnabled = true;
         }
     }
 
