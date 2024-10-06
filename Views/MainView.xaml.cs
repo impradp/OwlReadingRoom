@@ -19,7 +19,7 @@ namespace OwlReadingRoom
     public partial class MainView : ContentPage, INotifyPropertyChanged
     {
         private string _selectedMenu = "";
-        private LoginResult _loginResult;
+        private readonly LoginResult _loginResult;
         private bool _isResourceMenuExpanded;
         private readonly Auth0Client _auth0Client;
         private readonly IServiceProvider _serviceProvider;
@@ -121,7 +121,7 @@ namespace OwlReadingRoom
         {
             get
             {
-                User user = new User();
+                User user = new();
                 string timeOfDay = Utility.GetTimeOfDay();
                 var authUser = _loginResult.User;
                 user.Name = authUser.FindFirst(c => c.Type == "name")?.Value;
@@ -207,9 +207,28 @@ namespace OwlReadingRoom
         /// <param name="e">The argument passed down to update the selected customer.</param>
         private void OnCustomerUpdateSelected(object sender, CustomerSavedEventArgs e)
         {
-
             var customerUpdateView = new CustomerUpdateView(e.SavedCustomerDetail, _serviceProvider);
+            customerUpdateView.PackageCreatedForCustomer += OnPackageCreatedForCustomer;
             DynamicContentArea.Content = customerUpdateView;
+        }
+
+        /// <summary>
+        /// Handles the package creation event for designated customer.
+        /// Redirects to the detail page once the package is saved.
+        /// </summary>
+        /// <param name="sender">The button that triggers this event.</param>
+        /// <param name="e">The event argument containing the customer info.</param>
+        private void OnPackageCreatedForCustomer(object sender, CustomerSavedEventArgs e)
+        {
+            CustomerPackageViewModel customerPackage = new CustomerPackageViewModel()
+            {
+                CustomerId = e.SavedCustomerDetail.CustomerId,
+                BookingId = e.SavedCustomerDetail.BookingDetails.Id,
+                Status = (Status)Enum.Parse(typeof(Status), e.SavedCustomerDetail.Status, true),
+                ContactNumber = e.SavedCustomerDetail.MobileNumber
+            };
+            // Switch back to CustomerDetailsView
+            OnCustomerSelected(this, customerPackage);
         }
 
         /// <summary>

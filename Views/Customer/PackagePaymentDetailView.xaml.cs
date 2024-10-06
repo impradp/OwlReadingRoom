@@ -20,12 +20,14 @@ public partial class PackagePaymentDetailView : ContentView
     public List<RoomListViewModel> NonACRoomOptions { get; private set; }
     public List<PackageListViewModel> PackageOptions { get; private set; }
 
+    public event EventHandler<CustomerDetailViewModel> PackageCreated;
+
     private PackageListViewModel _selectedPackage;
     private RoomListViewModel _selectedRoom;
     private DateTime? _packageStartDate;
     private DateTime? _packageEndDate;
     private bool _hasExistingPackage;
-    private IPhysicalResourceService _resourceService;
+    private readonly IPhysicalResourceService _resourceService;
     private readonly IServiceProvider _serviceProvider;
     private readonly IBookingService _bookingService;
     private readonly IBookingProcessor _bookingProcessor;
@@ -34,11 +36,13 @@ public partial class PackagePaymentDetailView : ContentView
     private readonly ITransactionService _transactionService;
 
     public PackageAndPaymentEditViewModel PackagePaymentDetail { get; private set; }
-    public PackagePaymentDetailView(PackageAndPaymentEditViewModel packageAndPaymentDetail,
+    public CustomerDetailViewModel CustomerDetail { get; private set; }
+    public PackagePaymentDetailView(CustomerDetailViewModel customerDetail, PackageAndPaymentEditViewModel packageAndPaymentDetail,
         IPhysicalResourceService resourceService, IServiceProvider serviceProvider)
     {
         InitializeComponent();
         PackagePaymentDetail = packageAndPaymentDetail;
+        CustomerDetail = customerDetail;
         _resourceService = resourceService;
         _serviceProvider = serviceProvider;
         _bookingService = _serviceProvider.GetService<IBookingService>();
@@ -270,9 +274,12 @@ public partial class PackagePaymentDetailView : ContentView
 
         try
         {
+            SaveButton.IsEnabled = false;
             if (Validator.isValidBooking(SelectedDesk, SelectedRoom))
             {
                 _bookingProcessor.ProcessBooking(PackagePaymentDetail);
+
+                PackageCreated?.Invoke(this, CustomerDetail);
 
                 AlertService.Instance.ShowAlert("Success", "Package details saved successfully.", AlertType.Success);
             }
@@ -280,6 +287,10 @@ public partial class PackagePaymentDetailView : ContentView
         catch (Exception ex)
         {
             ExceptionHandler.HandleException("booking a package for customer.", ex);
+        }
+        finally
+        {
+            SaveButton.IsEnabled = true;
         }
     }
 
@@ -297,10 +308,9 @@ public partial class PackagePaymentDetailView : ContentView
                 await CustomAlert.ShowAlert("Error", "Please select room before selecting desks.", "OK");
                 return;
             }
-            if (IsEditable)
-            {
-                SelectedRoom.IsSelectable = true;
-            }
+
+            SelectedRoom.IsSelectable = true;
+            SelectedRoom.SelectedDesk = SelectedDesk;
 
             Func<RoomListViewModel, DeskSelectView> _deskLayoutFactory = _serviceProvider.GetService<Func<RoomListViewModel, DeskSelectView>>();
             var deskLayoutPopup = _deskLayoutFactory(SelectedRoom);
@@ -353,12 +363,16 @@ public partial class PackagePaymentDetailView : ContentView
         }
     }
 
+    /// <summary>
+    /// Handles the customer selection event.
+    /// </summary>
+    /// <param name="sender">The frame that triggers the customer detail display.</param>
+    /// <param name="e">The event argument containing the customer minimal info.</param>
     private void OnCustomerSelected(object sender, EventArgs e)
     {
         var picker = sender as Picker;
-        var selectedPackage = picker.SelectedItem as PackageListViewModel;
 
-        if (selectedPackage != null && !selectedPackage.IsSelectable)
+        if (picker.SelectedItem is PackageListViewModel selectedPackage && !selectedPackage.IsSelectable)
         {
             CustomAlert.ShowAlert("Error", $"{selectedPackage.Name} is not selectable.", "OK");
             picker.SelectedItem = null; // Reset selection

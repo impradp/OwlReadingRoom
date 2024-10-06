@@ -65,10 +65,14 @@
                     <Label Text="Mobile Number"
                            Style="{StaticResource LabelMedium}"
                            HeightRequest="24" />
-                    <Entry Placeholder="+977-"
-                               Text="{Binding MobileNumber}"
-                               Style="{StaticResource LabelRegular}"
-                               PlaceholderColor="#647087" />
+                    <Entry x:Name="ContactNumberEntry"
+                           Text="{Binding MobileNumber}"
+                           Style="{StaticResource LabelRegular}"
+                           PlaceholderColor="#647087"
+                           Placeholder="Eg:+977-98XXXXXXXX"
+                           MaxLength="15"
+                           TextChanged="OnContactNumberTextChanged"
+                           Keyboard="Telephone" />
                 </VerticalStackLayout>
                 <VerticalStackLayout Grid.Column="1"
                                      Spacing="4">
@@ -212,15 +216,16 @@
             </VerticalStackLayout>
 
             <!-- Buttons -->
-            <Grid ColumnDefinitions="*, *"
+            <Grid ColumnDefinitions="*, *,*,*"
                   ColumnSpacing="10">
-                <Button Grid.Column="0"
+                <Button Grid.Column="2"
                         Text="Clear"
                         TextColor="#415A77"
                         BackgroundColor="Transparent"
                         BorderColor="#E2E8F0"
                         BorderWidth="1" />
-                <Button Grid.Column="1"
+                <Button x:Name="CreateButton"
+                        Grid.Column="3"
                         Text="Save"
                         Released="OnCreateClicked"
                         TextColor="White"
