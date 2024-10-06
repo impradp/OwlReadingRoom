@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="OwlReadingRoom.Views.Customer.NewCustomer"
+               Size="402,500"
+               Color="Transparent"
+               VerticalOptions="Center"
+               CanBeDismissedByTappingOutsideOfPopup="False">
+    <toolkit:Popup.Content>
+        <Border StrokeShape="RoundRectangle 8"
+                Stroke="Transparent">
+            <Border.Shadow>
+                <Shadow Brush="Black"
+                        Offset="0,56"
+                        Opacity="0.1"
+                        Radius="50" />
+            </Border.Shadow>
+            <StackLayout>
+                <!-- Header Section -->
+                <StackLayout Padding="0,0,0,1">
+                    <StackLayout Orientation="Horizontal"
+                                 BackgroundColor="White"
+                                 Padding="20"
+                                 HorizontalOptions="FillAndExpand">
+                        <Label Text="Create New Customer"
+                               FontFamily="Inter"
+                               FontSize="20"
+                               TextColor="#1E293B"
+                               VerticalOptions="Center"
+                               HorizontalOptions="StartAndExpand" />
+                        <Button WidthRequest="24"
+                                HeightRequest="24"
+                                BackgroundColor="Transparent"
+                                Released="OnCloseClicked"
+                                HorizontalOptions="End">
+                            <Button.ImageSource>
+                                <FileImageSource File="close_icon.png" />
+                            </Button.ImageSource>
+                        </Button>
+                    </StackLayout>
+                </StackLayout>
+
+                <!-- Content Section -->
+                <ScrollView VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand">
+                    <StackLayout Padding="20"
+                                 Spacing="16"
+                                 BackgroundColor="White">
+                        <VerticalStackLayout>
+                            <Label Text="Full Name"
+                                   FontFamily="Inter"
+                                   FontSize="14"
+                                   TextColor="#35405C" />
+                            <Entry x:Name="FullNameEntry"
+                                       Placeholder="Full name"
+                                       PlaceholderColor="#647087"
+                                       Style="{StaticResource LabelRegular}"
+                                       VerticalOptions="Center" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout>
+                            <Label Text="Contact Number"
+                                   FontFamily="Inter"
+                                   FontSize="14"
+                                   TextColor="#35405C" />
+                            <Entry x:Name="ContactNumberEntry"
+                                   Style="{StaticResource LabelRegular}"
+                                   PlaceholderColor="#647087"
+                                   Placeholder="Eg:98XXXXXXXX"
+                                   MaxLength="10"
+                                   TextChanged="OnContactNumberTextChanged"
+                                   Keyboard="Telephone" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout>
+                            <Label Text="Current Address"
+                                   FontFamily="Inter"
+                                   FontSize="14"
+                                   TextColor="#35405C" />
+                            <Editor x:Name="AddressEditor"
+                                    Placeholder="Enter Address"
+                                    HeightRequest="128"
+                                    Style="{StaticResource LabelRegular}"
+                                    TextColor="Black"
+                                    PlaceholderColor="#647087"
+                                    BackgroundColor="Transparent"
+                                    VerticalOptions="FillAndExpand" />
+                        </VerticalStackLayout>
+                    </StackLayout>
+                </ScrollView>
+
+                <!-- Footer Section -->
+                <StackLayout Margin="0,1,0,0">
+                    <Grid BackgroundColor="White"
+                          Padding="20"
+                          ColumnDefinitions="*, Auto, Auto"
+                          VerticalOptions="Center">
+                        <Button Grid.Column="1"
+                                Text="Clear"
+                                TextColor="#64748B"
+                                BorderColor="#E5E7EB"
+                                BorderWidth="1"
+                                BackgroundColor="Transparent"
+                                Released="OnClearClicked"
+                                Margin="0,0,10,0"
+                                VerticalOptions="Center" />
+                        <Button x:Name="CreateButton"
+                                Grid.Column="2"
+                                Text="Create"
+                                TextColor="White"
+                                BackgroundColor="#007AFF"
+                                Released="OnCreateClicked"
+                                VerticalOptions="Center" />
+                    </Grid>
+                </StackLayout>
+
+            </StackLayout>
+        </Border>
+    </toolkit:Popup.Content>
+</toolkit:Popup>

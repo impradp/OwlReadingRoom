@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:system="clr-namespace:System;assembly=netstandard"
+             x:Class="OwlReadingRoom.Views.Customer.PersonalDetailView">
+    <ScrollView>
+        <VerticalStackLayout Padding="0,24,24,0"
+                             Spacing="20">
+            <!-- Personal Information Section -->
+            <Label Text="Personal Information"
+                   Style="{StaticResource SubTitleStyle}" />
+            <Grid ColumnDefinitions="*, *, *"
+                  ColumnSpacing="15">
+                <VerticalStackLayout Spacing="4"
+                                     Grid.Column="0">
+                    <Label Text="Full Name"
+                           Style="{StaticResource LabelMedium}"
+                           HeightRequest="24" />
+                    <Entry Placeholder="Full name"
+                               Text="{Binding FullName}"
+                               PlaceholderColor="#647087"
+                               Style="{StaticResource LabelRegular}"
+                               VerticalOptions="Center" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1"
+                                     Spacing="4">
+                    <Label Text="Date of Birth"
+                           Style="{StaticResource LabelMedium}"
+                           HeightRequest="24" />
+                    <DatePicker 
+                            Date="{Binding DateOfBirth, 
+                                           TargetNullValue={x:Static system:DateTime.Today}, 
+                                           FallbackValue={x:Static system:DateTime.Today}}"
+                            Format="MM/dd/yyyy"
+                                    TextColor="Black" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Column="2"
+                                     Spacing="4">
+                    <VerticalStackLayout Grid.Column="2"
+                                         Spacing="4">
+                        <Label Text="Gender"
+                               Style="{StaticResource LabelMedium}"
+                               HeightRequest="24" />
+                        <Picker TitleColor="#647087"
+                                    TextColor="#07003B"
+                                    FontSize="16"
+                                    FontFamily="Inter"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="FillAndExpand"
+                                    SelectedItem="{Binding Gender}" >
+                            <Picker.Items>
+                                <x:String>Male</x:String>
+                                <x:String>Female</x:String>
+                                <x:String>Other</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Grid>
+            <Grid ColumnDefinitions="*, *, *"
+                  ColumnSpacing="15">
+                <VerticalStackLayout Grid.Column="0"
+                                     Spacing="4">
+                    <Label Text="Mobile Number"
+                           Style="{StaticResource LabelMedium}"
+                           HeightRequest="24" />
+                    <Entry x:Name="ContactNumberEntry"
+                           Text="{Binding MobileNumber}"
+                           Style="{StaticResource LabelRegular}"
+                           PlaceholderColor="#647087"
+                           Placeholder="Eg:+977-98XXXXXXXX"
+                           MaxLength="15"
+                           TextChanged="OnContactNumberTextChanged"
+                           Keyboard="Telephone" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1"
+                                     Spacing="4">
+                    <VerticalStackLayout Grid.Column="2"
+                                         Spacing="4">
+                        <Label Text="Faculty"
+                               Style="{StaticResource LabelMedium}"
+                               HeightRequest="24" />
+                        <Entry Text="{Binding Faculty}"
+                                   Style="{StaticResource LabelRegular}"
+                                   PlaceholderColor="#647087" />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Grid>
+
+            <!-- Permanent Address Information Section -->
+            <Label Text="Address Information"
+                   Style="{StaticResource SubTitleStyle}" />
+
+            <Grid ColumnDefinitions="*, *, *"
+                  ColumnSpacing="15"
+                  RowDefinitions="Auto, Auto"
+                  RowSpacing="15">
+                <VerticalStackLayout Grid.Row="0"
+                                     Grid.Column="0"
+                                     Spacing="4">
+                    <Label Text="Current Address"
+                           Style="{StaticResource LabelMedium}"
+                           HeightRequest="24" />
+                    <Editor x:Name="CurrentAddressEditor"
+                                Text="{Binding CurrentAddress}"
+                                Placeholder="Enter Address"
+                                FontFamily="Inter"
+                                FontSize="16"
+                                TextColor="Black"
+                                PlaceholderColor="#647087"
+                                BackgroundColor="Transparent"
+                                VerticalOptions="FillAndExpand" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Row="0"
+                                     Grid.Column="1"
+                                     Spacing="4">
+                    <Label Text="Permanent Address"
+                           Style="{StaticResource LabelMedium}"
+                           HeightRequest="24" />
+                    <Editor x:Name="PermanentAddressEditor"
+                                Text="{Binding PermanantAddress}"
+                                Placeholder="Enter Address"
+                                FontFamily="Inter"
+                                FontSize="16"
+                                TextColor="Black"
+                                PlaceholderColor="#647087"
+                                BackgroundColor="Transparent"
+                                VerticalOptions="FillAndExpand" />
+                </VerticalStackLayout>
+            </Grid>
+
+            <VerticalStackLayout Spacing="20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <VerticalStackLayout Grid.Column="0"
+                                         Grid.RowSpan="2"
+                                         Spacing="10">
+                        <Label Text="Additional Information"
+                               FontSize="20"
+                               TextColor="#0D1B2A"
+                               FontFamily="Inter-SemiBold" />
+                        <Label Text="*Please fill the details below as per your official documents"
+                               FontSize="16"
+                               TextColor="#415A77"
+                               FontFamily="Inter-Medium" />
+                    </VerticalStackLayout>
+
+                    <BoxView Grid.ColumnSpan="2"
+                             Grid.Row="2"
+                             HeightRequest="1"
+                             Color="#D9D9D9"
+                             Margin="0,10,0,0" />
+                </Grid>
+
+                <VerticalStackLayout Spacing="20">
+                    <!-- Personal Information Section -->
+                    <Label Text="Medical Information"
+                           Style="{StaticResource SubTitleStyle}" />
+                    <Grid ColumnDefinitions="*, *"
+                          ColumnSpacing="15">
+                        <VerticalStackLayout Grid.Column="0"
+                                             Spacing="4">
+                            <VerticalStackLayout Grid.Column="2"
+                                                 Spacing="4">
+                                <Label Text="Disease"
+                                       Style="{StaticResource LabelMedium}"
+                                       HeightRequest="24" />
+                                <Picker TitleColor="#647087"
+                                            TextColor="#07003B"
+                                            FontSize="16"
+                                            FontFamily="Inter"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="FillAndExpand"
+                                            SelectedItem="{Binding Disease}">
+                                    <Picker.Items>
+                                        <x:String>Yes</x:String>
+                                        <x:String>No</x:String>
+                                    </Picker.Items>
+                                </Picker>
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1"
+                                             Spacing="4">
+                            <VerticalStackLayout Grid.Column="2"
+                                                 Spacing="4">
+                                <Label Text="Allergy"
+                                       Style="{StaticResource LabelMedium}"
+                                       HeightRequest="24" />
+                                <Picker TitleColor="#647087"
+                                            TextColor="#07003B"
+                                            FontSize="16"
+                                            FontFamily="Inter"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="FillAndExpand"
+                                            SelectedItem="{Binding Allergies}">
+                                    <Picker.Items>
+                                        <x:String>Yes</x:String>
+                                        <x:String>No</x:String>
+                                    </Picker.Items>
+                                </Picker>
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+
+            <!-- Buttons -->
+            <Grid ColumnDefinitions="*, *,*,*"
+                  ColumnSpacing="10">
+                <Button Grid.Column="2"
+                        Text="Clear"
+                        TextColor="#415A77"
+                        BackgroundColor="Transparent"
+                        BorderColor="#E2E8F0"
+                        BorderWidth="1" />
+                <Button x:Name="CreateButton"
+                        Grid.Column="3"
+                        Text="Save"
+                        Released="OnCreateClicked"
+                        TextColor="White"
+                        BackgroundColor="#778DA9" />
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentView>
+    

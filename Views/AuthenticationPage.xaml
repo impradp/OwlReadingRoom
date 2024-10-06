@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:components="clr-namespace:OwlReadingRoom.Components"
+             x:Class="OwlReadingRoom.Views.AuthenticationPage"
+             BackgroundColor="#0D1B2A">
+
+    <Grid>
+        <StackLayout VerticalOptions="Center"
+                     HorizontalOptions="Center">
+            <Grid Margin="20">
+                <Frame CornerRadius="24"
+                       HasShadow="True"
+                       Padding="20"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"
+                       Background="White"
+                       HeightRequest="470"
+                       WidthRequest="470">
+                    <StackLayout Spacing="20">
+                        <!-- Logo -->
+                        <Image Source="owl_logo_icon.png"
+                               HeightRequest="70"
+                               WidthRequest="70"
+                               HorizontalOptions="Center" />
+
+                        <!-- Title and Subtitle -->
+                        <StackLayout Spacing="10">
+                            <Label Text="Join Us!"
+                                   FontSize="30"
+                                   FontFamily="Inter-Bold"
+                                   HorizontalOptions="Center"
+                                   TextColor="#000000" />
+                            <Label Text="To begin this journey, tell us what type of account you'd be using."
+                                   FontSize="18"
+                                   TextColor="#415A77"
+                                   HorizontalTextAlignment="Center" />
+                        </StackLayout>
+
+                        <!-- Admin Option -->
+                        <Frame BackgroundColor="#F5F9FF"
+                               CornerRadius="6"
+                               Padding="15"
+                               HasShadow="True"
+                               x:Name="AdminFrame">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnLoginClicked" />
+                            </Frame.GestureRecognizers>
+                            <Grid ColumnDefinitions="Auto,*,Auto"
+                                  ColumnSpacing="15">
+                                <Image Source="admin_logo_icon.png"
+                                       HeightRequest="52"
+                                       WidthRequest="52" />
+                                <StackLayout Grid.Column="1"
+                                             Spacing="5">
+                                    <Label Text="Admin"
+                                           FontSize="16"
+                                           FontFamily="Inter-Bold"
+                                           TextColor="#000000" />
+                                    <Label Text="Personal account to manage all you activities."
+                                           FontSize="14"
+                                           TextColor="#8692A6" />
+                                </StackLayout>
+                                <Image Grid.Column="2"
+                                       Source="checkbox.png"
+                                       HeightRequest="20"
+                                       WidthRequest="20" />
+                            </Grid>
+                        </Frame>
+
+                        <!-- Receptionist Option -->
+                        <Frame BackgroundColor="White"
+                               CornerRadius="6"
+                               Padding="15"
+                               HasShadow="True">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnLoginClicked" />
+                            </Frame.GestureRecognizers>
+                            <Grid ColumnDefinitions="Auto,*"
+                                  ColumnSpacing="15">
+                                <Image Source="reception_icon.png"
+                                       HeightRequest="52"
+                                       WidthRequest="52" />
+                                <StackLayout Grid.Column="1"
+                                             Spacing="5">
+                                    <Label Text="Receptionist"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           TextColor="#000000" />
+                                    <Label Text="Own or belong to a company, this is for you."
+                                           FontSize="14"
+                                           TextColor="#8692A6" />
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </StackLayout>
+                </Frame>
+            </Grid>
+        </StackLayout>
+        <!-- ActivityIndicator overlay -->
+        <components:Loader x:Name="Loader" />
+    </Grid>
+</ContentPage>

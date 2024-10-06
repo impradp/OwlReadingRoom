@@ -36,18 +36,27 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+		<DefaultLanguage>en</DefaultLanguage>
+		<GenerateAppInstallerFile>True</GenerateAppInstallerFile>
+		<AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+		<PackageCertificateThumbprint>6E2FDC1D4C1454933988E9706629E0E94D8EC940</PackageCertificateThumbprint>
+		<AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+		<AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+		<AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+		<GenerateTestArtifacts>True</GenerateTestArtifacts>
+		<AppInstallerUri>D:\Projects\Installer</AppInstallerUri>
+		<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\owl_logo.svg" ForegroundFile="Resources\AppIcon\owl_logo.svg" Color="#512BD4" />
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -57,9 +66,188 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+		<MauiImage Remove="Resources\Images\owl_logo.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="appsettings.json" />
+		<None Remove="Resources\EmailTemplate\customer_expire_template.html" />
+		<None Remove="Resources\EmailTemplate\customer_package_renew.html" />
+		<None Remove="Resources\Fonts\Inika-Bold.ttf" />
+		<None Remove="Resources\Fonts\Inika-Regular.ttf" />
+		<None Remove="Resources\Fonts\Inter-Bold.ttf" />
+		<None Remove="Resources\Fonts\Inter-Medium.ttf" />
+		<None Remove="Resources\Fonts\Inter-Regular.ttf" />
+		<None Remove="Resources\Fonts\Inter-SemiBold.ttf" />
+		<None Remove="Resources\Images\admin_logo_icon.svg" />
+		<None Remove="Resources\Images\bell_icon.png" />
+		<None Remove="Resources\Images\call_icon.svg" />
+		<None Remove="Resources\Images\circle_check_filled_icon.svg" />
+		<None Remove="Resources\Images\close_icon.svg" />
+		<None Remove="Resources\Images\customer_icon.svg" />
+		<None Remove="Resources\Images\danger_triangle_icon.svg" />
+		<None Remove="Resources\Images\download_icon.svg" />
+		<None Remove="Resources\Images\email_icon.svg" />
+		<None Remove="Resources\Images\empty_state.svg" />
+		<None Remove="Resources\Images\error_icon.svg" />
+		<None Remove="Resources\Images\eye_icon.svg" />
+		<None Remove="Resources\Images\facebook_icon.svg" />
+		<None Remove="Resources\Images\info_icon.svg" />
+		<None Remove="Resources\Images\instagram_icon.svg" />
+		<None Remove="Resources\Images\linked_in_icon.svg" />
+		<None Remove="Resources\Images\logout_icon.svg" />
+		<None Remove="Resources\Images\new_entry_icon.svg" />
+		<None Remove="Resources\Images\owl_logo.png" />
+		<None Remove="Resources\Images\owl_logo_icon.svg" />
+		<None Remove="Resources\Images\plus_icon.svg" />
+		<None Remove="Resources\Images\print_icon.svg" />
+		<None Remove="Resources\Images\profile_picture_icon.svg" />
+		<None Remove="Resources\Images\receipt_icon.svg" />
+		<None Remove="Resources\Images\reception_icon.svg" />
+		<None Remove="Resources\Images\resources_icon.svg" />
+		<None Remove="Resources\Images\settings_icon.svg" />
+		<None Remove="Resources\Images\success_icon.svg" />
+		<None Remove="Resources\Images\trash_icon.svg" />
+		<None Remove="Resources\Images\update_icon.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="appsettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Resources\EmailTemplate\customer_package_renew.html" />
+		<EmbeddedResource Include="Resources\Images\owl_logo.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\EmailTemplate\customer_expire_template.html" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Auth0.OidcClient.MAUI" Version="1.0.1" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.2" />
+		<PackageReference Include="itext" Version="8.0.5" />
+		<PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.5" />
+		<PackageReference Include="MailKit" Version="4.7.1.1" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="SkiaSharp" Version="2.88.8" />
+		<PackageReference Include="SonarAnalyzer.CSharp" Version="9.30.0.95878">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Views\MainView.xaml.cs">
+			<DependentUpon>MainView.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Resources\Rooms\Plans\ACRoomPlan.xaml.cs">
+			<DependentUpon>ACRoomPlan.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Resources\Rooms\Plans\NonACRoomPlan.xaml.cs">
+			<DependentUpon>NonACRoomPlan.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Resources\Rooms\RoomListView.xaml.cs">
+			<DependentUpon>RoomListView.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Customer\PersonalDetailView.xaml.cs">
+			<DependentUpon>PersonalDetailView.xaml</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Update="Resources\Images\owl_logo_icon.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<MauiXaml Update="Components\ActionButtonsView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Components\AlertDialog\AlertView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Components\AvailableDeskView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\AuthenticationPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Components\Loader.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Customer\CustomerDetailsView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Customer\CustomerUpdateView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Customer\CustomerView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Customer\DocumentDetailView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Customer\NewCustomer.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Customer\ReceiptView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Resources\Rooms\DeskSelectView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Resources\Package\DeletePackageDialog.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Resources\Package\NewPackage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Resources\Package\UpdatePackage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Resources\Rooms\DeskLayout.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Resources\Rooms\Plans\ACRoomPlan.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Resources\Rooms\Plans\NonACRoomPlan.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Resources\Rooms\NewRoom.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Resources\Package\PackageListView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Resources\Rooms\RoomListView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Customer\PackagePaymentDetailView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Customer\PersonalDetailView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Customer\CustomerListView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Resources\Rooms\UpdateRoom.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="OwlReadingRoom_TemporaryKey.pfx">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Update="README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 
 </Project>

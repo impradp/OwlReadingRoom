@@ -1,0 +1,288 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:local="clr-namespace:OwlReadingRoom.Utils"
+             xmlns:component="clr-namespace:OwlReadingRoom.Components.AlertDialog"
+             x:Class="OwlReadingRoom.MainView"
+             BackgroundColor="#EFF6FF">
+    <ContentPage.Resources>
+        <Style x:Key="MenuLabelStyle"
+               TargetType="Label">
+            <Setter Property="FontFamily"
+                    Value="Inter" />
+            <Setter Property="FontSize"
+                    Value="16" />
+            <Setter Property="VerticalOptions"
+                    Value="Center" />
+            <Setter Property="TextColor"
+                    Value="#07003B" />
+        </Style>
+        <local:MenuColorConverter x:Key="MenuColorConverter" />
+        <local:SubmenuBackgroundConverter x:Key="SubmenuBackgroundConverter" />
+        <local:SubmenuTextColorConverter x:Key="SubmenuTextColorConverter" />
+        <ResourceDictionary>
+
+            <!-- Other resources -->
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <component:AlertView Grid.ColumnSpan="2"
+                             HorizontalOptions="Fill"
+                             VerticalOptions="Fill"
+                             InputTransparent="True"
+                             ZIndex="1000" />
+
+        <!-- Left Sidebar -->
+        <StackLayout Grid.Column="0"
+                     Padding="16,24,16,24"
+                     BackgroundColor="White">
+            <!-- Logo and Title -->
+            <Frame Padding="0"
+                   BorderColor="Transparent"
+                   BackgroundColor="Transparent">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnHomeSelected" />
+                </Frame.GestureRecognizers>
+
+                <StackLayout Orientation="Horizontal"
+                             Spacing="10">
+                    <Image Source="owl_logo_icon.png"
+                           WidthRequest="52"
+                           HeightRequest="50" />
+                    <Label Text="OWL READING ROOM"
+                           FontFamily="Inika-Bold"
+                           FontSize="14"
+                           VerticalOptions="Center"
+                           TextColor="#0D1B2A" />
+                </StackLayout>
+            </Frame>
+
+            <!-- New Entry Button -->
+            <Button Text="New Entry"
+                    BackgroundColor="#2374E1"
+                    TextColor="White"
+                    CornerRadius="10"
+                    Margin="0,24,0,0"
+                    HeightRequest="44"
+                    Released="OnNewEntryButtonClicked">
+                <Button.ImageSource>
+                    <FontImageSource Glyph="+"
+                                     Size="20" />
+                </Button.ImageSource>
+            </Button>
+
+            <!-- Main Menu -->
+            <Label Text="MAIN"
+                   Opacity="0.5"
+                   FontFamily="Poppins"
+                   FontSize="14"
+                   TextColor="#07003B"
+                   Margin="0,32,0,0" />
+
+            <StackLayout Spacing="5"
+                         Margin="0,10,0,0">
+                <!-- Customer Menu-->
+                <StackLayout Orientation="Horizontal"
+                             Spacing="20"
+                             Margin="20,0,0,0"
+                             Padding="0,20,0,0">
+                    <Image Source="customer_icon.png"
+                           WidthRequest="20"
+                           HeightRequest="20">
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="{Binding SelectedMenu, Converter={StaticResource MenuColorConverter}, ConverterParameter='Customer'}" />
+                        </Image.Behaviors>
+                    </Image>
+                    <Label Text="Customer"
+                           Style="{StaticResource MenuLabelStyle}"
+                           TextColor="{Binding SelectedMenu, Converter={StaticResource MenuColorConverter}, ConverterParameter='Customer'}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCustomerMenuClicked" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+
+                <!-- Resource Menu-->
+                <StackLayout Spacing="0"
+                             Margin="0,0,0,0">
+                    <!-- Main Resources Menu -->
+                    <StackLayout Orientation="Horizontal"
+                                 Spacing="20"
+                                 Margin="20,0,0,0"
+                                 Padding="0,20,0,0">
+                        <Image Source="resources_icon.png"
+                               WidthRequest="20"
+                               HeightRequest="20">
+                            <Image.Behaviors>
+                                <toolkit:IconTintColorBehavior TintColor="{Binding SelectedMenu, Converter={StaticResource MenuColorConverter}, ConverterParameter='Resources'}" />
+                            </Image.Behaviors>
+                        </Image>
+                        <Label Text="Resources"
+                               Style="{StaticResource MenuLabelStyle}"
+                               TextColor="{Binding SelectedMenu, Converter={StaticResource MenuColorConverter}, ConverterParameter='Resources'}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnResourceMenuClicked" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+
+                    <!-- Submenus -->
+                    <StackLayout IsVisible="{Binding IsResourceMenuExpanded}"
+                                 Margin="32,10,0,0">
+                        <!-- Room Submenu -->
+                        <StackLayout IsVisible="{Binding IsResourceMenuExpanded}"
+                                     Margin="32,0,0,0">
+                            <!-- Room Submenu -->
+                            <Frame BackgroundColor="{Binding CurrentSubmenu, Converter={StaticResource SubmenuBackgroundConverter}, ConverterParameter='Room'}"
+                                   Padding="30,12"
+                                   HasShadow="False"
+                                   CornerRadius="8"
+                                   BorderColor="Transparent">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnRoomSubmenuClicked" />
+                                </Frame.GestureRecognizers>
+                                <Label Text="Room"
+                                       TextColor="{Binding CurrentSubmenu, Converter={StaticResource SubmenuTextColorConverter}, ConverterParameter='Room'}"
+                                       FontFamily="Inter"
+                                       FontSize="14" />
+                            </Frame>
+
+                            <!-- Package Submenu -->
+                            <Frame BackgroundColor="{Binding CurrentSubmenu, Converter={StaticResource SubmenuBackgroundConverter}, ConverterParameter='Package'}"
+                                   Padding="30,12"
+                                   HasShadow="False"
+                                   CornerRadius="8"
+                                   BorderColor="Transparent">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnPackageSubmenuClicked" />
+                                </Frame.GestureRecognizers>
+                                <Label Text="Package"
+                                       TextColor="{Binding CurrentSubmenu, Converter={StaticResource SubmenuTextColorConverter}, ConverterParameter='Package'}"
+                                       FontFamily="Inter"
+                                       FontSize="14" />
+                            </Frame>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+
+            <!-- Others Menu -->
+            <Label Text="OTHERS"
+                   TextColor="#07003B"
+                   Opacity="0.5"
+                   FontFamily="Poppins"
+                   FontSize="14"
+                   Margin="0,32,0,0" />
+
+            <StackLayout Spacing="5"
+                         Margin="0,10,0,0">
+
+                <!-- Logout Menu-->
+                <StackLayout Orientation="Horizontal"
+                             Spacing="20"
+                             Margin="20,0,0,0"
+                             Padding="0,20,0,0">
+                    <Image Source="logout_icon.png"
+                           WidthRequest="20"
+                           HeightRequest="20">
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="{Binding SelectedMenu, Converter={StaticResource MenuColorConverter}, ConverterParameter='Logout'}" />
+                        </Image.Behaviors>
+                    </Image>
+                    <Label Text="Logout"
+                           Style="{StaticResource MenuLabelStyle}"
+                           TextColor="{Binding SelectedMenu, Converter={StaticResource MenuColorConverter}, ConverterParameter='Logout'}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLogoutMenuClicked" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+
+            </StackLayout>
+        </StackLayout>
+
+        <!-- Main Content Area -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Header Section -->
+            <StackLayout Grid.Row="0"
+                         Padding="4">
+                <StackLayout Orientation="Horizontal"
+                             BackgroundColor="White"
+                             Padding="20"
+                             HorizontalOptions="FillAndExpand">
+                    <!-- Greeting and Subtitle -->
+                    <StackLayout VerticalOptions="Center">
+                        <Label Text="{Binding GetLoggedInUser.GreetingInfo}"
+                               FontFamily="Inter"
+                               FontSize="24"
+                               TextColor="#0D1B2A" />
+                        <Label Text="Here's what happening with your library today"
+                               FontFamily="Inter"
+                               FontSize="16"
+                               TextColor="#415A77" />
+                    </StackLayout>
+
+                    <!-- User Profile -->
+                    <StackLayout Orientation="Horizontal"
+                                 HorizontalOptions="EndAndExpand"
+                                 Spacing="20">
+                        <!-- Notification Icon -->
+                        <Grid>
+                            <Image Source="bell_icon.png"
+                                   WidthRequest="32"
+                                   HeightRequest="38"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Grid>
+
+                        <!-- User Avatar and Info -->
+                        <StackLayout Orientation="Horizontal"
+                                     Spacing="8"
+                                     VerticalOptions="Center">
+                            <Frame WidthRequest="32"
+                                   HeightRequest="32"
+                                   CornerRadius="20"
+                                   Padding="0"
+                                   IsClippedToBounds="True">
+                                <Image Source="{Binding GetLoggedInUser.Picture}"
+                                       Aspect="AspectFill" />
+                            </Frame>
+                            <StackLayout Spacing="4"
+                                         VerticalOptions="Center">
+                                <Label Text="{Binding GetLoggedInUser.Name}"
+                                       FontFamily="Inter"
+                                       FontSize="14"
+                                       TextColor="#415A77" />
+                                <Label Text="{Binding GetLoggedInUser.Role}"
+                                       FontFamily="Inter"
+                                       FontSize="12"
+                                       TextColor="#778BA9" />
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+
+            <!-- Add your dynamic content here in Grid.Row="1" -->
+            <StackLayout Grid.Row="1"
+                         Padding="4,0,4,4">
+                <ContentView x:Name="DynamicContentArea"
+                             HorizontalOptions="FillAndExpand"
+                             VerticalOptions="FillAndExpand"
+                             Padding="20"
+                             BackgroundColor="White" />
+            </StackLayout>
+
+        </Grid>
+    </Grid>
+</ContentPage>

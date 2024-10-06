@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:OwlReadingRoom.Utils"
+             xmlns:System="clr-namespace:System;assembly=netstandard"
+             xmlns:component="clr-namespace:OwlReadingRoom.Components"
+             x:Class="OwlReadingRoom.Views.Customer.PackagePaymentDetailView">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <local:BoolToIntConverter x:Key="BoolToIntConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ScrollView>
+        <StackLayout Padding="0,24,24,0"
+                     Spacing="24">
+            <!-- Package and Payment Section -->
+            <VerticalStackLayout>
+                <!-- Personal Information Section -->
+                <Label Text="Package"
+                       Style="{StaticResource SubTitleStyle}" />
+                <Grid ColumnDefinitions="*, *, *"
+                      Padding="0,24,0,0"
+                      ColumnSpacing="15">
+                    <VerticalStackLayout Grid.Column="0"
+                                         Spacing="4">
+                        <VerticalStackLayout Grid.Column="2"
+                                             Spacing="4">
+                            <Label Text="Package Name"
+                                   Style="{StaticResource LabelMedium}"
+                                   HeightRequest="24" />
+                            <Picker x:Name="PackageNameEntry"
+                                        IsEnabled="{Binding IsEditable}"
+                                        TitleColor="#647087"
+                                        TextColor="#07003B"
+                                        FontSize="16"
+                                        FontFamily="Inter"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="FillAndExpand"
+                                        ItemsSource="{Binding PackageOptions}"
+                                        ItemDisplayBinding="{Binding Name}"
+                                        SelectedItem="{Binding SelectedPackage}">
+                            </Picker>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Padding="0,10,10,0"
+                                             Spacing="4">
+                            <Label Text="Package Start Date"
+                                   Style="{StaticResource LabelMedium}"
+                                   HeightRequest="24" />
+                            <DatePicker Format="MM/dd/yyyy"
+                                            IsEnabled="{Binding IsEditable}"
+                                            TextColor="Black"
+                                            Date="{Binding PackageStartDate, TargetNullValue={x:Static System:DateTime.Today},
+                                    FallbackValue={x:Static System:DateTime.Today}}">
+                            </DatePicker>
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Grid.Column="1"
+                                         Spacing="4">
+                        <VerticalStackLayout Grid.Column="2"
+                                             Spacing="4">
+                            <Label Text="Room Name"
+                                   Style="{StaticResource LabelMedium}"
+                                   HeightRequest="24" />
+                            <Picker x:Name="RoomNamePicker"
+                                        TitleColor="#647087"
+                                        TextColor="#07003B"
+                                        FontSize="16"
+                                        FontFamily="Inter"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="FillAndExpand"
+                                        ItemsSource="{Binding RoomOptions}"
+                                        ItemDisplayBinding="{Binding Name}"
+                                        SelectedItem="{Binding SelectedRoom}">
+                            </Picker>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Padding="0,10,0,0"
+                                             Spacing="4">
+                            <Label Text="Package End Date"
+                                   Style="{StaticResource LabelMedium}"
+                                   HeightRequest="24" />
+                            <DatePicker Format="MM/dd/yyyy"
+                                            IsEnabled="False"
+                                            TextColor="Black"
+                                            Date="{Binding PackageEndDate, TargetNullValue={x:Static System:DateTime.Today}, FallbackValue={x:Static System:DateTime.Today}}">
+                            </DatePicker>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Column="2"
+                                         Spacing="4">
+                        <Label Text="Desk No"
+                               Style="{StaticResource LabelMedium}"
+                               HeightRequest="24" />
+                        <Frame BackgroundColor="#EFF6FF"
+                               BorderColor="#CBD5E1"
+                               CornerRadius="4"
+                               HeightRequest="48"
+                               WidthRequest="360"
+                               Padding="0"
+                               HorizontalOptions="Start">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDeskSelectClicked" />
+                            </Frame.GestureRecognizers>
+                            <Grid ColumnDefinitions="Auto,*"
+                                  ColumnSpacing="8">
+                                <Image Grid.Column="0"
+                                       Source="plus_icon.png"
+                                       HeightRequest="24"
+                                       WidthRequest="24"
+                                       Margin="12,0,0,0"
+                                       VerticalOptions="Center" />
+                                <Entry x:Name="DeskNameEntry"
+                                       Grid.Column="1"
+                                       Text="{Binding SelectedDesk}"
+                                       Style="{StaticResource LabelRegular}"
+                                       PlaceholderColor="#647087"
+                                       Placeholder="Select Desk"
+                                       IsEnabled="False" />
+                            </Grid>
+                        </Frame>
+                    </VerticalStackLayout>
+                </Grid>
+
+                <!-- Payment Information Section -->
+                <Label Text="Payment "
+                       Padding="0,30,0,0"
+                       Style="{StaticResource SubTitleStyle}" />
+
+                <Grid ColumnDefinitions="*, *, *"
+                      ColumnSpacing="15"
+                      RowDefinitions="Auto, Auto"
+                      RowSpacing="15"
+                      Padding="0,24,10,0">
+                    <VerticalStackLayout Grid.Row="0"
+                                         Grid.Column="0"
+                                         Spacing="4">
+                        <Label Text="Payment Method"
+                               Style="{StaticResource LabelMedium}"
+                               HeightRequest="24" />
+                        <Picker Style="{StaticResource LabelRegular}"
+                                    SelectedItem="{Binding PackagePaymentDetail.PaymentMethod, Mode=OneWayToSource}">
+                            <Picker.Items>
+                                <x:String>Cash</x:String>
+                                <x:String>Esewa/Khalti</x:String>
+                                <x:String>Bank Transaction</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Row="0"
+                                         Grid.Column="1"
+                                         Spacing="4">
+                        <Label Text="Paid Date"
+                               Style="{StaticResource LabelMedium}"
+                               HeightRequest="24" />
+                        <DatePicker Format="MM/dd/yyyy"
+                                        TextColor="Black"
+                                        Date="{Binding PackagePaymentDetail.LastPaymentDate}" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Column="2"
+                                         Spacing="4">
+                        <Label Text="Amount"
+                               Style="{StaticResource LabelMedium}"
+                               HeightRequest="24" />
+                        <Entry x:Name="PaidAmountEntry"
+                                   Style="{StaticResource LabelRegular}"
+                                   PlaceholderColor="#647087"
+                                   Placeholder="Enter Amount"
+                                   MaxLength="7"
+                                   Keyboard="Numeric"
+                                   Text="{Binding PackagePaymentDetail.PaidAmount}" />
+                    </VerticalStackLayout>
+                </Grid>
+
+                <VerticalStackLayout Spacing="20">
+
+                    <!-- Belonging Information Section -->
+                    <Label Text="Belonging"
+                           Style="{StaticResource SubTitleStyle}" />
+
+                    <Grid ColumnDefinitions="*, *,*,*"
+                          ColumnSpacing="15"
+                          RowDefinitions="Auto, Auto"
+                          RowSpacing="15">
+                        <VerticalStackLayout Grid.Row="0"
+                                             Grid.Column="0"
+                                             Spacing="4">
+                            <Label Text="Parking Amount"
+                                   Style="{StaticResource LabelMedium}"
+                                   HeightRequest="24" />
+                            <component:NumericEntry x:Name="ParkingAmount"
+                                    Placeholder="Enter Amount"
+                                    IsEnabled="{Binding IsEditable}"
+                                    PlaceholderColor="#647087"
+                                    Background="White"
+                                    Text="{Binding PackagePaymentDetail.ParkingAmount, FallbackValue='0', TargetNullValue='0'}"
+                                    Style="{StaticResource LabelRegular}"
+                                    Keyboard="Telephone" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Row="0"
+                                             Grid.Column="1"
+                                             Spacing="4">
+                            <Label Text="Locker Amount"
+                                   Style="{StaticResource LabelMedium}"
+                                   HeightRequest="24" />
+                            <component:NumericEntry x:Name="LockerAmount"
+                                    Placeholder="Enter Amount"
+                                    IsEnabled="{Binding IsEditable}"
+                                    PlaceholderColor="#647087"
+                                    Background="White"
+                                    Text="{Binding PackagePaymentDetail.LockerAmount, FallbackValue='0', TargetNullValue='0'}"
+                                    Style="{StaticResource LabelRegular}"
+                                    Keyboard="Telephone" />
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <!-- Buttons -->
+                    <Grid ColumnDefinitions="*,*,*, *"
+                          ColumnSpacing="10">
+                        <Button Grid.Column="2"
+                                Text="Clear"
+                                TextColor="#415A77"
+                                BackgroundColor="Transparent"
+                                BorderColor="#E2E8F0"
+                                BorderWidth="1"
+                                Released="OnClearClicked" />
+                        <Button x:Name="SaveButton"
+                                Grid.Column="3"
+                                Text="Save"
+                                Released="OnCreateClicked"
+                                TextColor="White"
+                                BackgroundColor="#778DA9" />
+                    </Grid>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentView>

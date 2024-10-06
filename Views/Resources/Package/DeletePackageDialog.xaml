@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="OwlReadingRoom.Views.Resources.Package.DeletePackageDialog"
+               Size="640,200">
+    <Frame BackgroundColor="White"
+           CornerRadius="8"
+           HasShadow="True">
+        <VerticalStackLayout>
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="Confirmation"
+                       FontSize="24"
+                       Style="{StaticResource LabelBold}"
+                       TextColor="#1E293B"
+                       VerticalOptions="Center" />
+                <Button Grid.Column="1"
+                        Text="&#x2715;"
+                        FontSize="18"
+                        BackgroundColor="Transparent"
+                        TextColor="#1E293B"
+                        Released="OnCloseButtonClicked" />
+            </Grid>
+
+            <StackLayout Orientation="Horizontal"
+                         Padding="24,0,24,24"
+                         Spacing="16">
+                <Image Source="danger_triangle_icon.png"
+                       WidthRequest="24"
+                       HeightRequest="24"
+                       VerticalOptions="Start" />
+                <Label Text="Are you sure that you want to delete this package?"
+                       Style="{StaticResource LabelRegular}"
+                       FontSize="16"
+                       TextColor="#1E293B"
+                       VerticalOptions="Center" />
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal"
+                         Padding="20,12"
+                         Spacing="8"
+                         HorizontalOptions="End">
+                <Button Text="No"
+                        Style="{StaticResource LabelRegular}"
+                        FontSize="16"
+                        TextColor="#3B82F6"
+                        BackgroundColor="Transparent"
+                        Released="OnNoButtonClicked" />
+                <Button Text="Yes"
+                        Style="{StaticResource LabelRegular}"
+                        FontSize="16"
+                        TextColor="White"
+                        BackgroundColor="#3B82F6"
+                        Released="OnYesButtonClicked" />
+            </StackLayout>
+        </VerticalStackLayout>
+    </Frame>
+</toolkit:Popup>

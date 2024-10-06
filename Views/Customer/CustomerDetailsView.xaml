@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:local="clr-namespace:OwlReadingRoom.Utils"
+             xmlns:converter="clr-namespace:OwlReadingRoom.Utils.Converter"
+             x:Class="OwlReadingRoom.Views.Customer.CustomerDetailsView"
+             x:Name="CustomerDetailsContentView">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <toolkit:TextCaseConverter x:Key="TextCaseConverter"
+                                       Type="FirstUpperRestLower" />
+            <local:RoomTypeConverter x:Key="RoomTypeConverter" />
+            <local:DateFormatConverter x:Key="DateFormatConverter" />
+            <local:DocumentTypeConverter x:Key="DocumentTypeConverter" />
+            <converter:StatusToBackgroundColorConverter x:Key="StatusToBackgroundColorConverter" />
+            <converter:StatusToTextColorConverter x:Key="StatusToTextColorConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ScrollView>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="16" />
+                <!-- Added spacing column -->
+                <ColumnDefinition Width="350" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Grid Grid.ColumnSpan="3"
+                  ColumnDefinitions="*,Auto,Auto"
+                  RowDefinitions="Auto,Auto"
+                  Margin="0,0,0,16"
+                  Grid.Row="0">
+                <HorizontalStackLayout Grid.Column="0"
+                                       Grid.Row="0"
+                                       Spacing="4"
+                                       HeightRequest="24">
+
+                    <!-- Name -->
+                    <Label Text="{Binding CustomerDetail.FullName}"
+                           Style="{StaticResource LabelSemiBold}"
+                           FontSize="16"
+                           VerticalOptions="Center" />
+
+                    <!-- Status -->
+                    <Frame BackgroundColor="{Binding CustomerDetail.Status, Converter={StaticResource StatusToBackgroundColorConverter}}"
+                           HorizontalOptions="Center"
+                           Padding="8,4"
+                           BorderColor="Transparent"
+                           CornerRadius="6">
+                        <Label Text="{Binding CustomerDetail.Status, Converter={StaticResource TextCaseConverter}}"
+                               TextColor="{Binding CustomerDetail.Status, Converter={StaticResource StatusToTextColorConverter}}"
+                               FontSize="12" />
+                    </Frame>
+                </HorizontalStackLayout>
+                <Button Grid.Column="1"
+                        Grid.Row="0"
+                        Text="Edit"
+                        TextColor="#3B82F6"
+                        BorderColor="#3B82F6"
+                        ImageSource="update_icon.png"
+                        BorderWidth="1"
+                        Released="OnEditClicked"
+                        IsVisible="{Binding IsEditVisible, Source={x:Reference CustomerDetailsContentView}}"
+                        BackgroundColor="Transparent"
+                        Margin="0,0,10,0" />
+                <Button Grid.Column="2"
+                        Grid.Row="0"
+                        BackgroundColor="#3B82F6"
+                        Text="Renew Customer"
+                        TextColor="#FFFFFF"
+                        BorderColor="#3B82F6"
+                        ImageSource="circle_check_filled_icon.png"
+                        Released="OnRenewCustomer"
+                        IsVisible="{Binding IsRenewVisible, Source={x:Reference CustomerDetailsContentView}}"
+                        BorderWidth="1" />
+                <Label Grid.Column="0"
+                       Grid.ColumnSpan="3"
+                       Grid.Row="1"
+                       Text="{Binding CustomerDetail.TransactionDetails.LastPaymentDate, StringFormat='Latest Payment Date : {0:dd MMM\, yyyy | hh:mm ss tt}', TargetNullValue='Latest Payment Date : N/A', FallbackValue='Latest Payment Date : N/A'}"
+                       TextColor="#64748B"
+                       Style="{StaticResource LabelRegular}"
+                       FontSize="14" />
+            </Grid>
+
+            <!-- Left Column: Personal Details -->
+            <VerticalStackLayout Grid.Row="1"
+                                 Grid.Column="0"
+                                 Spacing="16">
+                <!-- Personal Details -->
+                <Frame BorderColor="#E5E7EB"
+                       CornerRadius="6"
+                       Padding="16"
+                       BackgroundColor="Transparent">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Personal Detail"
+                               Style="{StaticResource LabelSemiBold}"
+                               TextColor="#007AFF" />
+                        <BoxView HeightRequest="1"
+                                 Color="#E2E8F0"
+                                 VerticalOptions="End" />
+                        <Grid ColumnDefinitions="*,*,*,*"
+                              RowDefinitions="Auto,Auto,Auto"
+                              ColumnSpacing="16"
+                              RowSpacing="16">
+                            <VerticalStackLayout Grid.Column="0"
+                                                 Grid.Row="0">
+                                <Label Text="Full name"
+                                       Style="{StaticResource LabelRegular}"
+                                       TextColor="#415A77" />
+                                <Label Text="{Binding CustomerDetail.FullName}"
+                                       Style="{StaticResource LabelSemiBold}" />
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="1"
+                                                 Grid.Row="0">
+                                <Label Text="Gender"
+                                       Style="{StaticResource LabelRegular}"
+                                       TextColor="#415A77" />
+                                <Label Text="{Binding CustomerDetail.Gender, TargetNullValue='N/A'}"
+                                       Style="{StaticResource LabelSemiBold}" />
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="2"
+                                                 Grid.Row="0">
+                                <Label Text="Faculty"
+                                       Style="{StaticResource LabelRegular}"
+                                       TextColor="#415A77" />
+                                <Label Text="{Binding CustomerDetail.Faculty, TargetNullValue='N/A'}"
+                                       Style="{StaticResource LabelSemiBold}" />
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="3"
+                                                 Grid.Row="0">
+                                <Label Text="Date of Birth"
+                                       Style="{StaticResource LabelRegular}"
+                                       TextColor="#415A77" />
+                                <Label Text="{Binding CustomerDetail.DateOfBirth,Converter={StaticResource DateFormatConverter}, TargetNullValue='N/A', StringFormat= '{0} AD'}"
+                                       Style="{StaticResource LabelSemiBold}" />
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="0"
+                                                 Grid.Row="1">
+                                <Label Text="Mobile number"
+                                       Style="{StaticResource LabelRegular}"
+                                       TextColor="#415A77" />
+                                <Label Text="{Binding CustomerDetail.MobileNumber}"
+                                       Style="{StaticResource LabelSemiBold}" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Address Details -->
+                <Frame BorderColor="#E5E7EB"
+                       CornerRadius="6"
+                       Padding="16"
+                       BackgroundColor="Transparent">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Address Detail"
+                               Style="{StaticResource LabelSemiBold}"
+                               TextColor="#007AFF" />
+                        <BoxView HeightRequest="1"
+                                 Color="#E2E8F0"
+                                 VerticalOptions="End" />
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Current Address"
+                                   Style="{StaticResource LabelRegular}"
+                                   TextColor="#415A77" />
+                            <Label Text="{Binding CustomerDetail.CurrentAddress, TargetNullValue='N/A'}"
+                                   Style="{StaticResource LabelSemiBold}" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Permanent Address"
+                                   Style="{StaticResource LabelRegular}"
+                                   TextColor="#415A77" />
+                            <Label Text="{Binding CustomerDetail.PermanantAddress, TargetNullValue='N/A'}"
+                                   Style="{StaticResource LabelSemiBold}" />
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Document Details -->
+                <Frame BorderColor="#E5E7EB"
+                       CornerRadius="6"
+                       Padding="16"
+                       BackgroundColor="Transparent">
+                    <VerticalStackLayout Spacing="10">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Document detail"
+                                   Style="{StaticResource LabelSemiBold}"
+                                   TextColor="#007AFF" />
+
+                            <Frame Grid.Column="1"
+                                   BackgroundColor="#F1F5F9"
+                                   Padding="8,4"
+                                   BorderColor="Transparent"
+                                   VerticalOptions="Center"
+                                   Margin="0,0,0,10"
+                                   CornerRadius="6">
+                                <Label Text="Not added"
+                                       IsVisible="{Binding CustomerDetail.IsEmptyState}"
+                                       VerticalOptions="Center"
+                                       TextColor="#64748B"
+                                       FontSize="12" />
+                            </Frame>
+                            <BoxView Grid.ColumnSpan="2"
+                                     HeightRequest="1"
+                                     Color="#E2E8F0"
+                                     VerticalOptions="End" />
+                        </Grid>
+                        <Grid ColumnDefinitions="*,*"
+                              RowDefinitions="Auto,Auto"
+                              ColumnSpacing="16"
+                              RowSpacing="16">
+                            <VerticalStackLayout Grid.Column="0"
+                                                 Grid.Row="0">
+                                <Label Text="{Binding CustomerDetail.Documents.DocumentType, Converter={StaticResource DocumentTypeConverter}, FallbackValue='Document Number', TargetNullValue='Document Number', StringFormat= '{0} Number'}"
+                                       Style="{StaticResource LabelRegular}"
+                                       TextColor="#415A77" />
+                                <Label Text="{Binding CustomerDetail.Documents.DocumentNumber, FallbackValue='N/A', TargetNullValue='N/A'}"
+                                       Style="{StaticResource LabelSemiBold}" />
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="1"
+                                                 Grid.Row="0">
+                                <Label Text="Issued On"
+                                       Style="{StaticResource LabelRegular}"
+                                       TextColor="#415A77" />
+                                <Label Text="{Binding CustomerDetail.Documents.IssueDate, Converter={StaticResource DateFormatConverter}, FallbackValue='N/A', TargetNullValue='N/A'}"
+                                       Style="{StaticResource LabelSemiBold}" />
+                            </VerticalStackLayout>
+                        </Grid>
+                        <VerticalStackLayout Grid.Row="2"
+                                             VerticalOptions="Center"
+                                             HorizontalOptions="Center"
+                                             Spacing="16"
+                                             IsVisible="{Binding CustomerDetail.IsEmptyState}">
+                            <Image Source="empty_state.png"
+                                   WidthRequest="188"
+                                   HeightRequest="140" />
+                            <Label Text="Oops! Documents are missing."
+                                   FontFamily="Inter"
+                                   FontSize="16"
+                                   TextColor="#1E293B"
+                                   FontAttributes="Italic"
+                                   HorizontalOptions="Center" />
+                            <Label Text="Click on the edit button at the top to update the customer documents."
+                                   FontFamily="Inter-Medium"
+                                   FontSize="14"
+                                   TextColor="#64748B"
+                                   HorizontalOptions="Center"
+                                   WidthRequest="386"
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                        <CollectionView ItemsSource="{Binding CustomerDetail.Documents.Locations}">
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout Orientation="Vertical"
+                                                 Span="2"
+                                                 VerticalItemSpacing="16"
+                                                 HorizontalItemSpacing="16" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame BackgroundColor="#F9FAFB"
+                                           Padding="15"
+                                           CornerRadius="8">
+                                        <VerticalStackLayout HorizontalOptions="Center"
+                                                             VerticalOptions="Center">
+                                            <Image Source="{Binding ImagePath}"
+                                                   WidthRequest="177"
+                                                   HeightRequest="228"
+                                                   Aspect="AspectFit" />
+                                            <Label Text="{Binding ImageName, FallbackValue='N/A', TargetNullValue='N/A'}"
+                                                   TextColor="#64748B"
+                                                   FontSize="16"
+                                                   HorizontalOptions="Center" />
+                                        </VerticalStackLayout>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
+
+            <!-- Right Column: Package and Payment -->
+            <Frame Grid.Row="1"
+                   Grid.Column="2"
+                   BorderColor="#E5E7EB"
+                   CornerRadius="6"
+                   Padding="16"
+                   VerticalOptions="Start"
+                   BackgroundColor="Transparent">
+                <VerticalStackLayout Spacing="10">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Package and Payment"
+                               Style="{StaticResource LabelSemiBold}"
+                               TextColor="#007AFF"
+                               VerticalTextAlignment="Center"
+                               Margin="0,0,0,10"/>
+                        <Button Grid.Column="1"
+                                Text="Receipt"
+                                TextColor="#415A77"
+                                BorderColor="#415A77"
+                                BorderWidth="1"
+                                HeightRequest="20"
+                                Margin="0,0,0,10"
+                                Released="OnReceiptClicked"
+                                ImageSource="receipt_icon.png"
+                                IsVisible="{Binding IsReceiptVisible, Source={x:Reference CustomerDetailsContentView}}"
+                                BackgroundColor="Transparent" />
+                        <BoxView Grid.ColumnSpan="2"
+                                 HeightRequest="1"
+                                 Color="#E2E8F0"
+                                 VerticalOptions="End" />
+                    </Grid>
+                    <VerticalStackLayout Spacing="10">
+                        <VerticalStackLayout>
+                            <Label Text="Room Type"
+                                   Style="{StaticResource LabelRegular}"
+                                   TextColor="#415A77" />
+                            <Label Text="{Binding CustomerDetail.BookingDetails.RoomType, Converter={StaticResource RoomTypeConverter}, FallbackValue='N/A', TargetNullValue='N/A'}"
+                                   Style="{StaticResource LabelSemiBold}" />
+                        </VerticalStackLayout>
+                        <Grid ColumnDefinitions="*,Auto">
+                            <VerticalStackLayout>
+                                <Label Text="Package Type"
+                                       Style="{StaticResource LabelRegular}"
+                                       TextColor="#415A77" />
+                                <Label Text="{Binding CustomerDetail.BookingDetails.PackageName, FallbackValue='N/A', TargetNullValue='N/A'}"
+                                       Style="{StaticResource LabelSemiBold}" />
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="1">
+                                <Label Text="Status"
+                                       HorizontalOptions="Center"
+                                       Style="{StaticResource LabelRegular}"
+                                       TextColor="#415A77" />
+                                <Frame BackgroundColor="{Binding CustomerDetail.Status, Converter={StaticResource StatusToBackgroundColorConverter}}"
+                                       HorizontalOptions="Center"
+                                       Padding="8,4"
+                                       BorderColor="Transparent"
+                                       CornerRadius="6">
+                                    <Label Text="{Binding CustomerDetail.Status, Converter={StaticResource TextCaseConverter}}"
+                                           TextColor="{Binding CustomerDetail.Status, Converter={StaticResource StatusToTextColorConverter}}"
+                                           FontSize="12" />
+                                </Frame>
+                            </VerticalStackLayout>
+                        </Grid>
+                        <VerticalStackLayout>
+                            <Label Text="Desk No."
+                                   Style="{StaticResource LabelRegular}"
+                                   TextColor="#415A77" />
+                            <Label Text="{Binding CustomerDetail.BookingDetails.DeskName, FallbackValue='N/A', TargetNullValue='N/A'}"
+                                   Style="{StaticResource LabelSemiBold}" />
+                        </VerticalStackLayout>
+                        <Grid ColumnDefinitions="*,Auto">
+                            <VerticalStackLayout>
+                                <Label Text="Start Date"
+                                       Style="{StaticResource LabelRegular}"
+                                       TextColor="#415A77" />
+                                <Label Text="{Binding CustomerDetail.BookingDetails.StartDate,Converter={StaticResource DateFormatConverter}, FallbackValue='N/A', TargetNullValue='N/A'}"
+                                       Style="{StaticResource LabelSemiBold}" />
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="1">
+                                <Label Text="End Date"
+                                       Style="{StaticResource LabelRegular}"
+                                       TextColor="#415A77" />
+                                <Label Text="{Binding CustomerDetail.BookingDetails.EndDate,Converter={StaticResource DateFormatConverter}, FallbackValue='N/A', TargetNullValue='N/A'}"
+                                       Style="{StaticResource LabelSemiBold}" />
+                            </VerticalStackLayout>
+                        </Grid>
+                        <BoxView Color="#E5E7EB"
+                                 HeightRequest="1" />
+                        <Label Text="Billing Info"
+                               Style="{StaticResource LabelSemiBold}" />
+                        <Grid ColumnDefinitions="*,Auto"
+                              RowDefinitions="Auto,Auto,Auto"
+                              RowSpacing="8">
+                            <Label Text="Package Amount"
+                                   Style="{StaticResource LabelRegular}"
+                                   TextColor="#415A77" />
+                            <Label Grid.Column="1"
+                                   Text="{Binding CustomerDetail.BookingDetails.PackagePrice, FallbackValue='0'}"
+                                   Style="{StaticResource LabelSemiBold}" />
+                            <Label Grid.Row="1"
+                                   Text="Locker Service"
+                                   Style="{StaticResource LabelRegular}"
+                                   TextColor="#415A77" />
+                            <Label Grid.Row="1"
+                                   Grid.Column="1"
+                                   Text="{Binding CustomerDetail.TransactionDetails.LockerAmount, FallbackValue='0'}"
+                                   Style="{StaticResource LabelSemiBold}" />
+                            <Label Grid.Row="2"
+                                   Text="Parking Charge"
+                                   Style="{StaticResource LabelRegular}"
+                                   TextColor="#415A77" />
+                            <Label Grid.Row="2"
+                                   Grid.Column="1"
+                                   Text="{Binding CustomerDetail.TransactionDetails.ParkingAmount, FallbackValue='0'}"
+                                   Style="{StaticResource LabelSemiBold}" />
+                        </Grid>
+                        <BoxView Color="#E5E7EB"
+                                 HeightRequest="1" />
+                        <Grid ColumnDefinitions="*,Auto"
+                              RowDefinitions="Auto,Auto,Auto"
+                              RowSpacing="8">
+                            <Label Text="Total Amount"
+                                   TextColor="#415A77" />
+                            <Label Grid.Column="1"
+                                   Text="{Binding CustomerDetail.TransactionDetails.TotalAmount, FallbackValue='0'}"
+                                   Style="{StaticResource LabelSemiBold}" />
+                            <Label Grid.Row="1"
+                                   Text="Paid Amount"
+                                   Style="{StaticResource LabelRegular}"
+                                   TextColor="#415A77" />
+                            <Label Grid.Row="1"
+                                   Grid.Column="1"
+                                   Text="{Binding CustomerDetail.TransactionDetails.PaidAmount, FallbackValue='0'}"
+                                   TextColor="#22C55E"
+                                   Style="{StaticResource LabelSemiBold}" />
+                            <Label Grid.Row="2"
+                                   Text="Due Amount"
+                                   Style="{StaticResource LabelRegular}"
+                                   TextColor="#415A77" />
+                            <Label Grid.Row="2"
+                                   Grid.Column="1"
+                                   Text="{Binding CustomerDetail.TransactionDetails.DueAmount, FallbackValue='0'}"
+                                   TextColor="#EF4444"
+                                   Style="{StaticResource LabelSemiBold}" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
+    </ScrollView>
+</ContentView>

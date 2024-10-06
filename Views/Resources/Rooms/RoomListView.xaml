@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OwlReadingRoom.Views.Resources.Rooms.RoomListView"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:component="clr-namespace:OwlReadingRoom.Components"
+             BackgroundColor="White">
+
+    <Grid RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="80" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Grid Grid.Row="0"
+              Padding="10,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Room list"
+                   FontSize="{OnPlatform iOS=20, Android=18, Default=20}"
+                   Style="{StaticResource LabelMedium}"
+                   VerticalOptions="Center"
+                   TextColor="#778DA9" />
+
+            <Button Grid.Column="1"
+                    Text="Create Room"
+                    FontFamily="Inter"
+                    FontSize="16"
+                    TextColor="#3B82F6"
+                    BackgroundColor="Transparent"
+                    BorderColor="#3B82F6"
+                    BorderWidth="1"
+                    CornerRadius="4"
+                    Released="OnNewRoomButtonClicked">
+                <Button.ImageSource>
+                    <FontImageSource Glyph="+"
+                                     Color="#3B82F6"
+                                     Size="32" />
+                </Button.ImageSource>
+            </Button>
+        </Grid>
+
+        <!-- Table Headers -->
+        <Grid Grid.Row="1"
+              ColumnSpacing="5"
+              BackgroundColor="#E2E8F0"
+              HeightRequest="80">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="0.5*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Room Type"
+                   Grid.Column="0"
+                   Style="{StaticResource HeaderLabelStyle}" />
+            <Label Text="Room Name"
+                   Grid.Column="1"
+                   Style="{StaticResource HeaderLabelStyle}" />
+            <Label Text="Available Desk"
+                   Grid.Column="2"
+                   Style="{StaticResource HeaderLabelStyle}" />
+            <Label Text="Actions"
+                   Grid.Column="3"
+                   Style="{StaticResource HeaderLabelStyle}" />
+        </Grid>
+
+        <ScrollView Grid.Row="2">
+            <CollectionView ItemsSource="{Binding Rooms}"
+                            IsVisible="{Binding HasRooms}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnSpacing="5"
+                              HeightRequest="56">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.5*" />
+                                <ColumnDefinition Width="0.5*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="0.5*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding RoomType}"
+                                   Style="{StaticResource CellLabelStyle}"
+                                   Grid.Column="0" />
+                            <Label Text="{Binding Name}"
+                                   Style="{StaticResource CellLabelStyle}"
+                                   Grid.Column="1" />
+                            <component:AvailableDeskView Grid.Column="2"
+                                                         AvailableDesks="{Binding AvailableDesks}"
+                                                         TotalDesks="{Binding TotalDesks}"
+                                                         HorizontalOptions="Center" />
+                            <component:ActionButtonsView Grid.Column="3"
+                                                         EditClicked="OnRoomEditClicked"
+                                                         EyeClicked="OnRoomEyeClicked"
+                                                         IsEditVisible="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=BindingContext.ShouldShowEditButton}"
+                                                         IsEyeVisible="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=BindingContext.ShouldShowEyeButton}"
+                                                         BindingContext="{Binding .}"
+                                                         HorizontalOptions="Center" />
+
+                            <BoxView Grid.ColumnSpan="5"
+                                     HeightRequest="1"
+                                     Color="#E2E8F0"
+                                     VerticalOptions="End" />
+
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+
+        <!-- Empty State -->
+        <VerticalStackLayout Grid.Row="2"
+                             VerticalOptions="Center"
+                             HorizontalOptions="Center"
+                             Spacing="16"
+                             IsVisible="{Binding IsEmptyState}">
+            <Image Source="empty_state.png"
+                   WidthRequest="188"
+                   HeightRequest="140" />
+            <Label Text="Start by adding a room"
+                   Style="{StaticResource LabelRegular}"
+                   FontSize="16"
+                   TextColor="#1E293B"
+                   FontAttributes="Italic"
+                   HorizontalOptions="Center" />
+            <Label Text="Click on the button at the top to create a new room"
+                   Style="{StaticResource LabelMedium}"
+                   FontSize="14"
+                   TextColor="#64748B"
+                   HorizontalOptions="Center"
+                   WidthRequest="386"
+                   HorizontalTextAlignment="Center" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentView>

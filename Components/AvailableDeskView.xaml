@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:OwlReadingRoom.Utils.Converter"
+             x:Class="OwlReadingRoom.Components.AvailableDeskView">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <local:ProgressWidthConverter x:Key="ProgressWidthConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <Grid Padding="16,8"
+          BackgroundColor="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Label x:Name="AvailabilityLabel"
+               Grid.Column="0"
+               TextColor="#475569"
+               FontSize="14"
+               Style="{StaticResource LabelMedium}"
+               VerticalOptions="Center"
+               Margin="0,0,16,0" />
+
+        <Grid Grid.Column="1"
+              x:Name="ProgressBarContainer"
+              BackgroundColor="#F5FBFE"
+              HeightRequest="5"
+              VerticalOptions="Center"
+              Margin="0,0,50,5">
+            <Grid.Clip>
+                <RoundRectangleGeometry Rect="0,0,1000,1000"
+                                        CornerRadius="2" />
+            </Grid.Clip>
+
+            <BoxView x:Name="ProgressBar"
+                     BackgroundColor="#3B82F6"
+                     HorizontalOptions="Start"
+                     WidthRequest="{Binding Source={x:Reference ProgressBarContainer}, Path=Width, Converter={StaticResource ProgressWidthConverter}, ConverterParameter=0.6}"
+                     VerticalOptions="Fill" />
+        </Grid>
+    </Grid>
+</ContentView>

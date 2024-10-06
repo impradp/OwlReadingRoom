@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f8f8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="cid:{0}" alt="Owl Reading Room">
+        <p>
+            Greetings,<br><br>This is to inform you that {FullName} has subscribed to the {PackageName} Package starting from {PackageStartDate}.
+            <br><br>
+            Please ensure the necessary arrangements are in place.
+            <br><br>
+            Thank you,<br>
+            Owl Reading Room System<br>
+            [Auto-generated email, please do not reply]
+        </p>
+    </div>
+</body>
+</html>

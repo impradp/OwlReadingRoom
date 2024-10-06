@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:OwlReadingRoom.Utils"
+             xmlns:system="clr-namespace:System;assembly=netstandard"
+             x:Class="OwlReadingRoom.Views.Customer.DocumentDetailView">
+    <ContentView.Resources>
+        <ResourceDictionary>
+
+            <local:DateFormatConverter x:Key="DateFormatConverter"/>
+            <local:DocumentTypeConverter x:Key="DocumentTypeConverter"/>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ScrollView>
+        <VerticalStackLayout Padding="0,24,24,0"
+                             Spacing="20">
+            <!-- Personal Information Section -->
+            <Label Text="Document"
+                   Style="{StaticResource SubTitleStyle}" />
+            <Grid ColumnDefinitions="*, *, *"
+                  ColumnSpacing="15">
+                <VerticalStackLayout Grid.Column="0"
+                                     Spacing="4">
+                    <VerticalStackLayout Grid.Column="2"
+                                         Spacing="4">
+                        <Label Text="Document"
+                               Style="{StaticResource LabelMedium}"
+                               HeightRequest="24" />
+                        <Picker ItemsSource="{Binding DocumentTypes}"
+                                    TitleColor="#647087"
+                                    TextColor="#07003B"
+                                    FontSize="16"
+                                    FontFamily="Inter"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="FillAndExpand"
+                                    SelectedItem="{Binding DocumentType}">
+                            <Picker.ItemDisplayBinding>
+                                <Binding Converter="{StaticResource DocumentTypeConverter}" />
+                            </Picker.ItemDisplayBinding>
+                        </Picker>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1"
+                                     Spacing="4">
+                    <Label Text="Document Number"
+                           Style="{StaticResource LabelMedium}"
+                           HeightRequest="24" />
+                    <Entry Placeholder="Eg: 123-456-89"
+                               Text="{Binding DocumentNumber}"
+                               Style="{StaticResource LabelRegular}"
+                               PlaceholderColor="#647087" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="2"
+                                     Spacing="4">
+                    <Label Text="Issue Date"
+                           Style="{StaticResource LabelMedium}"
+                           HeightRequest="24" />
+                    <DatePicker Format="MM/dd/yyyy"
+                                    Date="{Binding IssueDate, 
+                                           TargetNullValue={x:Static system:DateTime.Today}, 
+                                           FallbackValue={x:Static system:DateTime.Today}}"
+                                    TextColor="Black" />
+                </VerticalStackLayout>
+            </Grid>
+            <ScrollView>
+                <VerticalStackLayout Spacing="15"
+                                     Padding="20"
+                                     WidthRequest="735">
+                    <StackLayout Orientation="Horizontal"
+                                 Spacing="4">
+                        <Label Text="File Upload"
+                               TextColor="#37404C"
+                               FontSize="14"
+                               FontFamily="Inter" />
+                        <Label Text="*"
+                               TextColor="#29BB00"
+                               FontSize="14"
+                               FontFamily="Inter" />
+                    </StackLayout>
+
+                    <Border x:Name="DropArea"
+                            StrokeThickness="1"
+                            Stroke="#64748B"
+                            BackgroundColor="#F7F8F9"
+                            StrokeDashArray="3,3"
+                            HeightRequest="112">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="6" />
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnBrowseClicked" />
+                        </Border.GestureRecognizers>
+                        <Grid Padding="24,16">
+                            <VerticalStackLayout Spacing="4"
+                                                 VerticalOptions="Center"
+                                                 HorizontalOptions="Center">
+                                <Image Source="upload_icon.png"
+                                       WidthRequest="24"
+                                       HeightRequest="24"
+                                       HorizontalOptions="Center" />
+                                <Label Text="Browse"
+                                       TextColor="#37404C"
+                                       FontSize="16"
+                                       FontFamily="Source Sans Pro"
+                                       FontAttributes="Bold"
+                                       HorizontalOptions="Center"
+                                       BackgroundColor="Transparent" />
+                                <Label Text="or Drag and Drop your files here"
+                                       TextColor="Black"
+                                       FontSize="16"
+                                       FontFamily="Source Sans Pro"
+                                       HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+
+                    <CollectionView x:Name="FileList"
+                                    IsVisible="{Binding HasSelectedFiles}"
+                                    ItemsSource="{Binding ActiveImages}">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical"
+                                             Span="3"
+                                             HorizontalItemSpacing="10"
+                                             VerticalItemSpacing="10" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid WidthRequest="200"
+                                      HeightRequest="200">
+                                    <Image Source="{Binding ImagePath}"
+                                           Aspect="AspectFill" />
+                                    <Button Text="X"
+                                            FontAttributes="Bold"
+                                            BackgroundColor="#80000000"
+                                            TextColor="White"
+                                            CornerRadius="15"
+                                            WidthRequest="30"
+                                            HeightRequest="30"
+                                            HorizontalOptions="End"
+                                            VerticalOptions="Start"
+                                            Margin="5"
+                                            Released="OnRemoveClicked"
+                                            CommandParameter="{Binding .}" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </ScrollView>
+
+            <!-- Buttons -->
+            <Grid ColumnDefinitions="*, *,*,*"
+                  ColumnSpacing="10">
+                <Button Grid.Column="2"
+                        Text="Clear"
+                        TextColor="#415A77"
+                        BackgroundColor="Transparent"
+                        BorderColor="#E2E8F0"
+                        BorderWidth="1" />
+                <Button x:Name="SaveButton"
+                        Grid.Column="3"
+                        Text="Save"
+                        TextColor="White"
+                        Released="OnCreateClicked"
+                        BackgroundColor="#778DA9" />
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentView>

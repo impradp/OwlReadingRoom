@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OwlReadingRoom.Components.ActionButtonsView">
+    <HorizontalStackLayout HorizontalOptions="End">
+        <Button x:Name="EditButton"
+                WidthRequest="24"
+                HeightRequest="24"
+                BackgroundColor="Transparent"
+                ImageSource="update_icon.png"
+                IsVisible="{Binding IsEditVisible, Source={RelativeSource AncestorType={x:Type ContentView}}}"
+                Released="OnEditClicked">
+        </Button>
+
+        <Button x:Name="EyeButton"
+                WidthRequest="24"
+                HeightRequest="24"
+                ImageSource="eye_icon.png"
+                BackgroundColor="Transparent"
+                IsVisible="{Binding IsEyeVisible, Source={RelativeSource AncestorType={x:Type ContentView}}}"
+                Released="OnEyeClicked">
+        </Button>
+        <Button x:Name="TrashButton"
+                WidthRequest="24"
+                HeightRequest="24"
+                ImageSource="trash_icon.png"
+                BackgroundColor="Transparent"
+                IsVisible="{Binding IsTrashVisible, Source={RelativeSource AncestorType={x:Type ContentView}}}"
+                Released="OnTrashClicked">
+        </Button>
+    </HorizontalStackLayout>
+</ContentView>
