@@ -49,10 +49,9 @@ public partial class NewCustomer : Popup
     {
         try
         {
-            CreateButton.IsEnabled = false;
-
             if (Validator.IsValidNewCustomer(FullNameEntry.Text, ContactNumberEntry.Text, false, null, null, ""))
             {
+                CreateButton.IsEnabled = false;
                 _bookingService.PerformInitialBooking(new MinimumCustomerDetail
                 {
                     FullName = FullNameEntry.Text,
@@ -68,11 +67,8 @@ public partial class NewCustomer : Popup
         }
         catch (Exception ex)
         {
-            ExceptionHandler.HandleException("Saving customer details", ex);
-        }
-        finally
-        {
             CreateButton.IsEnabled = true;
+            ExceptionHandler.HandleException("Saving customer details", ex);
         }
     }
 

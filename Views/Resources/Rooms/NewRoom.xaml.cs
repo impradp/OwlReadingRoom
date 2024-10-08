@@ -45,9 +45,10 @@ public partial class NewRoom : Popup
     {
         try
         {
-            CreateButton.IsEnabled = false;
             if (Validator.IsValidRoom(NoOfRoomsEntry.Text, RoomTypePicker.SelectedIndex))
             {
+                CreateButton.IsEnabled = false;
+
                 //TODO: Change the default room initials to the one sent by the user
                 _resourceService.AddRooms((RoomType)RoomTypePicker.SelectedItem, Int32.Parse(NoOfRoomsEntry.Text));
 
@@ -61,11 +62,8 @@ public partial class NewRoom : Popup
         }
         catch (Exception ex)
         {
-            ExceptionHandler.HandleException("Saving new room details", ex);
-        }
-        finally
-        {
             CreateButton.IsEnabled = true;
+            ExceptionHandler.HandleException("Saving new room details", ex);
         }
     }
 
