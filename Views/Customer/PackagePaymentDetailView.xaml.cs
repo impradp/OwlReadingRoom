@@ -274,10 +274,12 @@ public partial class PackagePaymentDetailView : ContentView
 
         try
         {
-            SaveButton.IsEnabled = false;
+
             if (Validator.isValidBooking(SelectedDesk, SelectedRoom))
             {
+                SaveButton.IsEnabled = false;
                 _bookingProcessor.ProcessBooking(PackagePaymentDetail);
+                CustomerDetail.Status = "Active";
 
                 PackageCreated?.Invoke(this, CustomerDetail);
 
@@ -287,9 +289,6 @@ public partial class PackagePaymentDetailView : ContentView
         catch (Exception ex)
         {
             ExceptionHandler.HandleException("booking a package for customer.", ex);
-        }
-        finally
-        {
             SaveButton.IsEnabled = true;
         }
     }
