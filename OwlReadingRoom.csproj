@@ -1,8 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
+		<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+		<WindowsPackageType>MSIX</WindowsPackageType>
+		<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    	<RuntimeIdentifier>win10-x86</RuntimeIdentifier>
+		<!-- <TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks> -->
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
 
@@ -20,11 +24,20 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
+		<!-- Package information -->
+		<PackageId>OwlReadingRoom</PackageId>
+		<Authors>BlackPebbleTechnologies</Authors>
+		<Description>A .NET MAUI project to enable consultancies or private firms to manage bookings.</Description>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/impradp/OwlReadingRoom</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/impradp/OwlReadingRoom.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+
 		<!-- Display name -->
-		<ApplicationTitle>OwlReadingRoom</ApplicationTitle>
+		<ApplicationTitle>Owl Reading Room</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.owlreadingroom</ApplicationId>
+		<ApplicationId>com.blackpebbletechnologies.owlreadingroom</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -38,8 +51,6 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 		<DefaultLanguage>en</DefaultLanguage>
 		<GenerateAppInstallerFile>True</GenerateAppInstallerFile>
-		<AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
-		<PackageCertificateThumbprint>6E2FDC1D4C1454933988E9706629E0E94D8EC940</PackageCertificateThumbprint>
 		<AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
 		<AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
 		<AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
@@ -137,6 +148,7 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.100" />
 	</ItemGroup>
 
 	<ItemGroup>

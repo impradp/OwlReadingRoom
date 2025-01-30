@@ -1,0 +1,64 @@
+version: 2
+updates:
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "09:00"
+      timezone: "UTC"
+    groups:
+      # Group .NET MAUI and related packages
+      maui-core-packages:
+        patterns:
+          - "Microsoft.Maui.*"
+          - "Auth0.OidcClient.MAUI"
+      # Group community toolkits and libraries
+      community-toolkits:
+        patterns:
+          - "CommunityToolkit.*"
+      # Group PDF and document-related packages
+      pdf-packages:
+        patterns:
+          - "itext*"
+      # Group email and communication-related packages
+      email-packages:
+        patterns:
+          - "MailKit"
+      # Group Microsoft extensions and logging packages
+      microsoft-extensions:
+        patterns:
+          - "Microsoft.Extensions.*"
+      # Group SkiaSharp for graphics
+      skia-packages:
+        patterns:
+          - "SkiaSharp"
+      # Group SQLite packages
+      sqlite-packages:
+        patterns:
+          - "sqlite-net-pcl"
+      # Group SonarAnalyzer for static code analysis
+      sonar-analyzer:
+        patterns:
+          - "SonarAnalyzer.CSharp"
+      # Except above will be grouped on its own
+    labels:
+      - "dependencies"
+      - "nuget"
+    commit-message:
+      prefix: "deps"
+      prefix-development: "chore"
+      include: "scope"
+    open-pull-requests-limit: 10
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "09:00"
+      timezone: "UTC"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "ci"
+      include: "scope"

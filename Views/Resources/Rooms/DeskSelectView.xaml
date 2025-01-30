@@ -3,8 +3,7 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                x:Class="OwlReadingRoom.Views.Resources.Rooms.DeskSelectView"
-               CanBeDismissedByTappingOutsideOfPopup="True"
-               Size="800,600">
+               CanBeDismissedByTappingOutsideOfPopup="False" HorizontalOptions="Center">
 
     <Border BackgroundColor="White"
             StrokeShape="RoundRectangle 8"
@@ -13,7 +12,7 @@
         <Grid RowDefinitions="Auto,Auto,*">
             <!-- Header -->
             <Grid ColumnDefinitions="*,Auto"
-                  Padding="24,24,24,16">
+                  Padding="24">
                 <Label x:Name="DeskSelectLabel"
                        FontSize="20"
                        Style="{StaticResource LabelBold}"
@@ -31,32 +30,16 @@
             </Grid>
 
             <!-- Content -->
-            <ScrollView Grid.Row="2"
-                        Padding="24,16">
-                <VerticalStackLayout Spacing="24">
+            <Grid Grid.Row="2" HorizontalOptions="Center">
+                <VerticalStackLayout>
                     <!-- Desk List -->
                     <VerticalStackLayout Spacing="4">
                         <BoxView Grid.Row="1"
                                  HeightRequest="1"
                                  Color="#E5E7EB" />
-                        <Grid BackgroundColor="White"
-                              WidthRequest="640"
-                              HeightRequest="72">
-                            <HorizontalStackLayout Spacing="10">
-
-                                <HorizontalStackLayout Spacing="5">
-
-                                    <Frame BackgroundColor="#BAD3FB"
-                                           WidthRequest="24"
-                                           HeightRequest="24"
-                                           CornerRadius="4"
-                                           Padding="0" />
-                                    <Label Text="Selected"
-                                           TextColor="#1E293B"
-                                           FontSize="16"
-                                           Style="{StaticResource LabelRegular}"
-                                           VerticalOptions="Center" />
-                                </HorizontalStackLayout>
+                        <Grid BackgroundColor="White">
+                            <HorizontalStackLayout Spacing="10"
+                                                   Padding="24" HorizontalOptions="Center">
                                 <HorizontalStackLayout Spacing="5">
 
                                     <Frame BackgroundColor="#22C55E"
@@ -108,16 +91,15 @@
                                 </HorizontalStackLayout>
                             </HorizontalStackLayout>
                         </Grid>
-                        <ScrollView Grid.Row="2">
-                            <Grid WidthRequest="684"
-                                  HeightRequest="950">
-                                <ContentView x:Name="DynamicLayoutArea"
-                                             BackgroundColor="White" />
-                            </Grid>
-                        </ScrollView>
+                        <Grid Grid.Row="2"
+                              HeightRequest="500" HorizontalOptions="Center">
+                            <ContentView x:Name="DynamicLayoutArea"
+                                         BackgroundColor="White"
+                                         HorizontalOptions="Start" />
+                        </Grid>
                     </VerticalStackLayout>
                 </VerticalStackLayout>
-            </ScrollView>
+            </Grid>
         </Grid>
     </Border>
 </toolkit:Popup>
