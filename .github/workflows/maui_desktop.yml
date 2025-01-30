@@ -1,0 +1,129 @@
+name: .NET MAUI Desktop
+
+on:
+  push:
+    branches: ["master"]
+    tags:
+      - "v*.*.*"
+  pull_request:
+    branches: ["master"]
+
+permissions:
+  contents: write
+  packages: write
+  actions: write
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        configuration: [Release]
+
+    runs-on: windows-latest
+
+    env:
+      Solution_Name: OwlReadingRoom.sln
+      Maui_Project_Path: OwlReadingRoom.csproj
+      Package_Path: AppPackages
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set Version
+        run: |
+          if ("${{ github.ref_type }}" -eq "tag") {
+            $version = "${{ github.ref_name }}".TrimStart('v')
+          } else {
+            $version = "1.0.0-preview.${{ github.run_number }}"
+          }
+          echo "PACKAGE_VERSION=$version" >> $env:GITHUB_ENV
+
+          # Also set a clean version number without 'v' prefix for file names
+          $cleanVersion = $version -replace '[^0-9.]', ''
+          echo "CLEAN_VERSION=$cleanVersion" >> $env:GITHUB_ENV
+
+      - name: Install .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Install .NET MAUI Windows workload
+        run: dotnet workload install maui-windows
+
+      - name: Setup MSBuild.exe
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Restore the application
+        run: dotnet restore $env:Solution_Name
+
+      - name: Decode and Import Certificate
+        run: |
+          $pfx_cert_byte = [System.Convert]::FromBase64String("${{ secrets.Base64_Encoded_Pfx }}")
+          $certificatePath = Join-Path -Path $env:GITHUB_WORKSPACE -ChildPath GitHubActionsWorkflow.pfx
+          [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
+          $password = ConvertTo-SecureString "${{ secrets.Pfx_Key }}" -AsPlainText -Force
+          Import-PfxCertificate -FilePath $certificatePath -CertStoreLocation Cert:\CurrentUser\My -Password $password
+          $cert = Get-PfxCertificate -FilePath $certificatePath -Password $password
+          echo "CERTIFICATE_THUMBPRINT=$($cert.Thumbprint)" >> $env:GITHUB_ENV
+
+      - name: Build and package .NET MAUI project
+        run: |
+          $packageDir = Join-Path $env:GITHUB_WORKSPACE $env:Package_Path
+          New-Item -ItemType Directory -Force -Path $packageDir
+
+          msbuild $env:Maui_Project_Path `
+            /p:Configuration=$env:Configuration `
+            /p:Platform="x86" `
+            /p:WindowsPackageType=MSIX `
+            /p:WindowsAppSDKSelfContained=true `
+            /t:Restore,Build,Publish `
+            /p:TargetFramework=net8.0-windows10.0.19041.0 `
+            /p:AppxPackageDir="$packageDir\" `
+            /p:PackageCertificateThumbprint="$env:CERTIFICATE_THUMBPRINT" `
+            /p:AppxPackageSigningEnabled=true `
+            /p:AppxBundle=Always `
+            /p:AppxBundlePlatforms="x86" `
+            /p:UapAppxPackageBuildMode=StoreUpload `
+            /p:EnableMsixTooling=true `
+            /p:GenerateAppxPackageOnBuild=true `
+            /p:AppxPackageSigningEnabled=true `
+            /p:PackageCertificateKeyFile="GitHubActionsWorkflow.pfx" `
+            /p:AppxPackageDir="$packageDir\" `
+            /p:WindowsPackageVersion=$env:CLEAN_VERSION
+        env:
+          Configuration: ${{ matrix.configuration }}
+
+      # Create a ZIP file of the AppPackages directory
+      - name: Create Release ZIP
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+        run: |
+          Compress-Archive -Path "$env:Package_Path\*" -DestinationPath "OwlReadingRoom-$env:PACKAGE_VERSION.zip" -Force
+
+      # Create release and upload ZIP
+      - name: Create GitHub Release
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+        run: |
+          # Create the release
+          gh release create "${{ github.ref_name }}" `
+            --title "Release ${{ github.ref_name }}" `
+            --draft
+
+          # Upload the ZIP file to the release
+          gh release upload "${{ github.ref_name }}" "OwlReadingRoom-$env:PACKAGE_VERSION.zip"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Upload artifacts for workflow run
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: OwlReadingRoom-${{ env.PACKAGE_VERSION }}
+          path: AppPackages
+
+      - name: Remove Certificate and Files
+        run: |
+          Remove-Item -path GitHubActionsWorkflow.pfx
+          Get-ChildItem Cert:\CurrentUser\My\$env:CERTIFICATE_THUMBPRINT | Remove-Item
