@@ -60,6 +60,7 @@ jobs:
         run: dotnet restore $env:Solution_Name
 
       - name: Decode and Import Certificate
+        if: github.actor != 'dependabot[bot]'
         run: |
           $pfx_cert_byte = [System.Convert]::FromBase64String("${{ secrets.Base64_Encoded_Pfx }}")
           $certificatePath = Join-Path -Path $env:GITHUB_WORKSPACE -ChildPath GitHubActionsWorkflow.pfx
