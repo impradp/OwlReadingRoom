@@ -26,6 +26,38 @@ jobs:
       Maui_Project_Path: OwlReadingRoom.csproj
       Package_Path: AppPackages
 
+      # Define your environment variables here
+      AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
+      AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID }}
+      AUTH0_AUDIENCE: ${{ secrets.AUTH0_AUDIENCE }}
+      AUTH0_REDIRECT_URI: ${{ secrets.AUTH0_REDIRECT_URI }}
+      AUTH0_POST_LOGOUT_REDIRECT_URI: ${{ secrets.AUTH0_POST_LOGOUT_REDIRECT_URI }}
+
+      SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_SENDER_NAME: ${{ secrets.SMTP_SENDER_NAME }}
+      SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      SMTP_RECEIVER: ${{ secrets.SMTP_RECEIVER }}
+      SMTP_RECEIVER_NAME: ${{ secrets.SMTP_RECEIVER_NAME }}
+      SMTP_USE_SSL: ${{ secrets.SMTP_USE_SSL }}
+
+      FEATURE_ROOM_ACTIONS_DELETE: ${{ secrets.FEATURE_ROOM_ACTIONS_DELETE }}
+      FEATURE_ROOM_ACTIONS_EDIT: ${{ secrets.FEATURE_ROOM_ACTIONS_EDIT }}
+      FEATURE_ROOM_ACTIONS_VIEW: ${{ secrets.FEATURE_ROOM_ACTIONS_VIEW }}
+
+      FEATURE_PACKAGE_ACTIONS_DELETE: ${{ secrets.FEATURE_PACKAGE_ACTIONS_DELETE }}
+      FEATURE_PACKAGE_ACTIONS_EDIT: ${{ secrets.FEATURE_PACKAGE_ACTIONS_EDIT }}
+      FEATURE_PACKAGE_ACTIONS_VIEW: ${{ secrets.FEATURE_PACKAGE_ACTIONS_VIEW }}
+
+      COMPANY_NAME: ${{ secrets.COMPANY_NAME }}
+      COMPANY_ADDRESS: ${{ secrets.COMPANY_ADDRESS }}
+      COMPANY_CITY: ${{ secrets.COMPANY_CITY }}
+      COMPANY_MOBILE_NO: ${{ secrets.COMPANY_MOBILE_NO }}
+      COMPANY_ALTERNATE_MOBILE_NO: ${{ secrets.COMPANY_ALTERNATE_MOBILE_NO }}
+      COMPANY_EMAIL_ID: ${{ secrets.COMPANY_EMAIL_ID }}
+      COMPANY_ALTERNATE_EMAIL_ID: ${{ secrets.COMPANY_ALTERNATE_EMAIL_ID }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -33,6 +65,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set Version
+        id: set_version
         run: |
           if ("${{ github.ref_type }}" -eq "tag") {
             $version = "${{ github.ref_name }}".TrimStart('v')
@@ -44,6 +77,9 @@ jobs:
           # Also set a clean version number without 'v' prefix for file names
           $cleanVersion = $version -replace '[^0-9.]', ''
           echo "CLEAN_VERSION=$cleanVersion" >> $env:GITHUB_ENV
+
+          # Set the WindowsPackageVersion to the clean version
+          echo "WINDOWS_PACKAGE_VERSION=$cleanVersion" >> $env:GITHUB_ENV
 
       - name: Install .NET
         uses: actions/setup-dotnet@v4
@@ -58,6 +94,10 @@ jobs:
 
       - name: Restore the application
         run: dotnet restore $env:Solution_Name
+
+      - name: Replace Environment Variables in appsettings.json
+        run: |
+          .\.github\scripts\replace_env_vars.ps1
 
       - name: Decode and Import Certificate
         if: github.actor != 'dependabot[bot]'
@@ -93,17 +133,17 @@ jobs:
             /p:AppxPackageSigningEnabled=true `
             /p:PackageCertificateKeyFile="GitHubActionsWorkflow.pfx" `
             /p:AppxPackageDir="$packageDir\" `
-            /p:WindowsPackageVersion=$env:CLEAN_VERSION
+            /p:WindowsPackageVersion=$env:WINDOWS_PACKAGE_VERSION
         env:
           Configuration: ${{ matrix.configuration }}
 
-      # Create a ZIP file of the AppPackages directory
+      # Create a ZIP file of the AppPackages directory (only for tag pushes)
       - name: Create Release ZIP
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
         run: |
           Compress-Archive -Path "$env:Package_Path\*" -DestinationPath "OwlReadingRoom-$env:PACKAGE_VERSION.zip" -Force
 
-      # Create release and upload ZIP
+      # Create release and upload ZIP (only for tag pushes)
       - name: Create GitHub Release
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
         run: |
@@ -117,14 +157,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Upload artifacts for workflow run
+      # Upload artifacts for workflow run (only for tag pushes)
       - name: Upload build artifacts
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
         uses: actions/upload-artifact@v4
         with:
           name: OwlReadingRoom-${{ env.PACKAGE_VERSION }}
           path: AppPackages
 
+      # Remove Certificate and Files (only for non-Dependabot runs)
       - name: Remove Certificate and Files
+        if: github.actor != 'dependabot[bot]'
         run: |
           Remove-Item -path GitHubActionsWorkflow.pfx
           Get-ChildItem Cert:\CurrentUser\My\$env:CERTIFICATE_THUMBPRINT | Remove-Item
