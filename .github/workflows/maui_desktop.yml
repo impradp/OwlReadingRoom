@@ -115,6 +115,16 @@ jobs:
           $packageDir = Join-Path $env:GITHUB_WORKSPACE $env:Package_Path
           New-Item -ItemType Directory -Force -Path $packageDir
 
+          # Conditionally include PFX-related parameters
+          $certParams = @()
+          if ("${{ github.actor }}" -ne "dependabot[bot]") {
+            $certParams = @(
+              "/p:PackageCertificateThumbprint=$env:CERTIFICATE_THUMBPRINT",
+              "/p:AppxPackageSigningEnabled=true",
+              "/p:PackageCertificateKeyFile=GitHubActionsWorkflow.pfx"
+            )
+          }
+
           msbuild $env:Maui_Project_Path `
             /p:Configuration=$env:Configuration `
             /p:Platform="x86" `
@@ -123,17 +133,14 @@ jobs:
             /t:Restore,Build,Publish `
             /p:TargetFramework=net8.0-windows10.0.19041.0 `
             /p:AppxPackageDir="$packageDir\" `
-            /p:PackageCertificateThumbprint="$env:CERTIFICATE_THUMBPRINT" `
-            /p:AppxPackageSigningEnabled=true `
             /p:AppxBundle=Always `
             /p:AppxBundlePlatforms="x86" `
             /p:UapAppxPackageBuildMode=StoreUpload `
             /p:EnableMsixTooling=true `
             /p:GenerateAppxPackageOnBuild=true `
-            /p:AppxPackageSigningEnabled=true `
-            /p:PackageCertificateKeyFile="GitHubActionsWorkflow.pfx" `
             /p:AppxPackageDir="$packageDir\" `
-            /p:WindowsPackageVersion=$env:WINDOWS_PACKAGE_VERSION
+            /p:WindowsPackageVersion=$env:WINDOWS_PACKAGE_VERSION `
+            @certParams
         env:
           Configuration: ${{ matrix.configuration }}
 
