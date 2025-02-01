@@ -142,7 +142,7 @@
 		<PackageReference Include="MailKit" Version="4.7.1.1" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
-		<PackageReference Include="SkiaSharp" Version="2.88.8" />
+		<PackageReference Include="SkiaSharp" Version="3.116.1" />
 		<PackageReference Include="SonarAnalyzer.CSharp" Version="9.30.0.95878">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
